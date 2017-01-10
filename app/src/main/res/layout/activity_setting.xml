@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:background="@color/white">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="#2A2A2A">
+        <TextView
+            android:id="@+id/serve_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setting"
+            android:textSize="@dimen/title_size"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"/>
+        <include layout="@layout/back_img_white"
+            android:id="@+id/setting_back"/>
+    </RelativeLayout>
+    <include layout="@layout/split_line_black"/>
+    <include layout="@layout/split_area"/>
+
+      <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height"
+          android:layout_marginStart="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dimens_16sp"
+            android:text="消息通知"
+            android:layout_centerVertical="true"/>
+
+          <Switch
+              android:id="@+id/mine_switch"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_centerVertical="true"
+              android:layout_alignParentEnd="true"
+              android:layout_marginEnd="12dp"/>
+      </RelativeLayout>
+
+    <!--<include layout="@layout/split_area"/>-->
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/setting_item_height"-->
+        <!--android:layout_marginStart="@dimen/activity_horizontal_margin">-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="@dimen/dimens_16sp"-->
+            <!--android:text="修改登陆密码"-->
+            <!--android:layout_centerVertical="true"/>-->
+    <!--</RelativeLayout>-->
+    <include layout="@layout/split_area"/>
+
+    <RelativeLayout
+        android:id="@+id/setting_clear_cache"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height"
+        android:layout_marginStart="@dimen/activity_horizontal_margin">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dimens_16sp"
+            android:text="清除缓存"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/setting_cache_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dimens_16sp"
+            android:text="0.00M"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"/>
+    </RelativeLayout>
+    <include layout="@layout/split_line_no_margin_common"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height"
+        android:layout_marginStart="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dimens_16sp"
+            android:text="关于我们"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+    <include layout="@layout/split_line_no_margin_common"/>
+
+    <RelativeLayout
+        android:id="@+id/setting_recall"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height"
+        android:layout_marginStart="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dimens_16sp"
+            android:text="@string/feedback"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+    <include layout="@layout/split_line_no_margin_common"/>
+
+    <RelativeLayout
+        android:id="@+id/exit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/tint_bg"
+        android:gravity="center_horizontal">
+        <TextView
+            android:layout_alignParentBottom="true"
+            android:layout_width="315dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="36dp"
+            android:text="@string/exit_login"
+            android:gravity="center"
+            android:layout_marginBottom="70dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimens_16sp"
+            android:background="@drawable/button_selector" />
+    </RelativeLayout>
+
+</LinearLayout>
