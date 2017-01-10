@@ -5,7 +5,7 @@
     android:background="@mipmap/around_bg"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
-    <com.gs.buluo.app.view.widget.ArcMenu
+    <com.gs.buluo.store.view.widget.ArcMenu
         android:id="@+id/am_root"
         android:layout_width="match_parent"
         android:layout_marginBottom="30dp"
@@ -72,7 +72,7 @@
                 android:textColor="#4369a8"
                 android:text="娱乐"/>
         </LinearLayout>
-    </com.gs.buluo.app.view.widget.ArcMenu>
+    </com.gs.buluo.store.view.widget.ArcMenu>
     <ImageView
         android:id="@+id/id_arcmenu_button"
         android:layout_width="30dp"

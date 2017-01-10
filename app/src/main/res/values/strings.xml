@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">格致</string>
+    <string name="app_name">格致商户版</string>
     <string name="exit_app">再按一次退出部落公社</string>
     <string name="frag_first">首页</string>
     <string name="main_found">发现</string>
     <string name="main_near">附近</string>
-    <string name="main_mine">我的</string>
+    <string name="main_mine">店铺</string>
     <string name="main_social">社区</string>
     <string name="tribe_news">部落快报</string>
     <string name="setting">设置</string>
@@ -110,7 +110,7 @@
     <string name="account">结算</string>
 
     <!--密码相关-->
-    <string name="pay_pwd">支付密码</string>
+    <string name="pay_pwd">提款密码</string>
     <string name="wrong_pwd">密码错误</string>
     <string name="input_pay_pwd">请输入支付密码</string>
     <string name="input_new_pwd">请输入新支付密码</string>
@@ -122,11 +122,11 @@
     <string name="bill_detail">账单详情</string>
     <string name="top_up">充值</string>
     <string name="deposit">提现</string>
-    <string name="mine_bank_card">我的银行卡</string>
+    <string name="mine_bank_card">我的银行</string>
     <string name="scan_pay">扫码支付</string>
     <string name="pay_bill">对账单</string>
     <string name="wallet_coupon">代金券</string>
-    <string name="wallet_financial">个人金融</string>
+    <string name="wallet_financial">企业金融</string>
     <string name="bill">账单</string>
     <string name="today">今天</string>
     <string name="trade_time">交易时间</string>
@@ -138,7 +138,7 @@
 
 
     <!--银行卡-->
-    <string name="my_wallet">我的钱包</string>
+    <string name="my_wallet">企业钱包</string>
     <string name="bank_card">银行卡</string>
     <string name="add_bank_card">添加银行卡</string>
     <string name="card_bind">银行卡绑定</string>
@@ -183,10 +183,9 @@
     <string name="delivery_time">发货时间:</string>
     <string name="receive_time">收货时间:</string>
     <string name="set_receive">确认收货</string>
-    <string name="community_list">社区列表</string>
+    <string name="store_management">商品管理</string>
     <string name="community_around">社区周边</string>
     <string name="i_want_visit">我要参观</string>
-    <string name="community_detail">社区详情</string>
     <string name="property_fix">物业报修</string>
     <string name="repast">餐饮</string>
     <string name="entertainment">娱乐</string>
@@ -247,5 +246,13 @@
 
     <!--sip-->
     <string name="default_domain">dyc.bj.buluo-gs.com</string>
+    <string name="main_goods">商品</string>
+    <string name="order">订单</string>
+
+    <!--商户-->
+    <string name="create_store">创建商铺</string>
+    <string name="store_identify">商户认证</string>
+    <string name="store_set">店铺设置</string>
+    <string name="community">社区</string>
 
 </resources>

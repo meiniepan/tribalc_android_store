@@ -9,7 +9,7 @@
         android:background="@mipmap/open_door_bg"
         >
 
-        <com.gs.buluo.app.view.widget.RippleView
+        <com.gs.buluo.store.view.widget.RippleView
             android:id="@+id/open_door_rippleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

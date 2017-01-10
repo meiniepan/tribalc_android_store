@@ -32,7 +32,7 @@
 
     </RelativeLayout>
 
-    <com.gs.buluo.app.view.widget.loadMoreRecycle.RefreshRecyclerView
+    <com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView
         android:id="@+id/property_list_recycleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.gs.buluo.app.view.widget.SwipeMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.gs.buluo.store.view.widget.SwipeMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:id="@+id/car_item_swipe"
     android:layout_width="match_parent"
@@ -277,4 +277,4 @@
             android:text="删除"
             android:textColor="@color/white" />
     </LinearLayout>
-</com.gs.buluo.app.view.widget.SwipeMenuLayout>
+</com.gs.buluo.store.view.widget.SwipeMenuLayout>

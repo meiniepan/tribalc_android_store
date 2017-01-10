@@ -43,8 +43,8 @@
         app:tabTextColor="@color/common_gray">
     </android.support.design.widget.TabLayout>
 
-    <com.gs.buluo.app.view.widget.UnScrollViewPager
+    <com.gs.buluo.store.view.widget.UnScrollViewPager
         android:id="@+id/order_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.gs.buluo.app.view.widget.UnScrollViewPager>
+        android:layout_height="match_parent"></com.gs.buluo.store.view.widget.UnScrollViewPager>
 </LinearLayout>

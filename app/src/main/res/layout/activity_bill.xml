@@ -29,9 +29,9 @@
             android:id="@+id/bill_back"/>
     </RelativeLayout>
 
-    <com.gs.buluo.app.view.widget.loadMoreRecycle.RefreshRecyclerView
+    <com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView
         android:id="@+id/bill_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.gs.buluo.app.view.widget.loadMoreRecycle.RefreshRecyclerView>
+    </com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView>
 </LinearLayout>

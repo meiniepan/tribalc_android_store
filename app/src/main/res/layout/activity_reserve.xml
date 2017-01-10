@@ -21,9 +21,9 @@
             android:id="@+id/reserve_back"/>
     </RelativeLayout>
 
-    <com.gs.buluo.app.view.widget.loadMoreRecycle.RefreshRecyclerView
+    <com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView
         android:id="@+id/reserve_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.gs.buluo.app.view.widget.loadMoreRecycle.RefreshRecyclerView>
+    </com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView>
 </LinearLayout>

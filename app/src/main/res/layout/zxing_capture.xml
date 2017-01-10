@@ -63,7 +63,7 @@
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
-    <com.gs.buluo.app.utils.zxing.view.ViewfinderView
+    <com.gs.buluo.store.utils.zxing.view.ViewfinderView
         android:id="@+id/viewfinder_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
