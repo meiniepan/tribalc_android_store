@@ -17,18 +17,19 @@ import retrofit2.Response;
  */
 public class DetailReservationPresenter extends BasePresenter<IDetailReserveView> {
     ReserveModel model;
-    public DetailReservationPresenter(){
-        model=new ReserveModel();
+
+    public DetailReservationPresenter() {
+        model = new ReserveModel();
     }
 
-    public void getReserveDetail(String id){
+    public void getReserveDetail(String id) {
         model.getServeDetail(id, TribeApplication.getInstance().getUserInfo().getId(), new Callback<BaseResponse<DetailReservation>>() {
             @Override
             public void onResponse(Call<BaseResponse<DetailReservation>> call, Response<BaseResponse<DetailReservation>> response) {
-                if (mView==null)return;
-                if (response.body()!=null&&response.body().code==200){
+                if (mView == null) return;
+                if (response.body() != null && response.body().code == 200) {
                     mView.getDetailSuccess(response.body().data);
-                }else {
+                } else {
                     mView.showError(R.string.connect_fail);
                 }
 
@@ -36,19 +37,19 @@ public class DetailReservationPresenter extends BasePresenter<IDetailReserveView
 
             @Override
             public void onFailure(Call<BaseResponse<DetailReservation>> call, Throwable t) {
-                if (mView==null)return;
+                if (mView == null) return;
                 mView.showError(R.string.connect_fail);
             }
         });
     }
 
-    public void cancelReserve(String id,String key){
-        model.cancelReserve(id, TribeApplication.getInstance().getUserInfo().getId(),new ValueRequestBody(key), new Callback<BaseResponse>() {
+    public void cancelReserve(String id, String key) {
+        model.cancelReserve(id, TribeApplication.getInstance().getUserInfo().getId(), new ValueRequestBody(key), new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                if (response.body()!=null&&response.body().code==200){
+                if (response.body() != null && response.body().code == 200) {
                     mView.cancelSuccess();
-                }else {
+                } else {
                     mView.cancelFailure();
                 }
             }

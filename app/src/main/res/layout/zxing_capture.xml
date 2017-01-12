@@ -9,7 +9,7 @@
         android:id="@+id/preview_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -31,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="@color/common_dark">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -44,11 +45,12 @@
             android:layout_width="wrap_content"
             android:layout_height="0.5dp"
             android:layout_alignParentBottom="true"
-            android:background="#000"/>
+            android:background="#000" />
 
 
-        <include layout="@layout/back_img_white"
-            android:id="@+id/scan_back"/>
+        <include
+            layout="@layout/back_img_white"
+            android:id="@+id/scan_back" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -67,6 +69,6 @@
         android:id="@+id/viewfinder_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/transparent"/>
+        android:background="@color/transparent" />
 
 </FrameLayout>

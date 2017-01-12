@@ -29,14 +29,14 @@ public class SimpleChoosePanel extends Dialog {
         super(context, R.style.my_dialog);
         Window window = getWindow();
         WindowManager.LayoutParams params = window.getAttributes();
-        params.width= ViewGroup.LayoutParams.MATCH_PARENT;
-        params.height= ViewGroup.LayoutParams.WRAP_CONTENT;
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         params.gravity = Gravity.BOTTOM;
         window.setAttributes(params);
     }
 
 
-    public interface OnSelectedFinished{
+    public interface OnSelectedFinished {
         void onSelected(String string);
     }
 
@@ -45,9 +45,9 @@ public class SimpleChoosePanel extends Dialog {
 
         private final Context mContext;
         private final OnSelectedFinished mOnSelectedFinished;
-        private String title="请选择";
-        private int max=20;
-        private int position=1;
+        private String title = "请选择";
+        private int max = 20;
+        private int position = 1;
         private SimpleChoosePanel mSimpleChoosePanel;
 
 
@@ -66,7 +66,7 @@ public class SimpleChoosePanel extends Dialog {
             return this;
         }
 
-        public SimpleChoosePanel build(){
+        public SimpleChoosePanel build() {
 
             LayoutInflater inflater = LayoutInflater.from(mContext);
             View view = inflater.inflate(R.layout.simple_choose_board, null);
@@ -75,8 +75,8 @@ public class SimpleChoosePanel extends Dialog {
             wheelView.addChangingListener(this);
             view.findViewById(R.id.simple_choose_confirm).setOnClickListener(this);
 
-            List<Integer> list =new ArrayList<>();
-            for (int i =1;i<=max;i++){
+            List<Integer> list = new ArrayList<>();
+            for (int i = 1; i <= max; i++) {
                 list.add(i);
             }
             ArrayWheelAdapter<Object> viewAdapter = new ArrayWheelAdapter<>(mContext, list.toArray());
@@ -89,17 +89,16 @@ public class SimpleChoosePanel extends Dialog {
         }
 
 
-
         @Override
         public void onClick(View v) {
-            mOnSelectedFinished.onSelected(position+"");
+            mOnSelectedFinished.onSelected(position + "");
             mSimpleChoosePanel.dismiss();
         }
 
 
         @Override
         public void onChanged(WheelView wheel, int oldValue, int newValue) {
-            position = newValue+1;
+            position = newValue + 1;
         }
     }
 

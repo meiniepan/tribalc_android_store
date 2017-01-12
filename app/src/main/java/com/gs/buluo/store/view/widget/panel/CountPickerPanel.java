@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 /**
  * Created by hjn on 2016/12/1.
  */
-public class CountPickerPanel extends Dialog{
+public class CountPickerPanel extends Dialog {
     private Context mCtx;
     private OnSelectedFinished onSelectedFinished;
     private View rootView;
@@ -43,8 +43,8 @@ public class CountPickerPanel extends Dialog{
 
     private void setUpData() {
         newCount = 1;
-        List<Integer> list =new ArrayList<>();
-        for (int i =1;i<51;i++){
+        List<Integer> list = new ArrayList<>();
+        for (int i = 1; i < 51; i++) {
             list.add(i);
         }
         ArrayWheelAdapter<Object> viewAdapter = new ArrayWheelAdapter<>(mCtx, list.toArray());
@@ -56,13 +56,13 @@ public class CountPickerPanel extends Dialog{
         mCount.addChangingListener(new OnWheelChangedListener() {
             @Override
             public void onChanged(WheelView wheel, int oldValue, int newValue) {
-                newCount=newValue+1;
+                newCount = newValue + 1;
             }
         });
         mBtnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSelectedFinished.onSelected(newCount+"");
+                onSelectedFinished.onSelected(newCount + "");
                 dismiss();
             }
         });
@@ -78,8 +78,8 @@ public class CountPickerPanel extends Dialog{
         setContentView(rootView);
         Window window = getWindow();
         WindowManager.LayoutParams params = window.getAttributes();
-        params.width= ViewGroup.LayoutParams.MATCH_PARENT;
-        params.height= ViewGroup.LayoutParams.WRAP_CONTENT;
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         params.gravity = Gravity.BOTTOM;
         window.setAttributes(params);
         ButterKnife.bind(this, rootView);

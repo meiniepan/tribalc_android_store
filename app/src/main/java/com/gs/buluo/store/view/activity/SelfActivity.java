@@ -26,11 +26,10 @@ import java.io.File;
 import butterknife.Bind;
 
 
-
 /**
  * Created by hjn on 2016/11/2.
  */
-public class SelfActivity extends BaseActivity implements View.OnClickListener{
+public class SelfActivity extends BaseActivity implements View.OnClickListener {
     @Bind(R.id.tv_address)
     TextView mAddress;
     @Bind(R.id.tv_detail_address)
@@ -82,23 +81,23 @@ public class SelfActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        Intent intent=new Intent(mCtx,ModifyInfoActivity.class);
+        Intent intent = new Intent(mCtx, ModifyInfoActivity.class);
         switch (view.getId()) {
             case R.id.ll_head:
-                intent.setClass(mCtx,PhotoActivity.class);
-                intent.putExtra(Constant.ForIntent.PHOTO_TYPE,"logo");
+                intent.setClass(mCtx, PhotoActivity.class);
+                intent.putExtra(Constant.ForIntent.PHOTO_TYPE, "logo");
                 startActivity(intent);
                 break;
             case R.id.ll_nickname:
-                intent.putExtra(Constant.ForIntent.MODIFY,Constant.NICKNAME);
-                startActivityForResult(intent,201);
+                intent.putExtra(Constant.ForIntent.MODIFY, Constant.NICKNAME);
+                startActivityForResult(intent, 201);
                 break;
             case R.id.ll_number:
                 startActivity(new Intent(this, PhoneVerifyActivity.class));
                 break;
             case R.id.ll_address:
-                intent.putExtra(Constant.ForIntent.MODIFY,Constant.ADDRESS);
-                startActivityForResult(intent,205);
+                intent.putExtra(Constant.ForIntent.MODIFY, Constant.ADDRESS);
+                startActivityForResult(intent, 205);
                 break;
             case R.id.ll_detail_address:
                 startActivityForResult(new Intent(this, AddressListActivity.class), addressCode);
@@ -111,8 +110,8 @@ public class SelfActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode==RESULT_OK){
-            switch (requestCode){
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
                 case 201:
                     mName.setText(data.getStringExtra(Constant.NICKNAME));
                     break;

@@ -19,7 +19,7 @@ import butterknife.Bind;
 /**
  * Created by hjn on 2016/11/29.
  */
-public class ReserveActivity extends BaseActivity implements IReserveView{
+public class ReserveActivity extends BaseActivity implements IReserveView {
     @Bind(R.id.reserve_list)
     RefreshRecyclerView recyclerView;
     private ReserveListAdapter adapter;
@@ -33,7 +33,7 @@ public class ReserveActivity extends BaseActivity implements IReserveView{
         recyclerView.setLoadMoreAction(new Action() {
             @Override
             public void onAction() {
-                ((ReservePresenter)mPresenter).getReserveMore("");
+                ((ReservePresenter) mPresenter).getReserveMore("");
             }
         });
 
@@ -44,7 +44,7 @@ public class ReserveActivity extends BaseActivity implements IReserveView{
             }
         });
 
-        ((ReservePresenter)mPresenter).getReserveListFirst("");
+        ((ReservePresenter) mPresenter).getReserveListFirst("");
         showLoadingDialog();
     }
 
@@ -62,18 +62,18 @@ public class ReserveActivity extends BaseActivity implements IReserveView{
     public void getReserveSuccess(ReserveResponse.ReserveResponseBody data) {
         dismissDialog();
         adapter.addAll(data.content);
-        if (data.content.size()==0){
+        if (data.content.size() == 0) {
             recyclerView.showNoData(R.string.no_order);
             return;
         }
-        if (!data.hasMore){
+        if (!data.hasMore) {
             recyclerView.showNoMore();
         }
     }
 
     @Override
     public void showError(int res) {
-        ToastUtils.ToastMessage(this,getString(res));
+        ToastUtils.ToastMessage(this, getString(res));
         dismissDialog();
     }
 }

@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:clipToPadding="true">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="#2a2a2a">
-        <include layout="@layout/back_img_white"
-            android:id="@+id/bind_phone_back"/>
+
+        <include
+            layout="@layout/back_img_white"
+            android:id="@+id/bind_phone_back" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -17,8 +21,9 @@
             android:textSize="@dimen/title_size"
             android:layout_centerInParent="true"
             android:textColor="#fff"
-            android:text="@string/phone_bind"/>
+            android:text="@string/phone_bind" />
     </RelativeLayout>
+
     <TextView
         android:id="@+id/phone_input"
         android:layout_width="match_parent"
@@ -29,8 +34,7 @@
         android:gravity="bottom"
         android:textSize="@dimen/dimens_12sp"
         android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingBottom="10dp"
-        />
+        android:paddingBottom="10dp" />
 
 
     <LinearLayout
@@ -40,14 +44,15 @@
         android:orientation="horizontal"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/button_height"
             android:text="国家和地区"
             android:gravity="center_vertical"
             android:textSize="@dimen/dimens_16sp"
-            android:textColor="@color/common_dark"
-            />
+            android:textColor="@color/common_dark" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/button_height"
@@ -55,10 +60,10 @@
             android:layout_marginStart="14dp"
             android:gravity="center_vertical"
             android:textSize="@dimen/dimens_16sp"
-            android:textColor="@color/common_dark"
-            />
+            android:textColor="@color/common_dark" />
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/phone_new_phone"
         android:layout_width="match_parent"
@@ -67,14 +72,15 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="新手机号"
             android:gravity="center_vertical"
             android:textSize="@dimen/dimens_16sp"
-            android:textColor="@color/common_dark"
-            />
+            android:textColor="@color/common_dark" />
+
         <EditText
             android:id="@+id/bind_edit_phone"
             android:layout_width="wrap_content"
@@ -83,13 +89,13 @@
             android:background="@null"
             android:inputType="phone"
             android:textSize="@dimen/dimens_16sp"
-            android:layout_marginStart="30dp"
-            />
+            android:layout_marginStart="30dp" />
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
             android:id="@+id/phone_bind_next"
             android:layout_alignParentBottom="true"

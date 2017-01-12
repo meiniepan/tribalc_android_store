@@ -27,7 +27,7 @@ public class OrderListAdapter extends RecyclerAdapter<OrderBean> {
 
     public OrderListAdapter(Context context) {
         super(context);
-        mCtx=context;
+        mCtx = context;
     }
 
     @Override
@@ -35,49 +35,50 @@ public class OrderListAdapter extends RecyclerAdapter<OrderBean> {
         return new OrderItemHolder(parent);
     }
 
-    class OrderItemHolder extends BaseViewHolder<OrderBean>{
+    class OrderItemHolder extends BaseViewHolder<OrderBean> {
         ListView listView;
         TextView number;
         TextView money;
         TextView statusView;
         View finishView;
+
         public OrderItemHolder(ViewGroup itemView) {
             super(itemView, R.layout.order_list_item);
         }
 
         @Override
         public void onInitializeView() {
-            listView=findViewById(R.id.order_item_good_list);
-            number=findViewById(R.id.order_item_number);
-            money=findViewById(R.id.order_item_money);
-            statusView=findViewById(R.id.order_item_status);
-            finishView=findViewById(R.id.order_item_finish);
+            listView = findViewById(R.id.order_item_good_list);
+            number = findViewById(R.id.order_item_number);
+            money = findViewById(R.id.order_item_money);
+            statusView = findViewById(R.id.order_item_status);
+            finishView = findViewById(R.id.order_item_finish);
         }
 
         @Override
         public void setData(OrderBean entity) {
             super.setData(entity);
-            if (entity==null||entity.itemList==null)return;
+            if (entity == null || entity.itemList == null) return;
             number.setText(entity.orderNum);
             statusView.setText(transferStatus(entity.status));
-            money.setText("¥ "+entity.totalFee);
-            initGoodsList(listView,entity.itemList,entity);
+            money.setText("¥ " + entity.totalFee);
+            initGoodsList(listView, entity.itemList, entity);
         }
 
         private String transferStatus(OrderBean.OrderStatus status) {
-            if (status== OrderBean.OrderStatus.NO_SETTLE){
+            if (status == OrderBean.OrderStatus.NO_SETTLE) {
                 finishView.setVisibility(View.GONE);
                 statusView.setVisibility(View.VISIBLE);
-            }else if (status == OrderBean.OrderStatus.SETTLE){
+            } else if (status == OrderBean.OrderStatus.SETTLE) {
                 finishView.setVisibility(View.GONE);
                 statusView.setVisibility(View.VISIBLE);
-            }else if (status== OrderBean.OrderStatus.DELIVERY){
+            } else if (status == OrderBean.OrderStatus.DELIVERY) {
                 finishView.setVisibility(View.GONE);
                 statusView.setVisibility(View.VISIBLE);
-            }else if (status == OrderBean.OrderStatus.RECEIVED){
+            } else if (status == OrderBean.OrderStatus.RECEIVED) {
                 finishView.setVisibility(View.VISIBLE);
                 statusView.setVisibility(View.GONE);
-            }else {
+            } else {
                 finishView.setVisibility(View.GONE);
                 statusView.setVisibility(View.VISIBLE);
             }
@@ -90,7 +91,7 @@ public class OrderListAdapter extends RecyclerAdapter<OrderBean> {
         }
 
         private void initGoodsList(ListView listView, List<CartItem> itemList, final OrderBean entity) {
-            OrderGoodsAdapter adapter =new OrderGoodsAdapter(itemList,mCtx);
+            OrderGoodsAdapter adapter = new OrderGoodsAdapter(itemList, mCtx);
             listView.setAdapter(adapter);
             CommonUtils.setListViewHeightBasedOnChildren(listView);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -103,8 +104,8 @@ public class OrderListAdapter extends RecyclerAdapter<OrderBean> {
     }
 
     private void goDetail(OrderBean entity) {
-        Intent intent=new Intent(mCtx,OrderDetailActivity.class);
-        intent.putExtra(Constant.ORDER,entity);
+        Intent intent = new Intent(mCtx, OrderDetailActivity.class);
+        intent.putExtra(Constant.ORDER, entity);
         mCtx.startActivity(intent);
     }
 }

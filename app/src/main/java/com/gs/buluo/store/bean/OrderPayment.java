@@ -15,8 +15,8 @@ public class OrderPayment implements IBaseResponse {
     public String totalAmount;
     public String note;
 
-    public enum PayStatus{
-        CREATED("CREATED"),PAYED("PAYED"),FINISHED("FINISHED"),FAILURE("FAILURE");
+    public enum PayStatus {
+        CREATED("CREATED"), PAYED("PAYED"), FINISHED("FINISHED"), FAILURE("FAILURE");
 
         PayStatus(String status) {
         }

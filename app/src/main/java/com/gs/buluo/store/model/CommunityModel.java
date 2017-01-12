@@ -18,12 +18,12 @@ public class CommunityModel {
                 getCommunitiesList().enqueue(callback);
     }
 
-    public void getCommunityDetail(String uid,Callback<BaseResponse<CommunityDetail>> callback){
+    public void getCommunityDetail(String uid, Callback<BaseResponse<CommunityDetail>> callback) {
         TribeRetrofit.getInstance().createApi(CommunityService.class).
                 getCommunityDetail(uid).enqueue(callback);
     }
 
-    public void getStoreDetail(String strorId,Callback<BaseResponse<StoreDetail>> callback){
+    public void getStoreDetail(String strorId, Callback<BaseResponse<StoreDetail>> callback) {
         TribeRetrofit.getInstance().createApi(CommunityService.class).
                 getStoreDetail(strorId).enqueue(callback);
     }

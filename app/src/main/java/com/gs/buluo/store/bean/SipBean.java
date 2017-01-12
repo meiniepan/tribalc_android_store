@@ -10,5 +10,5 @@ public class SipBean {
     public String user;
     public String password;
     public String domain;
-    public Map<String,String> equips;
+    public Map<String, String> equips;
 }

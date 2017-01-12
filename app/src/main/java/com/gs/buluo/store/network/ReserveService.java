@@ -22,13 +22,13 @@ public interface ReserveService {
     Call<ReserveResponse> getReserviceList(
 //            @Query("status") String status,
             @Query("limitSize") int limitSize,
-            @Query("me") String myId ,
+            @Query("me") String myId,
             @Query("sortSkip") String sortSkip);
 
     @GET("reservations?type=owner")
     Call<ReserveResponse> getReserviceListFirst(
 //            @Query("status") String status,
-            @Query("me") String myId ,
+            @Query("me") String myId,
             @Query("limitSize") int limitSize);
 
 
@@ -36,9 +36,9 @@ public interface ReserveService {
     Call<BaseResponse<DetailReservation>> getReserveDetail(@Path("id") String reserveId, @Query("me") String myId);
 
     @PUT("reservations/{id}/status?type=owner")
-    Call<BaseResponse> cancelReserve(@Path("id")String id, @Query("me") String myId, @Body ValueRequestBody body);
+    Call<BaseResponse> cancelReserve(@Path("id") String id, @Query("me") String myId, @Body ValueRequestBody body);
 
     @POST("reservations")
-    Call<BaseResponse<DetailReservation>> createReserve(@Query("me")String myId, @Body NewReserveRequest body);
+    Call<BaseResponse<DetailReservation>> createReserve(@Query("me") String myId, @Body NewReserveRequest body);
 }
 

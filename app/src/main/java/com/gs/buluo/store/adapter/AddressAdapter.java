@@ -23,21 +23,21 @@ import java.util.List;
 /**
  * Created by hjn on 2016/11/14.
  */
-public class AddressAdapter extends  RecyclerView.Adapter<AddressAdapter.AddressHolder>{
-    private  List<UserAddressEntity> mDatas;
+public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressHolder> {
+    private List<UserAddressEntity> mDatas;
     private String defaultAddressID;
     private AddressListActivity mCtx;
-    private final  int REQUEST_UPDATE= 201;
+    private final int REQUEST_UPDATE = 201;
     private boolean fromOrder;
 
     public AddressAdapter(AddressListActivity context, List<UserAddressEntity> datas) {
-        mCtx=context;
+        mCtx = context;
         mDatas = datas;
     }
 
     @Override
     public AddressHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mCtx).inflate(R.layout.address_item, parent,false);
+        View view = LayoutInflater.from(mCtx).inflate(R.layout.address_item, parent, false);
         return new AddressHolder(view);
     }
 
@@ -45,13 +45,13 @@ public class AddressAdapter extends  RecyclerView.Adapter<AddressAdapter.Address
     public void onBindViewHolder(final AddressHolder holder, int position) {
         final UserAddressEntity entity = mDatas.get(position);
         holder.name.setText(entity.getName());
-        holder.address.setText(entity.getArea()+entity.getAddress());
+        holder.address.setText(entity.getArea() + entity.getAddress());
         holder.mEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mCtx, AddAddressActivity.class);
-                intent.putExtra(Constant.ADDRESS,entity);
-                mCtx.startActivityForResult(intent,REQUEST_UPDATE);
+                intent.putExtra(Constant.ADDRESS, entity);
+                mCtx.startActivityForResult(intent, REQUEST_UPDATE);
             }
         });
         holder.mDelete.setOnClickListener(new View.OnClickListener() {
@@ -61,15 +61,15 @@ public class AddressAdapter extends  RecyclerView.Adapter<AddressAdapter.Address
             }
         });
 
-        if (entity!=null&&entity.getId().equals(defaultAddressID)){
+        if (entity != null && entity.getId().equals(defaultAddressID)) {
             holder.mSelect.setImageResource(R.mipmap.address_selected);
-        }else {
+        } else {
             holder.mSelect.setImageResource(R.mipmap.address_normal);
         }
         holder.mSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (entity!=null&&!entity.getId().equals(defaultAddressID)){
+                if (entity != null && !entity.getId().equals(defaultAddressID)) {
                     mCtx.getAddressPresenter().updateDefaultAddress(entity);
                 }
             }
@@ -78,13 +78,13 @@ public class AddressAdapter extends  RecyclerView.Adapter<AddressAdapter.Address
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (fromOrder){
-                    Intent intent=new Intent();
-                    intent.putExtra(Constant.ADDRESS,entity.getArea()+entity.getAddress());
-                    intent.putExtra(Constant.RECEIVER,entity.getName());
-                    intent.putExtra(Constant.PHONE,entity.getPhone());
-                    intent.putExtra(Constant.ADDRESS_ID,entity.getId());
-                    mCtx.setResult(Activity.RESULT_OK,intent);
+                if (fromOrder) {
+                    Intent intent = new Intent();
+                    intent.putExtra(Constant.ADDRESS, entity.getArea() + entity.getAddress());
+                    intent.putExtra(Constant.RECEIVER, entity.getName());
+                    intent.putExtra(Constant.PHONE, entity.getPhone());
+                    intent.putExtra(Constant.ADDRESS_ID, entity.getId());
+                    mCtx.setResult(Activity.RESULT_OK, intent);
                     mCtx.finish();
                 }
             }
@@ -95,10 +95,11 @@ public class AddressAdapter extends  RecyclerView.Adapter<AddressAdapter.Address
         new CustomAlertDialog.Builder(mCtx).setTitle("确定删除?").setPositiveButton(mCtx.getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                mCtx.getAddressPresenter().deleteAddress(TribeApplication.getInstance().getUserInfo().getId(),entity);
+                mCtx.getAddressPresenter().deleteAddress(TribeApplication.getInstance().getUserInfo().getId(), entity);
             }
-        }).setNegativeButton(mCtx.getString(R.string.cancel),null).create().show();
+        }).setNegativeButton(mCtx.getString(R.string.cancel), null).create().show();
     }
+
     @Override
     public int getItemCount() {
         return mDatas.size();
@@ -112,23 +113,24 @@ public class AddressAdapter extends  RecyclerView.Adapter<AddressAdapter.Address
         this.fromOrder = fromOrder;
     }
 
-    class AddressHolder extends RecyclerView.ViewHolder  {
-         TextView name;
-         TextView address;
-         ImageView mSelect;
-         ImageView mEdit;
-         ImageView mDelete;
+    class AddressHolder extends RecyclerView.ViewHolder {
+        TextView name;
+        TextView address;
+        ImageView mSelect;
+        ImageView mEdit;
+        ImageView mDelete;
+
         public AddressHolder(View view) {
             super(view);
-            name= (TextView) view.findViewById(R.id.add_address_name);
-            address= (TextView) view.findViewById(R.id.add_address_detail);
-            mSelect= (ImageView) view.findViewById(R.id.add_address_select_icon);
-            mEdit= (ImageView) view.findViewById(R.id.add_address_edit);
-            mDelete= (ImageView) view.findViewById(R.id.add_address_delete);
+            name = (TextView) view.findViewById(R.id.add_address_name);
+            address = (TextView) view.findViewById(R.id.add_address_detail);
+            mSelect = (ImageView) view.findViewById(R.id.add_address_select_icon);
+            mEdit = (ImageView) view.findViewById(R.id.add_address_edit);
+            mDelete = (ImageView) view.findViewById(R.id.add_address_delete);
         }
     }
 
-    public void setDefaultAddressID(String id){
-        defaultAddressID=id;
+    public void setDefaultAddressID(String id) {
+        defaultAddressID = id;
     }
 }

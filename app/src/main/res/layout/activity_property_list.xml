@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:clipToPadding="true"
-              android:fitsSystemWindows="true"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,24 +17,24 @@
             android:gravity="center"
             android:text="@string/property_fix"
             android:textColor="#fff"
-            android:textSize="@dimen/title_size"/>
+            android:textSize="@dimen/title_size" />
 
         <View
             android:layout_width="wrap_content"
             android:layout_height="0.5dp"
             android:layout_alignParentBottom="true"
-            android:background="#000"/>
+            android:background="#000" />
 
 
         <include
             android:id="@+id/property_list_back"
-            layout="@layout/back_img_white"/>
+            layout="@layout/back_img_white" />
 
     </RelativeLayout>
 
     <com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView
         android:id="@+id/property_list_recycleView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

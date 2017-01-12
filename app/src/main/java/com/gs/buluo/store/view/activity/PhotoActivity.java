@@ -1,6 +1,5 @@
 package com.gs.buluo.store.view.activity;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,7 +15,6 @@ import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.SelfPresenter;
 import com.gs.buluo.store.utils.DensityUtils;
-import com.gs.buluo.store.utils.FrescoImageLoader;
 import com.gs.buluo.store.utils.FresoUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.ISelfView;
@@ -26,14 +24,13 @@ import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import butterknife.Bind;
 
 /**
  * Created by hjn on 2017/1/10.
  */
-public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSelectedFinished,ISelfView {
+public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSelectedFinished, ISelfView {
     private boolean isLogo;
     @Bind(R.id.holder_image)
     ImageView image;
@@ -62,7 +59,7 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
     }
 
     private void choosePhoto() {
-        ChoosePhotoPanel panel = new ChoosePhotoPanel(this, this);
+        ChoosePhotoPanel panel = new ChoosePhotoPanel(this, false, this);
         panel.show();
     }
 
@@ -70,7 +67,7 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
         TribeUploader.getInstance().uploadFile("photo", "", new File(file), new TribeUploader.UploadCallback() {
             @Override
             public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
-                if (isLogo){
+                if (isLogo) {
                     updateStoreInfo(data);
                 }
             }
@@ -83,7 +80,7 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
     }
 
     private void updateStoreInfo(UploadAccessResponse.UploadResponseBody data) {
-        ((SelfPresenter) mPresenter).updateUser(Constant.PICTURE,data.objectKey);
+        ((SelfPresenter) mPresenter).updateUser(Constant.PICTURE, data.objectKey);
     }
 
     @Override
@@ -99,7 +96,11 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
     @Override
     public void onSelected(String string) {
         showLoadingDialog();
-        updatePic(string);
+        if (isLogo){
+            updatePic(string);
+        }else {
+
+        }
     }
 
     @Override
@@ -127,6 +128,6 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
     @Override
     public void showError(int res) {
         dismissDialog();
-        ToastUtils.ToastMessage(this,R.string.connect_fail);
+        ToastUtils.ToastMessage(this, R.string.connect_fail);
     }
 }

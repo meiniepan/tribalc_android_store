@@ -210,8 +210,8 @@ public class CommonUtils {
         if (libcFile64 != null && libcFile64.exists()) {
             byte[] header = readELFHeadrIndentArray(libcFile64);
             byte b = header[EI_CLASS];
-            if (String.valueOf(b).equals("2")){
-                bb=true;
+            if (String.valueOf(b).equals("2")) {
+                bb = true;
             }
         }
         return bb;
@@ -245,13 +245,13 @@ public class CommonUtils {
     }
 
 
-    public static String getDeviceInfo(Context context){
-        StringBuilder sb =new StringBuilder();
+    public static String getDeviceInfo(Context context) {
+        StringBuilder sb = new StringBuilder();
         String packageName = context.getPackageName();
         try {
-            sb.append(packageName +"/")
-            .append(context.getPackageManager().getPackageInfo(packageName,0).versionName)
-            .append("(").append(android.os.Build.MODEL).append(";").append("Android ").append(android.os.Build.VERSION.RELEASE).append(";")
+            sb.append(packageName + "/")
+                    .append(context.getPackageManager().getPackageInfo(packageName, 0).versionName)
+                    .append("(").append(android.os.Build.MODEL).append(";").append("Android ").append(android.os.Build.VERSION.RELEASE).append(";")
                     .append("Scale/").append(context.getResources().getDisplayMetrics().density).append(")");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();

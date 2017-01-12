@@ -39,6 +39,11 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+    allprojects {
+        repositories {
+            maven { url "https://jitpack.io" }
+        }
+    }
 }
 
 

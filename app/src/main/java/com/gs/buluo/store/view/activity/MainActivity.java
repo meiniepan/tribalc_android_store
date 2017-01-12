@@ -52,19 +52,19 @@ public class MainActivity extends BaseActivity implements ILoginView, ViewPager.
     ImageView mHomeImage;
 
     private ArrayList<BaseFragment> list;
-    private ArrayList<TextView> tabs=new ArrayList<>(4);
+    private ArrayList<TextView> tabs = new ArrayList<>(4);
     private List<Integer> imageRids = new ArrayList<>(4);
     private List<Integer> imageSelectedRids = new ArrayList<>(4);
     private List<ImageView> tabIcons = new ArrayList<>(4);
     private MineFragment mineFragment;
-    private long mkeyTime=0;
+    private long mkeyTime = 0;
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (new StoreInfoDao().findFirst()==null){
+        if (new StoreInfoDao().findFirst() == null) {
             mineFragment.setLoginState(false);
-        }else {
+        } else {
             mineFragment.setLoginState(true);
         }
     }
@@ -83,7 +83,7 @@ public class MainActivity extends BaseActivity implements ILoginView, ViewPager.
         findViewById(R.id.main_usual_layout).setOnClickListener(new MainOnClickListener(2));
         findViewById(R.id.main_mine_layout).setOnClickListener(new MainOnClickListener(3));
         initBar();
-        mPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(),list));
+        mPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), list));
         mPager.addOnPageChangeListener(this);
         mPager.setCurrentItem(0);
         mPager.setOffscreenPageLimit(3);
@@ -128,12 +128,13 @@ public class MainActivity extends BaseActivity implements ILoginView, ViewPager.
 
 
     private void changeFragment(int i) {
-        mPager.setCurrentItem(i,false);
+        mPager.setCurrentItem(i, false);
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
     }
+
     @Override
     public void onPageSelected(int position) {
         changeFragment(position);
@@ -147,29 +148,32 @@ public class MainActivity extends BaseActivity implements ILoginView, ViewPager.
     @Override
     public void showError(int res) {
     }
+
     @Override
     public void loginSuccess() {
     }
+
     @Override
     public void dealWithIdentify(int res) {
     }
 
     @Override
     public void onClick(View v) {
-        final AroundPanel panel=new AroundPanel(this);
+        final AroundPanel panel = new AroundPanel(this);
         panel.show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 panel.showMenu();
             }
-        },500);
+        }, 500);
     }
 
     private class MainOnClickListener implements View.OnClickListener {
         private int mIndex;
+
         public MainOnClickListener(int index) {
-            mIndex=index;
+            mIndex = index;
         }
 
         @Override
@@ -180,13 +184,13 @@ public class MainActivity extends BaseActivity implements ILoginView, ViewPager.
     }
 
     public void setCurrentTab(int currentTab) {
-        for (int i =0; i < tabs.size(); i++){
+        for (int i = 0; i < tabs.size(); i++) {
             TextView textView = tabs.get(i);
-            ImageView img=tabIcons.get(i);
-            if (i==2){
+            ImageView img = tabIcons.get(i);
+            if (i == 2) {
 //                setBarColor(R.color.black);
             }
-            if (i == currentTab){
+            if (i == currentTab) {
                 textView.setTextColor(getResources().getColor(R.color.black));
                 img.setBackgroundResource(imageSelectedRids.get(i));
             } else {

@@ -45,7 +45,7 @@ public class AddBankCardActivity extends BaseActivity {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        mContext=this;
+        mContext = this;
         findViewById(R.id.card_bind_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +62,7 @@ public class AddBankCardActivity extends BaseActivity {
         findViewById(R.id.card_add_choose).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(mContext,BankPickActivity.class), Constant.ForIntent.REQUEST_CODE);
+                startActivityForResult(new Intent(mContext, BankPickActivity.class), Constant.ForIntent.REQUEST_CODE);
             }
         });
         sendVerify.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +75,7 @@ public class AddBankCardActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode==RESULT_OK){
+        if (resultCode == RESULT_OK) {
             String name = data.getStringExtra(Constant.ForIntent.FLAG);
             etBankName.setText(name);
         }
@@ -110,6 +110,7 @@ public class AddBankCardActivity extends BaseActivity {
                         sendVerify.setClickable(false);
                         sendVerify.setText(millisUntilFinished / 1000 + "秒");
                     }
+
                     @Override
                     public void onFinish() {
                         sendVerify.setText("获取验证码");
@@ -134,7 +135,7 @@ public class AddBankCardActivity extends BaseActivity {
         moneyModel.addBankCard(TribeApplication.getInstance().getUserInfo().getId(), vCode, card, new Callback<BaseResponse<CodeResponse>>() {
             @Override
             public void onResponse(Call<BaseResponse<CodeResponse>> call, Response<BaseResponse<CodeResponse>> response) {
-                if (response.body() != null && response.body().code == 201&&response.body() != null && response.body().code == 201) {
+                if (response.body() != null && response.body().code == 201 && response.body() != null && response.body().code == 201) {
                     startActivity(new Intent(AddBankCardActivity.this, BankCardActivity.class));
                     finish();
                 } else if (response.body().code == 401) {

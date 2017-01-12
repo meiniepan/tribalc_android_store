@@ -12,10 +12,10 @@ import com.youth.banner.loader.ImageLoader;
  * Created by hjn on 2016/11/2.
  */
 public class FrescoImageLoader extends ImageLoader {
-    private  boolean isLocal=false;
+    private boolean isLocal = false;
 
     public FrescoImageLoader(boolean isLocal) {
-        this.isLocal=isLocal;
+        this.isLocal = isLocal;
     }
 
     public FrescoImageLoader() {
@@ -23,15 +23,15 @@ public class FrescoImageLoader extends ImageLoader {
 
     @Override
     public void displayImage(Context context, Object path, ImageView imageView) {
-        if (isLocal){
-            imageView.setBackgroundResource((int)path);
+        if (isLocal) {
+            imageView.setBackgroundResource((int) path);
             return;
         }
-        if (path==null)return;
-        String url=path.toString();
+        if (path == null) return;
+        String url = path.toString();
         if (!url.contains("://")) {
-            url = Constant.Base.BASE_IMG_URL+url;
-        }else {
+            url = Constant.Base.BASE_IMG_URL + url;
+        } else {
             url = transformUrl(url);
         }
 
@@ -41,19 +41,19 @@ public class FrescoImageLoader extends ImageLoader {
 
     @Override
     public ImageView createImageView(Context context) {
-        SimpleDraweeView simpleDraweeView=new SimpleDraweeView(context);
+        SimpleDraweeView simpleDraweeView = new SimpleDraweeView(context);
         return simpleDraweeView;
     }
 
-    public  String transformUrl(String url) {
+    public String transformUrl(String url) {
         String[] arrs = url.split("\\://");
         String head = arrs[0];
         String body = arrs[1];
-        switch (head){
+        switch (head) {
             case "oss":
-                return Constant.Base.BASE_ALI_URL+body;
+                return Constant.Base.BASE_ALI_URL + body;
             default:
-                return Constant.Base.BASE_IMG_URL+body;
+                return Constant.Base.BASE_IMG_URL + body;
         }
     }
 }

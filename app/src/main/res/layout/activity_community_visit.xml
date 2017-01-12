@@ -1,50 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:clipToPadding="true"
-    >
+    android:clipToPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="#2A2A2A">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="@dimen/title_size"
             android:textColor="#fff"
-            android:text="@string/i_want_visit"/>
+            android:text="@string/i_want_visit" />
 
         <View
             android:layout_width="wrap_content"
             android:layout_height="0.5dp"
             android:layout_alignParentBottom="true"
-            android:background="#000"/>
+            android:background="#000" />
 
-        <include layout="@layout/back_img_white"
-            android:id="@+id/community_visit_back"/>
+        <include
+            layout="@layout/back_img_white"
+            android:id="@+id/community_visit_back" />
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
             android:gravity="center_vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="预约社区"
                 android:textColor="@color/common_gray"
-                android:textSize="@dimen/dimens_16sp"
-                />
+                android:textSize="@dimen/dimens_16sp" />
+
             <EditText
                 android:id="@+id/community_visit_name"
                 android:layout_marginStart="12dp"
@@ -55,19 +60,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-        <include layout="@layout/split_line"/>
+
+        <include layout="@layout/split_line" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
             android:gravity="center_vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="预约日期"
                 android:textColor="@color/common_gray"
-                android:textSize="@dimen/dimens_16sp"
-                />
+                android:textSize="@dimen/dimens_16sp" />
+
             <EditText
                 android:id="@+id/community_visit_time"
                 android:layout_marginStart="12dp"
@@ -78,19 +86,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-        <include layout="@layout/split_line"/>
+
+        <include layout="@layout/split_line" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
             android:gravity="center_vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="公司名称"
                 android:textColor="@color/common_gray"
-                android:textSize="@dimen/dimens_16sp"
-                />
+                android:textSize="@dimen/dimens_16sp" />
+
             <EditText
                 android:layout_marginStart="12dp"
                 android:background="@null"
@@ -100,19 +111,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-        <include layout="@layout/split_line"/>
+
+        <include layout="@layout/split_line" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
             android:gravity="center_vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="预约人"
                 android:textColor="@color/common_gray"
-                android:textSize="@dimen/dimens_16sp"
-                />
+                android:textSize="@dimen/dimens_16sp" />
+
             <EditText
                 android:layout_marginStart="12dp"
                 android:background="@null"
@@ -122,19 +136,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-        <include layout="@layout/split_line"/>
+
+        <include layout="@layout/split_line" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
             android:gravity="center_vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="联系电话"
                 android:textColor="@color/common_gray"
-                android:textSize="@dimen/dimens_16sp"
-                />
+                android:textSize="@dimen/dimens_16sp" />
+
             <EditText
                 android:layout_marginStart="12dp"
                 android:background="@null"
@@ -145,19 +162,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-        <include layout="@layout/split_line"/>
+
+        <include layout="@layout/split_line" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
             android:gravity="center_vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="参观人数"
                 android:textColor="@color/common_gray"
-                android:textSize="@dimen/dimens_16sp"
-                />
+                android:textSize="@dimen/dimens_16sp" />
+
             <EditText
                 android:layout_marginStart="12dp"
                 android:background="@null"
@@ -166,19 +186,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-        <include layout="@layout/split_line"/>
+
+        <include layout="@layout/split_line" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
             android:gravity="center_vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="备注说明"
                 android:textColor="@color/common_gray"
-                android:textSize="@dimen/dimens_16sp"
-                />
+                android:textSize="@dimen/dimens_16sp" />
+
             <EditText
                 android:layout_marginStart="12dp"
                 android:background="@null"
@@ -186,7 +209,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>
-        <include layout="@layout/split_line"/>
+
+        <include layout="@layout/split_line" />
 
         <TextView
             android:id="@+id/community_visit_finish"

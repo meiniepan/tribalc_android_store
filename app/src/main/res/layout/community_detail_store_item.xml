@@ -3,6 +3,7 @@
     android:layout_height="88dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto">
+
     <com.facebook.drawee.view.SimpleDraweeView
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
@@ -13,7 +14,8 @@
         fresco:placeholderImage="@mipmap/default_pic"
         fresco:placeholderImageScaleType="focusCrop"
         android:layout_centerVertical="true"
-        fresco:roundedCornerRadius="2dp"/>
+        fresco:roundedCornerRadius="2dp" />
+
     <TextView
         android:paddingTop="4dp"
         android:id="@+id/community_detail_store_name"
@@ -22,7 +24,8 @@
         android:textSize="@dimen/dimens_14sp"
         android:textStyle="bold"
         android:layout_toRightOf="@+id/community_detail_store_picture"
-        android:layout_marginStart="4dp"/>
+        android:layout_marginStart="4dp" />
+
     <TextView
         android:id="@+id/community_detail_store_category"
         android:layout_width="wrap_content"
@@ -31,35 +34,34 @@
         android:textColor="@color/common_gray"
         android:layout_alignStart="@+id/community_detail_store_name"
         android:layout_below="@+id/community_detail_store_name"
-        android:layout_marginTop="3dp"
-        />
+        android:layout_marginTop="3dp" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/community_detail_store_name"
-        android:paddingBottom="6dp"
-        >
+        android:paddingBottom="6dp">
         <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textColor="@color/common_dark"-->
-            <!--android:textSize="@dimen/dimens_12sp"-->
-            <!--android:text="¥ "/>-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textColor="@color/common_dark"-->
+        <!--android:textSize="@dimen/dimens_12sp"-->
+        <!--android:text="¥ "/>-->
         <!--<TextView-->
-            <!--android:id="@+id/community_detail_store_price"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textColor="@color/common_dark"-->
-            <!--android:textSize="@dimen/dimens_12sp"-->
-            <!--android:text="30"/>-->
+        <!--android:id="@+id/community_detail_store_price"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textColor="@color/common_dark"-->
+        <!--android:textSize="@dimen/dimens_12sp"-->
+        <!--android:text="30"/>-->
         <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textColor="@color/common_dark"-->
-            <!--android:textSize="@dimen/dimens_12sp"-->
-            <!--android:text="元/人"/>-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textColor="@color/common_dark"-->
+        <!--android:textSize="@dimen/dimens_12sp"-->
+        <!--android:text="元/人"/>-->
         <TextView
             android:id="@+id/community_detail_store_distance"
             android:layout_width="match_parent"
@@ -67,6 +69,6 @@
             android:textSize="@dimen/dimens_12sp"
             android:textColor="@color/common_gray"
             android:gravity="end"
-            android:text="900m"/>
+            android:text="900m" />
     </LinearLayout>
 </RelativeLayout>

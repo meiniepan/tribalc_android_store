@@ -13,7 +13,7 @@ import java.util.List;
 public class ListGoodsDetail extends ListGoods implements IBaseResponse {
     public String title;
     public String standardId;
-//    public String standardSnapshot;
+    //    public String standardSnapshot;
     public boolean snapshot;
     public boolean published;
     public String categorty;

@@ -23,16 +23,17 @@ public class StoreSettingActivity extends BaseActivity implements View.OnClickLi
     RecyclerView recyclerView;
 
     Context mCtx;
+
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        mCtx=this;
+        mCtx = this;
         findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.store_setting_head_area).setOnClickListener(this);
         initFacility();
     }
 
     private void initFacility() {
-        ArrayList<Integer> list=new ArrayList<>();
+        ArrayList<Integer> list = new ArrayList<>();
         list.add(R.string.wi_fi);
         list.add(R.string.bar);
         list.add(R.string.business_circle);
@@ -50,14 +51,14 @@ public class StoreSettingActivity extends BaseActivity implements View.OnClickLi
         list.add(R.string.vip_rights);
         list.add(R.string.weekend_brunch);
 
-        StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL){
+        StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL) {
             @Override
             public boolean canScrollHorizontally() {
                 return false;
             }
         };
         recyclerView.setLayoutManager(layout);
-        recyclerView.setAdapter(new FacilityAdapter(this,list));
+        recyclerView.setAdapter(new FacilityAdapter(this, list));
         recyclerView.stopScroll();
     }
 
@@ -68,14 +69,14 @@ public class StoreSettingActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        Intent intent=new Intent();
-        switch (v.getId()){
+        Intent intent = new Intent();
+        switch (v.getId()) {
             case R.id.back:
                 finish();
                 break;
             case R.id.store_setting_head_area:
-                intent.setClass(mCtx,PhotoActivity.class);
-                intent.putExtra(Constant.ForIntent.PHOTO_TYPE,"logo");
+                intent.setClass(mCtx, PhotoActivity.class);
+                intent.putExtra(Constant.ForIntent.PHOTO_TYPE, "logo");
                 startActivity(intent);
                 break;
         }

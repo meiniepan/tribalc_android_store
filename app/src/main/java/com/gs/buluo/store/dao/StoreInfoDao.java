@@ -14,11 +14,11 @@ import org.xutils.x;
 public class StoreInfoDao {
     private DbManager db;
 
-    public StoreInfoDao(){
+    public StoreInfoDao() {
         db = x.getDb(TribeApplication.getInstance().getDaoConfig());
     }
 
-    public void clear(){
+    public void clear() {
         try {
             db.delete(StoreInfo.class);
         } catch (DbException e) {
@@ -26,7 +26,7 @@ public class StoreInfoDao {
         }
     }
 
-    public void saveBindingId(StoreInfo userInfo){
+    public void saveBindingId(StoreInfo userInfo) {
         try {
             db.saveBindingId(userInfo);
         } catch (DbException e) {
@@ -34,7 +34,7 @@ public class StoreInfoDao {
         }
     }
 
-    public void update(StoreInfo userInfo){
+    public void update(StoreInfo userInfo) {
         TribeApplication.getInstance().setUserInfo(userInfo);
         try {
             db.update(userInfo);
@@ -43,7 +43,7 @@ public class StoreInfoDao {
         }
     }
 
-    public StoreInfo findFirst(){
+    public StoreInfo findFirst() {
         try {
             return db.findFirst(StoreInfo.class);
         } catch (DbException e) {

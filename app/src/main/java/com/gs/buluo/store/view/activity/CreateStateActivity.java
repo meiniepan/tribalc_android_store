@@ -8,7 +8,7 @@ import com.gs.buluo.store.R;
 /**
  * Created by hjn on 2017/1/12.
  */
-public class CreateStateActivity extends BaseActivity{
+public class CreateStateActivity extends BaseActivity {
     @Override
     protected void bindView(Bundle savedInstanceState) {
         findViewById(R.id.store_process_back).setOnClickListener(new View.OnClickListener() {

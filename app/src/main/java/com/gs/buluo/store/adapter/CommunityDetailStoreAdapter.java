@@ -17,12 +17,13 @@ import java.util.List;
 /**
  * Created by hjn on 2016/11/28.
  */
-public class CommunityDetailStoreAdapter extends BaseAdapter{
+public class CommunityDetailStoreAdapter extends BaseAdapter {
     Context mCtx;
     List<ListStore> list;
-    public CommunityDetailStoreAdapter(Context context, List list){
-        mCtx=context;
-        this.list=list;
+
+    public CommunityDetailStoreAdapter(Context context, List list) {
+        mCtx = context;
+        this.list = list;
     }
 
     @Override
@@ -42,25 +43,25 @@ public class CommunityDetailStoreAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ListStore store=list.get(position);
-        CommunityDetailStoreHolder holder=null;
+        ListStore store = list.get(position);
+        CommunityDetailStoreHolder holder = null;
         if (convertView == null) {
-            holder=new CommunityDetailStoreHolder();
+            holder = new CommunityDetailStoreHolder();
             convertView = holder.getHolderView();
-        }else {
+        } else {
             holder = (CommunityDetailStoreHolder) convertView.getTag();
         }
-        holder.distance.setText(store.discount+"km");
+        holder.distance.setText(store.discount + "km");
 //        holder.money.setText(store.);
         holder.name.setText(store.name);
         holder.category.setText(store.brand);
-        FresoUtils.loadImage(store.mainPicture,holder.picture);
+        FresoUtils.loadImage(store.mainPicture, holder.picture);
 
         convertView.setTag(holder);
         return convertView;
     }
 
-    public class CommunityDetailStoreHolder{
+    public class CommunityDetailStoreHolder {
         public TextView name;
         public TextView category;
         public TextView money;

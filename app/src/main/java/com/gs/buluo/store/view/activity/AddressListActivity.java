@@ -30,9 +30,9 @@ public class AddressListActivity extends BaseActivity implements IAddressView {
     @Bind(R.id.address_list)
     RecyclerView mRecView;
 
-    List<UserAddressEntity> mDatas=new ArrayList<>();
-    private final  int REQUEST_ADD= 200;
-    private final  int REQUEST_UPDATE= 201;
+    List<UserAddressEntity> mDatas = new ArrayList<>();
+    private final int REQUEST_ADD = 200;
+    private final int REQUEST_UPDATE = 201;
 
     private AddressAdapter mAdapter;
     private AddressInfoDao addressInfoDao;
@@ -43,7 +43,7 @@ public class AddressListActivity extends BaseActivity implements IAddressView {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AddressListActivity.this, AddAddressActivity.class);
-                startActivityForResult(intent,REQUEST_ADD);
+                startActivityForResult(intent, REQUEST_ADD);
             }
         });
         findViewById(R.id.address_back).setOnClickListener(new View.OnClickListener() {
@@ -54,13 +54,13 @@ public class AddressListActivity extends BaseActivity implements IAddressView {
         });
 
         addressInfoDao = new AddressInfoDao();
-        mDatas= addressInfoDao.findAll(TribeApplication.getInstance().getUserInfo().getId());
-        if (null==mDatas||mDatas.size()==0){
+        mDatas = addressInfoDao.findAll(TribeApplication.getInstance().getUserInfo().getId());
+        if (null == mDatas || mDatas.size() == 0) {
             return;
         }
-        boolean fromOrder= getIntent().getBooleanExtra(Constant.ForIntent.FROM_ORDER,false);
+        boolean fromOrder = getIntent().getBooleanExtra(Constant.ForIntent.FROM_ORDER, false);
 
-        mAdapter = new AddressAdapter(this,mDatas);
+        mAdapter = new AddressAdapter(this, mDatas);
 
         mAdapter.setFromOrder(fromOrder);
         mRecView.setAdapter(mAdapter);
@@ -80,24 +80,26 @@ public class AddressListActivity extends BaseActivity implements IAddressView {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==REQUEST_ADD&&resultCode==RESULT_OK){
-            UserAddressEntity entity= (UserAddressEntity) data.getSerializableExtra(Constant.ADDRESS);
-            if (mDatas!=null){mDatas.add(entity);}
-            if (mAdapter==null){
-                mAdapter=new AddressAdapter(this,mDatas);
+        if (requestCode == REQUEST_ADD && resultCode == RESULT_OK) {
+            UserAddressEntity entity = (UserAddressEntity) data.getSerializableExtra(Constant.ADDRESS);
+            if (mDatas != null) {
+                mDatas.add(entity);
+            }
+            if (mAdapter == null) {
+                mAdapter = new AddressAdapter(this, mDatas);
                 mAdapter.notifyDataSetChanged();
-            }else {
+            } else {
                 mAdapter.notifyDataSetChanged();
             }
-        }else if (requestCode==REQUEST_UPDATE&&resultCode==RESULT_OK){
-            mDatas=addressInfoDao.findAll(TribeApplication.getInstance().getUserInfo().getId());
+        } else if (requestCode == REQUEST_UPDATE && resultCode == RESULT_OK) {
+            mDatas = addressInfoDao.findAll(TribeApplication.getInstance().getUserInfo().getId());
             mAdapter.setDatas(mDatas);
             mAdapter.notifyDataSetChanged();
         }
     }
 
-    public AddressPresenter getAddressPresenter(){
-        return  ((AddressPresenter)mPresenter);
+    public AddressPresenter getAddressPresenter() {
+        return ((AddressPresenter) mPresenter);
     }
 
     @Override
@@ -117,7 +119,7 @@ public class AddressListActivity extends BaseActivity implements IAddressView {
     @Override
     public void showError(int res) {
         LoadingDialog.getInstance().dismissDialog();
-        ToastUtils.ToastMessage(this,getString(res));
+        ToastUtils.ToastMessage(this, getString(res));
     }
 
 

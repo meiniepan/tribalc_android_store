@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white">
 
@@ -10,6 +11,7 @@
         android:orientation="vertical"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin">
+
         <LinearLayout
             android:gravity="center"
             android:layout_marginTop="10dp"
@@ -21,7 +23,7 @@
                 android:id="@+id/pay_close"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@mipmap/circle_close"/>
+                android:src="@mipmap/circle_close" />
 
             <TextView
                 android:layout_width="0dp"
@@ -30,33 +32,37 @@
                 android:layout_height="wrap_content"
                 android:text="付款详情"
                 android:textStyle="bold"
-                android:textSize="@dimen/dimens_18sp"/>
+                android:textSize="@dimen/dimens_18sp" />
+
             <ImageView
                 android:id="@+id/pay_ask"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@mipmap/circle_ask" />
         </LinearLayout>
-        <include layout="@layout/split_line_no_margin_common"/>
+
+        <include layout="@layout/split_line_no_margin_common" />
 
         <RelativeLayout
             android:id="@+id/pay_choose_area"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="60dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/common_gray"
                 android:layout_centerVertical="true"
-                android:text="@string/pay_way"/>
+                android:text="@string/pay_way" />
+
             <ImageView
                 android:id="@+id/pay_choose"
                 android:layout_width="20dp"
                 android:layout_height="15dp"
                 android:layout_centerVertical="true"
                 android:src="@mipmap/arrow_right"
-                android:layout_alignParentEnd="true"/>
+                android:layout_alignParentEnd="true" />
 
             <TextView
                 android:id="@+id/pay_way"
@@ -68,16 +74,19 @@
                 android:layout_toStartOf="@+id/pay_choose" />
         </RelativeLayout>
 
-        <include layout="@layout/split_line_no_margin_common"/>
+        <include layout="@layout/split_line_no_margin_common" />
+
         <RelativeLayout
             android:layout_marginTop="50dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="需付款"/>
+                android:text="需付款" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,6 +95,7 @@
                 android:id="@+id/textView5"
                 android:layout_alignParentTop="true"
                 android:layout_toStartOf="@+id/pay_money" />
+
             <TextView
                 android:id="@+id/pay_money"
                 android:layout_width="wrap_content"
@@ -95,9 +105,12 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true" />
         </RelativeLayout>
-        <RelativeLayout android:layout_width="match_parent"
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center">
+
             <TextView
                 android:id="@+id/pay_finish"
                 android:layout_alignParentBottom="true"

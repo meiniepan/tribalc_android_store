@@ -15,26 +15,26 @@ import com.gs.buluo.store.utils.DensityUtils;
  */
 public class CustomCheckedBox extends RelativeLayout implements CompoundButton.OnCheckedChangeListener {
     private final Context context;
-    private boolean status ;
+    private boolean status;
     private TextView content;
     private OnCheckChangedListener onCheckedListener;
 
     public CustomCheckedBox(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public CustomCheckedBox(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public CustomCheckedBox(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.context=context;
+        this.context = context;
         initView();
     }
 
     private void initView() {
-        CheckBox box=new CheckBox(context);
+        CheckBox box = new CheckBox(context);
         box.setGravity(CENTER_IN_PARENT);
         this.addView(box);
         box.setOnCheckedChangeListener(this);
@@ -45,19 +45,19 @@ public class CustomCheckedBox extends RelativeLayout implements CompoundButton.O
         onCheckedListener.onCheckedChanged(isChecked);
     }
 
-    public void setOnCheckedListener(OnCheckChangedListener onCheckedListener){
-        this.onCheckedListener=onCheckedListener;
+    public void setOnCheckedListener(OnCheckChangedListener onCheckedListener) {
+        this.onCheckedListener = onCheckedListener;
     }
 
-    public interface OnCheckChangedListener{
+    public interface OnCheckChangedListener {
         void onCheckedChanged(boolean isChecked);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int i =getChildCount();
-        View view =getChildAt(0);
-        measureChild(view,DensityUtils.dip2px(context,18),DensityUtils.dip2px(context,18));
-        setMeasuredDimension(widthMeasureSpec,heightMeasureSpec);
+        int i = getChildCount();
+        View view = getChildAt(0);
+        measureChild(view, DensityUtils.dip2px(context, 18), DensityUtils.dip2px(context, 18));
+        setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
     }
 }

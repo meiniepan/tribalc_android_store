@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
     <TextView
         android:layout_marginBottom="10dp"
         android:id="@+id/bank_name"
@@ -15,5 +16,5 @@
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:textSize="@dimen/dimens_16sp"
-        android:text="@string/china_bank"/>
+        android:text="@string/china_bank" />
 </LinearLayout>

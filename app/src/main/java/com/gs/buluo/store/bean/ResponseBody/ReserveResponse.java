@@ -11,7 +11,7 @@ public class ReserveResponse {
     public int code;
     public ReserveResponseBody data;
 
-    public class ReserveResponseBody{
+    public class ReserveResponseBody {
         public String category;
         public String sort;
         public String prevSkip;

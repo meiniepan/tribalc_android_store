@@ -10,6 +10,7 @@ public class CommunityPlate {
     public String phone;
     public String mainPicture;
     public String city;
+
     @Override
     public String toString() {
         return "CommunityPlate{" +

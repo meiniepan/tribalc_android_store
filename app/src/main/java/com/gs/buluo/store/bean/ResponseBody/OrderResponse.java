@@ -11,12 +11,12 @@ public class OrderResponse {
     public int code;
     public OrderResponseBean data;
 
-    public class OrderResponseBean{
+    public class OrderResponseBean {
         public String status;
         public String nextSkip;
         public String preSkip;
         public boolean haseMore;
-        public  List<OrderBean> content;
+        public List<OrderBean> content;
 
     }
 }

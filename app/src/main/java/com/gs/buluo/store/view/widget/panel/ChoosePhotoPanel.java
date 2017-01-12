@@ -43,13 +43,15 @@ public class ChoosePhotoPanel extends Dialog implements View.OnClickListener {
     TextView choose;
     @Bind(R.id.cancel)
     TextView cancel;
-    private  Activity mContext;
+    private Activity mContext;
     private GalleryFinal.OnHanlderResultCallback onHanlderResultCallback;
+    private boolean isMuti;
 
-    public ChoosePhotoPanel(Activity context,OnSelectedFinished onSelectedFinished){
-        super(context,R.style.my_dialog);
-        this.onSelectedFinished=onSelectedFinished;
+    public ChoosePhotoPanel(Activity context, boolean isMuti, OnSelectedFinished onSelectedFinished) {
+        super(context, R.style.my_dialog);
+        this.onSelectedFinished = onSelectedFinished;
         mContext = context;
+        this.isMuti = isMuti;
         initGallery();
         initView();
     }
@@ -63,39 +65,43 @@ public class ChoosePhotoPanel extends Dialog implements View.OnClickListener {
         cancel.setOnClickListener(this);
         Window window = getWindow();
         WindowManager.LayoutParams params = window.getAttributes();
-        params.width= ViewGroup.LayoutParams.MATCH_PARENT;
-        params.height= ViewGroup.LayoutParams.WRAP_CONTENT;
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         params.gravity = Gravity.BOTTOM;
         window.setAttributes(params);
 
         onHanlderResultCallback = new GalleryFinal.OnHanlderResultCallback() {
             @Override
             public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
-                if (reqeustCode==REQUEST_CODE_GALLERY){
-                    GalleryFinal.openCrop(REQUEST_CODE_CROP, IMAGE_FILE_DIR,onHanlderResultCallback);
+                if (reqeustCode == REQUEST_CODE_GALLERY) {
+                    GalleryFinal.openCrop(REQUEST_CODE_CROP, IMAGE_FILE_DIR, onHanlderResultCallback);
                     onSelectedFinished.onSelected(resultList.get(0).getPhotoPath());
-                }else if (reqeustCode==REQUEST_CODE_CAMERA){
-                    GalleryFinal.openCrop(REQUEST_CODE_CROP, IMAGE_FILE_DIR,onHanlderResultCallback);
+                } else if (reqeustCode == REQUEST_CODE_CAMERA) {
+                    GalleryFinal.openCrop(REQUEST_CODE_CROP, IMAGE_FILE_DIR, onHanlderResultCallback);
                     onSelectedFinished.onSelected(resultList.get(0).getPhotoPath());
                 }
             }
 
             @Override
             public void onHanlderFailure(int requestCode, String errorMsg) {
-                ToastUtils.ToastMessage(mContext,errorMsg);
+                ToastUtils.ToastMessage(mContext, errorMsg);
             }
         };
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.take_photo:
                 GalleryFinal.openCamera(REQUEST_CODE_CAMERA, onHanlderResultCallback);
                 dismiss();
                 break;
             case R.id.choose_photo:
-                GalleryFinal.openGallerySingle(REQUEST_CODE_GALLERY,onHanlderResultCallback);
+                if (isMuti) {
+                    GalleryFinal.openGalleryMuti(REQUEST_CODE_GALLERY, 9, onHanlderResultCallback);
+                } else {
+                    GalleryFinal.openGallerySingle(REQUEST_CODE_GALLERY, onHanlderResultCallback);
+                }
                 dismiss();
                 break;
             case R.id.cancel:
@@ -103,7 +109,8 @@ public class ChoosePhotoPanel extends Dialog implements View.OnClickListener {
                 break;
         }
     }
-    public interface OnSelectedFinished{
+
+    public interface OnSelectedFinished {
         void onSelected(String string);
     }
 

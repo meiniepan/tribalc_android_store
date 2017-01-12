@@ -23,7 +23,7 @@ import butterknife.Bind;
  * Created by hjn on 2016/11/8.
  */
 public class AddAddressActivity extends BaseActivity implements IAddAddressView {
-//    @Bind(R.id.et_address_code)
+    //    @Bind(R.id.et_address_code)
 //    EditText mCode;
     @Bind(R.id.et_address_area_detail)
     EditText mDetail;
@@ -41,7 +41,7 @@ public class AddAddressActivity extends BaseActivity implements IAddAddressView 
     @Override
     protected void bindView(Bundle savedInstanceState) {
         mEntity = (UserAddressEntity) getIntent().getSerializableExtra(Constant.ADDRESS);
-        if (null!=mEntity){
+        if (null != mEntity) {
             mName.setText(mEntity.getName());
             mNumber.setText(mEntity.getPhone());
             mAddress.setText(mEntity.getArea());
@@ -59,7 +59,7 @@ public class AddAddressActivity extends BaseActivity implements IAddAddressView 
 
             @Override
             public void onClick(View v) {
-                UserAddressEntity entity=new UserAddressEntity();
+                UserAddressEntity entity = new UserAddressEntity();
                 String name = mName.getText().toString().trim();
                 String detailAddress = mDetail.getText().toString().trim();
                 String phone = mNumber.getText().toString().trim();
@@ -67,19 +67,19 @@ public class AddAddressActivity extends BaseActivity implements IAddAddressView 
                 entity.setName(name);
                 entity.setPhone(phone);
                 entity.setUid(TribeApplication.getInstance().getUserInfo().getId());
-                String str[]=addr.split("-");
+                String str[] = addr.split("-");
                 entity.setProvice(str[0]);
                 entity.setCity(str[1]);
                 entity.setDistrict(str[2]);
                 entity.setAddress(detailAddress);
-                if (null==mEntity){
+                if (null == mEntity) {
                     showLoadingDialog();
-                    ((AddAddressPresenter)mPresenter).addAddress(TribeApplication.getInstance().getUserInfo().getId(),entity);
-                }else {
+                    ((AddAddressPresenter) mPresenter).addAddress(TribeApplication.getInstance().getUserInfo().getId(), entity);
+                } else {
                     showLoadingDialog();
                     entity.setMid(mEntity.getMid());
                     entity.setId(mEntity.getId());
-                    ((AddAddressPresenter)mPresenter).updateAddress(TribeApplication.getInstance().getUserInfo().getId(),mEntity.getId(),entity);
+                    ((AddAddressPresenter) mPresenter).updateAddress(TribeApplication.getInstance().getUserInfo().getId(), mEntity.getId(), entity);
                 }
 
             }
@@ -106,9 +106,9 @@ public class AddAddressActivity extends BaseActivity implements IAddAddressView 
     @Override
     public void addAddressSuccess(UserAddressEntity data) {
         LoadingDialog.getInstance().dismissDialog();
-        Intent intent=new Intent();
-        intent.putExtra(Constant.ADDRESS,data);
-        setResult(RESULT_OK,intent);
+        Intent intent = new Intent();
+        intent.putExtra(Constant.ADDRESS, data);
+        setResult(RESULT_OK, intent);
         finish();
     }
 
@@ -122,7 +122,7 @@ public class AddAddressActivity extends BaseActivity implements IAddAddressView 
     @Override
     public void showError(int res) {
         LoadingDialog.getInstance().dismissDialog();
-        ToastUtils.ToastMessage(this,res);
+        ToastUtils.ToastMessage(this, res);
     }
 
     private void initAddressPicker() {

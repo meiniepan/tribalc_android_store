@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:clipToPadding="true"
@@ -10,22 +11,24 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="#2A2A2A">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="@dimen/title_size"
             android:textColor="#fff"
-            android:text="@string/detail_address"/>
+            android:text="@string/detail_address" />
 
         <View
             android:layout_width="wrap_content"
             android:layout_height="0.5dp"
             android:layout_alignParentBottom="true"
-            android:background="#000"/>
+            android:background="#000" />
 
-        <include layout="@layout/back_img_white"
-            android:id="@+id/add_address_back"/>
+        <include
+            layout="@layout/back_img_white"
+            android:id="@+id/add_address_back" />
     </RelativeLayout>
 
     <LinearLayout
@@ -34,16 +37,18 @@
         android:orientation="vertical"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="收货人    "
                 android:textSize="@dimen/dimens_16sp"
-                android:gravity="center_vertical"/>
+                android:gravity="center_vertical" />
 
             <EditText
                 android:id="@+id/et_address_name"
@@ -52,19 +57,20 @@
                 android:layout_marginStart="30dp"
                 android:textSize="@dimen/dimens_16sp"
                 android:hint="@string/name"
-                android:background="@null"/>
+                android:background="@null" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/phone"
                 android:textSize="@dimen/dimens_16sp"
-                android:gravity="center_vertical"/>
+                android:gravity="center_vertical" />
 
             <EditText
                 android:id="@+id/et_address_number"
@@ -74,18 +80,20 @@
                 android:textSize="@dimen/dimens_16sp"
                 android:layout_marginStart="30dp"
                 android:hint="@string/input_phone"
-                android:background="@null"/>
+                android:background="@null" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="选择地区"
                 android:textSize="@dimen/dimens_16sp"
-                android:gravity="center_vertical"/>
+                android:gravity="center_vertical" />
 
 
             <TextView
@@ -97,18 +105,20 @@
                 android:gravity="center_vertical"
                 android:text="请选择地区"
                 android:textSize="@dimen/dimens_16sp"
-                android:background="@null"/>
+                android:background="@null" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="详细地址"
                 android:textSize="@dimen/dimens_16sp"
-                android:gravity="center_vertical"/>
+                android:gravity="center_vertical" />
 
             <EditText
                 android:id="@+id/et_address_area_detail"
@@ -117,7 +127,7 @@
                 android:layout_marginStart="30dp"
                 android:textSize="@dimen/dimens_16sp"
                 android:hint="@string/detail_street_info"
-                android:background="@null"/>
+                android:background="@null" />
         </LinearLayout>
     </LinearLayout>
 
@@ -132,5 +142,5 @@
         android:gravity="center"
         android:textColor="#fff"
         android:textSize="@dimen/dimens_20sp"
-        android:background="@drawable/button_selector"/>
+        android:background="@drawable/button_selector" />
 </LinearLayout>

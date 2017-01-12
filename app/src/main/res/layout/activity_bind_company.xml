@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical" android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:fitsSystemWindows="true"
-              android:clipToPadding="true">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="#2A2A2A">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="@dimen/title_size"
             android:textColor="#fff"
-            android:text="我的公司"/>
+            android:text="我的公司" />
 
         <View
             android:layout_width="wrap_content"
             android:layout_height="0.5dp"
             android:layout_alignParentBottom="true"
-            android:background="#000"/>
+            android:background="#000" />
 
-        <include layout="@layout/back_img_white"
-                 android:id="@+id/bind_company_back"/>
+        <include
+            layout="@layout/back_img_white"
+            android:id="@+id/bind_company_back" />
     </RelativeLayout>
 
     <TextView
@@ -33,24 +37,24 @@
         android:textSize="@dimen/dimens_16sp"
         android:gravity="center"
         android:textStyle="bold"
-        android:text="企业绑定"/>
+        android:text="企业绑定" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="#22000000"/>
+        android:background="#22000000" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/bind_company_item_height"
-        >
+        android:layout_height="@dimen/bind_company_item_height">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="公司名称"
             android:textSize="@dimen/dimens_16sp"
             android:gravity="center_vertical"
-            android:layout_marginStart="20dp"/>
+            android:layout_marginStart="20dp" />
 
         <TextView
             android:text="请选择"
@@ -59,81 +63,88 @@
             android:layout_width="match_parent"
             android:layout_marginStart="30dp"
             android:gravity="center_vertical"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/bind_company_item_height"
-        >
+        android:layout_height="@dimen/bind_company_item_height">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="姓        名"
             android:textSize="@dimen/dimens_16sp"
             android:gravity="center_vertical"
-            android:layout_marginStart="20dp"/>
+            android:layout_marginStart="20dp" />
+
         <EditText
             android:id="@+id/et_user_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="30dp"
             android:hint="@string/input_real_name"
-            android:background="@null"/>
+            android:background="@null" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/bind_company_item_height">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="部        门"
             android:textSize="@dimen/dimens_16sp"
             android:gravity="center_vertical"
-            android:layout_marginStart="20dp"/>
+            android:layout_marginStart="20dp" />
+
         <EditText
             android:id="@+id/et_part_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="30dp"
             android:hint="请输入部门名称"
-            android:background="@null"/>
+            android:background="@null" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/bind_company_item_height">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="职        位"
             android:textSize="@dimen/dimens_16sp"
             android:gravity="center_vertical"
-            android:layout_marginStart="20dp"/>
+            android:layout_marginStart="20dp" />
+
         <EditText
             android:id="@+id/et_position_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="30dp"
             android:hint="请输入职位"
-            android:background="@null"/>
+            android:background="@null" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/bind_company_item_height">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="工        号"
             android:textSize="@dimen/dimens_16sp"
             android:gravity="center_vertical"
-            android:layout_marginStart="20dp"/>
+            android:layout_marginStart="20dp" />
+
         <EditText
             android:id="@+id/et_work_number"
             android:layout_width="match_parent"
@@ -141,7 +152,7 @@
             android:layout_marginStart="30dp"
             android:hint="请输入工号"
             android:inputType="number"
-            android:background="@null"/>
+            android:background="@null" />
 
     </LinearLayout>
 
@@ -156,7 +167,6 @@
         android:gravity="center"
         android:text="绑定"
         android:textColor="@color/white"
-        android:textSize="@dimen/dimens_20sp"
-        />
+        android:textSize="@dimen/dimens_20sp" />
 
 </LinearLayout>

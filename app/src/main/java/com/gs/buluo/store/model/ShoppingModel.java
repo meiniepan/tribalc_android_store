@@ -20,48 +20,48 @@ import retrofit2.Callback;
  */
 public class ShoppingModel {
 
-    public void getOrder(String uid,String status, String limitSize, String sortSkip, Callback<OrderResponse> callback){
+    public void getOrder(String uid, String status, String limitSize, String sortSkip, Callback<OrderResponse> callback) {
         TribeRetrofit.getInstance().createApi(ShoppingService.class).
-                getOrder(uid,limitSize,sortSkip,status).enqueue(callback);
+                getOrder(uid, limitSize, sortSkip, status).enqueue(callback);
     }
 
-    public void updateOrder(String uid, ValueRequestBody status, String orderId, Callback<BaseResponse> callback){
+    public void updateOrder(String uid, ValueRequestBody status, String orderId, Callback<BaseResponse> callback) {
         TribeRetrofit.getInstance().createApi(ShoppingService.class).
-                updateOrderStatus(orderId,uid,status).enqueue(callback);
+                updateOrderStatus(orderId, uid, status).enqueue(callback);
     }
 
-    public void getOrderFirst(String uid, String status, String limitSize, Callback<OrderResponse> callback){
+    public void getOrderFirst(String uid, String status, String limitSize, Callback<OrderResponse> callback) {
         TribeRetrofit.getInstance().createApi(ShoppingService.class).
-                getOrderFirst(uid,limitSize,status).enqueue(callback);
+                getOrderFirst(uid, limitSize, status).enqueue(callback);
     }
 
-    public void getShoppingListMore(String uid,String sortSkip, Callback<ShoppingCartResponse> callback){
+    public void getShoppingListMore(String uid, String sortSkip, Callback<ShoppingCartResponse> callback) {
         TribeRetrofit.getInstance().createApi(ShoppingService.class).
-                getShoppingCarList(uid,sortSkip).enqueue(callback);
+                getShoppingCarList(uid, sortSkip).enqueue(callback);
     }
 
-    public void getShoppingListFirst(String uid,Callback<ShoppingCartResponse> callback){
+    public void getShoppingListFirst(String uid, Callback<ShoppingCartResponse> callback) {
         TribeRetrofit.getInstance().createApi(ShoppingService.class).
-                getShoppingCarListFirst(uid,50).enqueue(callback);
+                getShoppingCarListFirst(uid, 50).enqueue(callback);
     }
 
-    public void deleteShoppingItem(String body, Callback<BaseResponse> callback){
+    public void deleteShoppingItem(String body, Callback<BaseResponse> callback) {
         TribeRetrofit.getInstance().createApi(ShoppingService.class).
-                deleteCart(TribeApplication.getInstance().getUserInfo().getId(),body).enqueue(callback);
+                deleteCart(TribeApplication.getInstance().getUserInfo().getId(), body).enqueue(callback);
     }
 
-    public void updateShoppingItem(ShoppingCartGoodsItem body, Callback<CartItemUpdateResponse> callback){
+    public void updateShoppingItem(ShoppingCartGoodsItem body, Callback<CartItemUpdateResponse> callback) {
         TribeRetrofit.getInstance().createApi(ShoppingService.class).
-                updateCartItem(TribeApplication.getInstance().getUserInfo().getId(),body).enqueue(callback);
+                updateCartItem(TribeApplication.getInstance().getUserInfo().getId(), body).enqueue(callback);
     }
 
-    public void addShoppingCart(NewOrderBean body, Callback<BaseResponse> callback){
+    public void addShoppingCart(NewOrderBean body, Callback<BaseResponse> callback) {
         TribeRetrofit.getInstance().createApi(ShoppingService.class).
-                addCartItem(TribeApplication.getInstance().getUserInfo().getId(),body).enqueue(callback);
+                addCartItem(TribeApplication.getInstance().getUserInfo().getId(), body).enqueue(callback);
     }
 
-    public void createNewOrder(NewOrderRequestBody body, Callback<NewOrderResponse> callback){
+    public void createNewOrder(NewOrderRequestBody body, Callback<NewOrderResponse> callback) {
         TribeRetrofit.getInstance().createApi(ShoppingService.class).
-                createNewOrder(TribeApplication.getInstance().getUserInfo().getId(),body).enqueue(callback);
+                createNewOrder(TribeApplication.getInstance().getUserInfo().getId(), body).enqueue(callback);
     }
 }

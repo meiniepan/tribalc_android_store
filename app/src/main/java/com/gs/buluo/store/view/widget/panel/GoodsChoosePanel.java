@@ -33,7 +33,7 @@ import butterknife.ButterKnife;
  * Created by hjn on 2016/11/17.
  */
 public class GoodsChoosePanel extends Dialog implements View.OnClickListener, DialogInterface.OnDismissListener {
-    private  OnShowInDetail onShowInDetail;
+    private OnShowInDetail onShowInDetail;
     @Bind(R.id.goods_level1)
     RecyclerView leve1View1;
     @Bind(R.id.goods_level2)
@@ -64,14 +64,14 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
     private GoodsLevel1Adapter2 adapter2;
     private GoodsLevel1Adapter1 adapter1;
     private View car;
-//    private View buy;
+    //    private View buy;
     private View finish;
     private OnSelectFinish selectFinish;
     private AddCartListener addCartListener;
 
-    public GoodsChoosePanel(Context context,OnShowInDetail onShowInDetail) {
+    public GoodsChoosePanel(Context context, OnShowInDetail onShowInDetail) {
         super(context, R.style.my_dialog);
-        this.onShowInDetail=onShowInDetail;
+        this.onShowInDetail = onShowInDetail;
         mContext = context;
         initView();
     }
@@ -79,12 +79,13 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
     public void setData(GoodsStandard goodsEntity) {
         initData(goodsEntity);
     }
+
     public void setRepertory(ListGoodsDetail goodsDetail) {
         defaultEntity = goodsDetail;
-        if (defaultEntity==null)return;
+        if (defaultEntity == null) return;
         mPrice.setText(defaultEntity.salePrice);
-        mRemainNumber.setText(defaultEntity.repertory+"");
-        FresoUtils.loadImage(defaultEntity.mainPicture,mIcon);
+        mRemainNumber.setText(defaultEntity.repertory + "");
+        FresoUtils.loadImage(defaultEntity.mainPicture, mIcon);
     }
 
     private void initData(final GoodsStandard entity) {
@@ -118,7 +119,7 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
                 mKind.setText(s);
                 leve11Key = s;
                 defaultEntity = goodsMap.get(leve11Key);
-                if (TextUtils.isEmpty(s))return;
+                if (TextUtils.isEmpty(s)) return;
                 FresoUtils.loadImage(defaultEntity.mainPicture, mIcon);
                 mPrice.setText(defaultEntity.salePrice);
                 mRemainNumber.setText(defaultEntity.repertory + "");
@@ -145,7 +146,7 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
             public void onClick(String s) {
                 mKind.setText(s);
                 leve11Key = s;
-                changeSelectAdapter2(goodsMap, adapter2, t2.types,s);
+                changeSelectAdapter2(goodsMap, adapter2, t2.types, s);
 
             }
         });
@@ -153,15 +154,15 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
             @Override
             public void onClick(String s) {
                 level2Key = s;
-                changeSelectAdapter1(goodsMap, adapter1, t1.types,s);
+                changeSelectAdapter1(goodsMap, adapter1, t1.types, s);
             }
         });
     }
 
     //点击第一级，改变第二级的状态
     private void changeSelectAdapter2(Map<String, ListGoodsDetail> goodsIndexes, GoodsLevel1Adapter2 adapter2, List<String> types, String key2) {
-        if (TextUtils.isEmpty(key2)){
-            defaultEntity=null;
+        if (TextUtils.isEmpty(key2)) {
+            defaultEntity = null;
             adapter2.setUnClickable("");
             return;
         }
@@ -182,8 +183,8 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
     }
 
     private void changeSelectAdapter1(Map<String, ListGoodsDetail> goodsIndexes, GoodsLevel1Adapter1 adapter1, List<String> types, String key1) {
-        if (TextUtils.isEmpty(key1)){
-            defaultEntity=null;
+        if (TextUtils.isEmpty(key1)) {
+            defaultEntity = null;
             adapter1.setUnClickable("");
             return;
         }
@@ -227,8 +228,8 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.goods_board_add:
-                if (nowNum==defaultEntity.repertory){
-                    ToastUtils.ToastMessage(mContext,mContext.getString(R.string.not_enough_goods));
+                if (nowNum == defaultEntity.repertory) {
+                    ToastUtils.ToastMessage(mContext, mContext.getString(R.string.not_enough_goods));
                     return;
                 }
                 nowNum += 1;
@@ -244,7 +245,7 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
     }
 
     private void addCartItem() {
-        addCartListener.onAddCart(defaultEntity.id,nowNum);
+        addCartListener.onAddCart(defaultEntity.id, nowNum);
     }
 
     public void setFromShoppingCar(OnSelectFinish onSelectedFinished) {
@@ -260,23 +261,23 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
 
     @Override
     public void onDismiss(DialogInterface dialog) {
-        if (onShowInDetail==null||defaultEntity==null)return;
-        onShowInDetail.onShow(defaultEntity.standardSnapshot,nowNum);
+        if (onShowInDetail == null || defaultEntity == null) return;
+        onShowInDetail.onShow(defaultEntity.standardSnapshot, nowNum);
     }
 
     public void setAmount(int amount) {
-        mNumber.setText(amount+"");
+        mNumber.setText(amount + "");
     }
 
     public interface OnSelectFinish {
         void onSelected(String newId, int nowNum);
     }
 
-    public interface AddCartListener{
+    public interface AddCartListener {
         void onAddCart(String id, int nowNum);
     }
 
     public interface OnShowInDetail {
-        void onShow(String standard,int num);
+        void onShow(String standard, int num);
     }
 }

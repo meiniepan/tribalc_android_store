@@ -29,11 +29,13 @@
             android:id="@+id/back"
             layout="@layout/back_img_white" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
             android:id="@+id/holder_image"
             android:layout_width="match_parent"
@@ -47,8 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-        </com.gs.buluo.store.view.widget.CustomAddLayout>
+            android:orientation="horizontal"></com.gs.buluo.store.view.widget.CustomAddLayout>
     </RelativeLayout>
 
 

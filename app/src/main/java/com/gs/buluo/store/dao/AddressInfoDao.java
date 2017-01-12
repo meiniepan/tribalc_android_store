@@ -17,11 +17,11 @@ import java.util.List;
 public class AddressInfoDao {
     private DbManager db;
 
-    public AddressInfoDao(){
+    public AddressInfoDao() {
         db = x.getDb(TribeApplication.getInstance().getDaoConfig());
     }
 
-    public void clear(){
+    public void clear() {
         try {
             db.delete(AddressInfoDao.class);
         } catch (DbException e) {
@@ -29,7 +29,7 @@ public class AddressInfoDao {
         }
     }
 
-    public void saveBindingId(UserAddressEntity addressInfo){
+    public void saveBindingId(UserAddressEntity addressInfo) {
         try {
             db.saveBindingId(addressInfo);
         } catch (DbException e) {
@@ -37,7 +37,7 @@ public class AddressInfoDao {
         }
     }
 
-    public void update(UserAddressEntity addressInfo){
+    public void update(UserAddressEntity addressInfo) {
         try {
             db.update(addressInfo);
         } catch (DbException e) {
@@ -45,7 +45,7 @@ public class AddressInfoDao {
         }
     }
 
-    public UserAddressEntity findFirst(String uid){
+    public UserAddressEntity findFirst(String uid) {
         try {
             return db.findFirst(UserAddressEntity.class);
         } catch (DbException e) {
@@ -54,9 +54,9 @@ public class AddressInfoDao {
         return null;
     }
 
-    public UserAddressEntity find(String uid,String aid){
+    public UserAddressEntity find(String uid, String aid) {
         try {
-            return db.selector(UserAddressEntity.class).where(WhereBuilder.b("address_id","=",aid).and(WhereBuilder.b("uid","=",uid))).findFirst();
+            return db.selector(UserAddressEntity.class).where(WhereBuilder.b("address_id", "=", aid).and(WhereBuilder.b("uid", "=", uid))).findFirst();
         } catch (DbException e) {
             e.printStackTrace();
         }
@@ -75,7 +75,7 @@ public class AddressInfoDao {
 
     public void deleteAddress(UserAddressEntity entity) {
         try {
-             db.delete(entity);
+            db.delete(entity);
         } catch (DbException e) {
             e.printStackTrace();
         }

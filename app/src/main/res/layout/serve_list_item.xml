@@ -13,8 +13,7 @@
         android:layout_marginStart="20dp"
         fresco:placeholderImage="@mipmap/head_icon"
         fresco:placeholderImageScaleType="centerInside"
-        fresco:actualImageScaleType="centerCrop"
-        />
+        fresco:actualImageScaleType="centerCrop" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,19 +40,19 @@
         android:id="@+id/serve_list_tags" />
 
     <!--<ImageView-->
-        <!--android:layout_width="24dp"-->
-        <!--android:layout_height="24dp"-->
-        <!--android:src="@mipmap/serve_seat"-->
-        <!--android:layout_alignBottom="@+id/serve_list_head"-->
-        <!--android:layout_alignStart="@+id/serve_shop_name"-->
-        <!--android:id="@+id/serve_book_seat" />-->
+    <!--android:layout_width="24dp"-->
+    <!--android:layout_height="24dp"-->
+    <!--android:src="@mipmap/serve_seat"-->
+    <!--android:layout_alignBottom="@+id/serve_list_head"-->
+    <!--android:layout_alignStart="@+id/serve_shop_name"-->
+    <!--android:id="@+id/serve_book_seat" />-->
     <!--<ImageView-->
-        <!--android:id="@+id/serve_book_room"-->
-        <!--android:layout_width="24dp"-->
-        <!--android:layout_height="24dp"-->
-        <!--android:src="@mipmap/serve_home"-->
-        <!--android:layout_alignTop="@+id/serve_book_seat"-->
-        <!--android:layout_alignEnd="@+id/serve_shop_name" />-->
+    <!--android:id="@+id/serve_book_room"-->
+    <!--android:layout_width="24dp"-->
+    <!--android:layout_height="24dp"-->
+    <!--android:src="@mipmap/serve_home"-->
+    <!--android:layout_alignTop="@+id/serve_book_seat"-->
+    <!--android:layout_alignEnd="@+id/serve_shop_name" />-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,21 +61,21 @@
         android:layout_alignStart="@+id/serve_shop_name"
         android:layout_alignParentBottom="true"
         android:paddingBottom="24dp">
+
         <TextView
             android:id="@+id/serve_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/dimens_18sp"
             android:textStyle="bold"
-            android:textColor="@color/common_dark"
-            />
+            android:textColor="@color/common_dark" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/dimens_12sp"
             android:textColor="@color/common_dark"
-            android:text="元/人"
-            />
+            android:text="元/人" />
     </LinearLayout>
 
     <View
@@ -84,6 +83,6 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/divide_gray"/>
+        android:background="@color/divide_gray" />
 
 </RelativeLayout>

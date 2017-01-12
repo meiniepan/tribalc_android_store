@@ -3,12 +3,12 @@
     android:layout_height="wrap_content"
     android:background="#fff"
     android:orientation="vertical"
-    android:paddingTop="16dip" >
+    android:paddingTop="16dip">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="5dip" >
+        android:paddingTop="5dip">
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
             android:layout_alignParentEnd="true"
             android:textSize="@dimen/dimens_14sp"
             android:textColor="#770000ff"
-            android:layout_marginEnd="16dp"/>
+            android:layout_marginEnd="16dp" />
     </RelativeLayout>
 
     <LinearLayout
@@ -42,15 +42,13 @@
             android:id="@+id/id_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" >
-        </com.gs.buluo.store.view.widget.wheel.WheelView>
+            android:layout_weight="1"></com.gs.buluo.store.view.widget.wheel.WheelView>
 
         <com.gs.buluo.store.view.widget.wheel.WheelView
             android:id="@+id/id_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" >
-        </com.gs.buluo.store.view.widget.wheel.WheelView>
+            android:layout_weight="1"></com.gs.buluo.store.view.widget.wheel.WheelView>
 
 
     </LinearLayout>

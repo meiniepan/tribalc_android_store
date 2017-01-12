@@ -54,7 +54,7 @@ public class MapActivity extends BaseActivity implements OnGetGeoCoderResultList
     protected void bindView(Bundle savedInstanceState) {
 //        MapView.setMapCustomEnable(true);
 //        setMapCustomFile(this);
-        mMapView= (MapView) findViewById(R.id.map_food);
+        mMapView = (MapView) findViewById(R.id.map_food);
         // 地图初始化
         mBaiduMap = mMapView.getMap();
         // 开启定位图层

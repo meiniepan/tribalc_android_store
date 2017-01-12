@@ -20,7 +20,7 @@ import butterknife.Bind;
 /**
  * Created by hjn on 2016/11/3.
  */
-public class LoginActivity extends BaseActivity implements View.OnClickListener ,ILoginView {
+public class LoginActivity extends BaseActivity implements View.OnClickListener, ILoginView {
     @Bind(R.id.login_username)
     EditText et_phone;
     @Bind(R.id.login_verify)
@@ -49,34 +49,36 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         String phone = et_phone.getText().toString().trim();
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.login_back:
                 finish();
                 break;
             case R.id.login_send_verify:
-                if (!CommonUtils.checkPhone("86",phone,this))return;
-                ((LoginPresenter)mPresenter).doVerify(phone);
+                if (!CommonUtils.checkPhone("86", phone, this)) return;
+                ((LoginPresenter) mPresenter).doVerify(phone);
                 break;
             case R.id.login:
-                if (!CommonUtils.checkPhone("86",phone,this))return;
+                if (!CommonUtils.checkPhone("86", phone, this)) return;
                 params = new HashMap<>();
                 params.put(Constant.PHONE, phone);
-                params.put(Constant.VERIFICATION,et_verify.getText().toString().trim());
-                ((LoginPresenter)mPresenter).doLogin(params);
+                params.put(Constant.VERIFICATION, et_verify.getText().toString().trim());
+                ((LoginPresenter) mPresenter).doLogin(params);
                 break;
         }
     }
+
     @Override
-    public  void dealWithIdentify(int res) {
-        switch (res){
+    public void dealWithIdentify(int res) {
+        switch (res) {
             case 202:
                 reg_send.setText("60s");
-                new CountDownTimer(60000,1000){
+                new CountDownTimer(60000, 1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
                         reg_send.setClickable(false);
-                        reg_send.setText(millisUntilFinished/1000+"秒");
+                        reg_send.setText(millisUntilFinished / 1000 + "秒");
                     }
+
                     @Override
                     public void onFinish() {
                         reg_send.setText("获取验证码");
@@ -85,14 +87,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 }.start();
                 break;
             case 400:
-                ToastUtils.ToastMessage(this,getString(R.string.wrong_number));
+                ToastUtils.ToastMessage(this, getString(R.string.wrong_number));
                 break;
         }
     }
 
     @Override
     public void showError(int res) {
-        ToastUtils.ToastMessage(this,res);
+        ToastUtils.ToastMessage(this, res);
     }
 
     @Override

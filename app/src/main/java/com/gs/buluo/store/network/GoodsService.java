@@ -16,13 +16,14 @@ import retrofit2.http.Query;
 public interface GoodsService {
     @GET("goods")
     Call<BaseResponse<GoodList>> getGoodsList(
-            @Query("category") String category,@Query("limitSize") int limitSize
-            ,@Query("sortSkip") String sortSkip
+            @Query("category") String category, @Query("limitSize") int limitSize
+            , @Query("sortSkip") String sortSkip
 //            ,@Query("sort") String sort
     );
+
     @GET("goods")
     Call<BaseResponse<GoodList>> getGoodsListFirst(
-           @Query("limitSize") String limitSize
+            @Query("limitSize") String limitSize
 //           ,@Query("sort") String sort
     );
 

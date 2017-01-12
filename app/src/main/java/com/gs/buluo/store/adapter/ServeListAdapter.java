@@ -26,7 +26,7 @@ public class ServeListAdapter extends RecyclerAdapter<ListStoreSetMeal> {
 
     public ServeListAdapter(Context context) {
         super(context);
-        mCtx=context;
+        mCtx = context;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ServeListAdapter extends RecyclerAdapter<ListStoreSetMeal> {
         return serveItemHolder;
     }
 
-    class ServeItemHolder extends BaseViewHolder<ListStoreSetMeal>{
+    class ServeItemHolder extends BaseViewHolder<ListStoreSetMeal> {
         TextView tags;
         TextView name;
         TextView money;
@@ -43,17 +43,18 @@ public class ServeListAdapter extends RecyclerAdapter<ListStoreSetMeal> {
         ImageView seat;
         ImageView room;
         View line;
+
         public ServeItemHolder(ViewGroup itemView) {
             super(itemView, R.layout.serve_list_item);
         }
 
         @Override
         public void onInitializeView() {
-            tags =findViewById(R.id.serve_list_tags);
-            name=findViewById(R.id.serve_shop_name);
-            picture=findViewById(R.id.serve_list_head);
-            money=findViewById(R.id.serve_price);
-            line=findViewById(R.id.serve_line);
+            tags = findViewById(R.id.serve_list_tags);
+            name = findViewById(R.id.serve_shop_name);
+            picture = findViewById(R.id.serve_list_head);
+            money = findViewById(R.id.serve_price);
+            line = findViewById(R.id.serve_line);
 //            room_select=findViewById(R.id.serve_book_room);
 //            seat=findViewById(R.id.serve_book_seat);
         }
@@ -61,18 +62,18 @@ public class ServeListAdapter extends RecyclerAdapter<ListStoreSetMeal> {
         @Override
         public void setData(ListStoreSetMeal entity) {
             super.setData(entity);
-            if (entity==null||entity.store==null)return;
+            if (entity == null || entity.store == null) return;
             name.setText(entity.name);
             money.setText(entity.personExpense);
             tags.setText(entity.store.markPlace);
-            if (entity.tags!=null&&entity.tags.size()>0){
-                tags.setText(entity.store.markPlace+" | "+entity.tags.get(0));
+            if (entity.tags != null && entity.tags.size() > 0) {
+                tags.setText(entity.store.markPlace + " | " + entity.tags.get(0));
             }
-            FresoUtils.loadImage(entity.mainPicture,picture);
-            if (isFilter){
+            FresoUtils.loadImage(entity.mainPicture, picture);
+            if (isFilter) {
                 picture.setColorFilter(0x70000000);
                 line.setBackgroundColor(0x4000000);
-            }else {
+            } else {
                 picture.setColorFilter(0x00000000);
                 line.setBackgroundColor(0xffdddddd);
             }
@@ -80,8 +81,8 @@ public class ServeListAdapter extends RecyclerAdapter<ListStoreSetMeal> {
 
         @Override
         public void onItemViewClick(ListStoreSetMeal entity) {
-            Intent intent=new Intent(mCtx,ServeDetailActivity.class);
-            intent.putExtra(Constant.SERVE_ID,entity.id);
+            Intent intent = new Intent(mCtx, ServeDetailActivity.class);
+            intent.putExtra(Constant.SERVE_ID, entity.id);
             mCtx.startActivity(intent);
         }
     }

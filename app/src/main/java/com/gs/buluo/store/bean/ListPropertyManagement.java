@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by fs on 2016/12/15.
  */
-public class ListPropertyManagement implements Parcelable ,IBaseResponse {
+public class ListPropertyManagement implements Parcelable, IBaseResponse {
     public String id;
     public String communityName;
     public String companyName;
@@ -25,7 +25,7 @@ public class ListPropertyManagement implements Parcelable ,IBaseResponse {
     public String problemDesc;
     public String status;
     public String propertyNum;
-    public String  totalFee;
+    public String totalFee;
 
 
     @Override

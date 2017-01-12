@@ -37,7 +37,7 @@ public class VerifyActivity extends BaseActivity implements View.OnClickListener
     TextView mFinish;
 
     private long birthday;
-    private StoreInfo storeInfo =new StoreInfo();
+    private StoreInfo storeInfo = new StoreInfo();
     private StoreInfoDao dao;
 
     @Override

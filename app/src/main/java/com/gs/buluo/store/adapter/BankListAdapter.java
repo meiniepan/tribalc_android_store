@@ -20,14 +20,14 @@ public class BankListAdapter extends BaseAdapter {
 
     private final Context mContext;
     private LayoutInflater mInflater;
-    private List<String> mList=new ArrayList<>();
+    private List<String> mList = new ArrayList<>();
 
     public BankListAdapter(Context context) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
     }
 
-    public void setData(List<String> list){
+    public void setData(List<String> list) {
         mList.clear();
         mList.addAll(list);
         notifyDataSetChanged();
@@ -50,7 +50,7 @@ public class BankListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView==null){
+        if (convertView == null) {
             convertView = mInflater.inflate(R.layout.item_pick_bank, parent, false);
             ViewHolder holder = new ViewHolder(convertView);
             convertView.setTag(holder);
@@ -60,7 +60,7 @@ public class BankListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public static class ViewHolder{
+    public static class ViewHolder {
 
         public TextView mTextView;
 

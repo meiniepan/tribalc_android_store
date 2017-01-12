@@ -22,25 +22,25 @@ import butterknife.Bind;
 /**
  * Created by hjn on 2016/11/23.
  */
-public class BankCardActivity extends BaseActivity implements ICardView{
+public class BankCardActivity extends BaseActivity implements ICardView {
     @Bind(R.id.card_list)
     ListView cardList;
     @Bind(R.id.card_manager)
     TextView manage;
     private BankCardListAdapter adapter;
 
-    private boolean canDelete=false;
+    private boolean canDelete = false;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
         adapter = new BankCardListAdapter(this);
         cardList.setAdapter(adapter);
 
-        ((BankCardPresenter)mPresenter).getCardList(TribeApplication.getInstance().getUserInfo().getId());
+        ((BankCardPresenter) mPresenter).getCardList(TribeApplication.getInstance().getUserInfo().getId());
         findViewById(R.id.card_add_card).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(BankCardActivity.this,AddBankCardActivity.class));
+                startActivity(new Intent(BankCardActivity.this, AddBankCardActivity.class));
             }
         });
         findViewById(R.id.card_back).setOnClickListener(new View.OnClickListener() {
@@ -52,9 +52,9 @@ public class BankCardActivity extends BaseActivity implements ICardView{
         manage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (canDelete){
+                if (canDelete) {
                     hideDeleteView();
-                }else {
+                } else {
                     showDeleteView();
                 }
             }
@@ -64,19 +64,19 @@ public class BankCardActivity extends BaseActivity implements ICardView{
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        ((BankCardPresenter)mPresenter).getCardList(TribeApplication.getInstance().getUserInfo().getId());
+        ((BankCardPresenter) mPresenter).getCardList(TribeApplication.getInstance().getUserInfo().getId());
     }
 
     private void hideDeleteView() {
         adapter.hideDelete();
-        canDelete=false;
+        canDelete = false;
         manage.setText(R.string.manage);
     }
 
     private void showDeleteView() {
         adapter.showDelete();
         manage.setText(R.string.finish);
-        canDelete=true;
+        canDelete = true;
     }
 
     @Override
@@ -96,6 +96,6 @@ public class BankCardActivity extends BaseActivity implements ICardView{
 
     @Override
     public void showError(int res) {
-        ToastUtils.ToastMessage(this,getString(res));
+        ToastUtils.ToastMessage(this, getString(res));
     }
 }

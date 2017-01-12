@@ -13,44 +13,44 @@ import retrofit2.Response;
 /**
  * Created by hjn on 2016/11/16.
  */
-public class GoodsPresenter extends BasePresenter<IGoodsView>{
+public class GoodsPresenter extends BasePresenter<IGoodsView> {
     GoodsModel model;
     private String nextSkip;
 
-    public GoodsPresenter(){
-        model=new GoodsModel();
+    public GoodsPresenter() {
+        model = new GoodsModel();
     }
 
-    public void getGoodsList(){
-        model.getGoodsListFirst("", "", "", "",  new Callback<BaseResponse<GoodList>>() {
+    public void getGoodsList() {
+        model.getGoodsListFirst("", "", "", "", new Callback<BaseResponse<GoodList>>() {
             @Override
             public void onResponse(Call<BaseResponse<GoodList>> call, Response<BaseResponse<GoodList>> response) {
-                if (response.body()!=null&&response.body().data!=null&&response.body().code==200){
+                if (response.body() != null && response.body().data != null && response.body().code == 200) {
                     nextSkip = response.body().data.nextSkip;
-                    if (isAttach())mView.getGoodsInfo(response.body().data);
+                    if (isAttach()) mView.getGoodsInfo(response.body().data);
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse<GoodList>> call, Throwable t) {
-                if (isAttach())mView.showError(R.string.connect_fail);
+                if (isAttach()) mView.showError(R.string.connect_fail);
             }
         });
     }
 
     public void loadMore() {
-            model.getGoodsList("", "", nextSkip, "saleQuantity,desc", new Callback<BaseResponse<GoodList>>() {
-                @Override
-                public void onResponse(Call<BaseResponse<GoodList>> call, Response<BaseResponse<GoodList>> response) {
-                    if (response.code()==200){
-                        mView.getGoodsInfo(response.body().data);
-                    }
+        model.getGoodsList("", "", nextSkip, "saleQuantity,desc", new Callback<BaseResponse<GoodList>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<GoodList>> call, Response<BaseResponse<GoodList>> response) {
+                if (response.code() == 200) {
+                    mView.getGoodsInfo(response.body().data);
                 }
+            }
 
-                @Override
-                public void onFailure(Call<BaseResponse<GoodList>> call, Throwable t) {
-                    if (isAttach())mView.showError(R.string.connect_fail);
-                }
-            });
-        }
+            @Override
+            public void onFailure(Call<BaseResponse<GoodList>> call, Throwable t) {
+                if (isAttach()) mView.showError(R.string.connect_fail);
+            }
+        });
+    }
 }

@@ -16,9 +16,10 @@ import java.util.ArrayList;
  */
 public class FacilityAdapter extends RecyclerAdapter<Integer> {
     Context context;
+
     public FacilityAdapter(Context context, ArrayList<Integer> list) {
-        super(context,list);
-        this.context=context;
+        super(context, list);
+        this.context = context;
     }
 
     @Override

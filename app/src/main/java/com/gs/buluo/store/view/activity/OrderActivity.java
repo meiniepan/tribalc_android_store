@@ -16,7 +16,7 @@ import butterknife.Bind;
 /**
  * Created by hjn on 2016/11/24.
  */
-public class OrderActivity extends BaseActivity{
+public class OrderActivity extends BaseActivity {
     @Bind(R.id.order_pager)
     UnScrollViewPager pager;
     @Bind(R.id.order_tab)
@@ -30,14 +30,14 @@ public class OrderActivity extends BaseActivity{
                 finish();
             }
         });
-        String[] titles = new String[]{getString(R.string.all),getString(R.string.wait_pay),getString(R.string.wait_receive),getString(R.string.complete)};
+        String[] titles = new String[]{getString(R.string.all), getString(R.string.wait_pay), getString(R.string.wait_receive), getString(R.string.complete)};
         OrderFragmentAdapter adapter =
                 new OrderFragmentAdapter(getSupportFragmentManager(), Arrays.asList(titles));
         pager.setAdapter(adapter);
         tabLayout.setupWithViewPager(pager);
         tabLayout.setTabsFromPagerAdapter(adapter);
 
-        pager.setCurrentItem(getIntent().getIntExtra(Constant.TYPE,0),false);
+        pager.setCurrentItem(getIntent().getIntExtra(Constant.TYPE, 0), false);
     }
 
     @Override

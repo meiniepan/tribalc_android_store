@@ -47,12 +47,13 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
     private String id;
     private SimpleDraweeView logo;
     private LinearLayout facilitiesGroup;
-    private HashMap<String,Integer> map=new HashMap<>();
+    private HashMap<String, Integer> map = new HashMap<>();
+
     @Override
     protected void bindView(Bundle savedInstanceState) {
         id = getIntent().getStringExtra(Constant.STORE_ID);
         getDetailInfo(id);
-        mCtx=this;
+        mCtx = this;
         initContentView();
         initMap();
     }
@@ -63,39 +64,39 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
     }
 
     private void initMap() {
-        map.put("baby_chair",R.mipmap.baby_chair);
-        map.put("bar",R.mipmap.bar);
-        map.put("business_circle",R.mipmap.business_circle);
-        map.put("business_dinner",R.mipmap.business_dinner);
-        map.put("facilities_for_disabled",R.mipmap.facilities_for_disabled);
-        map.put("organic_food",R.mipmap.organic_food);
-        map.put("parking",R.mipmap.parking);
-        map.put("pet_ok",R.mipmap.pet_ok);
-        map.put("restaurants_of_hotel",R.mipmap.restaurants_of_hotel);
-        map.put("room",R.mipmap.room);
-        map.put("scene_seat",R.mipmap.scene_seat);
-        map.put("small_party",R.mipmap.small_party);
-        map.put("subway",R.mipmap.subway);
-        map.put("valet_parking",R.mipmap.valet_parking);
-        map.put("vip_rights",R.mipmap.vip_rights);
-        map.put("weekend_brunch",R.mipmap.weekend_brunch);
-        map.put("wi-fi",R.mipmap.wi_fi);
+        map.put("baby_chair", R.mipmap.baby_chair);
+        map.put("bar", R.mipmap.bar);
+        map.put("business_circle", R.mipmap.business_circle);
+        map.put("business_dinner", R.mipmap.business_dinner);
+        map.put("facilities_for_disabled", R.mipmap.facilities_for_disabled);
+        map.put("organic_food", R.mipmap.organic_food);
+        map.put("parking", R.mipmap.parking);
+        map.put("pet_ok", R.mipmap.pet_ok);
+        map.put("restaurants_of_hotel", R.mipmap.restaurants_of_hotel);
+        map.put("room", R.mipmap.room);
+        map.put("scene_seat", R.mipmap.scene_seat);
+        map.put("small_party", R.mipmap.small_party);
+        map.put("subway", R.mipmap.subway);
+        map.put("valet_parking", R.mipmap.valet_parking);
+        map.put("vip_rights", R.mipmap.vip_rights);
+        map.put("weekend_brunch", R.mipmap.weekend_brunch);
+        map.put("wi-fi", R.mipmap.wi_fi);
     }
 
     private void initContentView() {
         banner = (Banner) findViewById(R.id.server_detail_banner);
-        tvName = (TextView)findViewById(R.id.server_detail_name);
-        tvPrice =  (TextView)findViewById(R.id.server_detail_person_price);
-        tvCollectNum = (TextView)findViewById(R.id.server_detail_collect);
-        tvAddress = (TextView)findViewById(R.id.service_shop_address);
-        tvPhone = (TextView)findViewById(R.id.service_shop_number);
-        tvReason = (TextView)findViewById(R.id.server_detail_comment_reason);
-        tvMarkplace = (TextView)findViewById(R.id.server_detail_markPlace);
-        tvDistance = (TextView)findViewById(R.id.server_detail_distance);
-        tvBrand = (TextView)findViewById(R.id.server_detail_category);
-        tvTime = (TextView)findViewById(R.id.server_detail_work_time);
-        tvTopic = (TextView)findViewById(R.id.server_detail_topic);
-        logo= (SimpleDraweeView) findViewById(R.id.server_detail_logo);
+        tvName = (TextView) findViewById(R.id.server_detail_name);
+        tvPrice = (TextView) findViewById(R.id.server_detail_person_price);
+        tvCollectNum = (TextView) findViewById(R.id.server_detail_collect);
+        tvAddress = (TextView) findViewById(R.id.service_shop_address);
+        tvPhone = (TextView) findViewById(R.id.service_shop_number);
+        tvReason = (TextView) findViewById(R.id.server_detail_comment_reason);
+        tvMarkplace = (TextView) findViewById(R.id.server_detail_markPlace);
+        tvDistance = (TextView) findViewById(R.id.server_detail_distance);
+        tvBrand = (TextView) findViewById(R.id.server_detail_category);
+        tvTime = (TextView) findViewById(R.id.server_detail_work_time);
+        tvTopic = (TextView) findViewById(R.id.server_detail_topic);
+        logo = (SimpleDraweeView) findViewById(R.id.server_detail_logo);
         facilitiesGroup = (LinearLayout) findViewById(R.id.server_detail_facilities);
 
         findViewById(R.id.service_phone_call).setOnClickListener(this);
@@ -109,7 +110,7 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.service_phone_call:
                 intent.setAction(Intent.ACTION_DIAL);
                 Uri data = Uri.parse("tel:" + tvPhone.getText().toString());
@@ -117,7 +118,7 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
                 startActivity(intent);
                 break;
             case R.id.service_location:
-                intent.setClass(mCtx,MapActivity.class);
+                intent.setClass(mCtx, MapActivity.class);
                 startActivity(intent);
                 break;
 //            case R.id.service_booking_food:
@@ -143,13 +144,13 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
 
     private void getDetailInfo(String id) {
         showLoadingDialog();
-        new CommunityModel().getStoreDetail(id,this);
+        new CommunityModel().getStoreDetail(id, this);
     }
 
     @Override
     public void onResponse(Call<BaseResponse<StoreDetail>> call, Response<BaseResponse<StoreDetail>> response) {
         dismissDialog();
-        if (response.body()!=null&&response.body().code==200&&response.body().data!=null){
+        if (response.body() != null && response.body().code == 200 && response.body().data != null) {
             StoreDetail data = response.body().data;
             setData(data);
         }
@@ -175,11 +176,12 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
         setFacilities(data.faclities);
         FresoUtils.loadImage(data.mainPicture, logo); //TODO  LOGO
     }
+
     public void setFacilities(List<String> faclities) {
-        for (String facility:faclities){
-            View facilityView=View.inflate(this,R.layout.serve_detail_facility,null);
-            ImageView iv= (ImageView) facilityView.findViewById(R.id.facility_image);
-            TextView  tv= (TextView) facilityView.findViewById(R.id.facility_text);
+        for (String facility : faclities) {
+            View facilityView = View.inflate(this, R.layout.serve_detail_facility, null);
+            ImageView iv = (ImageView) facilityView.findViewById(R.id.facility_image);
+            TextView tv = (TextView) facilityView.findViewById(R.id.facility_text);
             tv.setText(getFacilityText(facility));
             iv.setImageResource(map.get(facility));
             facilitiesGroup.addView(facilityView);
@@ -187,7 +189,7 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
     }
 
     public int getFacilityText(String facility) {
-        switch (facility){
+        switch (facility) {
             case "wi-fi":
                 return R.string.wi_fi;
             case "baby_chair":
@@ -225,6 +227,7 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
         }
         return 0;
     }
+
     @Override
     public void onFailure(Call<BaseResponse<StoreDetail>> call, Throwable t) {
 

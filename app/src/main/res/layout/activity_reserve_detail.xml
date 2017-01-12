@@ -54,6 +54,7 @@
                 android:textColor="@color/common_dark"
                 android:textStyle="bold" />
         </LinearLayout>
+
         <TextView
             android:id="@+id/reserve_detail_title_describe"
             android:layout_width="wrap_content"
@@ -61,7 +62,7 @@
             android:textColor="@color/common_gray"
             android:textSize="@dimen/dimens_12sp"
             android:layout_marginTop="6dp"
-            android:text="预定一年内告知结婚过"/>
+            android:text="预定一年内告知结婚过" />
     </LinearLayout>
 
     <LinearLayout
@@ -161,11 +162,13 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:gravity="center_vertical">
+
         <TextView
             android:textSize="@dimen/dimens_12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/time"/>
+            android:text="@string/time" />
+
         <TextView
             android:id="@+id/reserve_detail_time"
             android:textSize="@dimen/dimens_12sp"
@@ -173,37 +176,45 @@
             android:gravity="end"
             android:layout_height="wrap_content" />
     </LinearLayout>
-    <include layout="@layout/split_line_no_margin_common"/>
+
+    <include layout="@layout/split_line_no_margin_common" />
+
     <LinearLayout
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:gravity="center_vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:textSize="@dimen/dimens_12sp"
             android:layout_height="wrap_content"
-            android:text="@string/people_count"/>
+            android:text="@string/people_count" />
+
         <TextView
             android:id="@+id/reserve_detail_count"
             android:layout_width="match_parent"
             android:textSize="@dimen/dimens_12sp"
             android:gravity="end"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
-    <include layout="@layout/split_line_no_margin_common"/>
+
+    <include layout="@layout/split_line_no_margin_common" />
+
     <LinearLayout
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:gravity="center_vertical">
+
         <TextView
             android:textSize="@dimen/dimens_12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/restaurant"/>
+            android:text="@string/restaurant" />
+
         <TextView
             android:id="@+id/reserve_detail_restaurant"
             android:layout_width="match_parent"
@@ -211,7 +222,9 @@
             android:gravity="end"
             android:layout_height="wrap_content" />
     </LinearLayout>
-    <include layout="@layout/split_line_no_margin_common"/>
+
+    <include layout="@layout/split_line_no_margin_common" />
+
     <LinearLayout
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
@@ -220,11 +233,13 @@
         android:layout_marginTop="14dp"
         android:layout_marginBottom="16dp"
         android:gravity="center_vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/dimens_12sp"
-            android:text="@string/spot"/>
+            android:text="@string/spot" />
+
         <TextView
             android:id="@+id/reserve_detail_spot"
             android:layout_width="match_parent"
@@ -233,7 +248,7 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <include layout="@layout/split_area"/>
+    <include layout="@layout/split_area" />
 
     <LinearLayout
         android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -241,63 +256,75 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:gravity="center_vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:textSize="@dimen/dimens_12sp"
             android:layout_height="wrap_content"
-            android:text="@string/contact"/>
+            android:text="@string/contact" />
+
         <TextView
             android:id="@+id/reserve_detail_contact"
             android:layout_width="match_parent"
             android:textSize="@dimen/dimens_12sp"
             android:gravity="end"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
-    <include layout="@layout/split_line_no_margin_common"/>
+
+    <include layout="@layout/split_line_no_margin_common" />
+
     <LinearLayout
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:gravity="center_vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/dimens_12sp"
-            android:text="@string/contact_phone"/>
+            android:text="@string/contact_phone" />
+
         <TextView
             android:id="@+id/reserve_detail_phone"
             android:layout_width="match_parent"
             android:textSize="@dimen/dimens_12sp"
             android:gravity="end"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
-    <include layout="@layout/split_line_no_margin_common"/>
+
+    <include layout="@layout/split_line_no_margin_common" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/tint_bg">
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginTop="4dp"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textSize="@dimen/dimens_12sp"
                 android:textColor="@color/common_gray"
-                android:text="有问题请联系客服:"/>
+                android:text="有问题请联系客服:" />
+
             <TextView
                 android:text="110-120-119"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/custom_color"
-                android:textSize="@dimen/dimens_14sp"/>
+                android:textSize="@dimen/dimens_14sp" />
         </LinearLayout>
+
         <TextView
             android:layout_marginTop="4dp"
             android:layout_gravity="center"

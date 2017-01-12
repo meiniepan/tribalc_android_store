@@ -22,7 +22,7 @@ public class TribeApplication extends Application {
     public void onCreate() {
         super.onCreate();
         SDKInitializer.initialize(this);  //map initialize
-        instance=this;
+        instance = this;
         x.Ext.init(this);//X utils初始化
         Fresco.initialize(this);
 //        x.Ext.setDebug(BuildConfig.DEBUG);
@@ -32,7 +32,7 @@ public class TribeApplication extends Application {
     }
 
     private void initDb() {
-        daoConfig=new DbManager.DaoConfig()
+        daoConfig = new DbManager.DaoConfig()
                 .setDbName("store")
                 .setDbOpenListener(new DbManager.DbOpenListener() {
                     @Override
@@ -47,7 +47,7 @@ public class TribeApplication extends Application {
                 });
     }
 
-    public static synchronized TribeApplication getInstance(){
+    public static synchronized TribeApplication getInstance() {
         return instance;
     }
 
@@ -55,11 +55,11 @@ public class TribeApplication extends Application {
         return daoConfig;
     }
 
-    public void setUserInfo(StoreInfo info){
+    public void setUserInfo(StoreInfo info) {
         user = info;
     }
 
-    public StoreInfo getUserInfo(){
+    public StoreInfo getUserInfo() {
         return user;
     }
 }

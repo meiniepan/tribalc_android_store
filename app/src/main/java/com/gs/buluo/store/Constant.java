@@ -8,14 +8,15 @@ public class Constant {
 
     public static final String VCODE = "vcode";
 
-    public final static class Base{
-        public static final String BASE_URL="https://app-services.buluo-gs.com:443/tribalc/v1.0/";
-//        public static final String BASE_URL="https://dev-app-services.buluo-gs.com:443/tribalc/v1.0/";
+    public final static class Base {
+        public static final String BASE_URL = "https://app-services.buluo-gs.com:443/tribalc/v1.0/";
+        //        public static final String BASE_URL="https://dev-app-services.buluo-gs.com:443/tribalc/v1.0/";
 //        public static final String BASE_URL="http://dev-app-services.buluo-gs.com:10086/tribalc/v1.0/";
-        public static final String BASE_IMG_URL="http://dev-app-services.buluo-gs.com/resources/";   //图片地址要加此前缀
-        public static final String BASE_ALI_URL="http://buluo-gs-pictures.oss-cn-beijing.aliyuncs.com/";   //阿里云图片地址base
+        public static final String BASE_IMG_URL = "http://dev-app-services.buluo-gs.com/resources/";   //图片地址要加此前缀
+        public static final String BASE_ALI_URL = "http://buluo-gs-pictures.oss-cn-beijing.aliyuncs.com/";   //阿里云图片地址base
         public static final String WX_ID = "wx1906c6844a4273e2";
     }
+
     public static final String VERIFICATION = "verificationCode";
     public static final String NICKNAME = "nickname";
     public static final String SEX = "sex";
@@ -47,7 +48,7 @@ public class Constant {
     public static final String TYPE = "type";
     public static final String COMMUNITY_ID = "community_id";
     public static final String COMMUNITY_NAME = "community_name";
-    public static final String PROPERTY_MANAGEMENT="property_management";
+    public static final String PROPERTY_MANAGEMENT = "property_management";
 
 
     public static final String REPAST = "repast";
@@ -59,9 +60,9 @@ public class Constant {
     public static final String STORE_ID = "store_id";
 
 
-    public final static class ForIntent{
-        public static final int REQUEST_CODE=0;
-        public static final String FLAG="flag";
+    public final static class ForIntent {
+        public static final int REQUEST_CODE = 0;
+        public static final String FLAG = "flag";
         public static final String FROM_ORDER = "fromOrder";
         public static final String COMPANY_FLAG = "company_info";
         public static final String PROPERTY_BEEN = "property_been";

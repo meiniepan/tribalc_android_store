@@ -9,6 +9,6 @@ import java.util.List;
  */
 public class UserAddressListResponse {
     public int code;
-    public List<UserAddressEntity > data;
+    public List<UserAddressEntity> data;
     public String message;
 }

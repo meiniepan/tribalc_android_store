@@ -201,6 +201,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.CreateStateActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.ProtocolActivity"/>
     </application>
 
 </manifest>

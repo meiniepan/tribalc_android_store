@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#55000000">
 
@@ -9,8 +10,8 @@
         android:layout_height="200dp"
         android:background="@drawable/panel_background_round"
         android:layout_centerInParent="true"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -18,7 +19,7 @@
             android:textSize="@dimen/dimens_20sp"
             android:textColor="#000"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp" />
 
         <EditText
             android:id="@+id/self_edit_nickname"
@@ -29,7 +30,7 @@
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_marginTop="20dp"
-            android:hint="请输入昵称"/>
+            android:hint="请输入昵称" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,6 +39,7 @@
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:weightSum="2">
+
             <Button
                 android:id="@+id/self_edit_no"
                 android:layout_width="0dp"
@@ -45,7 +47,8 @@
                 android:layout_height="match_parent"
                 android:background="#fff"
                 android:textColor="@color/custom_color"
-                android:text="@string/cancel"/>
+                android:text="@string/cancel" />
+
             <Button
                 android:id="@+id/self_edit_yes"
                 android:layout_width="0dp"
@@ -54,7 +57,7 @@
                 android:layout_height="match_parent"
                 android:background="#fff"
                 android:textColor="@color/custom_color"
-                android:text="@string/yes"/>
+                android:text="@string/yes" />
         </LinearLayout>
 
 

@@ -13,7 +13,7 @@
         android:layout_marginStart="20dp"
         android:textSize="@dimen/dimens_16sp"
         android:textColor="#000"
-        android:text="赵四儿"/>
+        android:text="赵四儿" />
 
     <TextView
         android:id="@+id/add_address_detail"
@@ -23,8 +23,7 @@
         android:ellipsize="start"
         android:layout_marginTop="8dp"
         android:layout_marginStart="20dp"
-        android:text="宅基地坷拉三季稻老是卡"
-        />
+        android:text="宅基地坷拉三季稻老是卡" />
 
     <View
         android:layout_width="match_parent"
@@ -32,7 +31,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="8dp"
-        android:background="#b5b5b5"/>
+        android:background="#b5b5b5" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -40,12 +39,14 @@
         android:layout_marginEnd="20dp"
         android:layout_marginTop="4dp"
         android:layout_height="30dp">
+
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@mipmap/address_normal"
             android:id="@+id/add_address_select_icon"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,8 +61,8 @@
             android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:src="@mipmap/address_delete_button"
-            android:layout_alignParentEnd="true"
-             />
+            android:layout_alignParentEnd="true" />
+
         <ImageView
             android:id="@+id/add_address_edit"
             android:layout_width="18dp"
@@ -71,5 +72,6 @@
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/add_address_delete" />
     </RelativeLayout>
-    <include layout="@layout/split_area"/>
+
+    <include layout="@layout/split_area" />
 </LinearLayout>

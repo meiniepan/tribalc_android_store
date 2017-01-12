@@ -16,7 +16,7 @@ import butterknife.Bind;
 /**
  * Created by hjn on 2016/11/21.
  */
-public class BillDetailActivity extends BaseActivity{
+public class BillDetailActivity extends BaseActivity {
     @Bind(R.id.bill_detail_number)
     TextView mNumber;
     @Bind(R.id.bill_detail_money)
@@ -28,13 +28,13 @@ public class BillDetailActivity extends BaseActivity{
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        BillEntity entity= (BillEntity) getIntent().getSerializableExtra(Constant.BILL);
+        BillEntity entity = (BillEntity) getIntent().getSerializableExtra(Constant.BILL);
         mNumber.setText(entity.id);
         String amount = entity.amount;
-        if (amount.contains("-")){
-            mMoney.setText("支出"+amount.substring(1,amount.length()));
-        }else {
-            mMoney.setText("收入"+amount);
+        if (amount.contains("-")) {
+            mMoney.setText("支出" + amount.substring(1, amount.length()));
+        } else {
+            mMoney.setText("收入" + amount);
         }
 
         mName.setText(entity.annotherAccountId);

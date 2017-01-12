@@ -11,7 +11,6 @@ import com.gs.buluo.store.R;
 public class ProtocolActivity extends BaseActivity {
     @Override
     protected void bindView(Bundle savedInstanceState) {
-
     }
 
     @Override

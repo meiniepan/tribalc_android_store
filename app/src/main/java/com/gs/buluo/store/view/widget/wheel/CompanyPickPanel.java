@@ -32,7 +32,7 @@ public class CompanyPickPanel extends Dialog implements View.OnClickListener {
      */
     protected String[] mProvinceDatas;
     protected Map<String, String[]> mCommunitysMap = new HashMap<String, String[]>();
-    protected Map<String,String> mZipcodeDatasMap=new HashMap<String,String>();
+    protected Map<String, String> mZipcodeDatasMap = new HashMap<String, String>();
     protected String mCurrentProvinceName;
     protected String mCurrentCommunityName;
     protected String mCurrentZipcode;
@@ -44,7 +44,7 @@ public class CompanyPickPanel extends Dialog implements View.OnClickListener {
     public CompanyPickPanel(BaseActivity activity, OnSelectedFinished onSelectedFinished) {
         super(activity, R.style.my_dialog);
         mActivity = activity;
-        this.onSelectedFinished=onSelectedFinished;
+        this.onSelectedFinished = onSelectedFinished;
         initView();
         setUpViews();
         setUpListener();
@@ -61,16 +61,16 @@ public class CompanyPickPanel extends Dialog implements View.OnClickListener {
         setContentView(rootView);
         Window window = getWindow();
         WindowManager.LayoutParams params = window.getAttributes();
-        params.width= ViewGroup.LayoutParams.MATCH_PARENT;
-        params.height= ViewGroup.LayoutParams.WRAP_CONTENT;
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         params.gravity = Gravity.BOTTOM;
         window.setAttributes(params);
         ButterKnife.bind(this, rootView);
     }
 
     private void setUpViews() {
-        mViewProvince= (WheelView) rootView.findViewById(R.id.pick_community_province);
-        mViewCommunity=((WheelView) rootView.findViewById(R.id.pick_community_community));
+        mViewProvince = (WheelView) rootView.findViewById(R.id.pick_community_province);
+        mViewCommunity = ((WheelView) rootView.findViewById(R.id.pick_community_community));
         mCancel = (TextView) rootView.findViewById(R.id.community_cancel);
         mOK = rootView.findViewById(R.id.community_ok);
     }
@@ -78,9 +78,9 @@ public class CompanyPickPanel extends Dialog implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.community_ok:
-                onSelectedFinished.onSelected(mCurrentProvinceName+"-"+mCurrentCommunityName);
+                onSelectedFinished.onSelected(mCurrentProvinceName + "-" + mCurrentCommunityName);
                 dismiss();
                 break;
             case R.id.community_cancel:

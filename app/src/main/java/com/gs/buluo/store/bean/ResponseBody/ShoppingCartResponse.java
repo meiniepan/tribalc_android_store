@@ -11,7 +11,7 @@ public class ShoppingCartResponse {
     public int code;
     public ShoppingCartResponseBody data;
 
-    public class ShoppingCartResponseBody{
+    public class ShoppingCartResponseBody {
         public List<ShoppingCart> content;
         public boolean hasMore;
         public String preSkip;

@@ -39,7 +39,7 @@ import retrofit2.Response;
  * Created by hjn on 2016/12/13.
  */
 public class PasswordPanel extends Dialog implements Callback<BaseResponse<OrderPayment>> {
-    private  OnPasswordPanelDismissListener onPasswordPanelDismissListener;
+    private OnPasswordPanelDismissListener onPasswordPanelDismissListener;
     private List<String> orderId;
     private Context mContext;
     @Bind(R.id.pwd_board_pet)
@@ -53,9 +53,9 @@ public class PasswordPanel extends Dialog implements Callback<BaseResponse<Order
         mContext = context;
         myPwd = pwd;
         this.orderId = orderId;
-        this.payChannel=channel;
-        this.type=type;
-        this.onPasswordPanelDismissListener=onPasswordPanelDismissListener;
+        this.payChannel = channel;
+        this.type = type;
+        this.onPasswordPanelDismissListener = onPasswordPanelDismissListener;
         initView();
     }
 
@@ -66,7 +66,7 @@ public class PasswordPanel extends Dialog implements Callback<BaseResponse<Order
         Window window = getWindow();
         WindowManager.LayoutParams params = window.getAttributes();
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        params.height = DensityUtils.dip2px(mContext,450);
+        params.height = DensityUtils.dip2px(mContext, 450);
         params.gravity = Gravity.BOTTOM;
         window.setAttributes(params);
         pwdEditText.showKeyBoard();
@@ -92,17 +92,17 @@ public class PasswordPanel extends Dialog implements Callback<BaseResponse<Order
     }
 
     private void payMoney() {
-        LoadingDialog.getInstance().show(mContext,R.string.paying,true);
-        new MoneyModel().createPayment(orderId,payChannel.name(),type,this);
+        LoadingDialog.getInstance().show(mContext, R.string.paying, true);
+        new MoneyModel().createPayment(orderId, payChannel.name(), type, this);
     }
 
     @Override
     public void onResponse(Call<BaseResponse<OrderPayment>> call, Response<BaseResponse<OrderPayment>> response) {
 //        pwdEditText.dismissKeyBoard();
-        if (response.body()!=null&&response.code()==ResponseCode.GET_SUCCESS){
+        if (response.body() != null && response.code() == ResponseCode.GET_SUCCESS) {
             setStatus(response.body().data);
-        }else {
-            ToastUtils.ToastMessage(mContext,R.string.connect_fail);
+        } else {
+            ToastUtils.ToastMessage(mContext, R.string.connect_fail);
             LoadingDialog.getInstance().dismissDialog();
         }
     }
@@ -110,22 +110,22 @@ public class PasswordPanel extends Dialog implements Callback<BaseResponse<Order
     @Override
     public void onFailure(Call<BaseResponse<OrderPayment>> call, Throwable t) {
         LoadingDialog.getInstance().dismissDialog();
-        ToastUtils.ToastMessage(mContext,R.string.connect_fail);
+        ToastUtils.ToastMessage(mContext, R.string.connect_fail);
     }
 
     public void setStatus(final OrderPayment data) {
-        if (data.status== OrderPayment.PayStatus.FINISHED||data.status== OrderPayment.PayStatus.PAYED){
+        if (data.status == OrderPayment.PayStatus.FINISHED || data.status == OrderPayment.PayStatus.PAYED) {
             LoadingDialog.getInstance().dismissDialog();
             ToastUtils.ToastMessage(getContext(), R.string.pay_success);
             EventBus.getDefault().post(new PaymentEvent());
             dismiss();
-        }else {
+        } else {
             new Handler().postDelayed(new TimerTask() {
                 @Override
                 public void run() {
                     getPaymentInfo(data);
                 }
-            },1000);
+            }, 1000);
         }
     }
 
@@ -133,17 +133,17 @@ public class PasswordPanel extends Dialog implements Callback<BaseResponse<Order
         new MoneyModel().getPaymentStatus(data.id, new Callback<BaseResponse<OrderPayment>>() {
             @Override
             public void onResponse(Call<BaseResponse<OrderPayment>> call, Response<BaseResponse<OrderPayment>> response) {
-                if (response.body()!=null&&response.code()== ResponseCode.GET_SUCCESS){
+                if (response.body() != null && response.code() == ResponseCode.GET_SUCCESS) {
                     setStatusAgain(response.body().data);
-                }else {
-                    ToastUtils.ToastMessage(mContext,R.string.connect_fail);
+                } else {
+                    ToastUtils.ToastMessage(mContext, R.string.connect_fail);
                     LoadingDialog.getInstance().dismissDialog();
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse<OrderPayment>> call, Throwable t) {
-                ToastUtils.ToastMessage(mContext,R.string.connect_fail);
+                ToastUtils.ToastMessage(mContext, R.string.connect_fail);
                 LoadingDialog.getInstance().dismissDialog();
             }
         });
@@ -151,11 +151,11 @@ public class PasswordPanel extends Dialog implements Callback<BaseResponse<Order
 
     public void setStatusAgain(final OrderPayment data) {
         LoadingDialog.getInstance().dismissDialog();
-        if (data.status== OrderPayment.PayStatus.FINISHED||data.status== OrderPayment.PayStatus.PAYED){
+        if (data.status == OrderPayment.PayStatus.FINISHED || data.status == OrderPayment.PayStatus.PAYED) {
             ToastUtils.ToastMessage(getContext(), R.string.pay_success);
             EventBus.getDefault().post(new PaymentEvent());
             dismiss();
-        }else {
+        } else {
             ToastUtils.ToastMessage(getContext(), data.note);
         }
     }
@@ -166,7 +166,7 @@ public class PasswordPanel extends Dialog implements Callback<BaseResponse<Order
 
     @Override
     public void dismiss() {
-        if (onPasswordPanelDismissListener!=null){
+        if (onPasswordPanelDismissListener != null) {
             onPasswordPanelDismissListener.onPasswordPanelDismiss();
         }
         super.dismiss();

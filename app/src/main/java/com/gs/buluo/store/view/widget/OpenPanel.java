@@ -23,12 +23,12 @@ import butterknife.ButterKnife;
 /**
  * Created by hjn on 2016/12/20.
  */
-public class OpenPanel extends Dialog{
-    private  Context mContext;
+public class OpenPanel extends Dialog {
+    private Context mContext;
     private View rootView;
 
     public OpenPanel(Context context) {
-        super(context,R.style.around_dialog);
+        super(context, R.style.around_dialog);
         mContext = context;
         initView();
     }
@@ -46,7 +46,7 @@ public class OpenPanel extends Dialog{
 //        Bitmap flur = getFlur(getScreenshot(rootView));
     }
 
-    public Bitmap getFlur(Bitmap sentBitmap){
+    public Bitmap getFlur(Bitmap sentBitmap) {
         Bitmap bitmap = sentBitmap.copy(sentBitmap.getConfig(), true);
         final RenderScript rs = RenderScript.create(getContext());
         final Allocation input = Allocation.createFromBitmap(rs, sentBitmap, Allocation.MipmapControl.MIPMAP_NONE,
@@ -60,12 +60,12 @@ public class OpenPanel extends Dialog{
         return bitmap;
     }
 
-    private  Bitmap getScreenshot(View v) {
+    private Bitmap getScreenshot(View v) {
         WindowManager wm = (WindowManager) getContext()
                 .getSystemService(Context.WINDOW_SERVICE);
         int width = wm.getDefaultDisplay().getWidth();
         int height = wm.getDefaultDisplay().getHeight();
-        Bitmap b = Bitmap.createBitmap(width,height, Bitmap.Config.ARGB_8888);
+        Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(b);
         v.draw(c);
         return b;

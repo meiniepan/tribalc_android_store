@@ -10,6 +10,7 @@
         android:id="@+id/main_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -354,6 +355,7 @@
                 fresco:placeholderImageScaleType="focusCrop" />
         </LinearLayout>
     </com.gs.buluo.store.view.widget.AlphaScrollView>
+
     <RelativeLayout
         android:id="@+id/main_title"
         android:layout_width="match_parent"

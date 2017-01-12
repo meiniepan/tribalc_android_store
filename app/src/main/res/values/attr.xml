@@ -9,7 +9,7 @@
 
     <declare-styleable name="ArcMenu">
         <attr name="position" />
-        <attr name="radius"  format="dimension"/>
+        <attr name="radius" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="RoundImageView">
@@ -18,9 +18,8 @@
         <attr name="border_color" format="color" />
         <attr name="mutate_background" format="boolean" />
         <attr name="oval" format="boolean" />
-        <attr name="android:scaleType"/>
+        <attr name="android:scaleType" />
     </declare-styleable>
-
 
 
     <declare-styleable name="PullToRefresh">

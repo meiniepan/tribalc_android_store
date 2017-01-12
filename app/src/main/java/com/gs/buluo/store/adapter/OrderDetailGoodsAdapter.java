@@ -68,9 +68,9 @@ public class OrderDetailGoodsAdapter extends BaseAdapter {
                 holder.color.setText(goods.standardSnapshot.split(":")[1]);
             }
         }
-    FresoUtils.loadImage(goods.mainPicture,holder.picture);
+        FresoUtils.loadImage(goods.mainPicture, holder.picture);
 
-    convertView.setTag(holder);
-    return convertView;
-}
+        convertView.setTag(holder);
+        return convertView;
+    }
 }

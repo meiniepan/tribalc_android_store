@@ -29,8 +29,8 @@ public class PhoneVerifyActivity extends BaseActivity implements ILoginView {
             @Override
             public void onClick(View v) {
                 phone = mPhone.getText().toString().trim();
-                if (!CommonUtils.checkPhone("86",phone,PhoneVerifyActivity.this))return;
-                ((LoginPresenter)mPresenter).doVerify(phone);
+                if (!CommonUtils.checkPhone("86", phone, PhoneVerifyActivity.this)) return;
+                ((LoginPresenter) mPresenter).doVerify(phone);
             }
         });
         findViewById(R.id.bind_phone_back).setOnClickListener(new View.OnClickListener() {
@@ -53,21 +53,23 @@ public class PhoneVerifyActivity extends BaseActivity implements ILoginView {
 
     @Override
     public void showError(int res) {
-        ToastUtils.ToastMessage(this,getString(R.string.connect_fail));
+        ToastUtils.ToastMessage(this, getString(R.string.connect_fail));
     }
+
     @Override
     public void loginSuccess() {
     }
+
     @Override
-    public  void dealWithIdentify(int res) {
-        switch (res){
+    public void dealWithIdentify(int res) {
+        switch (res) {
             case 202:
                 Intent intent = new Intent(PhoneVerifyActivity.this, PhoneVerifyActivity2.class);
-                intent.putExtra("phone",phone);
+                intent.putExtra("phone", phone);
                 startActivity(intent);
                 break;
             case 400:
-                ToastUtils.ToastMessage(this,getString(R.string.wrong_number));
+                ToastUtils.ToastMessage(this, getString(R.string.wrong_number));
                 break;
         }
     }

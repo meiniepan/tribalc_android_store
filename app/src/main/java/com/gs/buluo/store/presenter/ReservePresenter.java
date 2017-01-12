@@ -17,19 +17,19 @@ public class ReservePresenter extends BasePresenter<IReserveView> {
     private ReserveModel model;
     private String nextSkip;
 
-    public ReservePresenter(){
-        model=new ReserveModel();
+    public ReservePresenter() {
+        model = new ReserveModel();
     }
 
-    public void getReserveListFirst(String category){
-        model.getReserveListFirst(category, TribeApplication.getInstance().getUserInfo().getId(),20,new Callback<ReserveResponse>() {
+    public void getReserveListFirst(String category) {
+        model.getReserveListFirst(category, TribeApplication.getInstance().getUserInfo().getId(), 20, new Callback<ReserveResponse>() {
             @Override
             public void onResponse(Call<ReserveResponse> call, Response<ReserveResponse> response) {
-                if (response.body()!=null&&response.body().code==200&&response.body().data!=null){
+                if (response.body() != null && response.body().code == 200 && response.body().data != null) {
                     ReserveResponse.ReserveResponseBody data = response.body().data;
-                    nextSkip= data.nextSkip;
+                    nextSkip = data.nextSkip;
                     mView.getReserveSuccess(response.body().data);
-                }else {
+                } else {
                     mView.showError(R.string.connect_fail);
                 }
             }
@@ -40,11 +40,12 @@ public class ReservePresenter extends BasePresenter<IReserveView> {
             }
         });
     }
-    public void getReserveMore(String category){
-        model.getReserveList(category,TribeApplication.getInstance().getUserInfo().getId(), 20,nextSkip, new Callback<ReserveResponse>() {
+
+    public void getReserveMore(String category) {
+        model.getReserveList(category, TribeApplication.getInstance().getUserInfo().getId(), 20, nextSkip, new Callback<ReserveResponse>() {
             @Override
             public void onResponse(Call<ReserveResponse> call, Response<ReserveResponse> response) {
-                if (response.body()!=null&&response.body().code==200&&response.body().data!=null){
+                if (response.body() != null && response.body().code == 200 && response.body().data != null) {
                     mView.getReserveSuccess(response.body().data);
                 }
             }

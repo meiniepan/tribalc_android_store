@@ -10,7 +10,7 @@ public class ListStoreSetMeal {
     public String name;
     public String mainPicture;
     public String personExpense;
-    public List<String> tags ;
+    public List<String> tags;
     public boolean reservabl;
     public ListStore store;
 }

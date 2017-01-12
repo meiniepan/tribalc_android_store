@@ -9,13 +9,13 @@ import com.gs.buluo.store.utils.ToastUtils;
 /**
  * Created by hjn on 2016/12/23.
  */
-public class FeedbackActivity extends BaseActivity{
+public class FeedbackActivity extends BaseActivity {
     @Override
     protected void bindView(Bundle savedInstanceState) {
         findViewById(R.id.feedback_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.ToastMessage(FeedbackActivity.this,"意见反馈成功");
+                ToastUtils.ToastMessage(FeedbackActivity.this, "意见反馈成功");
                 finish();
             }
         });

@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
  * Created by hjn on 2017/1/3.
  */
 
-public class PayChoosePanel extends Dialog{
+public class PayChoosePanel extends Dialog {
     Context mContext;
     @Bind(R.id.new_order_pay_balance)
     CheckBox rbBalance;
@@ -35,8 +35,8 @@ public class PayChoosePanel extends Dialog{
 
     public PayChoosePanel(Context context, onChooseFinish onChooseFinish) {
         super(context, R.style.pay_dialog);
-        mContext=context;
-        this.onChooseFinish=onChooseFinish;
+        mContext = context;
+        this.onChooseFinish = onChooseFinish;
         initView();
     }
 
@@ -47,40 +47,40 @@ public class PayChoosePanel extends Dialog{
         Window window = getWindow();
         WindowManager.LayoutParams params = window.getAttributes();
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        params.height = DensityUtils.dip2px(mContext,450);
+        params.height = DensityUtils.dip2px(mContext, 450);
         params.gravity = Gravity.BOTTOM;
         window.setAttributes(params);
 
         rbBalance.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     rbBalance.setChecked(true);
                     rbAli.setChecked(false);
                     rbWeChat.setChecked(false);
-                    payMethod= OrderBean.PayChannel.BALANCE;
+                    payMethod = OrderBean.PayChannel.BALANCE;
                 }
             }
         });
         rbAli.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     rbBalance.setChecked(false);
                     rbAli.setChecked(true);
                     rbWeChat.setChecked(false);
-                    payMethod=OrderBean.PayChannel.ALIPAY;
+                    payMethod = OrderBean.PayChannel.ALIPAY;
                 }
             }
         });
         rbWeChat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     rbBalance.setChecked(false);
                     rbAli.setChecked(false);
                     rbWeChat.setChecked(true);
-                    payMethod=OrderBean.PayChannel.WEICHAT;
+                    payMethod = OrderBean.PayChannel.WEICHAT;
                 }
             }
         });

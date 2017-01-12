@@ -7,7 +7,7 @@ import android.os.Parcelable;
 /**
  * Created by hjn on 2016/12/13.
  */
-public class CartItem implements Parcelable{
+public class CartItem implements Parcelable {
     public String id;
     public String standardId;
     public int amount;

@@ -17,9 +17,10 @@ public class CommunityVisitActivity extends BaseActivity {
     EditText tvName;
     @Bind(R.id.community_visit_time)
     EditText tvTime;
+
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        tvName.setText( getIntent().getStringExtra(Constant.COMMUNITY_NAME));
+        tvName.setText(getIntent().getStringExtra(Constant.COMMUNITY_NAME));
         tvTime.requestFocus();
         findViewById(R.id.community_visit_finish).setOnClickListener(new View.OnClickListener() {
             @Override

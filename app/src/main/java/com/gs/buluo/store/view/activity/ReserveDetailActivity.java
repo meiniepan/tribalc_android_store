@@ -57,6 +57,7 @@ public class ReserveDetailActivity extends BaseActivity implements IDetailReserv
 
     @Bind(R.id.reserve_detail_finish)
     TextView tvFinish;
+
     @Override
     protected void bindView(Bundle savedInstanceState) {
         final ListReservation reservation = getIntent().getParcelableExtra(Constant.SERVE_ID);
@@ -64,22 +65,22 @@ public class ReserveDetailActivity extends BaseActivity implements IDetailReserv
         tvItemName.setText(reservation.storeName);
         tvRestaurant.setText(reservation.storeName);
         tvTags.setText(reservation.markPlace);
-        if (reservation.tags!=null&&reservation.tags.size()>0){
-            tvTags.setText(reservation.tags.get(0)+"  |  "+reservation.markPlace);
+        if (reservation.tags != null && reservation.tags.size() > 0) {
+            tvTags.setText(reservation.tags.get(0) + "  |  " + reservation.markPlace);
         }
         tvTime.setText(TribeDateUtils.dateFormat9(new Date(reservation.appointTime)));
         tvCount.setText(reservation.personNum);
         tvItemCount.setText(reservation.personNum);
         tvItemTime.setText(TribeDateUtils.dateFormat9(new Date(reservation.appointTime)));
         setDescription(reservation.status);
-        FresoUtils.loadImage(reservation.mainPicture,picture);
+        FresoUtils.loadImage(reservation.mainPicture, picture);
 
-        ((DetailReservationPresenter)mPresenter).getReserveDetail(reservation.id);
+        ((DetailReservationPresenter) mPresenter).getReserveDetail(reservation.id);
 
         tvFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((DetailReservationPresenter)mPresenter).cancelReserve(reservation.id,ListReservation.ReserveStatus.CANCEL.toString());
+                ((DetailReservationPresenter) mPresenter).cancelReserve(reservation.id, ListReservation.ReserveStatus.CANCEL.toString());
             }
         });
         findViewById(R.id.reserve_detail_back).setOnClickListener(new View.OnClickListener() {
@@ -91,13 +92,13 @@ public class ReserveDetailActivity extends BaseActivity implements IDetailReserv
     }
 
     private void setStatus(ListReservation entity) {
-        if (entity.status== ListReservation.ReserveStatus.PROCESSING){
+        if (entity.status == ListReservation.ReserveStatus.PROCESSING) {
             tvTitle.setText(R.string.reserve_processing);
             tvFinish.setText(R.string.cancel_order);
-        }else if (entity.status== ListReservation.ReserveStatus.SUCCEED){
+        } else if (entity.status == ListReservation.ReserveStatus.SUCCEED) {
             tvTitle.setText(R.string.reserve_success);
             tvFinish.setText(R.string.cancel_order);
-        }else {
+        } else {
             tvTitle.setText(R.string.reserve_fail);
             tvFinish.setVisibility(View.GONE);
         }
@@ -135,18 +136,18 @@ public class ReserveDetailActivity extends BaseActivity implements IDetailReserv
 
     @Override
     public void cancelSuccess() {
-        ToastUtils.ToastMessage(this,"取消订单成功");
-        startActivity(new Intent(this,ReserveActivity.class));
+        ToastUtils.ToastMessage(this, "取消订单成功");
+        startActivity(new Intent(this, ReserveActivity.class));
         //TODO add intent  ListDetailReservation
     }
 
     @Override
     public void cancelFailure() {
-        ToastUtils.ToastMessage(this,"取消订单失败");
+        ToastUtils.ToastMessage(this, "取消订单失败");
     }
 
     @Override
     public void showError(int res) {
-        ToastUtils.ToastMessage(this,getString(res));
+        ToastUtils.ToastMessage(this, getString(res));
     }
 }

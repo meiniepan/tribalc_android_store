@@ -25,9 +25,11 @@
     <style name="my_dialog" parent="@style/sheet_dialog">
         <item name="android:windowAnimationStyle">@style/ActionSheetDialogAnimation</item>
     </style>
+
     <style name="pay_dialog" parent="@style/sheet_dialog">
         <item name="android:windowAnimationStyle">@style/ActionSheetDialogAnimationRight</item>
     </style>
+
     <style name="around_dialog" parent="@style/sheet_dialog">
         <item name="android:windowAnimationStyle">@style/AroundDialogAnimation</item>
     </style>
@@ -37,6 +39,7 @@
         <item name="android:windowEnterAnimation">@anim/bottom_trans</item>
         <item name="android:windowExitAnimation">@anim/bottom_trans_out</item>
     </style>
+
     <style name="ActionSheetDialogAnimationRight" parent="@android:style/Animation.Dialog">
         <item name="android:windowEnterAnimation">@anim/right_trans</item>
         <item name="android:windowExitAnimation">@anim/right_trans_out</item>
@@ -47,7 +50,6 @@
         <item name="android:windowEnterAnimation">@anim/around_alpha</item>
         <item name="android:windowExitAnimation">@anim/around_alpha_out</item>
     </style>
-
 
 
     <style name="CustomDialog" parent="@android:style/Theme.Dialog">
@@ -77,6 +79,7 @@
     <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/check_selector</item>
     </style>
+
     <style name="Property_text_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

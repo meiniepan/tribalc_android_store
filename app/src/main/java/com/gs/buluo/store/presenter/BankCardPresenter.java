@@ -15,17 +15,17 @@ import retrofit2.Response;
 public class BankCardPresenter extends BasePresenter<ICardView> {
     MoneyModel moneyModel;
 
-    public BankCardPresenter(){
-        moneyModel=new MoneyModel();
+    public BankCardPresenter() {
+        moneyModel = new MoneyModel();
     }
 
-    public void getCardList(String uid){
+    public void getCardList(String uid) {
         moneyModel.getCardList(uid, new Callback<CardResponse>() {
             @Override
             public void onResponse(Call<CardResponse> call, Response<CardResponse> response) {
-                if (response.body()!=null&&response.body().code==200){
+                if (response.body() != null && response.body().code == 200) {
                     mView.getCardInfoSuccess(response.body().data);
-                }else {
+                } else {
                     mView.showError(R.string.connect_fail);
                 }
             }

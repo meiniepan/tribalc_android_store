@@ -11,36 +11,34 @@ import android.provider.MediaStore;
 
 public class Utils {
 
-	public static final boolean isChineseCharacter(String chineseStr) {
-		char[] charArray = chineseStr.toCharArray();
-		for (int i = 0; i < charArray.length; i++) {
-			// 是否是Unicode编码,除了"�"这个字符.这个字符要另外处理
-			if ((charArray[i] >= '\u0000' && charArray[i] < '\uFFFD')
-					|| ((charArray[i] > '\uFFFD' && charArray[i] < '\uFFFF'))) {
-				continue;
-			} else {
-				return false;
-			}
-		}
-		return true;
-	}
+    public static final boolean isChineseCharacter(String chineseStr) {
+        char[] charArray = chineseStr.toCharArray();
+        for (int i = 0; i < charArray.length; i++) {
+            // 是否是Unicode编码,除了"�"这个字符.这个字符要另外处理
+            if ((charArray[i] >= '\u0000' && charArray[i] < '\uFFFD')
+                    || ((charArray[i] > '\uFFFD' && charArray[i] < '\uFFFF'))) {
+                continue;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
 
-	/**
-	 * Get a file path from a Uri. This will get the the path for Storage Access
-	 * Framework Documents, as well as the _data field for the MediaStore and
-	 * other file-based ContentProviders.
-	 * 
-	 * @param context
-	 *            The context.
-	 * @param uri
-	 *            The Uri to query.
-	 * @author paulburke
-	 */
-	public static String getPath(final Context context, final Uri uri) {
+    /**
+     * Get a file path from a Uri. This will get the the path for Storage Access
+     * Framework Documents, as well as the _data field for the MediaStore and
+     * other file-based ContentProviders.
+     *
+     * @param context The context.
+     * @param uri     The Uri to query.
+     * @author paulburke
+     */
+    public static String getPath(final Context context, final Uri uri) {
 
-		final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
-		// DocumentProvider
+        // DocumentProvider
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
                 // ExternalStorageProvider
@@ -82,7 +80,7 @@ public class Utils {
                     }
 
                     final String selection = "_id=?";
-                    final String[] selectionArgs = new String[] { split[1] };
+                    final String[] selectionArgs = new String[]{split[1]};
 
                     return getDataColumn(context, contentUri, selection,
                             selectionArgs);
@@ -99,71 +97,64 @@ public class Utils {
         }
 
         return null;
-	}
+    }
 
-	/**
-	 * Get the value of the data column for this Uri. This is useful for
-	 * MediaStore Uris, and other file-based ContentProviders.
-	 * 
-	 * @param context
-	 *            The context.
-	 * @param uri
-	 *            The Uri to query.
-	 * @param selection
-	 *            (Optional) Filter used in the query.
-	 * @param selectionArgs
-	 *            (Optional) Selection arguments used in the query.
-	 * @return The value of the _data column, which is typically a file path.
-	 */
-	public static String getDataColumn(Context context, Uri uri,
-									   String selection, String[] selectionArgs) {
+    /**
+     * Get the value of the data column for this Uri. This is useful for
+     * MediaStore Uris, and other file-based ContentProviders.
+     *
+     * @param context       The context.
+     * @param uri           The Uri to query.
+     * @param selection     (Optional) Filter used in the query.
+     * @param selectionArgs (Optional) Selection arguments used in the query.
+     * @return The value of the _data column, which is typically a file path.
+     */
+    public static String getDataColumn(Context context, Uri uri,
+                                       String selection, String[] selectionArgs) {
 
-		Cursor cursor = null;
-		final String column = "_data";
-		final String[] projection = { column };
+        Cursor cursor = null;
+        final String column = "_data";
+        final String[] projection = {column};
 
-		try {
-			cursor = context.getContentResolver().query(uri, projection,
-					selection, selectionArgs, null);
-			if (cursor != null && cursor.moveToFirst()) {
-				final int column_index = cursor.getColumnIndexOrThrow(column);
-				return cursor.getString(column_index);
-			}
-		} finally {
-			if (cursor != null)
-				cursor.close();
-		}
-		return null;
-	}
+        try {
+            cursor = context.getContentResolver().query(uri, projection,
+                    selection, selectionArgs, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                final int column_index = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(column_index);
+            }
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+    }
 
-	/**
-	 * @param uri
-	 *            The Uri to check.
-	 * @return Whether the Uri authority is ExternalStorageProvider.
-	 */
-	public static boolean isExternalStorageDocument(Uri uri) {
-		return "com.android.externalstorage.documents".equals(uri
-				.getAuthority());
-	}
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is ExternalStorageProvider.
+     */
+    public static boolean isExternalStorageDocument(Uri uri) {
+        return "com.android.externalstorage.documents".equals(uri
+                .getAuthority());
+    }
 
-	/**
-	 * @param uri
-	 *            The Uri to check.
-	 * @return Whether the Uri authority is DownloadsProvider.
-	 */
-	public static boolean isDownloadsDocument(Uri uri) {
-		return "com.android.providers.downloads.documents".equals(uri
-				.getAuthority());
-	}
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is DownloadsProvider.
+     */
+    public static boolean isDownloadsDocument(Uri uri) {
+        return "com.android.providers.downloads.documents".equals(uri
+                .getAuthority());
+    }
 
-	/**
-	 * @param uri
-	 *            The Uri to check.
-	 * @return Whether the Uri authority is MediaProvider.
-	 */
-	public static boolean isMediaDocument(Uri uri) {
-		return "com.android.providers.media.documents".equals(uri
-				.getAuthority());
-	}
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is MediaProvider.
+     */
+    public static boolean isMediaDocument(Uri uri) {
+        return "com.android.providers.media.documents".equals(uri
+                .getAuthority());
+    }
 
 }

@@ -38,12 +38,12 @@ public class SortBoard extends PopupWindow implements View.OnClickListener {
     Context mContext;
     private ServeSortGridAdapter adapter;
     private OnSelectListener onSelectListener;
-    private int currentPos=-1;
+    private int currentPos = -1;
     private View rootView;
 
-    public SortBoard(Context context,OnSelectListener onSelectListener) {
-        mContext=context;
-        this.onSelectListener=onSelectListener;
+    public SortBoard(Context context, OnSelectListener onSelectListener) {
+        mContext = context;
+        this.onSelectListener = onSelectListener;
         initView();
     }
 
@@ -73,20 +73,20 @@ public class SortBoard extends PopupWindow implements View.OnClickListener {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 adapter.setPos(position);
                 adapter.notifyDataSetChanged();
-                if (position!=currentPos)
+                if (position != currentPos)
                     onSelectListener.onSelected(getPositionSort(position));
                 dismiss();
             }
         });
     }
 
-    private String  getPositionSort(int position) {
-        currentPos=position;
-        if (position==0){
+    private String getPositionSort(int position) {
+        currentPos = position;
+        if (position == 0) {
             return Constant.SORT_PERSON_EXPENSE_ASC;
-        }else if (position==1){
+        } else if (position == 1) {
             return Constant.SORT_PERSON_EXPENSE_DESC;
-        }else {
+        } else {
             return Constant.SORT_POPULAR;
         }
     }
@@ -95,13 +95,14 @@ public class SortBoard extends PopupWindow implements View.OnClickListener {
         sortGridView.setVisibility(View.GONE);
         rootView.findViewById(R.id.food_filter_view).setVisibility(View.VISIBLE);
     }
+
     public void setSortVisible() {
         sortGridView.setVisibility(View.VISIBLE);
         rootView.findViewById(R.id.food_filter_view).setVisibility(View.GONE);
     }
 
 
-    public interface OnSelectListener{
+    public interface OnSelectListener {
         void onSelected(String sort);
     }
 

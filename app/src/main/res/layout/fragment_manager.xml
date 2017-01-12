@@ -5,15 +5,18 @@
     android:layout_height="match_parent"
     android:background="@color/tint_bg"
     android:orientation="vertical">
+
     <View
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:background="@color/common_dark"/>
+        android:background="@color/common_dark" />
+
     <LinearLayout
         android:id="@+id/usual_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_height"
@@ -33,6 +36,7 @@
                 android:layout_alignParentBottom="true"
                 android:background="#000" />
         </RelativeLayout>
+
         <com.youth.banner.Banner
             android:id="@+id/fragment_main_head"
             android:layout_width="match_parent"

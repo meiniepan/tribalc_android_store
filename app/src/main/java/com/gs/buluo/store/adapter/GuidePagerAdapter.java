@@ -16,7 +16,7 @@ import com.gs.buluo.store.view.activity.MainActivity;
 /**
  * Created by hjn on 2016/11/1.
  */
-public class GuidePagerAdapter extends PagerAdapter{
+public class GuidePagerAdapter extends PagerAdapter {
     List<Integer> lists;
     GuideActivity mAct;
     private ImageView imgView;
@@ -50,7 +50,7 @@ public class GuidePagerAdapter extends PagerAdapter{
             Integer integer = lists.get(position);
             imgView.setBackgroundResource(integer);
         }
-        if (position==lists.size()-1){
+        if (position == lists.size() - 1) {
             imgView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -32,11 +32,11 @@ public interface MoneyService {
 
     @GET("persons/{id}/bills")
     Call<BillResponse> getBillList(
-            @Path("id") String uid ,@Query("limitSize") String limitSize,@Query("sortSkip")String sortSkip);
+            @Path("id") String uid, @Query("limitSize") String limitSize, @Query("sortSkip") String sortSkip);
 
     @GET("persons/{id}/bills")
     Call<BillResponse> getBillListFirst(
-            @Path("id") String uid ,@Query("limitSize") String limitSize);
+            @Path("id") String uid, @Query("limitSize") String limitSize);
 
 
     @PUT("persons/{id}/wallet/password")
@@ -45,7 +45,7 @@ public interface MoneyService {
 
     @PUT("persons/{id}/wallet/password")
     Call<BaseResponse<CodeResponse>> updatePwd(
-            @Path("id") String uid, @Body UpdatePwdBody pwd,@Query("vcode")String vCode);
+            @Path("id") String uid, @Body UpdatePwdBody pwd, @Query("vcode") String vCode);
 
     @GET("persons/{id}/bank_cards")
     Call<CardResponse> getCardList(
@@ -53,20 +53,20 @@ public interface MoneyService {
 
     @POST("persons/{id}/bank_cards")
     Call<BaseResponse<CodeResponse>> addBankCard(
-            @Path("id") String uid,@Query("vcode")String vCode,@Body BankCard card);
+            @Path("id") String uid, @Query("vcode") String vCode, @Body BankCard card);
 
     @DELETE("persons/{id}/bank_cards/{bankCardID}")
-    Call<BaseResponse> deleteCard(@Path("id")String uid, @Path("bankCardID") String id);
+    Call<BaseResponse> deleteCard(@Path("id") String uid, @Path("bankCardID") String id);
 
     @GET("persons/{id}/payments/{paymentId}")
-    Call<BaseResponse<OrderPayment>> getPaymentStatus(@Path("id")String uid, @Path("paymentId")String paymentId);
+    Call<BaseResponse<OrderPayment>> getPaymentStatus(@Path("id") String uid, @Path("paymentId") String paymentId);
 
     @POST("persons/{id}/payments")
-    Call<BaseResponse<OrderPayment>> createPayment(@Path("id")String uid, @Query("type")String type, @Body NewPaymentRequest request);
+    Call<BaseResponse<OrderPayment>> createPayment(@Path("id") String uid, @Query("type") String type, @Body NewPaymentRequest request);
 
     @POST("recharge/wechat/unifiedorder")
-    Call<BaseResponse<WxPayResponse>> payInWx(@Query("me")String uid, @Body ValueRequestBody body);
+    Call<BaseResponse<WxPayResponse>> payInWx(@Query("me") String uid, @Body ValueRequestBody body);
 
     @POST("recharge/wechat/orderquery")
-    Call<BaseResponse<CodeResponse>> getTopUpResult(@Query("me")String uid, @Body ValueRequestBody body);
+    Call<BaseResponse<CodeResponse>> getTopUpResult(@Query("me") String uid, @Body ValueRequestBody body);
 }

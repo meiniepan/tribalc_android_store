@@ -22,7 +22,7 @@ public abstract class TribeCallback<T extends IBaseResponse> implements Callback
         if (responseBody == null) {
             onFail(500, response.body());
         } else if (responseBody.code >= 400) {
-            onFail(responseBody.code,response.body());
+            onFail(responseBody.code, response.body());
         } else {
             onSuccess(response);
         }

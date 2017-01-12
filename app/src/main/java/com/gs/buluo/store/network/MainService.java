@@ -42,7 +42,7 @@ public interface MainService {
 
 
     @POST("oss_authorization/picture")
-    Call<UploadAccessResponse> getUploadUrl(@Query("me")String id,@Body UploadAccessBody body);
+    Call<UploadAccessResponse> getUploadUrl(@Query("me") String id, @Body UploadAccessBody body);
 
     @POST("stores/{id}/authentication")
     Call<BaseResponse<StoreInfo>> doAuthentication(@Path("id") String id, @Body AuthorityRequest request);

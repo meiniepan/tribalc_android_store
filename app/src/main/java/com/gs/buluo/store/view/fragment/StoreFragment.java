@@ -20,7 +20,7 @@ import butterknife.Bind;
 /**
  * Created by admin on 2016/11/1.
  */
-public class StoreFragment extends BaseFragment  {
+public class StoreFragment extends BaseFragment {
     @Bind(R.id.store_list)
     RefreshRecyclerView recyclerView;
 
@@ -34,7 +34,7 @@ public class StoreFragment extends BaseFragment  {
         if (TribeApplication.getInstance().getUserInfo() != null) {
 
         } else {
-            ToastUtils.ToastMessage(getContext(), R.string.connect_fail);
+            recyclerView.showNoData("请创建店铺");
         }
 
         getActivity().findViewById(R.id.store_floating).setOnClickListener(new View.OnClickListener() {
@@ -51,7 +51,7 @@ public class StoreFragment extends BaseFragment  {
         });
 
 //        recyclerView.setAdapter(adapter);
-        recyclerView.showNoData("请创建店铺");
+
     }
 
 

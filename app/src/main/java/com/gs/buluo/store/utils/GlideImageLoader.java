@@ -37,7 +37,7 @@ public class GlideImageLoader implements cn.finalteam.galleryfinal.ImageLoader {
 
                     @Override
                     public void setRequest(Request request) {
-                        imageView.setTag(R.id.adapter_item_tag_key,request);
+                        imageView.setTag(R.id.adapter_item_tag_key, request);
                     }
 
                     @Override

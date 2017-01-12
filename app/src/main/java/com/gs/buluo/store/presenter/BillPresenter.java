@@ -13,22 +13,22 @@ import retrofit2.Response;
 /**
  * Created by hjn on 2016/11/18.
  */
-public class BillPresenter extends BasePresenter<IBillView>{
+public class BillPresenter extends BasePresenter<IBillView> {
 
     private final MoneyModel moneyModel;
     private String nextSkip;
 
-    public BillPresenter(){
+    public BillPresenter() {
         moneyModel = new MoneyModel();
     }
 
-    public void getBillListFirst(){
+    public void getBillListFirst() {
         moneyModel.getBillListFirst(TribeApplication.getInstance().getUserInfo().getId(), new Callback<BillResponse>() {
             @Override
             public void onResponse(Call<BillResponse> call, Response<BillResponse> response) {
-                if (response.body()!=null&&response.body().code==200){
+                if (response.body() != null && response.body().code == 200) {
                     mView.getBillSuccess(response.body().data);
-                    nextSkip =  response.body().data.nextSkip;
+                    nextSkip = response.body().data.nextSkip;
                 }
             }
 
@@ -43,8 +43,8 @@ public class BillPresenter extends BasePresenter<IBillView>{
         moneyModel.getBillList(TribeApplication.getInstance().getUserInfo().getId(), nextSkip, new Callback<BillResponse>() {
             @Override
             public void onResponse(Call<BillResponse> call, Response<BillResponse> response) {
-                if (response.body()!=null&&response.body().code==200){
-                    nextSkip= response.body().data.nextSkip;
+                if (response.body() != null && response.body().code == 200) {
+                    nextSkip = response.body().data.nextSkip;
                     mView.getBillSuccess(response.body().data);
                 }
 

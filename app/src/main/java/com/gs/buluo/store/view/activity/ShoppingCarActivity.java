@@ -61,7 +61,7 @@ public class ShoppingCarActivity extends BaseActivity implements IShoppingView, 
     protected void bindView(Bundle savedInstanceState) {
         findViewById(R.id.car_edit).setOnClickListener(this);
         findViewById(R.id.car_back).setOnClickListener(this);
-        if(!EventBus.getDefault().isRegistered(this))EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this);
         finish.setOnClickListener(this);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -100,7 +100,7 @@ public class ShoppingCarActivity extends BaseActivity implements IShoppingView, 
     public void getShoppingCarInfoSuccess(ShoppingCartResponse.ShoppingCartResponseBody body) {
         dismissDialog();
         cartList = body.content;
-        if (cartList.size()==0){
+        if (cartList.size() == 0) {
             empty.inflate();
             return;
         }
@@ -117,7 +117,7 @@ public class ShoppingCarActivity extends BaseActivity implements IShoppingView, 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.car_edit:
-                if (adapter==null)return;
+                if (adapter == null) return;
                 if (isEdit) {
                     editButton.setText(R.string.edit);
                     finish.setText(getString(R.string.account));
@@ -130,12 +130,12 @@ public class ShoppingCarActivity extends BaseActivity implements IShoppingView, 
                 adapter.setEdit(isEdit);
                 break;
             case R.id.car_finish:
-                if (adapter==null)return;
+                if (adapter == null) return;
                 if (isEdit) {
                     deleteSelected();
                 } else {
-                    if (total==0){
-                        ToastUtils.ToastMessage(this,"请选择结算商品");
+                    if (total == 0) {
+                        ToastUtils.ToastMessage(this, "请选择结算商品");
                         return;
                     }
                     accountOrder();
@@ -151,59 +151,59 @@ public class ShoppingCarActivity extends BaseActivity implements IShoppingView, 
     }
 
     private void deleteSelected() {
-        if (cartList.size()==0)return;
-        StringBuffer sb=new StringBuffer();
+        if (cartList.size() == 0) return;
+        StringBuffer sb = new StringBuffer();
         for (ShoppingCart cart : cartList) {
-            for (CartItem item:cart.goodsList)
+            for (CartItem item : cart.goodsList)
                 if (item.isSelected) {
                     sb.append(item.id).append(",");
                 }
         }
 
-        new ShoppingModel().deleteShoppingItem(sb.toString().substring(0,sb.length()-1), new Callback<BaseResponse>() {
+        new ShoppingModel().deleteShoppingItem(sb.toString().substring(0, sb.length() - 1), new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                if (response.body()!=null&&response.body().code== ResponseCode.DELETE_SUCCESS){
+                if (response.body() != null && response.body().code == ResponseCode.DELETE_SUCCESS) {
                     removeSelected();
-                    ToastUtils.ToastMessage(ShoppingCarActivity.this,R.string.delete_success);
-                    if (cartList.size()==0){
+                    ToastUtils.ToastMessage(ShoppingCarActivity.this, R.string.delete_success);
+                    if (cartList.size() == 0) {
                         editButton.setText(R.string.edit);
                         finish.setText(getString(R.string.account));
                         isEdit = false;
                         checkBox.setChecked(false);
                     }
-                }else {
-                    ToastUtils.ToastMessage(ShoppingCarActivity.this,R.string.delete_fail);
+                } else {
+                    ToastUtils.ToastMessage(ShoppingCarActivity.this, R.string.delete_fail);
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
-                ToastUtils.ToastMessage(ShoppingCarActivity.this,R.string.connect_fail);
+                ToastUtils.ToastMessage(ShoppingCarActivity.this, R.string.connect_fail);
             }
         });
 
     }
 
     public void removeSelected() {
-        Iterator<ShoppingCart> iterator =cartList.iterator();
-        while (iterator.hasNext()){
+        Iterator<ShoppingCart> iterator = cartList.iterator();
+        while (iterator.hasNext()) {
             ShoppingCart cart = iterator.next();
-            Iterator<CartItem> iterator2 =cart.goodsList.iterator();
-            while (iterator2.hasNext()){
+            Iterator<CartItem> iterator2 = cart.goodsList.iterator();
+            while (iterator2.hasNext()) {
                 CartItem item = iterator2.next();
-                if (item.isSelected){
+                if (item.isSelected) {
                     iterator2.remove();
                 }
             }
-            if (cart.goodsList.size()==0){
+            if (cart.goodsList.size() == 0) {
                 iterator.remove();
             }
         }
         adapter.notifyDataSetChanged();
-        if (cartList.size()==0){
+        if (cartList.size() == 0) {
             empty.inflate();
-        }else {
+        } else {
             calculateTotalPrice();
         }
     }
@@ -239,7 +239,7 @@ public class ShoppingCarActivity extends BaseActivity implements IShoppingView, 
 
     @Override
     public void onUpdate() {
-        if (cartList.size()==0){
+        if (cartList.size() == 0) {
             empty.inflate();
         }
         calculateTotalPrice();

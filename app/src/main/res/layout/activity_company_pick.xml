@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical" android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:fitsSystemWindows="true"
-              android:clipToPadding="true">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,22 +17,22 @@
             android:gravity="center"
             android:text="我的公司"
             android:textColor="#fff"
-            android:textSize="@dimen/title_size"/>
+            android:textSize="@dimen/title_size" />
 
         <View
             android:layout_width="wrap_content"
             android:layout_height="0.5dp"
             android:layout_alignParentBottom="true"
-            android:background="#000"/>
+            android:background="#000" />
 
         <include
             android:id="@+id/company_back"
-            layout="@layout/back_img_white"/>
+            layout="@layout/back_img_white" />
     </RelativeLayout>
 
     <ListView
         android:id="@+id/pick_company_listView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

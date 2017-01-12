@@ -114,7 +114,7 @@ public class CustomAlertDialog extends Dialog {
             if (positiveButtonText == null && negativeButtonText == null) {
                 View buttonGroup = layout.findViewById(R.id.my_dialog_button);
                 buttonGroup.setVisibility(View.GONE);
-            }else if (positiveButtonText==null||negativeButtonText==null){
+            } else if (positiveButtonText == null || negativeButtonText == null) {
                 layout.findViewById(R.id.vertical_line).setVisibility(View.GONE);
             }
 

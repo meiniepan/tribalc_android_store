@@ -9,25 +9,28 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <com.youth.banner.Banner
                     android:id="@+id/server_detail_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="270dp">
-                </com.youth.banner.Banner>
+                    android:layout_height="270dp"></com.youth.banner.Banner>
+
                 <ImageView
                     android:id="@+id/server_detail_back"
                     android:layout_marginTop="26dp"
                     android:layout_marginStart="16dp"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@mipmap/back_white"/>
+                    android:src="@mipmap/back_white" />
             </RelativeLayout>
 
             <com.facebook.drawee.view.SimpleDraweeView
@@ -39,7 +42,7 @@
                 fresco:placeholderImage="@mipmap/default_pic"
                 fresco:actualImageScaleType="centerInside"
                 fresco:roundAsCircle="true"
-                fresco:placeholderImageScaleType="centerCrop"/>
+                fresco:placeholderImageScaleType="centerCrop" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -122,7 +125,7 @@
                         android:layout_marginBottom="1dp"
                         android:layout_marginEnd="3dp"
                         android:textStyle="bold"
-                        android:textSize="@dimen/dimens_16sp"/>
+                        android:textSize="@dimen/dimens_16sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -285,7 +288,7 @@
                         android:text="温馨提示"
                         android:textStyle="bold"
                         android:textColor="@color/common_dark"
-                        android:textSize="@dimen/dimens_19sp"  />
+                        android:textSize="@dimen/dimens_19sp" />
                 </LinearLayout>
 
 
@@ -297,8 +300,7 @@
                     android:orientation="horizontal"
                     android:layout_marginBottom="12dp"
                     android:layout_marginTop="12dp"
-                    android:gravity="center">
-                </LinearLayout>
+                    android:gravity="center"></LinearLayout>
 
                 <TextView
                     android:id="@+id/server_detail_work_time"
@@ -311,6 +313,7 @@
                     android:text="时间" />
 
             </LinearLayout>
+
             <include layout="@layout/split_area" />
 
             <LinearLayout

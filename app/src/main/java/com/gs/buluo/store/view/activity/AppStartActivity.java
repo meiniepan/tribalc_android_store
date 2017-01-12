@@ -18,14 +18,15 @@ import butterknife.Bind;
 /**
  * Created by hjn on 2016/11/3.
  */
-public class AppStartActivity extends BaseActivity{
+public class AppStartActivity extends BaseActivity {
     @Bind(R.id.version_name)
     TextView version;
+
     @Override
     protected void bindView(Bundle savedInstanceState) {
         setBarColor(R.color.transparent);
         try {
-            version.setText(getPackageManager().getPackageInfo(getPackageName(),0).versionName);
+            version.setText(getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -33,29 +34,29 @@ public class AppStartActivity extends BaseActivity{
     }
 
     private void beginActivity() {
-      if (SharePreferenceManager.getInstance(this).getBooeanValue("guide"+getVersionCode())){
-          SharePreferenceManager.getInstance(this).setValue("guide"+getVersionCode(), false);
-          new Handler().postDelayed(new Runnable() {
-              @Override
-              public void run() {
-                  startActivity(new Intent(AppStartActivity.this, GuideActivity.class));
-                  finish();
-              }
-          },1000);
-      }else {
-          new Handler().postDelayed(new Runnable() {
-              @Override
-              public void run() {
-                  startActivity(new Intent(AppStartActivity.this,MainActivity.class));
-                  finish();
-              }
-          },1000);
-      }
+        if (SharePreferenceManager.getInstance(this).getBooeanValue("guide" + getVersionCode())) {
+            SharePreferenceManager.getInstance(this).setValue("guide" + getVersionCode(), false);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(AppStartActivity.this, GuideActivity.class));
+                    finish();
+                }
+            }, 1000);
+        } else {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(AppStartActivity.this, MainActivity.class));
+                    finish();
+                }
+            }, 1000);
+        }
     }
 
     @Override
     protected void init() {
-        if (!CommonUtils.isLibc64()){
+        if (!CommonUtils.isLibc64()) {
             LinphoneManager.createAndStart(TribeApplication.getInstance().getApplicationContext());
         }
     }
@@ -66,7 +67,7 @@ public class AppStartActivity extends BaseActivity{
     }
 
 
-    public int getVersionCode(){
+    public int getVersionCode() {
         PackageManager manager;
 
         PackageInfo info = null;

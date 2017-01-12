@@ -11,9 +11,9 @@ import com.gs.buluo.store.R;
  */
 public class FragmentUtils {
 
-    public static void replaceFragmentWithStacks(FragmentActivity context, Fragment newFragment){
-        FragmentTransaction transaction =context.getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.mine_container,newFragment);
+    public static void replaceFragmentWithStacks(FragmentActivity context, Fragment newFragment) {
+        FragmentTransaction transaction = context.getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.mine_container, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
 

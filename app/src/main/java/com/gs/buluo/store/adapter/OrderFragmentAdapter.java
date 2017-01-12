@@ -11,17 +11,18 @@ import java.util.List;
 /**
  * Created by hjn on 2016/11/24.
  */
-public class OrderFragmentAdapter extends FragmentStatePagerAdapter{
-    List<String>  list;
+public class OrderFragmentAdapter extends FragmentStatePagerAdapter {
+    List<String> list;
+
     public OrderFragmentAdapter(FragmentManager supportFragmentManager, List<String> list) {
         super(supportFragmentManager);
-        this.list=list;
+        this.list = list;
     }
 
 
     @Override
     public Fragment getItem(int position) {
-        OrderFragment fragment=new OrderFragment();
+        OrderFragment fragment = new OrderFragment();
         fragment.setType(position);
         return fragment;
     }

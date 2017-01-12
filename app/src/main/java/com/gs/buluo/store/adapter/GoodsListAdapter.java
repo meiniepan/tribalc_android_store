@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
@@ -24,7 +25,7 @@ public class GoodsListAdapter extends RecyclerAdapter<ListGoods> {
 
     public GoodsListAdapter(Context context) {
         super(context);
-        mCtx=context;
+        mCtx = context;
     }
 
     @Override

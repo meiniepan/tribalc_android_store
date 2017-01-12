@@ -10,6 +10,7 @@ public class ToastUtils {
      * @param msg
      */
     static Toast toast1 = null;
+
     public static void ToastMessage(Context cont, String msg) {
         try {
             if (toast1 == null) {
@@ -23,7 +24,9 @@ public class ToastUtils {
             e.printStackTrace();
         }
     }
+
     static Toast toast = null;
+
     public static void ToastMessage(Context cont, int msg) {
         try {
             if (toast == null) {
@@ -36,6 +39,7 @@ public class ToastUtils {
             e.printStackTrace();
         }
     }
+
     public static void ToastMessage(Context cont, int msg, int time) {
         try {
             Toast.makeText(cont, msg, time).show();

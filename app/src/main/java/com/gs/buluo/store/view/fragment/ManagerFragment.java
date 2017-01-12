@@ -27,8 +27,8 @@ public class ManagerFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        if (!checkUser(getActivity()))return;
-        Intent intent=new Intent();
+        if (!checkUser(getActivity())) return;
+        Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.usual_property:
                 intent.setClass(getActivity(), ReserveActivity.class);

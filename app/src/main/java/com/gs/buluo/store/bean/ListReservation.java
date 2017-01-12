@@ -19,14 +19,15 @@ public class ListReservation implements Parcelable, IBaseResponse {
     public String markPlace;
     public long appointTime;
     public String personNum;
-    public List<String>  tags;
-    public  ReserveStatus status;
+    public List<String> tags;
+    public ReserveStatus status;
 
     public enum ReserveStatus {
-        PROCESSING("PROCESSING"),FAILURE("FAILURE"),SUCCEED("SUCCEED"),CANCEL("CANCEL");
+        PROCESSING("PROCESSING"), FAILURE("FAILURE"), SUCCEED("SUCCEED"), CANCEL("CANCEL");
         public String status;
+
         ReserveStatus(String processing) {
-            status=processing;
+            status = processing;
         }
     }
 

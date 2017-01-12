@@ -54,6 +54,7 @@ public class UserAddressEntity implements Serializable, IBaseResponse {
     public void setUid(String uid) {
         this.uid = uid;
     }
+
     public String getDistrict() {
         return district;
     }
@@ -91,8 +92,8 @@ public class UserAddressEntity implements Serializable, IBaseResponse {
         return area;
     }
 
-    public void setArea(String province,String city,String district) {
-        this.area = province+"-"+city+"-"+district;
+    public void setArea(String province, String city, String district) {
+        this.area = province + "-" + city + "-" + district;
     }
 
     public String getAddress() {

@@ -7,6 +7,7 @@
     android:layout_marginStart="5dp"
     android:layout_marginEnd="5dp"
     android:layout_height="wrap_content">
+
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/goods_list_picture"
         android:layout_width="170dp"
@@ -16,8 +17,7 @@
         android:layout_marginStart="20dp"
         fresco:actualImageScaleType="centerInside"
         fresco:placeholderImage="@mipmap/default_pic"
-        fresco:placeholderImageScaleType="centerInside"
-        />
+        fresco:placeholderImageScaleType="centerInside" />
 
     <TextView
         android:id="@+id/goods_list_name"
@@ -45,6 +45,7 @@
         android:layout_marginStart="8dp"
         android:layout_below="@+id/goods_list_name"
         android:layout_alignStart="@+id/goods_list_picture" />
+
     <TextView
         android:id="@+id/goods_list_price"
         android:layout_width="wrap_content"
@@ -56,12 +57,12 @@
         android:textStyle="bold"
         android:layout_below="@+id/goods_list_brand"
         android:layout_alignStart="@+id/goods_list_brand"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/goods_un_like"
-            android:layout_alignBottom="@+id/goods_list_price"
-            android:layout_alignEnd="@+id/goods_list_picture" />"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/goods_un_like"
+        android:layout_alignBottom="@+id/goods_list_price"
+        android:layout_alignEnd="@+id/goods_list_picture" />"/>
 </RelativeLayout>

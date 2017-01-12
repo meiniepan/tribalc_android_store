@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -10,8 +10,7 @@
         android:background="@drawable/my_dialog_bg"
         android:orientation="vertical"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        >
+        android:layout_marginRight="30dp">
 
         <TextView
             android:id="@+id/title"
@@ -22,12 +21,12 @@
             android:textStyle="bold"
             android:visibility="visible"
             android:text="标题"
-            android:paddingTop="10dp"
-           />
+            android:paddingTop="10dp" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="30dp"/>
+            android:layout_height="30dp" />
+
         <LinearLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
@@ -43,14 +42,14 @@
                 android:paddingBottom="15dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:textSize="@dimen/dimens_16sp"/>
+                android:textSize="@dimen/dimens_16sp" />
         </LinearLayout>
 
         <View
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#ffd0d0d0"/>
+            android:background="#ffd0d0d0" />
 
         <LinearLayout
             android:id="@+id/my_dialog_button"
@@ -67,13 +66,13 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="@string/ok"
-                android:textColor="@color/custom_color"/>
+                android:textColor="@color/custom_color" />
 
             <View
                 android:id="@+id/vertical_line"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="#ffd0d0d0"/>
+                android:background="#ffd0d0d0" />
 
             <TextView
                 android:id="@+id/negativeButton"
@@ -81,7 +80,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@string/cancel"/>
+                android:text="@string/cancel" />
         </LinearLayout>
 
     </LinearLayout>

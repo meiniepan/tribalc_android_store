@@ -26,22 +26,22 @@ public class CreateStoreVarietyActivity extends BaseActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        CreateStoreBean bean=new CreateStoreBean();
-        Intent intent=new Intent(CreateStoreVarietyActivity.this,CreateDetailActivity.class);
-        switch (v.getId()){
+        CreateStoreBean bean = new CreateStoreBean();
+        Intent intent = new Intent(CreateStoreVarietyActivity.this, CreateDetailActivity.class);
+        switch (v.getId()) {
             case R.id.store_food:
-                bean.category= CreateStoreBean.StoreCategory.FOOD;
-                intent.putExtra(Constant.ForIntent.STORE_BEAN,bean);
+                bean.category = CreateStoreBean.StoreCategory.FOOD;
+                intent.putExtra(Constant.ForIntent.STORE_BEAN, bean);
                 startActivity(intent);
                 break;
             case R.id.store_gift:
-                bean.category= CreateStoreBean.StoreCategory.GIFT;
-                intent.putExtra(Constant.ForIntent.STORE_BEAN,bean);
+                bean.category = CreateStoreBean.StoreCategory.GIFT;
+                intent.putExtra(Constant.ForIntent.STORE_BEAN, bean);
                 startActivity(intent);
                 break;
             case R.id.store_office:
-                bean.category= CreateStoreBean.StoreCategory.OFFICE;
-                intent.putExtra(Constant.ForIntent.STORE_BEAN,bean);
+                bean.category = CreateStoreBean.StoreCategory.OFFICE;
+                intent.putExtra(Constant.ForIntent.STORE_BEAN, bean);
                 startActivity(intent);
                 break;
         }

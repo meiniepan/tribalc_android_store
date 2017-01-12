@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:paddingBottom="4dp">
 
 
@@ -14,30 +14,33 @@
         android:layout_gravity="right"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@mipmap/fix_done"/>
+        android:src="@mipmap/fix_done" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <View
             android:layout_width="match_parent"
             android:layout_height="12dp"
-            android:background="@color/tint_bg"/>
+            android:background="@color/tint_bg" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
+
             <TextView
                 android:text="订单号:"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
+
             <TextView
                 android:id="@+id/item_property_fix_property_number"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/item_property_fix_status"
@@ -46,13 +49,13 @@
                 android:gravity="right|center_vertical"
                 android:text="系统接单"
                 android:textColor="@color/custom_color"
-                android:textSize="@dimen/dimens_16sp"/>
+                android:textSize="@dimen/dimens_16sp" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#22000000"/>
+            android:background="#22000000" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,8 +63,7 @@
             android:orientation="vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:paddingTop="20dp"
-            >
+            android:paddingTop="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -75,13 +77,13 @@
                     android:layout_height="wrap_content"
                     android:text="社区"
                     android:textColor="@color/common_gray"
-                    android:textSize="@dimen/dimens_16sp"/>
+                    android:textSize="@dimen/dimens_16sp" />
 
                 <TextView
                     android:id="@+id/item_property_fix_communityName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -96,13 +98,13 @@
                     android:layout_height="wrap_content"
                     android:text="公司"
                     android:textColor="@color/common_gray"
-                    android:textSize="@dimen/dimens_16sp"/>
+                    android:textSize="@dimen/dimens_16sp" />
 
                 <TextView
                     android:id="@+id/item_property_fix_companyName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -117,13 +119,13 @@
                     android:layout_height="wrap_content"
                     android:text="申请人"
                     android:textColor="@color/common_gray"
-                    android:textSize="@dimen/dimens_16sp"/>
+                    android:textSize="@dimen/dimens_16sp" />
 
                 <TextView
                     android:id="@+id/item_property_fix_applyPersonName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -138,13 +140,13 @@
                     android:layout_height="wrap_content"
                     android:text="楼层"
                     android:textColor="@color/common_gray"
-                    android:textSize="@dimen/dimens_16sp"/>
+                    android:textSize="@dimen/dimens_16sp" />
 
                 <TextView
                     android:id="@+id/item_property_fix_floor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -159,13 +161,13 @@
                     android:layout_height="wrap_content"
                     android:text="时间"
                     android:textColor="@color/common_gray"
-                    android:textSize="@dimen/dimens_16sp"/>
+                    android:textSize="@dimen/dimens_16sp" />
 
                 <TextView
                     android:id="@+id/item_property_fix_appointTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -192,14 +194,15 @@
                     android:layout_height="wrap_content"
                     android:text="维修师傅"
                     android:textColor="@color/common_gray"
-                    android:textSize="@dimen/dimens_16sp"/>
+                    android:textSize="@dimen/dimens_16sp" />
 
                 <TextView
                     android:id="@+id/item_property_fix_masterPersonName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -212,13 +215,13 @@
                     android:layout_height="wrap_content"
                     android:text="师傅电话"
                     android:textColor="@color/common_gray"
-                    android:textSize="@dimen/dimens_16sp"/>
+                    android:textSize="@dimen/dimens_16sp" />
 
                 <TextView
                     android:id="@+id/item_property_fix_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -233,34 +236,38 @@
                     android:layout_height="wrap_content"
                     android:text="上门时间"
                     android:textColor="@color/common_gray"
-                    android:textSize="@dimen/dimens_16sp"/>
+                    android:textSize="@dimen/dimens_16sp" />
 
                 <TextView
                     android:id="@+id/item_property_fix_doorTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:visibility="gone"
             android:id="@+id/item_property_money_info">
+
             <TextView
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="维修金额"/>
+                android:text="维修金额" />
+
             <TextView
                 android:layout_margin="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/red"
                 android:textSize="@dimen/dimens_18sp"
-                android:text="¥"/>
+                android:text="¥" />
+
             <TextView
                 android:layout_marginRight="20dp"
                 android:text="159.00"
@@ -268,7 +275,7 @@
                 android:id="@+id/item_property_fix_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/dimens_18sp"/>
+                android:textSize="@dimen/dimens_18sp" />
         </LinearLayout>
     </LinearLayout>
 

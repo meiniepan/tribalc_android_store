@@ -56,9 +56,9 @@ public class AddressPickPanel extends Dialog implements View.OnClickListener, On
     private View rootView;
 
     public AddressPickPanel(BaseActivity activity, OnSelectedFinished onSelectedFinished) {
-        super(activity,R.style.my_dialog);
+        super(activity, R.style.my_dialog);
         mActivity = activity;
-        this.onSelectedFinished=onSelectedFinished;
+        this.onSelectedFinished = onSelectedFinished;
         initView();
         setUpViews();
         setUpListener();
@@ -70,8 +70,8 @@ public class AddressPickPanel extends Dialog implements View.OnClickListener, On
         setContentView(rootView);
         Window window = getWindow();
         WindowManager.LayoutParams params = window.getAttributes();
-        params.width= ViewGroup.LayoutParams.MATCH_PARENT;
-        params.height= ViewGroup.LayoutParams.WRAP_CONTENT;
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         params.gravity = Gravity.BOTTOM;
         window.setAttributes(params);
         ButterKnife.bind(this, rootView);
@@ -81,7 +81,7 @@ public class AddressPickPanel extends Dialog implements View.OnClickListener, On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_confirm:
-                onSelectedFinished.onSelected(mCurrentProviceName+"-"+mCurrentCityName+"-" +mCurrentDistrictName);
+                onSelectedFinished.onSelected(mCurrentProviceName + "-" + mCurrentCityName + "-" + mCurrentDistrictName);
                 dismiss();
                 break;
         }

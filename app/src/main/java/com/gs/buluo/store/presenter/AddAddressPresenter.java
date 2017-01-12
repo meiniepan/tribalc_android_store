@@ -19,16 +19,17 @@ public class AddAddressPresenter extends BasePresenter<IAddAddressView> {
 
     AddressModel addressModel;
 
-    public AddAddressPresenter(){
-        addressModel=new AddressModel();
+    public AddAddressPresenter() {
+        addressModel = new AddressModel();
     }
-    public void addAddress(String uid, final UserAddressEntity entity){
+
+    public void addAddress(String uid, final UserAddressEntity entity) {
         addressModel.addAddress(uid, entity, new Callback<BaseResponse<UserAddressEntity>>() {
             @Override
             public void onResponse(Call<BaseResponse<UserAddressEntity>> call, Response<BaseResponse<UserAddressEntity>> response) {
-                if (response.body().code==201){
+                if (response.body().code == 201) {
                     UserAddressEntity addressEntity = response.body().data;
-                    addressEntity.setArea(addressEntity.getProvice(),addressEntity.getCity(),addressEntity.getDistrict());
+                    addressEntity.setArea(addressEntity.getProvice(), addressEntity.getCity(), addressEntity.getDistrict());
                     addressEntity.setUid(TribeApplication.getInstance().getUserInfo().getId());
                     new AddressInfoDao().saveBindingId(addressEntity);
                     mView.addAddressSuccess(addressEntity);
@@ -42,12 +43,12 @@ public class AddAddressPresenter extends BasePresenter<IAddAddressView> {
         });
     }
 
-    public void updateAddress(String uid , String addId, final UserAddressEntity entity){
-        addressModel.updateAddress(uid, addId,entity, new Callback<BaseResponse>() {
+    public void updateAddress(String uid, String addId, final UserAddressEntity entity) {
+        addressModel.updateAddress(uid, addId, entity, new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                if (response.body().code==200){
-                    entity.setArea(entity.getProvice(),entity.getCity(),entity.getDistrict());
+                if (response.body().code == 200) {
+                    entity.setArea(entity.getProvice(), entity.getCity(), entity.getDistrict());
                     new AddressInfoDao().update(entity);
                     mView.updateAddressSuccess(entity);
                 }

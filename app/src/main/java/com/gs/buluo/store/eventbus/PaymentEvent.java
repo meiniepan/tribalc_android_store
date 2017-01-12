@@ -1,4 +1,5 @@
 package com.gs.buluo.store.eventbus;
+
 /**
  * Created by hjn on 2016/12/20.
  */
@@ -10,6 +11,6 @@ public class PaymentEvent {
     }
 
     public PaymentEvent(String orderId) {
-        this.orderId=orderId;
+        this.orderId = orderId;
     }
 }

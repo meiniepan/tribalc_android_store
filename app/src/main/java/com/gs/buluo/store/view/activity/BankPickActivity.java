@@ -1,4 +1,5 @@
 package com.gs.buluo.store.view.activity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ListView;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.adapter.BankListAdapter;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,8 +23,8 @@ public class BankPickActivity extends BaseActivity implements AdapterView.OnItem
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        String[] arr = new String[]{"中国农业银行","中国银行","中国建设银行","上海浦发银行","广东发展银行","中国光大银行","中国招商银行","华夏银行","深圳发展银行",
-                "兴业银行","民生银行","恒丰银行","中国农业发展银行","中国进出口银行","中信银行"};
+        String[] arr = new String[]{"中国农业银行", "中国银行", "中国建设银行", "上海浦发银行", "广东发展银行", "中国光大银行", "中国招商银行", "华夏银行", "深圳发展银行",
+                "兴业银行", "民生银行", "恒丰银行", "中国农业发展银行", "中国进出口银行", "中信银行"};
         mList = Arrays.asList(arr);
         BankListAdapter adapter = new BankListAdapter(this);
         mListView.setAdapter(adapter);
@@ -45,8 +47,8 @@ public class BankPickActivity extends BaseActivity implements AdapterView.OnItem
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent();
-        intent.putExtra(Constant.ForIntent.FLAG,mList.get(position));
-        setResult(RESULT_OK,intent);
+        intent.putExtra(Constant.ForIntent.FLAG, mList.get(position));
+        setResult(RESULT_OK, intent);
         finish();
     }
 }

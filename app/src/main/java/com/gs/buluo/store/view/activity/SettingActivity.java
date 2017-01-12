@@ -32,18 +32,19 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
     TextView tvCache;
     private StoreInfo info;
     private Context mCtx;
+
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        mCtx =this;
-        StoreInfoDao dao=new StoreInfoDao();
+        mCtx = this;
+        StoreInfoDao dao = new StoreInfoDao();
         info = dao.findFirst();
         setSwitch();
         mSwitch.setOnCheckedChangeListener(this);
         mSwitch.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (info==null){
-                    startActivity(new Intent(SettingActivity.this,LoginActivity.class));
+                if (info == null) {
+                    startActivity(new Intent(SettingActivity.this, LoginActivity.class));
                     return true;
                 }
                 return false;
@@ -60,14 +61,14 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (cacheSize!=null)
+        if (cacheSize != null)
             tvCache.setText(cacheSize);
     }
 
     private void setSwitch() {
-        if (null==info){
+        if (null == info) {
             mSwitch.setChecked(false);
-        }else {
+        } else {
 //            if (info.isNotify()){
 //                mSwitch.setChecked(true);
 //            }else {
@@ -75,7 +76,6 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
 //            }
         }
     }
-
 
 
     @Override
@@ -90,22 +90,22 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (isChecked){
+        if (isChecked) {
 //                info.setNotify(true);
-            }else {
+        } else {
 //                info.setNotify(false);
-            }
+        }
     }
 
     @Override
     public void onClick(View v) {
-        Intent intent=new Intent();
-        switch (v.getId()){
+        Intent intent = new Intent();
+        switch (v.getId()) {
             case R.id.setting_back:
                 finish();
                 break;
             case R.id.setting_recall:
-                intent.setClass(mCtx,FeedbackActivity.class);
+                intent.setClass(mCtx, FeedbackActivity.class);
                 startActivity(intent);
                 break;
             case R.id.setting_clear_cache:
@@ -115,13 +115,13 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
                         DataCleanManager.clearAllCache(SettingActivity.this);
                         tvCache.setText("0K");
                     }
-                }).setNegativeButton(mCtx.getString(R.string.cancel),null).create().show();
+                }).setNegativeButton(mCtx.getString(R.string.cancel), null).create().show();
                 break;
             case R.id.exit:
                 SharePreferenceManager.getInstance(getApplicationContext()).clearValue(Constant.WALLET_PWD);
                 new StoreInfoDao().clear();
                 TribeApplication.getInstance().setUserInfo(null);
-                intent.setClass(mCtx,MainActivity.class);
+                intent.setClass(mCtx, MainActivity.class);
                 startActivity(intent);
                 finish();
                 break;

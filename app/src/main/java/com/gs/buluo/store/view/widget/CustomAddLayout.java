@@ -14,11 +14,11 @@ public class CustomAddLayout extends ViewGroup {
     private int mCellHeight;
 
     public CustomAddLayout(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public CustomAddLayout(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public CustomAddLayout(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -42,7 +42,7 @@ public class CustomAddLayout extends ViewGroup {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         int cellWidth = mCellWidth;
         int cellHeight = mCellHeight;
-        if (cellHeight==0||cellWidth==0){
+        if (cellHeight == 0 || cellWidth == 0) {
             return;
         }
         int columns = (r - l) / cellWidth;
@@ -64,12 +64,12 @@ public class CustomAddLayout extends ViewGroup {
             // int left = x;
             // int top = y;
             // 布局子控件
-            childView.layout(20*(j%3)+left, top, 20*(j%3)+left + w, top + h);
+            childView.layout(20 * (j % 3) + left, top, 20 * (j % 3) + left + w, top + h);
 
             if (i >= (columns - 1)) {
                 i = 0;
                 x = 0;
-                y += cellHeight+20;
+                y += cellHeight + 20;
             } else {
                 i++;
                 x += cellWidth;
@@ -88,9 +88,9 @@ public class CustomAddLayout extends ViewGroup {
             View childView = getChildAt(i);
             childView.measure(cellWidthSpec, cellHeightSpec);
         }
-        int c = count/3 +1;
+        int c = count / 3 + 1;
         setMeasuredDimension(resolveSize(mCellWidth * count, widthMeasureSpec),
-                resolveSize(c*mCellHeight, heightMeasureSpec));
+                resolveSize(c * mCellHeight, heightMeasureSpec));
     }
 
 }

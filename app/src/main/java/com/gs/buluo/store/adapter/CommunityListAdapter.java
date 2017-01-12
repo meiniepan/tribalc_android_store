@@ -25,7 +25,7 @@ public class CommunityListAdapter extends RecyclerAdapter<CommunityPlate> {
 
     public CommunityListAdapter(Context context) {
         super(context);
-        mCtx=context;
+        mCtx = context;
     }
 
     @Override

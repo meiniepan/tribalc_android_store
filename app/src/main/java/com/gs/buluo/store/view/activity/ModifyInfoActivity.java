@@ -53,7 +53,7 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
     protected void bindView(Bundle savedInstanceState) {
         userInfo = TribeApplication.getInstance().getUserInfo();
         info = getIntent().getStringExtra(Constant.ForIntent.MODIFY);
-        oldData=getIntent().getStringExtra(Constant.BIRTHDAY);
+        oldData = getIntent().getStringExtra(Constant.BIRTHDAY);
         intent = new Intent();
         findViewById(R.id.modify_back).setOnClickListener(this);
         initView(info);
@@ -70,7 +70,7 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
                 save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (name.length()==0)return;
+                        if (name.length() == 0) return;
                         ((SelfPresenter) mPresenter).updateUser(Constant.NICKNAME, name.getText().toString().trim());
                     }
                 });
@@ -84,7 +84,7 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
             case Constant.BIRTHDAY:
                 title.setText(R.string.birthday);
                 View birthdayView = ((ViewStub) findViewById(R.id.modify_birthday)).inflate();
-                final TextView birthday= (TextView) birthdayView.findViewById(R.id.modify_birthday_text);
+                final TextView birthday = (TextView) birthdayView.findViewById(R.id.modify_birthday_text);
                 birthday.setText(oldData);
                 initBirthdayPicker(birthday);
                 save.setVisibility(View.VISIBLE);
@@ -97,8 +97,8 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
                 save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (birthday.length()==0)return;
-                        setResult(RESULT_OK,intent);
+                        if (birthday.length() == 0) return;
+                        setResult(RESULT_OK, intent);
                         finish();
                     }
                 });
@@ -124,8 +124,8 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
                 save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (address.length()==0)return;
-                        setResult(RESULT_OK,intent);
+                        if (address.length() == 0) return;
+                        setResult(RESULT_OK, intent);
                         finish();
                     }
                 });
@@ -188,25 +188,26 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
                 break;
             case Constant.BIRTHDAY:
 //                mBirthday.setText());
-                intent.putExtra(Constant.BIRTHDAY,value);
+                intent.putExtra(Constant.BIRTHDAY, value);
                 break;
             case Constant.EMOTION:
                 setSelfEmotion(value);
                 break;
             case Constant.AREA:
-                intent.putExtra(Constant.ADDRESS,value);
+                intent.putExtra(Constant.ADDRESS, value);
                 break;
         }
         new StoreInfoDao().update(userInfo);
     }
-    public void showKeyBoard(final View view){
+
+    public void showKeyBoard(final View view) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 InputMethodManager m = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 m.showSoftInput(view, InputMethodManager.RESULT_SHOWN);
             }
-        },200);
+        }, 200);
     }
 
     @Override
@@ -252,7 +253,7 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
                         showLoadingDialog();
                         StringBuffer sb = new StringBuffer();
                         month = month - 1;
-                        sb.append(year).append("年").append(month+1).append("月").append(day).append("日");
+                        sb.append(year).append("年").append(month + 1).append("月").append(day).append("日");
                         Calendar date = Calendar.getInstance();
                         date.set(Calendar.YEAR, year);
                         date.set(Calendar.MONTH, month);
@@ -272,7 +273,7 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
                         .build();
                 pickerPopWin.showPopWin(ModifyInfoActivity.this);
             }
-        },300);
+        }, 300);
     }
 
     private void setSelfEmotion(String value) {

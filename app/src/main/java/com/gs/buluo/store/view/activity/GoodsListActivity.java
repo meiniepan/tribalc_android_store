@@ -36,23 +36,23 @@ public class GoodsListActivity extends BaseActivity implements IGoodsView {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        list=new ArrayList<>();
+        list = new ArrayList<>();
         adapter = new GoodsListAdapter(this);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.addItemDecoration(new RecycleViewDivider(
                 this, GridLayoutManager.HORIZONTAL, 16, getResources().getColor(R.color.tint_bg)));
         recyclerView.addItemDecoration(new RecycleViewDivider(
                 this, GridLayoutManager.VERTICAL, 12, getResources().getColor(R.color.tint_bg)));
         recyclerView.setNeedLoadMore(true);
 
-        ((GoodsPresenter)mPresenter).getGoodsList();
+        ((GoodsPresenter) mPresenter).getGoodsList();
         showLoadingDialog();
 
         recyclerView.setLoadMoreAction(new Action() {
             @Override
             public void onAction() {
-                ((GoodsPresenter)mPresenter).loadMore();
+                ((GoodsPresenter) mPresenter).loadMore();
                 showLoadingDialog();
             }
         });
@@ -73,21 +73,21 @@ public class GoodsListActivity extends BaseActivity implements IGoodsView {
     @Override
     public void getGoodsInfo(GoodList responseList) {
         dismissDialog();
-        list=responseList.content;
+        list = responseList.content;
         adapter.addAll(list);
         hasMore = responseList.hasMore;
-        if (!hasMore){
+        if (!hasMore) {
             adapter.showNoMore();
             return;
         }
-        if (list.size()==0){
+        if (list.size() == 0) {
             recyclerView.showNoData(R.string.no_goods);
         }
     }
 
     @Override
     public void showError(int res) {
-        ToastUtils.ToastMessage(this,getString(res));
+        ToastUtils.ToastMessage(this, getString(res));
     }
 
     @Override

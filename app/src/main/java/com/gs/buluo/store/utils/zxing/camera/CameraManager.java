@@ -142,7 +142,7 @@ public final class CameraManager {
             boolean open_result = true;
             try {
                 camera = Camera.open();
-            }catch(Exception e){
+            } catch (Exception e) {
                 open_result = false;
             }
 
@@ -153,7 +153,7 @@ public final class CameraManager {
             Camera.Parameters parameters = null;
             try {
                 parameters = camera.getParameters();
-            } catch(Exception e){
+            } catch (Exception e) {
                 open_result = false;
             }
 
@@ -321,7 +321,7 @@ public final class CameraManager {
      *         offset appropriately so they can be drawn in screen coordinates.
      */
     /*
-	 * public Point[] convertResultPoints(ResultPoint[] points) { Rect frame =
+     * public Point[] convertResultPoints(ResultPoint[] points) { Rect frame =
 	 * getFramingRectInPreview(); int count = points.length; Point[] output =
 	 * new Point[count]; for (int x = 0; x < count; x++) { output[x] = new
 	 * Point(); output[x].x = frame.left + (int) (points[x].getX() + 0.5f);
@@ -365,7 +365,7 @@ public final class CameraManager {
     }
 
     public void switchFlash() {
-        if(camera==null){
+        if (camera == null) {
             return;
         }
         Camera.Parameters parameters = camera.getParameters();

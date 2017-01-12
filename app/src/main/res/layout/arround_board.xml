@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/around_bg"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <com.gs.buluo.store.view.widget.ArcMenu
         android:id="@+id/am_root"
         android:layout_width="match_parent"
@@ -13,66 +14,76 @@
         app:radius="100dp"
         android:layerType="software"
         android:layout_alignParentBottom="true">
+
         <ImageView
             android:id="@+id/_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
+
         <LinearLayout
             android:id="@+id/around_shop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center">
+
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@mipmap/around_shop"/>
+                android:src="@mipmap/around_shop" />
+
             <TextView
                 android:id="@+id/around_shop_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="#feae87"
-                android:text="购物"/>
+                android:text="购物" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/around_food"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center">
+
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@mipmap/around_food"/>
+                android:src="@mipmap/around_food" />
+
             <TextView
                 android:id="@+id/around_food_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="#54c2ce"
-                android:text="餐饮"/>
+                android:text="餐饮" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/around_fun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center">
+
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@mipmap/around_fun"/>
+                android:src="@mipmap/around_fun" />
+
             <TextView
                 android:id="@+id/around_fun_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="#4369a8"
-                android:text="娱乐"/>
+                android:text="娱乐" />
         </LinearLayout>
     </com.gs.buluo.store.view.widget.ArcMenu>
+
     <ImageView
         android:id="@+id/id_arcmenu_button"
         android:layout_width="30dp"
@@ -80,6 +91,5 @@
         android:src="@mipmap/close"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        />
+        android:layout_marginBottom="20dp" />
 </RelativeLayout>

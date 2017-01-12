@@ -23,15 +23,15 @@ public interface AddressService {
 
     @POST("persons/{id}/addresses")
     Call<BaseResponse<UserAddressEntity>> addAddress(
-            @Path("id") String uid,@Body UserAddressEntity entity);
+            @Path("id") String uid, @Body UserAddressEntity entity);
 
     @PUT("persons/{id}/addresses/{addrID}")
     Call<BaseResponse> updateAddress(
-            @Path("id") String uid,@Path("addrID") String aadrId,@Body UserAddressEntity entity);
+            @Path("id") String uid, @Path("addrID") String aadrId, @Body UserAddressEntity entity);
 
     @DELETE("persons/{id}/addresses/{addrID}")
     Call<BaseResponse> deleteAddress(
-            @Path("id") String uid,@Path("addrID") String addrId);
+            @Path("id") String uid, @Path("addrID") String addrId);
 
     @PUT("persons/{id}/sensitive_info/addressID")
     Call<BaseResponse> updateDefaultAddress(

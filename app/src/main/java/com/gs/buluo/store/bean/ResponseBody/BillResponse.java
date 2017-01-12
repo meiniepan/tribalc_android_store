@@ -13,7 +13,7 @@ public class BillResponse {
     public int code;
     public BillResponseData data;
 
-    public class BillResponseData{
+    public class BillResponseData {
         public TradingType tradingType;
         public String preSkip;
         public String nextSkip;

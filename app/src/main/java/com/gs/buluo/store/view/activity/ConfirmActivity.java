@@ -17,7 +17,7 @@ import butterknife.Bind;
 /**
  * Created by hjn on 2016/11/18.
  */
-public class ConfirmActivity extends BaseActivity{
+public class ConfirmActivity extends BaseActivity {
     @Bind(R.id.wallet_pwd_1)
     PwdEditText editText;
 
@@ -30,7 +30,7 @@ public class ConfirmActivity extends BaseActivity{
         editText.setInputCompleteListener(new PwdEditText.InputCompleteListener() {
             @Override
             public void inputComplete() {
-                password=editText.getStrPassword();
+                password = editText.getStrPassword();
             }
         });
 
@@ -53,24 +53,24 @@ public class ConfirmActivity extends BaseActivity{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ConfirmActivity.this, PhoneVerifyActivity2.class);
-                intent.putExtra("for_security",true);
+                intent.putExtra("for_security", true);
                 startActivity(intent);
             }
         });
     }
 
     private void checkPwd() {
-        if (null==password) {
-            ToastUtils.ToastMessage(ConfirmActivity.this,getString(R.string.pwd_not_6));
+        if (null == password) {
+            ToastUtils.ToastMessage(ConfirmActivity.this, getString(R.string.pwd_not_6));
             return;
         }
-        if (!TextUtils.equals(MD5.md5(password),myPwd)){
-            ToastUtils.ToastMessage(this,R.string.wrong_pwd);
+        if (!TextUtils.equals(MD5.md5(password), myPwd)) {
+            ToastUtils.ToastMessage(this, R.string.wrong_pwd);
             editText.clear();
             return;
         }
         Intent intent = new Intent(this, UpdateWalletPwdActivity.class);
-        intent.putExtra(Constant.OLD_PWD,password);
+        intent.putExtra(Constant.OLD_PWD, password);
         startActivity(intent);
         finish();
     }

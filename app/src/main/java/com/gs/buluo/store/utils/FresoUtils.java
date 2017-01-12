@@ -46,31 +46,31 @@ public class FresoUtils {
         imageView.setController(controller);
     }
 
-    public static String formatImageUrl(String url){
+    public static String formatImageUrl(String url) {
         String ret = url;
-        if (url.contains("://")){
+        if (url.contains("://")) {
             String[] arrs = url.split("\\://");
             String head = arrs[0];
             String body = arrs[1];
-            switch (head){
+            switch (head) {
                 case "oss":
-                    ret= Constant.Base.BASE_ALI_URL+body;
+                    ret = Constant.Base.BASE_ALI_URL + body;
                     break;
                 default:
-                    ret= Constant.Base.BASE_IMG_URL+body;
+                    ret = Constant.Base.BASE_IMG_URL + body;
             }
-        }else {
-            ret=Constant.Base.BASE_IMG_URL+url;
+        } else {
+            ret = Constant.Base.BASE_IMG_URL + url;
         }
 
         return ret;
     }
 
     public static void loadImage(String url, SimpleDraweeView imageView) {
-        if (url==null)return;
+        if (url == null) return;
         if (!url.contains("://")) {
-            url = Constant.Base.BASE_IMG_URL+url;
-        }else {
+            url = Constant.Base.BASE_IMG_URL + url;
+        } else {
             url = transformUrl(url);
         }
 
@@ -82,11 +82,11 @@ public class FresoUtils {
         String[] arrs = url.split("://");
         String head = arrs[0];
         String body = arrs[1];
-        switch (head){
+        switch (head) {
             case "oss":
-                return Constant.Base.BASE_ALI_URL+body;
+                return Constant.Base.BASE_ALI_URL + body;
             default:
-                return Constant.Base.BASE_IMG_URL+body;
+                return Constant.Base.BASE_IMG_URL + body;
         }
     }
 
@@ -115,19 +115,19 @@ public class FresoUtils {
 
     /**
      * 拿到指定宽高，并经过Processor处理的bitmap
+     *
      * @param url
      * @param context
      * @param width
      * @param height
      * @param processor 后处理器,可为null
      * @param listener
-     *
      */
     public static Bitmap getBitmapWithProcessor(String url, Context context, int width, int height,
-                                                BasePostprocessor processor, final BitmapListener listener){
+                                                BasePostprocessor processor, final BitmapListener listener) {
 
         ResizeOptions resizeOptions = null;
-        if (width !=0 && height != 0 ){
+        if (width != 0 && height != 0) {
             resizeOptions = new ResizeOptions(width, height);
         }
 
@@ -155,7 +155,7 @@ public class FresoUtils {
     }
 
 
-    public static void setCircle( SimpleDraweeView draweeView,int bgColor){
+    public static void setCircle(SimpleDraweeView draweeView, int bgColor) {
         RoundingParams roundingParams = RoundingParams.asCircle();//这个方法在某些情况下无法成圆,比如gif
         roundingParams.setOverlayColor(bgColor);//加一层遮罩,这个是关键方法
         draweeView.getHierarchy().setRoundingParams(roundingParams);

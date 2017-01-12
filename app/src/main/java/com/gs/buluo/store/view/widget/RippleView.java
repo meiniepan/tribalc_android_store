@@ -18,32 +18,54 @@ import com.gs.buluo.store.R;
  */
 public class RippleView extends View implements ValueAnimator.AnimatorUpdateListener, Animator.AnimatorListener {
 
-    /** 默认半径 dp */
+    /**
+     * 默认半径 dp
+     */
     private static final int NORMAL_RADIUS = 60;
 
-    /** 实心内圆画笔 */
+    /**
+     * 实心内圆画笔
+     */
     private Paint mInPaint = new Paint();
-    /** 空心内圆画笔 */
+    /**
+     * 空心内圆画笔
+     */
     private Paint mInStrokePaint = new Paint();
-    /** 空心外圆画笔 */
+    /**
+     * 空心外圆画笔
+     */
     private Paint mOutStrokePaint = new Paint();
 
     private ValueAnimator mValueAnimator;
     private RippleStateListener mRippleStateListener;
 
-    /** 初始化半径 */
+    /**
+     * 初始化半径
+     */
     private int mRadius;
-    /** 变化的半径 */
+    /**
+     * 变化的半径
+     */
     private int mChangeRadius;
-    /** 园边线宽度 */
+    /**
+     * 园边线宽度
+     */
     private int mStrokeWidth = 1;
-    /** 动画时间 */
+    /**
+     * 动画时间
+     */
     private int mDuration = 2500;
-    /** 动画次数 */
+    /**
+     * 动画次数
+     */
     private int mRepeatCount = -1;
-    /** 圆心x */
+    /**
+     * 圆心x
+     */
     private float mCx;
-    /** 圆心y */
+    /**
+     * 圆心y
+     */
     private float mCy;
 
     public RippleView(Context context) {
@@ -88,7 +110,7 @@ public class RippleView extends View implements ValueAnimator.AnimatorUpdateList
         super.onSizeChanged(w, h, oldw, oldh);
         //初始化圆心
         mCx = getMeasuredWidth() / 2;
-        mCy = getMeasuredHeight() / 4*3;
+        mCy = getMeasuredHeight() / 4 * 3;
     }
 
     @Override
@@ -96,18 +118,18 @@ public class RippleView extends View implements ValueAnimator.AnimatorUpdateList
         super.onDraw(canvas);
         //画半径变化的外圆
         canvas.drawCircle(mCx, mCy, mChangeRadius, mOutStrokePaint);
-        if(mChangeRadius >= mRadius * 1.5) {
-            canvas.drawCircle(mCx, mCy, mChangeRadius - (mRadius / 2) , mOutStrokePaint);
+        if (mChangeRadius >= mRadius * 1.5) {
+            canvas.drawCircle(mCx, mCy, mChangeRadius - (mRadius / 2), mOutStrokePaint);
         }
 
-        if(mChangeRadius >= mRadius * 2) {
+        if (mChangeRadius >= mRadius * 2) {
             canvas.drawCircle(mCx, mCy, mChangeRadius - (mRadius), mOutStrokePaint);
         }
-        if(mChangeRadius >= mRadius * 3) {
+        if (mChangeRadius >= mRadius * 3) {
             canvas.drawCircle(mCx, mCy, mChangeRadius - (2 * mRadius), mOutStrokePaint);
         }
 
-        if(mChangeRadius >= mRadius * 4.5) {
+        if (mChangeRadius >= mRadius * 4.5) {
             canvas.drawCircle(mCx, mCy, mChangeRadius - (4 * mRadius), mOutStrokePaint);
         }
 
@@ -118,7 +140,9 @@ public class RippleView extends View implements ValueAnimator.AnimatorUpdateList
 
     }
 
-    /** 开启水波纹 */
+    /**
+     * 开启水波纹
+     */
     public void startRipple() {
         if (mValueAnimator == null) {
             mValueAnimator = new ValueAnimator();
@@ -135,7 +159,9 @@ public class RippleView extends View implements ValueAnimator.AnimatorUpdateList
         }
     }
 
-    /** 关闭水波纹 */
+    /**
+     * 关闭水波纹
+     */
     public void stopRipple() {
         if (mValueAnimator != null) {
             mValueAnimator.end();
@@ -182,62 +208,88 @@ public class RippleView extends View implements ValueAnimator.AnimatorUpdateList
 
     }
 
-    /** 对外提供状态信息的接口 */
+    /**
+     * 对外提供状态信息的接口
+     */
     public interface RippleStateListener {
 
-        /** 动画开始 */
+        /**
+         * 动画开始
+         */
         void startRipple();
 
-        /** 动画结束 */
+        /**
+         * 动画结束
+         */
         void stopRipple();
 
-        /** 每一贞动画回调 */
+        /**
+         * 每一贞动画回调
+         */
         void onRippleUpdate(ValueAnimator animation);
     }
 
-    /** 水波纹状态接口对象注入 */
+    /**
+     * 水波纹状态接口对象注入
+     */
     public void setRippleStateListener(RippleStateListener listener) {
         mRippleStateListener = listener;
     }
 
-    /** 设置圆半径 */
+    /**
+     * 设置圆半径
+     */
     public void setRadius(int radius) {
         mRadius = radius;
         mChangeRadius = radius;
     }
 
-    /** 设置圆边线宽度 */
+    /**
+     * 设置圆边线宽度
+     */
     public void setStrokeWidth(int strokeWidth) {
         mStrokeWidth = strokeWidth;
     }
 
-    /** 设置动画时间 */
+    /**
+     * 设置动画时间
+     */
     public void setDuration(int duration) {
         mDuration = duration;
     }
 
-    /** 设置动画次数 */
+    /**
+     * 设置动画次数
+     */
     public void setRepeatCount(int repeatCount) {
         mRepeatCount = repeatCount;
     }
 
-    /** 设置圆心 */
-    public void setCirclePoint(float x ,float y) {
+    /**
+     * 设置圆心
+     */
+    public void setCirclePoint(float x, float y) {
         mCx = x;
         mCy = y;
     }
 
-    /** 设置空心外圆颜色 */
+    /**
+     * 设置空心外圆颜色
+     */
     public void setOutStrokePaintColor(int color) {
         mOutStrokePaint.setColor(color);
     }
 
-    /** 设置空心内圆颜色 */
+    /**
+     * 设置空心内圆颜色
+     */
     public void setInStrokePaintColor(int color) {
         mInStrokePaint.setColor(color);
     }
 
-    /** 设置实心内圆颜色 */
+    /**
+     * 设置实心内圆颜色
+     */
     public void setInPaintColor(int color) {
         mInPaint.setColor(color);
     }

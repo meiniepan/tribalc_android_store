@@ -14,20 +14,21 @@ import retrofit2.Response;
 /**
  * Created by hjn on 2016/11/18.
  */
-public class WalletPresenter extends BasePresenter<IWalletView>{
+public class WalletPresenter extends BasePresenter<IWalletView> {
 
     MoneyModel moneyModel;
-    public WalletPresenter(){
-        moneyModel=new MoneyModel();
+
+    public WalletPresenter() {
+        moneyModel = new MoneyModel();
     }
 
-    public void getWalletInfo(){
+    public void getWalletInfo() {
         moneyModel.getWelletInfo(TribeApplication.getInstance().getUserInfo().getId(), new Callback<BaseResponse<WalletAccount>>() {
             @Override
             public void onResponse(Call<BaseResponse<WalletAccount>> call, Response<BaseResponse<WalletAccount>> response) {
-                if (response.body()!=null&&response.body().code==200&&response.body().data!=null){
+                if (response.body() != null && response.body().code == 200 && response.body().data != null) {
                     mView.getWalletInfoFinished(response.body().data);
-                }else {
+                } else {
                     mView.showError(R.string.connect_fail);
                 }
             }

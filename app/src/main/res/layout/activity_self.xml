@@ -11,16 +11,17 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-         android:background="@color/common_dark">
+        android:background="@color/common_dark">
 
         <View
             android:layout_width="wrap_content"
             android:layout_height="0.5dp"
             android:layout_alignParentBottom="true"
-            android:background="#000"/>
+            android:background="#000" />
 
-        <include layout="@layout/back_img_white"
-            android:id="@+id/self_back"/>
+        <include
+            layout="@layout/back_img_white"
+            android:id="@+id/self_back" />
 
         <TextView
             android:layout_width="match_parent"
@@ -34,7 +35,7 @@
             android:id="@+id/textView8" />
     </RelativeLayout>
 
-    <include layout="@layout/split_area"/>
+    <include layout="@layout/split_area" />
 
     <RelativeLayout
         android:paddingStart="@dimen/activity_horizontal_margin"
@@ -42,12 +43,13 @@
         android:id="@+id/ll_head"
         android:layout_width="match_parent"
         android:layout_height="90dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/head"
             android:gravity="center_vertical"
-            android:textSize="@dimen/dimens_16sp"/>
+            android:textSize="@dimen/dimens_16sp" />
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/self_iv_head"
@@ -57,7 +59,7 @@
             android:layout_alignParentEnd="true"
             fresco:placeholderImage="@mipmap/head_icon"
             fresco:roundAsCircle="true"
-            fresco:placeholderImageScaleType="fitXY"/>
+            fresco:placeholderImageScaleType="fitXY" />
     </RelativeLayout>
 
     <include layout="@layout/split_line" />
@@ -68,12 +70,13 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/self_item_height"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/store_name"
             android:gravity="center_vertical"
-            android:textSize="@dimen/dimens_16sp"/>
+            android:textSize="@dimen/dimens_16sp" />
 
         <TextView
             android:id="@+id/tv_nickname"
@@ -83,7 +86,7 @@
             android:layout_alignParentEnd="true"
             android:maxLength="18"
             android:layout_marginEnd="@dimen/self_margin_end"
-            android:textSize="@dimen/dimens_16sp"/>
+            android:textSize="@dimen/dimens_16sp" />
     </RelativeLayout>
 
     <include layout="@layout/split_line" />
@@ -94,12 +97,13 @@
         android:layout_height="@dimen/self_item_height"
         android:paddingStart="@dimen/activity_horizontal_margin"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/number"
             android:gravity="center_vertical"
-            android:textSize="@dimen/dimens_16sp"/>
+            android:textSize="@dimen/dimens_16sp" />
 
         <TextView
             android:id="@+id/tv_number"
@@ -108,8 +112,9 @@
             android:gravity="center_vertical"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/self_margin_end"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
     </RelativeLayout>
+
     <include layout="@layout/split_line" />
 
 
@@ -119,12 +124,13 @@
         android:layout_height="@dimen/self_item_height"
         android:paddingStart="@dimen/activity_horizontal_margin"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/address"
             android:gravity="center_vertical"
-            android:textSize="@dimen/dimens_16sp"/>
+            android:textSize="@dimen/dimens_16sp" />
 
         <TextView
             android:id="@+id/tv_address"
@@ -134,7 +140,7 @@
             android:ellipsize="end"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/self_margin_end"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
     </RelativeLayout>
 
     <include layout="@layout/split_line" />
@@ -146,26 +152,28 @@
         android:paddingStart="@dimen/activity_horizontal_margin"
         android:paddingEnd="@dimen/activity_horizontal_margin"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/receive"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/detail_address"
             android:gravity="center_vertical"
-            android:textSize="@dimen/dimens_16sp"/>
+            android:textSize="@dimen/dimens_16sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
             android:layout_toRightOf="@+id/receive">
+
             <TextView
                 android:id="@+id/tv_detail_address"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:layout_alignParentEnd="true"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
         </RelativeLayout>
     </RelativeLayout>
 

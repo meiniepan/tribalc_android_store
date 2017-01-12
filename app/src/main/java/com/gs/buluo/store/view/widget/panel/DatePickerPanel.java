@@ -81,9 +81,9 @@ public class DatePickerPanel extends Dialog {
         Date date = new Date(System.currentTimeMillis());
         String c = TribeDateUtils.dateFormat5(date);
         String[] arr = c.split("-");
-        instance.set(Integer.parseInt(arr[0]), Integer.parseInt(arr[1])-1, Integer.parseInt(arr[2]),8,0,0);
+        instance.set(Integer.parseInt(arr[0]), Integer.parseInt(arr[1]) - 1, Integer.parseInt(arr[2]), 8, 0, 0);
         long entityTime = instance.getTimeInMillis();//获取当日的8点时间
-        newDate =entityTime;
+        newDate = entityTime;
         String d;
         int w;
         String wwk;
@@ -137,8 +137,8 @@ public class DatePickerPanel extends Dialog {
         mBtnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Date date=new Date(newDate);
-                Date date1=new Date(newTime);
+                Date date = new Date(newDate);
+                Date date1 = new Date(newTime);
 
                 onSelectedFinished.onSelected(newDate + newTime);
                 dismiss();

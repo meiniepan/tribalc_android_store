@@ -97,7 +97,7 @@ public class RechargePanel extends Dialog implements View.OnClickListener {
     }
 
     public void setData(String price) {
-        if (price==null)return;
+        if (price == null) return;
         String[] arrs = price.split("\\.");
         if (arrs.length > 1) {
             mInterger.setText(arrs[0]);

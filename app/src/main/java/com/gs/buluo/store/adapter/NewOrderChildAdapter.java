@@ -18,10 +18,11 @@ import java.util.List;
  */
 public class NewOrderChildAdapter extends BaseAdapter {
     private Context context;
-    private  List<CartItem> goodsList;
+    private List<CartItem> goodsList;
+
     public NewOrderChildAdapter(Context context, List<CartItem> goodsList) {
-        this.context=context;
-        this.goodsList=goodsList;
+        this.context = context;
+        this.goodsList = goodsList;
 
     }
 
@@ -44,26 +45,26 @@ public class NewOrderChildAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         CartItem item = goodsList.get(position);
         ChildHolder holder;
-        if (convertView==null){
-            holder=new ChildHolder();
-            convertView=holder.getConvertView();
-        }else {
-            holder= (ChildHolder) convertView.getTag();
+        if (convertView == null) {
+            holder = new ChildHolder();
+            convertView = holder.getConvertView();
+        } else {
+            holder = (ChildHolder) convertView.getTag();
         }
         holder.name.setText(item.goods.name);
-        holder.count.setText(item.amount+"");
-        holder.price.setText(Float.parseFloat(item.goods.salePrice)+"");
-        FresoUtils.loadImage(item.goods.mainPicture,holder.picture);
+        holder.count.setText(item.amount + "");
+        holder.price.setText(Float.parseFloat(item.goods.salePrice) + "");
+        FresoUtils.loadImage(item.goods.mainPicture, holder.picture);
 
-        if (item.goods.standardSnapshot!=null){
+        if (item.goods.standardSnapshot != null) {
             String[] arr1 = item.goods.standardSnapshot.split("\\|");
-            if (arr1.length>1){
+            if (arr1.length > 1) {
                 holder.key1.setText(arr1[0].split(":")[0]);
                 holder.value1.setText(arr1[0].split(":")[1]);
                 holder.key2.setText(arr1[1].split(":")[0]);
                 holder.value2.setText(arr1[1].split(":")[1]);
-                FresoUtils.loadImage(item.goods.mainPicture,holder.picture);
-            }else {
+                FresoUtils.loadImage(item.goods.mainPicture, holder.picture);
+            } else {
                 holder.key1.setText(item.goods.standardSnapshot.split(":")[0]);
                 holder.value1.setText(item.goods.standardSnapshot.split(":")[1]);
             }
@@ -74,7 +75,7 @@ public class NewOrderChildAdapter extends BaseAdapter {
     }
 
 
-    public class ChildHolder{
+    public class ChildHolder {
         public TextView name;
         public TextView key1;
         public TextView value1;
@@ -84,15 +85,15 @@ public class NewOrderChildAdapter extends BaseAdapter {
         public TextView count;
         public SimpleDraweeView picture;
 
-        public View getConvertView(){
-            View view=View.inflate(context, R.layout.new_order_item_goods_item,null);
+        public View getConvertView() {
+            View view = View.inflate(context, R.layout.new_order_item_goods_item, null);
             name = (TextView) view.findViewById(R.id.new_order_goods_name);
-            key1= (TextView) view.findViewById(R.id.new_order_item_key1);
-            key2= (TextView) view.findViewById(R.id.new_order_item_key2);
-            value1= (TextView) view.findViewById(R.id.new_order_item_value1);
-            value2= (TextView) view.findViewById(R.id.new_order_item_value2);
-            price= (TextView) view.findViewById(R.id.new_order_item_price);
-            count= (TextView) view.findViewById(R.id.new_order_item_good_count);
+            key1 = (TextView) view.findViewById(R.id.new_order_item_key1);
+            key2 = (TextView) view.findViewById(R.id.new_order_item_key2);
+            value1 = (TextView) view.findViewById(R.id.new_order_item_value1);
+            value2 = (TextView) view.findViewById(R.id.new_order_item_value2);
+            price = (TextView) view.findViewById(R.id.new_order_item_price);
+            count = (TextView) view.findViewById(R.id.new_order_item_good_count);
             picture = (SimpleDraweeView) view.findViewById(R.id.new_order_goods_picture);
             return view;
         }

@@ -53,7 +53,7 @@ public class ServeActivity extends BaseActivity implements View.OnClickListener,
         type = getIntent().getStringExtra(Constant.TYPE);
         initView(type);
         showLoadingDialog();
-        ((ServePresenter)mPresenter).getServeListFirst(type.toUpperCase(),sort);
+        ((ServePresenter) mPresenter).getServeListFirst(type.toUpperCase(), sort);
 
         refreshView.setNeedLoadMore(true);
         refreshView.setLayoutManager(new LinearLayoutManager(this));
@@ -62,14 +62,15 @@ public class ServeActivity extends BaseActivity implements View.OnClickListener,
         refreshView.setLoadMoreAction(new Action() {
             @Override
             public void onAction() {
-                ((ServePresenter)mPresenter).getServeMore(type.toUpperCase(),sort);
+                ((ServePresenter) mPresenter).getServeMore(type.toUpperCase(), sort);
             }
         });
     }
+
     private void initView(String type) {
-        if (TextUtils.equals(type,Constant.REPAST)){
+        if (TextUtils.equals(type, Constant.REPAST)) {
             tvTitle.setText(R.string.repast);
-        }else {
+        } else {
             tvTitle.setText(R.string.entertainment);
         }
         findViewById(R.id.serve_map).setOnClickListener(this);
@@ -77,7 +78,7 @@ public class ServeActivity extends BaseActivity implements View.OnClickListener,
         findViewById(R.id.serve_filter).setOnClickListener(this);
         findViewById(R.id.serve_back).setOnClickListener(this);
 
-        sortBoard = new SortBoard(this,this);
+        sortBoard = new SortBoard(this, this);
         sortBoard.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
@@ -146,22 +147,22 @@ public class ServeActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void showError(int res) {
         dismissDialog();
-        ToastUtils.ToastMessage(this,getString(res));
+        ToastUtils.ToastMessage(this, getString(res));
     }
 
     @Override
     public void getServerSuccess(ServeResponse.ServeResponseBody body) {
         dismissDialog();
         adapter.addAll(body.content);
-        if (!body.hasMore){
-           refreshView.showNoMore();
+        if (!body.hasMore) {
+            refreshView.showNoMore();
         }
     }
 
     @Override
     public void onSelected(String sort) {
         adapter.clear();
-        ((ServePresenter)mPresenter).getServeListFirst(type.toUpperCase(),sort);
-        this.sort=sort;
+        ((ServePresenter) mPresenter).getServeListFirst(type.toUpperCase(), sort);
+        this.sort = sort;
     }
 }

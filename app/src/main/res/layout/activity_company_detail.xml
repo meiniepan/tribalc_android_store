@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,13 +10,16 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <RelativeLayout
                     android:id="@+id/company_detail_back"
                     android:layout_width="wrap_content"
@@ -34,10 +36,11 @@
                         android:layout_height="24dp"
                         android:src="@mipmap/back_white" />
                 </RelativeLayout>
+
                 <com.youth.banner.Banner
                     android:id="@+id/company_detail_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="270dp"/>
+                    android:layout_height="270dp" />
             </RelativeLayout>
 
             <com.facebook.drawee.view.SimpleDraweeView
@@ -48,7 +51,7 @@
                 android:layout_marginTop="-30dp"
                 fresco:placeholderImage="@mipmap/default_pic"
                 fresco:roundAsCircle="true"
-                fresco:placeholderImageScaleType="centerCrop"/>
+                fresco:placeholderImageScaleType="centerCrop" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -64,7 +67,7 @@
                     android:layout_marginTop="20dp"
                     android:gravity="center"
                     android:textSize="@dimen/dimens_17sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/company_detail_desc"
@@ -72,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:lineSpacingMultiplier="1.2"
                     android:paddingLeft="@dimen/dimens_39dp"
-                    android:paddingRight="@dimen/dimens_39dp"/>
+                    android:paddingRight="@dimen/dimens_39dp" />
 
             </LinearLayout>
 
@@ -80,7 +83,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:background="@color/divide_gray"/>
+                android:background="@color/divide_gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -95,7 +98,7 @@
                     android:layout_height="42dp"
                     android:textSize="@dimen/dimens_14sp"
                     android:textStyle="bold"
-                    android:text="我的信息"/>
+                    android:text="我的信息" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -106,7 +109,7 @@
                         android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="公司名称"/>
+                        android:text="公司名称" />
 
                     <TextView
                         android:id="@+id/company_detail_name1"
@@ -114,7 +117,7 @@
                         android:gravity="center"
                         android:text="XXXXXXXX"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 
@@ -127,7 +130,7 @@
                         android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="姓        名"/>
+                        android:text="姓        名" />
 
                     <TextView
                         android:id="@+id/company_detail_username"
@@ -135,7 +138,7 @@
                         android:gravity="center"
                         android:text="XXXXXXXX"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 
@@ -148,7 +151,7 @@
                         android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="部        门"/>
+                        android:text="部        门" />
 
                     <TextView
                         android:id="@+id/company_detail_department"
@@ -156,7 +159,7 @@
                         android:gravity="center"
                         android:text="XXXXXXXX"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 
@@ -169,7 +172,7 @@
                         android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="职        位"/>
+                        android:text="职        位" />
 
                     <TextView
                         android:id="@+id/company_detail_position"
@@ -177,7 +180,7 @@
                         android:gravity="center"
                         android:text="XXXXXXXX"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 
@@ -190,7 +193,7 @@
                         android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="工        号"/>
+                        android:text="工        号" />
 
                     <TextView
                         android:id="@+id/company_detail_personNum"
@@ -198,7 +201,7 @@
                         android:gravity="center"
                         android:text="XXXXXXXX"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 

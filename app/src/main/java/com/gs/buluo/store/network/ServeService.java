@@ -17,7 +17,7 @@ public interface ServeService {
     Call<ServeResponse> getServiceList(
             @Query("category") String category,
             @Query("limitSize") int limitSize
-            , @Query("sortSkip") String sortSkip,@Query("sort") String sort);
+            , @Query("sortSkip") String sortSkip, @Query("sort") String sort);
 
     @GET("store_set_meals")
     Call<ServeResponse> getServiceListFirst(
@@ -26,7 +26,7 @@ public interface ServeService {
 
 
     @GET("store_set_meals/{id}")
-    Call<BaseResponse<DetailStoreSetMeal>> getServeDetail(@Path("id")String serveId);
+    Call<BaseResponse<DetailStoreSetMeal>> getServeDetail(@Path("id") String serveId);
 
 }
 

@@ -26,19 +26,19 @@ public class StoreInfo implements IBaseResponse {
     @Column(name = "store_type")
     private String storeType;
 
-    @Column(name ="phone")
+    @Column(name = "phone")
     private String phone;
 
-    @Column(name="address")
+    @Column(name = "address")
     private String address;
 
-    @Column(name="cover")
+    @Column(name = "cover")
     private String cover;
 
-    @Column(name="coordinate")
+    @Column(name = "coordinate")
     private String coordinate;
 
-    @Column(name="logo")
+    @Column(name = "logo")
     private String logo;
 
     public int getMid() {

@@ -11,7 +11,7 @@ public class ServeResponse {
     public int code;
     public ServeResponseBody data;
 
-    public class ServeResponseBody{
+    public class ServeResponseBody {
         public String category;
         public String sort;
         public String prevSkip;

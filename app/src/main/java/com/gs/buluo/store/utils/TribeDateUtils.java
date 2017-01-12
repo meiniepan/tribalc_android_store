@@ -150,23 +150,22 @@ public class TribeDateUtils {
     }
 
     //定义下拉刷新时间格式>>>>几分钟前更新，刚刚更新，几小时前更新;
-    public static String getPullRefreshTime(String refreshTime)
-    {
+    public static String getPullRefreshTime(String refreshTime) {
         try {
 //			LogUtils.i("getPullRefreshTime", refreshTime);
             String time = "";
             Date oldData = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(refreshTime);
             Date nowData = new Date();
-            long res = (nowData.getTime() - oldData.getTime()) / (60* 1000);
+            long res = (nowData.getTime() - oldData.getTime()) / (60 * 1000);
 
-            if(res <= 1){
+            if (res <= 1) {
                 time = "刚刚更新";
-            }else if(1 < res && res< 60){
-                time = (int)res +"分钟前更新";
-            }else if(60 < res && res < (60 *24)){
-                time = (int)res/60 +"小时前更新";
-            }else{
-                time = dateFormat5(oldData)+"更新";
+            } else if (1 < res && res < 60) {
+                time = (int) res + "分钟前更新";
+            } else if (60 < res && res < (60 * 24)) {
+                time = (int) res / 60 + "小时前更新";
+            } else {
+                time = dateFormat5(oldData) + "更新";
             }
 //            LogUtils.i("getPullRefreshTime", "time = " + time);
             return time;
@@ -175,6 +174,7 @@ public class TribeDateUtils {
             return "";
         }
     }
+
     public static int stringGetWeek(String time) {
         Calendar cal = Calendar.getInstance();
         int i = -1;
@@ -188,7 +188,7 @@ public class TribeDateUtils {
         } catch (java.text.ParseException e) {
             e.printStackTrace();
         }
-        return i-1;
+        return i - 1;
 
     }
 

@@ -26,31 +26,31 @@ public interface ShoppingService {
 
     @GET("orders?type=owner")
     Call<OrderResponse> getOrderFirst(@Query("me") String uid, @Query("limitSize") String limitSize,
-                                      @Query("status")String status);
+                                      @Query("status") String status);
 
     @GET("orders?type=owner")
     Call<OrderResponse> getOrder(@Query("me") String uid, @Query("limitSize") String limitSize
-            ,@Query("sortSkip")String sortSkip,@Query("status")String status);
+            , @Query("sortSkip") String sortSkip, @Query("status") String status);
 
     @POST("orders?type=owner")
-    Call<NewOrderResponse> createNewOrder(@Query("me")String uid, @Body NewOrderRequestBody requestBody);
+    Call<NewOrderResponse> createNewOrder(@Query("me") String uid, @Body NewOrderRequestBody requestBody);
 
     @PUT("orders/{orderId}/status?type=owner")
-    Call<BaseResponse> updateOrderStatus(@Path("orderId")String orderId, @Query("me")String uid, @Body ValueRequestBody status);
+    Call<BaseResponse> updateOrderStatus(@Path("orderId") String orderId, @Query("me") String uid, @Body ValueRequestBody status);
 
     @GET("shopping_cart")
-    Call<ShoppingCartResponse> getShoppingCarList(@Query("me")String uid,@Query("sortSkip") String sortSkip);
+    Call<ShoppingCartResponse> getShoppingCarList(@Query("me") String uid, @Query("sortSkip") String sortSkip);
 
     @GET("persons/{id}/shopping_cart")
     Call<ShoppingCartResponse> getShoppingCarListFirst(@Path("id") String uid, @Query("limitSize") int limitSize);
 
     @HTTP(method = "DELETE", path = "persons/{id}/shopping_cart/{ids}")
-    Call<BaseResponse> deleteCart(@Path("id")String uid, @Path("ids")String ids);
+    Call<BaseResponse> deleteCart(@Path("id") String uid, @Path("ids") String ids);
 
     @PUT("persons/{id}/shopping_cart")
-    Call<CartItemUpdateResponse> updateCartItem(@Path("id")String uid,@Body ShoppingCartGoodsItem body);
+    Call<CartItemUpdateResponse> updateCartItem(@Path("id") String uid, @Body ShoppingCartGoodsItem body);
 
     @POST("persons/{id}/shopping_cart")
-    Call<BaseResponse> addCartItem(@Path("id")String uid, @Body NewOrderBean body);
+    Call<BaseResponse> addCartItem(@Path("id") String uid, @Body NewOrderBean body);
 
 }

@@ -19,7 +19,7 @@ public class TribeRetrofit {
     private Map<Class, Object> apis = new HashMap<>();
     private final Retrofit retrofit;
 
-    private TribeRetrofit(){
+    private TribeRetrofit() {
         OkHttpClient.Builder builder = new okhttp3.OkHttpClient.Builder();
         builder.interceptors().add(new HttpInterceptor());
         builder.connectTimeout(10, TimeUnit.SECONDS);
@@ -32,20 +32,20 @@ public class TribeRetrofit {
                 .build();
     }
 
-    public  synchronized  static TribeRetrofit getInstance(){
-        if (null==instance){
-            instance=new TribeRetrofit();
+    public synchronized static TribeRetrofit getInstance() {
+        if (null == instance) {
+            instance = new TribeRetrofit();
         }
         return instance;
     }
 
-    public <T>T createApi(Class<T> service) {
+    public <T> T createApi(Class<T> service) {
         if (!apis.containsKey(service)) {
             T instance = retrofit.create(service);
             apis.put(service, instance);
         }
 
-        return (T)apis.get(service);
+        return (T) apis.get(service);
     }
 
 }

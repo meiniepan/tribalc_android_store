@@ -43,7 +43,7 @@ public class RefreshRecyclerView extends FrameLayout {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.my_swipe);
         mSwipeRefreshLayout.setEnabled(false);
-        setSwipeRefreshColorsFromRes(R.color.main_tab,R.color.custom_color,R.color.custom_color_shallow);
+        setSwipeRefreshColorsFromRes(R.color.main_tab, R.color.custom_color, R.color.custom_color_shallow);
 //        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener(){
 //            @Override
 //            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -59,11 +59,12 @@ public class RefreshRecyclerView extends FrameLayout {
 //        });
     }
 
-    public void showNoData(int message){
+    public void showNoData(int message) {
         empty.setVisibility(VISIBLE);
         msg.setText(message);
     }
-    public void showNoData(String message){
+
+    public void showNoData(String message) {
         empty.setVisibility(VISIBLE);
         msg.setText(message);
     }
@@ -90,7 +91,7 @@ public class RefreshRecyclerView extends FrameLayout {
     }
 
     public void setLoadMoreAction(final Action action) {
-        loadMoreAble=true;
+        loadMoreAble = true;
         if (mAdapter.isShowNoMore) {
             return;
         }
@@ -115,7 +116,7 @@ public class RefreshRecyclerView extends FrameLayout {
         return mSwipeRefreshLayout;
     }
 
-    public TextView getNoMoreView(){
+    public TextView getNoMoreView() {
         return mAdapter.mNoMoreView;
     }
 
@@ -140,7 +141,7 @@ public class RefreshRecyclerView extends FrameLayout {
         empty.setVisibility(GONE);
     }
 
-    public void setNeedLoadMore(boolean loadMore){
-        loadMoreAble=loadMore;
+    public void setNeedLoadMore(boolean loadMore) {
+        loadMoreAble = loadMore;
     }
 }

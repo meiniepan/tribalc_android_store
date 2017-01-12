@@ -16,14 +16,14 @@ public class WXPayUtils {
     private static IWXAPI msgApi = null;
 
 
-    private WXPayUtils(){
+    private WXPayUtils() {
         msgApi = WXAPIFactory.createWXAPI(TribeApplication.getInstance().getApplicationContext(), null);
         // 将该app注册到微信
         msgApi.registerApp(Constant.Base.WX_ID);
     }
 
-    public static WXPayUtils getInstance(){
-        if (wxPayUtils ==null){
+    public static WXPayUtils getInstance() {
+        if (wxPayUtils == null) {
             wxPayUtils = new WXPayUtils();
         }
         return wxPayUtils;
@@ -34,11 +34,11 @@ public class WXPayUtils {
         PayReq request = new PayReq();
         request.appId = Constant.Base.WX_ID;
         request.partnerId = data.partnerid;
-        request.prepayId=data.prepayid;
+        request.prepayId = data.prepayid;
         request.packageValue = "Sign=WXPay";
-        request.nonceStr= data.noncestr;
-        request.timeStamp= data.timestamp;
-        request.sign= data.sign;
+        request.nonceStr = data.noncestr;
+        request.timeStamp = data.timestamp;
+        request.sign = data.sign;
         msgApi.sendReq(request);
     }
 }

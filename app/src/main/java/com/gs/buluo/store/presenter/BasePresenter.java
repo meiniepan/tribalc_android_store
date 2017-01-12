@@ -5,7 +5,7 @@ import com.gs.buluo.store.view.impl.IBaseView;
 /**
  * Created by hjn on 2016/11/3.
  */
-public abstract class BasePresenter <T extends IBaseView> {
+public abstract class BasePresenter<T extends IBaseView> {
     public T mView;
 
     public void attach(T mView) {
@@ -18,7 +18,7 @@ public abstract class BasePresenter <T extends IBaseView> {
         }
     }
 
-    public boolean isAttach(){
-        return mView!=null;
+    public boolean isAttach() {
+        return mView != null;
     }
 }

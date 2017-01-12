@@ -26,9 +26,10 @@ import java.util.Date;
  */
 public class ReserveListAdapter extends RecyclerAdapter<ListReservation> {
     Activity mAct;
+
     public ReserveListAdapter(Activity context) {
         super(context);
-        mAct =context;
+        mAct = context;
     }
 
     @Override
@@ -36,7 +37,7 @@ public class ReserveListAdapter extends RecyclerAdapter<ListReservation> {
         return new ReserveItemHolder(parent);
     }
 
-    class ReserveItemHolder extends BaseViewHolder<ListReservation>{
+    class ReserveItemHolder extends BaseViewHolder<ListReservation> {
         TextView tags;
         TextView status;
         TextView name;
@@ -44,42 +45,43 @@ public class ReserveListAdapter extends RecyclerAdapter<ListReservation> {
         TextView count;
         SimpleDraweeView picture;
         View itemView;
+
         public ReserveItemHolder(ViewGroup itemView) {
             super(itemView, R.layout.reserve_list_item);
-            this.itemView=itemView;
+            this.itemView = itemView;
         }
 
         @Override
         public void onInitializeView() {
-            status =findViewById(R.id.reserve_item_status);
-            name=findViewById(R.id.reserve_item_name);
-            picture=findViewById(R.id.reserve_item_picture);
-            tags=findViewById(R.id.reserve_item_tags);
-            time=findViewById(R.id.receive_item_time);
-            count=findViewById(R.id.reserve_item_people_count);
+            status = findViewById(R.id.reserve_item_status);
+            name = findViewById(R.id.reserve_item_name);
+            picture = findViewById(R.id.reserve_item_picture);
+            tags = findViewById(R.id.reserve_item_tags);
+            time = findViewById(R.id.receive_item_time);
+            count = findViewById(R.id.reserve_item_people_count);
         }
 
         @Override
         public void setData(ListReservation entity) {
             super.setData(entity);
-            if (entity==null)return;
+            if (entity == null) return;
             name.setText(entity.storeName);
             setStatus(entity);
             tags.setText(entity.markPlace);
-            if (entity.tags!=null&&entity.tags.size()>0){
-                tags.setText(entity.tags.get(0)+"  |  "+entity.markPlace);
+            if (entity.tags != null && entity.tags.size() > 0) {
+                tags.setText(entity.tags.get(0) + "  |  " + entity.markPlace);
             }
             time.setText(TribeDateUtils.dateFormat9(new Date(entity.appointTime)));
             count.setText(entity.personNum);
-            FresoUtils.loadImage(entity.mainPicture,picture);
+            FresoUtils.loadImage(entity.mainPicture, picture);
         }
 
         private void setStatus(ListReservation entity) {
-            if (entity.status== ListReservation.ReserveStatus.PROCESSING){
+            if (entity.status == ListReservation.ReserveStatus.PROCESSING) {
                 status.setText(R.string.reserve_processing);
-            }else if (entity.status== ListReservation.ReserveStatus.SUCCEED){
+            } else if (entity.status == ListReservation.ReserveStatus.SUCCEED) {
                 status.setText(R.string.reserve_success);
-            }else {
+            } else {
                 status.setText(R.string.reserve_fail);
             }
         }
@@ -87,11 +89,11 @@ public class ReserveListAdapter extends RecyclerAdapter<ListReservation> {
         @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         @Override
         public void onItemViewClick(ListReservation entity) {
-            Intent intent=new Intent(mAct,ReserveDetailActivity.class);
-            intent.putExtra(Constant.SERVE_ID,entity);
+            Intent intent = new Intent(mAct, ReserveDetailActivity.class);
+            intent.putExtra(Constant.SERVE_ID, entity);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 mAct.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(mAct).toBundle());
-            }else {
+            } else {
                 mAct.startActivity(intent);
             }
         }

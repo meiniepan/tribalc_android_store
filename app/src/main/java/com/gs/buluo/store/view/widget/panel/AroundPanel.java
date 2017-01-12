@@ -26,7 +26,7 @@ public class AroundPanel extends Dialog implements ArcMenu.OnMenuItemClickListen
     private ArcMenu menu;
 
     public AroundPanel(MainActivity context) {
-        super(context,R.style.around_dialog);
+        super(context, R.style.around_dialog);
         activity = context;
         initView();
     }
@@ -37,7 +37,7 @@ public class AroundPanel extends Dialog implements ArcMenu.OnMenuItemClickListen
         menu = (ArcMenu) findViewById(R.id.am_root);
         ImageView view = (ImageView) findViewById(R.id.id_arcmenu_button);
 
-        AlphaAnimation alphaAnimation=new AlphaAnimation(0,1);
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
         alphaAnimation.setDuration(500);
         alphaAnimation.setFillAfter(true);
         alphaAnimation.setStartOffset(400);
@@ -55,14 +55,14 @@ public class AroundPanel extends Dialog implements ArcMenu.OnMenuItemClickListen
                     public void run() {
                         dismiss();
                     }
-                },300);
+                }, 300);
             }
         });
 
         Window window = getWindow();
         WindowManager.LayoutParams params = window.getAttributes();
-        params.width= ViewGroup.LayoutParams.MATCH_PARENT;
-        params.height= ViewGroup.LayoutParams.MATCH_PARENT;
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
         window.setAttributes(params);
 
         menu.setOnMenuItemClickListener(this);
@@ -76,13 +76,13 @@ public class AroundPanel extends Dialog implements ArcMenu.OnMenuItemClickListen
     @Override
     public void onClick(View view, int pos) {
         Intent intent = new Intent(activity, ServeActivity.class);
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.around_food:
-                intent.putExtra(Constant.TYPE,Constant.REPAST);
+                intent.putExtra(Constant.TYPE, Constant.REPAST);
                 activity.startActivity(intent);
                 break;
             case R.id.around_fun:
-                intent.putExtra(Constant.TYPE,Constant.ENTERTAINMENT);
+                intent.putExtra(Constant.TYPE, Constant.ENTERTAINMENT);
                 activity.startActivity(intent);
                 break;
             case R.id.around_shop:
@@ -94,6 +94,6 @@ public class AroundPanel extends Dialog implements ArcMenu.OnMenuItemClickListen
             public void run() {
                 dismiss();
             }
-        },1000);
+        }, 1000);
     }
 }

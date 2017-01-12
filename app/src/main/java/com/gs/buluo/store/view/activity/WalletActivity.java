@@ -22,7 +22,7 @@ import butterknife.Bind;
 /**
  * Created by hjn on 2016/11/17.
  */
-public class WalletActivity extends BaseActivity implements View.OnClickListener,IWalletView, DialogInterface.OnDismissListener {
+public class WalletActivity extends BaseActivity implements View.OnClickListener, IWalletView, DialogInterface.OnDismissListener {
     @Bind(R.id.wallet_integer)
     TextView mInterger;
     @Bind(R.id.wallet_float)
@@ -34,7 +34,7 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        mCtx=this;
+        mCtx = this;
         findViewById(R.id.wallet_bill).setOnClickListener(this);
         findViewById(R.id.wallet_card).setOnClickListener(this);
         findViewById(R.id.wallet_financial).setOnClickListener(this);
@@ -53,19 +53,19 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        ((WalletPresenter)mPresenter).getWalletInfo();
+        ((WalletPresenter) mPresenter).getWalletInfo();
     }
 
     @Override
     public void onClick(View v) {
-        Intent intent=new Intent();
-        switch (v.getId()){
+        Intent intent = new Intent();
+        switch (v.getId()) {
             case R.id.wallet_bill:
-                intent.setClass(WalletActivity.this,BillActivity.class);
+                intent.setClass(WalletActivity.this, BillActivity.class);
                 startActivity(intent);
                 break;
             case R.id.wallet_card:
-                intent.setClass(mCtx,BankCardActivity.class);
+                intent.setClass(mCtx, BankCardActivity.class);
                 startActivity(intent);
                 break;
             case R.id.wallet_financial:
@@ -77,11 +77,11 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
                 panel.setOnDismissListener(this);
                 break;
             case R.id.wallet_pwd:
-                if (TextUtils.isEmpty(pwd)){
-                    intent.setClass(mCtx,UpdateWalletPwdActivity.class);
-                }else {
-                    intent.putExtra(Constant.WALLET_PWD,pwd);
-                    intent.setClass(mCtx,ConfirmActivity.class);
+                if (TextUtils.isEmpty(pwd)) {
+                    intent.setClass(mCtx, UpdateWalletPwdActivity.class);
+                } else {
+                    intent.putExtra(Constant.WALLET_PWD, pwd);
+                    intent.setClass(mCtx, ConfirmActivity.class);
                 }
                 startActivity(intent);
                 break;
@@ -103,8 +103,9 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
         balance = account.balance;
         setData(balance);
     }
+
     public void setData(String price) {
-        if (price==null)return;
+        if (price == null) return;
         String[] arrs = price.split("\\.");
         if (arrs.length > 1) {
             mInterger.setText(arrs[0]);
@@ -117,11 +118,11 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void showError(int res) {
-        ToastUtils.ToastMessage(this,getString(res));
+        ToastUtils.ToastMessage(this, getString(res));
     }
 
     @Override
     public void onDismiss(DialogInterface dialog) {
-        ((WalletPresenter)mPresenter).getWalletInfo();
+        ((WalletPresenter) mPresenter).getWalletInfo();
     }
 }

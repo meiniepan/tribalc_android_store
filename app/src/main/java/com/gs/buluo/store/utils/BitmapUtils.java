@@ -16,7 +16,7 @@ import android.view.WindowManager;
 
 public class BitmapUtils {
 
-    public static Bitmap getFlur(Bitmap sentBitmap,Context context){
+    public static Bitmap getFlur(Bitmap sentBitmap, Context context) {
         Bitmap bitmap = sentBitmap.copy(sentBitmap.getConfig(), true);
         final RenderScript rs = RenderScript.create(context);
         final Allocation input = Allocation.createFromBitmap(rs, sentBitmap, Allocation.MipmapControl.MIPMAP_NONE,
@@ -30,11 +30,11 @@ public class BitmapUtils {
         return bitmap;
     }
 
-    public static   Bitmap getScreenshot(View v,Context context) {
+    public static Bitmap getScreenshot(View v, Context context) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         int width = wm.getDefaultDisplay().getWidth();
         int height = wm.getDefaultDisplay().getHeight();
-        Bitmap b = Bitmap.createBitmap(width,height, Bitmap.Config.ARGB_8888);
+        Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(b);
         v.draw(c);
         return b;

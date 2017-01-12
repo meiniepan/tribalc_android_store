@@ -30,7 +30,7 @@ public class UpdateWalletPwdActivity extends BaseActivity {
     protected void bindView(Bundle savedInstanceState) {
         oldPwd = getIntent().getStringExtra(Constant.OLD_PWD);
         vCode = getIntent().getStringExtra(Constant.VCODE);
-        if (oldPwd==null){
+        if (oldPwd == null) {
             mText.setText(R.string.pay_pwd);
         }
 

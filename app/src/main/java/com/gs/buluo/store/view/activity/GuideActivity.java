@@ -14,12 +14,13 @@ import butterknife.Bind;
 /**
  * Created by hjn on 2016/12/27.
  */
-public class GuideActivity extends BaseActivity{
+public class GuideActivity extends BaseActivity {
     @Bind(R.id.guide_pager)
     ViewPager viewPager;
 
     GuidePagerAdapter vAdapter;
     private List<Integer> list;
+
     @Override
     protected void bindView(Bundle savedInstanceState) {
         setBarColor(R.color.transparent);
@@ -27,7 +28,7 @@ public class GuideActivity extends BaseActivity{
         list.add(R.mipmap.guide_1);
         list.add(R.mipmap.guide2);
         list.add(R.mipmap.guide3);
-        vAdapter=new GuidePagerAdapter(this,list);
+        vAdapter = new GuidePagerAdapter(this, list);
         viewPager.setAdapter(vAdapter);
     }
 

@@ -18,20 +18,20 @@ public class ShoppingCarPresenter extends BasePresenter<IShoppingView> {
     ShoppingModel model;
     private String nextSkip;
 
-    public ShoppingCarPresenter(){
-        model=new ShoppingModel();
+    public ShoppingCarPresenter() {
+        model = new ShoppingModel();
     }
 
 
-    public void getShoppingListFirst(){
+    public void getShoppingListFirst() {
         model.getShoppingListFirst(TribeApplication.getInstance().getUserInfo().getId(), new Callback<ShoppingCartResponse>() {
             @Override
             public void onResponse(Call<ShoppingCartResponse> call, Response<ShoppingCartResponse> response) {
-                if (response.body()!=null&&response.body().code==200){
+                if (response.body() != null && response.body().code == 200) {
                     ShoppingCartResponse.ShoppingCartResponseBody data = response.body().data;
                     mView.getShoppingCarInfoSuccess(data);
-                    nextSkip=data.nextSkip;
-                }else {
+                    nextSkip = data.nextSkip;
+                } else {
                     mView.showError(R.string.connect_fail);
                 }
             }
@@ -43,14 +43,14 @@ public class ShoppingCarPresenter extends BasePresenter<IShoppingView> {
         });
     }
 
-    public void getShoppingCarMore(){
+    public void getShoppingCarMore() {
         model.getShoppingListMore(TribeApplication.getInstance().getUserInfo().getId(), nextSkip, new Callback<ShoppingCartResponse>() {
             @Override
             public void onResponse(Call<ShoppingCartResponse> call, Response<ShoppingCartResponse> response) {
-                if (response.body()!=null&&response.body().code==200){
+                if (response.body() != null && response.body().code == 200) {
                     ShoppingCartResponse.ShoppingCartResponseBody data = response.body().data;
                     mView.getShoppingCarInfoSuccess(data);
-                    nextSkip=data.nextSkip;
+                    nextSkip = data.nextSkip;
                 }
             }
 
@@ -62,7 +62,6 @@ public class ShoppingCarPresenter extends BasePresenter<IShoppingView> {
     }
 
     public void updateGoods(ListGoodsDetail item) {
-
 
 
     }

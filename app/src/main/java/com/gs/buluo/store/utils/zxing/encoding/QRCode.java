@@ -198,6 +198,7 @@ public class QRCode {
 
     /**
      * 生成带logo的二维码
+     *
      * @param text
      * @param size
      * @param mBitmap
@@ -262,6 +263,7 @@ public class QRCode {
 
     /**
      * 修改三个顶角颜色的，带logo的二维码
+     *
      * @param text
      * @param size
      * @param mBitmap
@@ -301,7 +303,7 @@ public class QRCode {
             int[] pixels = new int[size * size];
             for (int y = 0; y < size; y++) {
                 for (int x = 0; x < size; x++) {
-                  if (x > halfW - IMAGE_HALFWIDTH && x < halfW + IMAGE_HALFWIDTH
+                    if (x > halfW - IMAGE_HALFWIDTH && x < halfW + IMAGE_HALFWIDTH
                             && y > halfH - IMAGE_HALFWIDTH
                             && y < halfH + IMAGE_HALFWIDTH) {
                         //该位置用于存放图片信息
@@ -311,7 +313,7 @@ public class QRCode {
                     } else {
                         if (bitMatrix.get(x, y)) {
                             pixels[y * size + x] = 0xff111111;
-                            if(x<115&&(y<115||y>=size-115)||(y<115&&x>=size-115)){
+                            if (x < 115 && (y < 115 || y >= size - 115) || (y < 115 && x >= size - 115)) {
                                 pixels[y * size + x] = 0xfff92736;
                             }
                         } else {

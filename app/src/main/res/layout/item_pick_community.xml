@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
     <TextView
         android:id="@+id/item_pick_city"
         android:layout_width="match_parent"
@@ -12,7 +13,7 @@
         android:text="北京市"
         android:gravity="center_vertical"
         android:background="@color/divide_gray"
-        android:paddingLeft="@dimen/button_margin"/>
+        android:paddingLeft="@dimen/button_margin" />
 
     <TextView
         android:id="@+id/item_pick_community"
@@ -21,6 +22,6 @@
         android:textSize="@dimen/dimens_14sp"
         android:text="北京市"
         android:gravity="center_vertical"
-        android:paddingLeft="@dimen/button_margin"/>
+        android:paddingLeft="@dimen/button_margin" />
 
 </LinearLayout>

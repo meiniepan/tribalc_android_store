@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
     android:fitsSystemWindows="true"
     android:clipToPadding="true">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="#2A2A2A">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/title_size"
             android:textColor="#fff"
             android:layout_centerInParent="true"
-            android:text="@string/card_bind"/>
-        <include layout="@layout/back_img_white"
-            android:id="@+id/card_bind_back"/>
+            android:text="@string/card_bind" />
+
+        <include
+            layout="@layout/back_img_white"
+            android:id="@+id/card_bind_back" />
     </RelativeLayout>
 
     <LinearLayout
@@ -26,16 +31,18 @@
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/board_margin_horizontal"
         android:layout_marginEnd="@dimen/board_margin_horizontal">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/usual_item_height"
             android:gravity="center_vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/dimens_18sp"
                 android:textColor="#000"
-                android:text="@string/bank_owner_name"/>
+                android:text="@string/bank_owner_name" />
 
             <EditText
                 android:id="@+id/card_add_name"
@@ -45,20 +52,23 @@
                 android:textColor="@color/common_gray"
                 android:textSize="@dimen/dimens_16sp"
                 android:hint="@string/input_real_name"
-                android:background="@null"/>
+                android:background="@null" />
         </LinearLayout>
-        <include layout="@layout/split_line_no_margin_common"/>
+
+        <include layout="@layout/split_line_no_margin_common" />
+
         <LinearLayout
             android:id="@+id/card_add_choose"
             android:layout_width="match_parent"
             android:layout_height="@dimen/usual_item_height"
             android:gravity="center_vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/dimens_18sp"
                 android:textColor="#000"
-                android:text="@string/bank_open"/>
+                android:text="@string/bank_open" />
 
             <TextView
                 android:id="@+id/card_add_bank_name"
@@ -69,30 +79,34 @@
                 android:textColor="@color/common_gray"
                 android:gravity="center"
                 android:hint="@string/choose_bank"
-                android:background="@null"/>
+                android:background="@null" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:layout_width="30dp"
                     android:layout_height="wrap_content"
                     android:background="@mipmap/down"
                     android:rotation="-90"
-                    android:layout_alignParentEnd="true"/>
+                    android:layout_alignParentEnd="true" />
             </RelativeLayout>
         </LinearLayout>
-        <include layout="@layout/split_line_no_margin_common"/>
+
+        <include layout="@layout/split_line_no_margin_common" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/usual_item_height"
             android:gravity="center_vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/dimens_18sp"
                 android:textColor="#000"
-                android:text="@string/card_number"/>
+                android:text="@string/card_number" />
 
             <EditText
                 android:id="@+id/card_add_bank_num"
@@ -103,19 +117,22 @@
                 android:textColor="@color/common_gray"
                 android:inputType="number"
                 android:hint="@string/input_card_num"
-                android:background="@null"/>
+                android:background="@null" />
         </LinearLayout>
-        <include layout="@layout/split_line_no_margin_common"/>
+
+        <include layout="@layout/split_line_no_margin_common" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/usual_item_height"
             android:gravity="center_vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/dimens_18sp"
                 android:textColor="#000"
-                android:text="@string/phone"/>
+                android:text="@string/phone" />
 
             <EditText
                 android:id="@+id/card_add_phone"
@@ -126,19 +143,22 @@
                 android:textColor="@color/common_gray"
                 android:inputType="number"
                 android:hint="@string/input_phone"
-                android:background="@null"/>
+                android:background="@null" />
         </LinearLayout>
-        <include layout="@layout/split_line_no_margin_common"/>
+
+        <include layout="@layout/split_line_no_margin_common" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/usual_item_height"
             android:gravity="center_vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/dimens_18sp"
                 android:textColor="#000"
-                android:text="@string/verify"/>
+                android:text="@string/verify" />
 
             <EditText
                 android:id="@+id/card_add_verify"
@@ -149,11 +169,12 @@
                 android:textSize="@dimen/dimens_16sp"
                 android:hint="@string/edit_verify"
                 android:inputType="number"
-                android:background="@null"/>
+                android:background="@null" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/card_send_verify"
                     android:layout_width="80dp"
@@ -162,11 +183,11 @@
                     android:gravity="center"
                     android:background="@drawable/text_background_round"
                     android:textColor="@color/custom_color"
-                    android:layout_alignParentEnd="true"
-                    />
+                    android:layout_alignParentEnd="true" />
             </RelativeLayout>
         </LinearLayout>
-        <include layout="@layout/split_line_no_margin_common"/>
+
+        <include layout="@layout/split_line_no_margin_common" />
 
         <TextView
             android:id="@+id/card_add_finish"
@@ -189,7 +210,6 @@
         android:text="持卡人信息"
         android:textSize="@dimen/dimens_18sp"
         android:gravity="center_vertical"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        />
+        android:paddingStart="@dimen/activity_horizontal_margin" />
 
 </LinearLayout>

@@ -48,7 +48,7 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
     private String id;
     private SimpleDraweeView logo;
     private LinearLayout facilitiesGroup;
-    private HashMap<String,Integer> map=new HashMap<>();
+    private HashMap<String, Integer> map = new HashMap<>();
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -59,6 +59,7 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
         initMap();
         initContentView();
     }
+
     private void initContentView() {
         banner = (Banner) findViewById(R.id.server_detail_banner);
         tvName = (TextView) findViewById(R.id.server_detail_name);
@@ -166,30 +167,30 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
 
 
     private void initMap() {
-        map.put("baby_chair",R.mipmap.baby_chair);
-        map.put("bar",R.mipmap.bar);
-        map.put("business_circle",R.mipmap.business_circle);
-        map.put("business_dinner",R.mipmap.business_dinner);
-        map.put("facilities_for_disabled",R.mipmap.facilities_for_disabled);
-        map.put("organic_food",R.mipmap.organic_food);
-        map.put("parking",R.mipmap.parking);
-        map.put("pet_ok",R.mipmap.pet_ok);
-        map.put("restaurants_of_hotel",R.mipmap.restaurants_of_hotel);
-        map.put("room",R.mipmap.room);
-        map.put("scene_seat",R.mipmap.scene_seat);
-        map.put("small_party",R.mipmap.small_party);
-        map.put("subway",R.mipmap.subway);
-        map.put("valet_parking",R.mipmap.valet_parking);
-        map.put("vip_rights",R.mipmap.vip_rights);
-        map.put("weekend_brunch",R.mipmap.weekend_brunch);
-        map.put("wi-fi",R.mipmap.wi_fi);
+        map.put("baby_chair", R.mipmap.baby_chair);
+        map.put("bar", R.mipmap.bar);
+        map.put("business_circle", R.mipmap.business_circle);
+        map.put("business_dinner", R.mipmap.business_dinner);
+        map.put("facilities_for_disabled", R.mipmap.facilities_for_disabled);
+        map.put("organic_food", R.mipmap.organic_food);
+        map.put("parking", R.mipmap.parking);
+        map.put("pet_ok", R.mipmap.pet_ok);
+        map.put("restaurants_of_hotel", R.mipmap.restaurants_of_hotel);
+        map.put("room", R.mipmap.room);
+        map.put("scene_seat", R.mipmap.scene_seat);
+        map.put("small_party", R.mipmap.small_party);
+        map.put("subway", R.mipmap.subway);
+        map.put("valet_parking", R.mipmap.valet_parking);
+        map.put("vip_rights", R.mipmap.vip_rights);
+        map.put("weekend_brunch", R.mipmap.weekend_brunch);
+        map.put("wi-fi", R.mipmap.wi_fi);
     }
 
     public void setFacilities(List<String> faclities) {
-        for (String facility:faclities){
-            View facilityView=View.inflate(this,R.layout.serve_detail_facility,null);
-            ImageView iv= (ImageView) facilityView.findViewById(R.id.facility_image);
-            TextView  tv= (TextView) facilityView.findViewById(R.id.facility_text);
+        for (String facility : faclities) {
+            View facilityView = View.inflate(this, R.layout.serve_detail_facility, null);
+            ImageView iv = (ImageView) facilityView.findViewById(R.id.facility_image);
+            TextView tv = (TextView) facilityView.findViewById(R.id.facility_text);
             tv.setText(getFacilityText(facility));
             iv.setImageResource(map.get(facility));
             facilitiesGroup.addView(facilityView);
@@ -197,7 +198,7 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     public int getFacilityText(String facility) {
-        switch (facility){
+        switch (facility) {
             case "wi-fi":
                 return R.string.wi_fi;
             case "baby_chair":

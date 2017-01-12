@@ -25,6 +25,7 @@ import com.gs.buluo.store.utils.FresoUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.activity.CaptureActivity;
 import com.gs.buluo.store.view.activity.LoginActivity;
+import com.gs.buluo.store.view.activity.ProtocolActivity;
 import com.gs.buluo.store.view.activity.SelfActivity;
 import com.gs.buluo.store.view.activity.SettingActivity;
 import com.gs.buluo.store.view.activity.CreateStoreVarietyActivity;
@@ -171,7 +172,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     }
 
     public void chooseCover() {
-        ChoosePhotoPanel window = new ChoosePhotoPanel(getActivity(), new ChoosePhotoPanel.OnSelectedFinished() {
+        ChoosePhotoPanel window = new ChoosePhotoPanel(getActivity(), false, new ChoosePhotoPanel.OnSelectedFinished() {
             @Override
             public void onSelected(final String path) {
                 TribeUploader.getInstance().uploadFile("cover.jpeg", "", new File(path), new TribeUploader.UploadCallback() {

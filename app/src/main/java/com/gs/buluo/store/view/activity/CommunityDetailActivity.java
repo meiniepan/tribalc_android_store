@@ -53,10 +53,10 @@ public class CommunityDetailActivity extends BaseActivity implements View.OnClic
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        mCtx=this;
+        mCtx = this;
         String id = getIntent().getStringExtra(Constant.COMMUNITY_ID);
         showLoadingDialog();
-        new CommunityModel().getCommunityDetail(id,this);
+        new CommunityModel().getCommunityDetail(id, this);
         banner = (Banner) findViewById(R.id.community_detail_banner);
         findViewById(R.id.community_detail_order).setOnClickListener(this);
         findViewById(R.id.community_detail_back).setOnClickListener(this);
@@ -70,11 +70,11 @@ public class CommunityDetailActivity extends BaseActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.community_detail_order:
-                if (!checkUser(CommunityDetailActivity.this))return;
-                intent.setClass(mCtx,CommunityVisitActivity.class);
-                intent.putExtra(Constant.COMMUNITY_NAME,name);
+                if (!checkUser(CommunityDetailActivity.this)) return;
+                intent.setClass(mCtx, CommunityVisitActivity.class);
+                intent.putExtra(Constant.COMMUNITY_NAME, name);
                 startActivity(intent);
                 break;
             case R.id.community_detail_back:
@@ -88,7 +88,7 @@ public class CommunityDetailActivity extends BaseActivity implements View.OnClic
     public void onResponse(Call<BaseResponse<CommunityDetail>> call, Response<BaseResponse<CommunityDetail>> response) {
         dismissDialog();
         findViewById(R.id.community_detail_order).setVisibility(View.VISIBLE);
-        if (response.body()!=null&&response.body().code==200){
+        if (response.body() != null && response.body().code == 200) {
             CommunityDetail communityDetail = response.body().data;
             banner.setImages(communityDetail.pictures);
             banner.setImageLoader(new FrescoImageLoader());
@@ -96,15 +96,15 @@ public class CommunityDetailActivity extends BaseActivity implements View.OnClic
             banner.isAutoPlay(false);
             banner.start();
             setData(communityDetail);
-        }else {
-            ToastUtils.ToastMessage(mCtx,R.string.connect_fail);
+        } else {
+            ToastUtils.ToastMessage(mCtx, R.string.connect_fail);
         }
     }
 
     @Override
     public void onFailure(Call<BaseResponse<CommunityDetail>> call, Throwable t) {
         dismissDialog();
-        ToastUtils.ToastMessage(mCtx,R.string.connect_fail);
+        ToastUtils.ToastMessage(mCtx, R.string.connect_fail);
     }
 
     public void setData(final CommunityDetail data) {
@@ -113,11 +113,11 @@ public class CommunityDetailActivity extends BaseActivity implements View.OnClic
         tvDesc.setText(data.desc);
         name = data.name;
         tvName.setText(name);
-        FresoUtils.loadImage(data.map,map);
-        if (data.repastList!=null||data.entertainmentList!=null){
-            CommunityDetailStoreAdapter adapter=new CommunityDetailStoreAdapter(mCtx,data.repastList);
+        FresoUtils.loadImage(data.map, map);
+        if (data.repastList != null || data.entertainmentList != null) {
+            CommunityDetailStoreAdapter adapter = new CommunityDetailStoreAdapter(mCtx, data.repastList);
             lvFood.setAdapter(adapter);
-            CommunityDetailStoreAdapter adapter1=new CommunityDetailStoreAdapter(mCtx,data.entertainmentList);
+            CommunityDetailStoreAdapter adapter1 = new CommunityDetailStoreAdapter(mCtx, data.entertainmentList);
             lvFun.setAdapter(adapter1);
             CommonUtils.setListViewHeightBasedOnChildren(lvFood);
             CommonUtils.setListViewHeightBasedOnChildren(lvFun);
@@ -127,7 +127,7 @@ public class CommunityDetailActivity extends BaseActivity implements View.OnClic
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(CommunityDetailActivity.this, StoreDetailActivity.class);
-                intent.putExtra(Constant.STORE_ID,data.repastList.get(position).id);
+                intent.putExtra(Constant.STORE_ID, data.repastList.get(position).id);
                 startActivity(intent);
             }
         });
@@ -135,7 +135,7 @@ public class CommunityDetailActivity extends BaseActivity implements View.OnClic
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(CommunityDetailActivity.this, StoreDetailActivity.class);
-                intent.putExtra(Constant.STORE_ID,data.entertainmentList.get(position).id);
+                intent.putExtra(Constant.STORE_ID, data.entertainmentList.get(position).id);
                 startActivity(intent);
             }
         });

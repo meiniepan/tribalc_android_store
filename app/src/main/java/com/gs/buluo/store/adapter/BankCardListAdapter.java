@@ -31,13 +31,13 @@ import retrofit2.Response;
 public class BankCardListAdapter extends BaseAdapter {
 
 
-    private List<BankCard> datas=new ArrayList<>();
+    private List<BankCard> datas = new ArrayList<>();
     private Context mContext;
     private BankCardHolder holder;
-    private boolean showDelete =false;
+    private boolean showDelete = false;
 
-    public BankCardListAdapter(Context context){
-        mContext=context;
+    public BankCardListAdapter(Context context) {
+        mContext = context;
     }
 
     @Override
@@ -60,12 +60,12 @@ public class BankCardListAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new BankCardHolder();
             convertView = holder.getHolderView();
-        }else {
+        } else {
             holder = (BankCardHolder) convertView.getTag();
         }
-        BankCard card=datas.get(position);
+        BankCard card = datas.get(position);
         holder.bankName.setText(card.bankName);
-        holder.cardNum.setText(card.bankCardNum.substring(card.bankCardNum.length()-4,card.bankCardNum.length()));
+        holder.cardNum.setText(card.bankCardNum.substring(card.bankCardNum.length() - 4, card.bankCardNum.length()));
 
         switch (card.bankName) {
             case "中国农业银行":
@@ -130,15 +130,15 @@ public class BankCardListAdapter extends BaseAdapter {
                 break;
         }
 
-        StringBuffer buffer=new StringBuffer();
-        for (int i=0;i<card.bankCardNum.length()-4;i++){
+        StringBuffer buffer = new StringBuffer();
+        for (int i = 0; i < card.bankCardNum.length() - 4; i++) {
             buffer.append("*");
-            if (i%4==3){
+            if (i % 4 == 3) {
                 buffer.append(" ");
             }
         }
         holder.cardStar.setText(buffer.toString());
-        if (showDelete){
+        if (showDelete) {
             holder.delete.setVisibility(View.VISIBLE);
             holder.delete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -146,7 +146,7 @@ public class BankCardListAdapter extends BaseAdapter {
                     showDeleteDialog(datas.get(position));
                 }
             });
-        }else {
+        } else {
             holder.delete.setVisibility(View.GONE);
         }
         convertView.setTag(holder);
@@ -170,12 +170,12 @@ public class BankCardListAdapter extends BaseAdapter {
     }
 
     public void showDelete() {
-        showDelete=true;
+        showDelete = true;
         notifyDataSetChanged();
     }
 
     public void hideDelete() {
-        showDelete=false;
+        showDelete = false;
         notifyDataSetChanged();
     }
 
@@ -188,23 +188,23 @@ public class BankCardListAdapter extends BaseAdapter {
         public RelativeLayout card;
 
         public View getHolderView() {
-            View view= LayoutInflater.from(mContext).inflate(R.layout.bank_card_item,null);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.bank_card_item, null);
             card = ((RelativeLayout) view.findViewById(R.id.card_bg));
-            bankName= (TextView) view.findViewById(R.id.card_bank_name);
-            cardStar= (TextView) view.findViewById(R.id.card_number_star);
-            cardNum= (TextView) view.findViewById(R.id.card_number);
-            delete= (TextView) view.findViewById(R.id.card_delete);
-            cardIcon= (ImageView) view.findViewById(R.id.card_icon);
+            bankName = (TextView) view.findViewById(R.id.card_bank_name);
+            cardStar = (TextView) view.findViewById(R.id.card_number_star);
+            cardNum = (TextView) view.findViewById(R.id.card_number);
+            delete = (TextView) view.findViewById(R.id.card_delete);
+            cardIcon = (ImageView) view.findViewById(R.id.card_icon);
             return view;
         }
     }
 
     private void deleteBankCard(final BankCard card) {
-        LoadingDialog.getInstance().show(mContext,R.string.loading,true);
+        LoadingDialog.getInstance().show(mContext, R.string.loading, true);
         new MoneyModel().deleteCard(card.id, new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                if (response.body()!=null&&response.body().code==204){
+                if (response.body() != null && response.body().code == 204) {
                     LoadingDialog.getInstance().dismissDialog();
                     datas.remove(card);
                     notifyDataSetChanged();
@@ -213,7 +213,7 @@ public class BankCardListAdapter extends BaseAdapter {
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
-                ToastUtils.ToastMessage(mContext,R.string.connect_fail);
+                ToastUtils.ToastMessage(mContext, R.string.connect_fail);
             }
         });
     }

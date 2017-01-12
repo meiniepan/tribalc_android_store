@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:clipToPadding="true"
     android:background="@color/white">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
@@ -30,10 +32,11 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center_vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/time"/>
+            android:text="@string/time" />
 
         <TextView
             android:id="@+id/add_serve_time"
@@ -41,17 +44,20 @@
             android:layout_weight="1"
             android:gravity="end"
             android:layout_height="wrap_content" />
+
         <ImageView
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:src="@mipmap/arrow_right"/>
+            android:src="@mipmap/arrow_right" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:background="@color/divide_gray"/>
+        android:background="@color/divide_gray" />
+
     <LinearLayout
         android:id="@+id/add_serve_people_select"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -59,48 +65,54 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center_vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/people_count"/>
+            android:text="@string/people_count" />
 
         <TextView
             android:id="@+id/add_serve_count"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:gravity="end"/>
+            android:gravity="end" />
+
         <ImageView
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:src="@mipmap/arrow_right"/>
+            android:src="@mipmap/arrow_right" />
     </LinearLayout>
-    <include layout="@layout/split_area"/>
+
+    <include layout="@layout/split_area" />
+
     <LinearLayout
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="40dp">
+
         <EditText
             android:id="@+id/add_serve_name"
             android:textSize="@dimen/dimens_14sp"
             android:background="@null"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:hint="@string/edit_name"
-            />
+            android:hint="@string/edit_name" />
 
         <LinearLayout
             android:gravity="end"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <RadioGroup
                 android:id="@+id/add_serve_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <RadioButton
                     android:id="@+id/add_serve_radio_female"
                     android:layout_marginEnd="8dp"
@@ -110,8 +122,8 @@
                     android:drawableLeft="@drawable/btn_radio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/lady"
-                    />
+                    android:text="@string/lady" />
+
                 <RadioButton
                     android:id="@+id/add_serve_radio_male"
                     android:background="@null"
@@ -120,17 +132,18 @@
                     android:drawableLeft="@drawable/btn_radio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/gentlemen"
-                    />
+                    android:text="@string/gentlemen" />
             </RadioGroup>
         </LinearLayout>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:background="@color/divide_gray"/>
+        android:background="@color/divide_gray" />
+
     <LinearLayout
         android:id="@+id/add_serve_phone_area"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -138,20 +151,23 @@
         android:layout_width="match_parent"
         android:gravity="center_vertical"
         android:layout_height="40dp">
+
         <TextView
             android:id="@+id/add_serve_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="123131"/>
+            android:text="123131" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end">
+
             <ImageView
                 android:id="@+id/add_serve_update_phone"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:src="@mipmap/address_edit_button"/>
+                android:src="@mipmap/address_edit_button" />
         </LinearLayout>
     </LinearLayout>
 
@@ -161,6 +177,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
@@ -168,6 +185,7 @@
             android:layout_height="40dp"
             android:gravity="end"
             android:orientation="horizontal">
+
             <EditText
                 android:id="@+id/add_serve_phone_new"
                 android:layout_width="0dp"
@@ -176,7 +194,7 @@
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:textSize="@dimen/dimens_14sp"
-                android:hint="@string/edit_phone"/>
+                android:hint="@string/edit_phone" />
 
             <TextView
                 android:id="@+id/add_serve_cancel"
@@ -188,15 +206,18 @@
                 android:textSize="@dimen/dimens_12sp"
                 android:textColor="@color/custom_color"
                 android:gravity="center"
-                android:background="@drawable/text_background"/>
+                android:background="@drawable/text_background" />
         </LinearLayout>
-        <include layout="@layout/split_line_no_margin_common"/>
+
+        <include layout="@layout/split_line_no_margin_common" />
+
         <LinearLayout
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal">
+
             <EditText
                 android:id="@+id/add_serve_verify"
                 android:layout_width="wrap_content"
@@ -204,30 +225,34 @@
                 android:background="@null"
                 android:textSize="@dimen/dimens_14sp"
                 android:inputType="number"
-                android:hint="@string/edit_verify"/>
+                android:hint="@string/edit_verify" />
         </LinearLayout>
+
         <LinearLayout
             android:paddingTop="6dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/tint_bg"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/dimens_12sp"
-                android:text="@string/phone_can_not_receive"/>
+                android:text="@string/phone_can_not_receive" />
+
             <TextView
                 android:id="@+id/add_serve_voice_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/dimens_12sp"
                 android:textColor="@color/custom_color"
-                android:text="@string/get_voice_verify"/>
+                android:text="@string/get_voice_verify" />
         </LinearLayout>
     </LinearLayout>
-    <include layout="@layout/split_area"/>
+
+    <include layout="@layout/split_area" />
 
     <EditText
         android:id="@+id/add_serve_note"
@@ -240,14 +265,17 @@
         android:textSize="@dimen/dimens_12sp"
         android:gravity="center_vertical"
         android:hint="@string/add_reserve_backup" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/tint_bg"/>
+        android:background="@color/tint_bg" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal|bottom">
+
         <TextView
             android:id="@+id/add_serve_finish"
             android:layout_width="315dp"
