@@ -10,10 +10,10 @@ import android.widget.TextView;
 
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.bean.ResponseBody.BaseCodeResponse;
+import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
-import com.gs.buluo.store.bean.UserSensitiveEntity;
-import com.gs.buluo.store.dao.UserSensitiveDao;
+import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.model.MainModel;
 import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.utils.AppManager;
@@ -43,7 +43,7 @@ public class PhoneVerifyActivity2 extends BaseActivity{
     protected void bindView(Bundle savedInstanceState) {
         fromPwd = getIntent().getBooleanExtra("for_security", false);
         if (fromPwd){
-            phone=new UserSensitiveDao().findFirst().getPhone();
+            phone=new StoreInfoDao().findFirst().getPhone();
             title.setText("安全校验");
             mPhone.setText(phone);
         }else {
@@ -71,12 +71,12 @@ public class PhoneVerifyActivity2 extends BaseActivity{
     private void doVerify() {
         new MainModel().doVerify(phone, new TribeCallback<CodeResponse>() {
             @Override
-            public void onSuccess(Response<BaseCodeResponse<CodeResponse>> response) {
+            public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
                 dealWithIdentify();
             }
 
             @Override
-            public void onFail(int responseCode, BaseCodeResponse<CodeResponse> body) {
+            public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
                 reg_send.setText("获取验证码");
                 findViewById(R.id.text_behind).setVisibility(View.GONE);
                 ToastUtils.ToastMessage(PhoneVerifyActivity2.this, R.string.connect_fail);
@@ -121,9 +121,9 @@ public class PhoneVerifyActivity2 extends BaseActivity{
         }else {
             new MainModel().updatePhone(phone, verify, new TribeCallback<CodeResponse>() {
                 @Override
-                public void onSuccess(Response<BaseCodeResponse<CodeResponse>> response) {
-                    UserSensitiveDao dao = new UserSensitiveDao();
-                    UserSensitiveEntity entity = dao.findFirst();
+                public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
+                    StoreInfoDao dao = new StoreInfoDao();
+                    StoreInfo entity = dao.findFirst();
                     entity.setPhone(phone);
                     dao.update(entity);
                     finish();
@@ -131,7 +131,7 @@ public class PhoneVerifyActivity2 extends BaseActivity{
                 }
 
                 @Override
-                public void onFail(int responseCode, BaseCodeResponse<CodeResponse> body) {
+                public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
                     if (responseCode==401){
                         ToastUtils.ToastMessage(PhoneVerifyActivity2.this,R.string.wrong_verify);
                     }else {

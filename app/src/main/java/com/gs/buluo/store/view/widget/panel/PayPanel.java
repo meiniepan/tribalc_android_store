@@ -17,7 +17,7 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.ResponseCode;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.OrderBean;
-import com.gs.buluo.store.bean.ResponseBody.BaseCodeResponse;
+import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.WalletAccount;
 import com.gs.buluo.store.model.MoneyModel;
 import com.gs.buluo.store.utils.CommonUtils;
@@ -85,9 +85,9 @@ public class PayPanel extends Dialog implements PasswordPanel.OnPasswordPanelDis
 
 
     public void getWalletInfo() {
-        new MoneyModel().getWelletInfo(TribeApplication.getInstance().getUserInfo().getId(), new Callback<BaseCodeResponse<WalletAccount>>() {
+        new MoneyModel().getWelletInfo(TribeApplication.getInstance().getUserInfo().getId(), new Callback<BaseResponse<WalletAccount>>() {
             @Override
-            public void onResponse(Call<BaseCodeResponse<WalletAccount>> call, Response<BaseCodeResponse<WalletAccount>> response) {
+            public void onResponse(Call<BaseResponse<WalletAccount>> call, Response<BaseResponse<WalletAccount>> response) {
                 if (response.body()!=null&&response.body().data!=null&&response.body().code== ResponseCode.GET_SUCCESS){
                     String password = response.body().data.password;
                     String balance = response.body().data.balance;
@@ -106,7 +106,7 @@ public class PayPanel extends Dialog implements PasswordPanel.OnPasswordPanelDis
             }
 
             @Override
-            public void onFailure(Call<BaseCodeResponse<WalletAccount>> call, Throwable t) {
+            public void onFailure(Call<BaseResponse<WalletAccount>> call, Throwable t) {
                 ToastUtils.ToastMessage(getContext(),R.string.connect_fail);
             }
         });

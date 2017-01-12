@@ -8,7 +8,7 @@ import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.NewOrderResponse;
 import com.gs.buluo.store.bean.ResponseBody.OrderResponse;
 import com.gs.buluo.store.bean.ResponseBody.ShoppingCartResponse;
-import com.gs.buluo.store.bean.ResponseBody.BaseCodeResponse;
+import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -36,7 +36,7 @@ public interface ShoppingService {
     Call<NewOrderResponse> createNewOrder(@Query("me")String uid, @Body NewOrderRequestBody requestBody);
 
     @PUT("orders/{orderId}/status?type=owner")
-    Call<BaseCodeResponse> updateOrderStatus(@Path("orderId")String orderId, @Query("me")String uid, @Body ValueRequestBody status);
+    Call<BaseResponse> updateOrderStatus(@Path("orderId")String orderId, @Query("me")String uid, @Body ValueRequestBody status);
 
     @GET("shopping_cart")
     Call<ShoppingCartResponse> getShoppingCarList(@Query("me")String uid,@Query("sortSkip") String sortSkip);
@@ -45,12 +45,12 @@ public interface ShoppingService {
     Call<ShoppingCartResponse> getShoppingCarListFirst(@Path("id") String uid, @Query("limitSize") int limitSize);
 
     @HTTP(method = "DELETE", path = "persons/{id}/shopping_cart/{ids}")
-    Call<BaseCodeResponse> deleteCart(@Path("id")String uid, @Path("ids")String ids);
+    Call<BaseResponse> deleteCart(@Path("id")String uid, @Path("ids")String ids);
 
     @PUT("persons/{id}/shopping_cart")
     Call<CartItemUpdateResponse> updateCartItem(@Path("id")String uid,@Body ShoppingCartGoodsItem body);
 
     @POST("persons/{id}/shopping_cart")
-    Call<BaseCodeResponse> addCartItem(@Path("id")String uid, @Body NewOrderBean body);
+    Call<BaseResponse> addCartItem(@Path("id")String uid, @Body NewOrderBean body);
 
 }

@@ -1,4 +1,4 @@
-package com.gs.buluo.app;
+package com.gs.buluo.store;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

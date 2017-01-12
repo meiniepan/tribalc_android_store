@@ -22,6 +22,7 @@
             android:text="@string/store_management"/>
 
         <TextView
+            android:id="@+id/store_manager"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -36,14 +37,11 @@
             android:layout_alignParentBottom="true"
             android:background="#000"/>
     </RelativeLayout>
-
     <com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView
-        android:id="@+id/community_list"
+        android:id="@+id/store_list"
         android:layout_below="@+id/fragment_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
+        android:layout_height="match_parent">
     </com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/store_floating"
@@ -52,6 +50,7 @@
         app:rippleColor="@color/red"
         android:backgroundTint="@color/white"
         app:borderWidth="0dp"
+        app:pressedTranslationZ="12dp"
         android:elevation="6dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"

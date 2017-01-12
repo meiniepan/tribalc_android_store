@@ -1,15 +1,15 @@
 package com.gs.buluo.store.view.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
+import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.adapter.FacilityAdapter;
-import com.gs.buluo.store.utils.DensityUtils;
-import com.gs.buluo.store.view.widget.RecycleViewDivider;
 
 import java.util.ArrayList;
 
@@ -21,10 +21,13 @@ import butterknife.Bind;
 public class StoreSettingActivity extends BaseActivity implements View.OnClickListener {
     @Bind(R.id.store_setting_facility)
     RecyclerView recyclerView;
+
+    Context mCtx;
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        mCtx=this;
         findViewById(R.id.back).setOnClickListener(this);
-
+        findViewById(R.id.store_setting_head_area).setOnClickListener(this);
         initFacility();
     }
 
@@ -65,11 +68,16 @@ public class StoreSettingActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
+        Intent intent=new Intent();
         switch (v.getId()){
             case R.id.back:
                 finish();
                 break;
-
+            case R.id.store_setting_head_area:
+                intent.setClass(mCtx,PhotoActivity.class);
+                intent.putExtra(Constant.ForIntent.PHOTO_TYPE,"logo");
+                startActivity(intent);
+                break;
         }
     }
 }

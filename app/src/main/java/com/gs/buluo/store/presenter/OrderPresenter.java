@@ -5,7 +5,7 @@ import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.OrderBean;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.OrderResponse;
-import com.gs.buluo.store.bean.ResponseBody.BaseCodeResponse;
+import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.model.ShoppingModel;
 import com.gs.buluo.store.view.impl.IOrderView;
 
@@ -81,9 +81,9 @@ public class OrderPresenter extends BasePresenter<IOrderView> {
     }
 
     public void updateOrderStatus(String orderId,String status){
-        model.updateOrder(TribeApplication.getInstance().getUserInfo().getId(), new ValueRequestBody(status), orderId, new Callback<BaseCodeResponse>() {
+        model.updateOrder(TribeApplication.getInstance().getUserInfo().getId(), new ValueRequestBody(status), orderId, new Callback<BaseResponse>() {
             @Override
-            public void onResponse(Call<BaseCodeResponse> call, Response<BaseCodeResponse> response) {
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.body()!=null&&response.body().code==200){
                         mView.updateSuccess();
                 }else {
@@ -92,7 +92,7 @@ public class OrderPresenter extends BasePresenter<IOrderView> {
             }
 
             @Override
-            public void onFailure(Call<BaseCodeResponse> call, Throwable t) {
+            public void onFailure(Call<BaseResponse> call, Throwable t) {
                 mView.showError(R.string.connect_fail);
             }
         });

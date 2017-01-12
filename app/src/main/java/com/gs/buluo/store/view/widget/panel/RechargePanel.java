@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.OrderBean;
-import com.gs.buluo.store.bean.ResponseBody.BaseCodeResponse;
+import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.WxPayResponse;
 import com.gs.buluo.store.eventbus.TopUpEvent;
@@ -133,13 +133,13 @@ public class RechargePanel extends Dialog implements View.OnClickListener {
     public void rechargeSuccess(TopUpEvent event) {
         new MoneyModel().getWXRechargeResult(prepayid, new TribeCallback<CodeResponse>() {
             @Override
-            public void onSuccess(Response<BaseCodeResponse<CodeResponse>> response) {
+            public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
                 ToastUtils.ToastMessage(mContext, "充值成功");
                 dismiss();
             }
 
             @Override
-            public void onFail(int responseCode, BaseCodeResponse<CodeResponse> body) {
+            public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
                 ToastUtils.ToastMessage(mContext, R.string.recharge_fail);
                 dismiss();
             }
@@ -149,13 +149,13 @@ public class RechargePanel extends Dialog implements View.OnClickListener {
     private void doRecharge(String num) {
         new MoneyModel().topUpInWx(num, new TribeCallback<WxPayResponse>() {
             @Override
-            public void onSuccess(Response<BaseCodeResponse<WxPayResponse>> response) {
+            public void onSuccess(Response<BaseResponse<WxPayResponse>> response) {
                 prepayid = response.body().data.prepayid;
                 WXPayUtils.getInstance().doPay(response.body().data);
             }
 
             @Override
-            public void onFail(int responseCode, BaseCodeResponse<WxPayResponse> body) {
+            public void onFail(int responseCode, BaseResponse<WxPayResponse> body) {
                 LoadingDialog.getInstance().dismissDialog();
                 ToastUtils.ToastMessage(mContext, R.string.connect_fail);
             }

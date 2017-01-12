@@ -41,11 +41,9 @@ public class Constant {
     public static final String BILL = "bill_entity";
     public static final String GOODS_ID = "goods_id";
     public static final String ORDER = "order";
-    public static final String ORDER_STATUS = "status";
     public static final int REQUEST_ADDRESS = 208;
     public static final String RECEIVER = "receiver";
 
-    public static final String PRICE = "price";
     public static final String TYPE = "type";
     public static final String COMMUNITY_ID = "community_id";
     public static final String COMMUNITY_NAME = "community_name";
@@ -63,12 +61,13 @@ public class Constant {
 
     public final static class ForIntent{
         public static final int REQUEST_CODE=0;
-        public static final int RESULT_CODE=1;
         public static final String FLAG="flag";
         public static final String FROM_ORDER = "fromOrder";
         public static final String COMPANY_FLAG = "company_info";
         public static final String PROPERTY_BEEN = "property_been";
         public static final String MODIFY = "self_modify";
+        public static final String PHOTO_TYPE = "photo_type";
+        public static final String STORE_BEAN = "store_bean";
     }
 
 }

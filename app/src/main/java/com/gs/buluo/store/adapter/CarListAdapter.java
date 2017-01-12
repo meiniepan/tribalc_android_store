@@ -19,7 +19,7 @@ import com.gs.buluo.store.bean.CartItem;
 import com.gs.buluo.store.bean.GoodsStandard;
 import com.gs.buluo.store.bean.ListGoodsDetail;
 import com.gs.buluo.store.bean.RequestBodyBean.ShoppingCartGoodsItem;
-import com.gs.buluo.store.bean.ResponseBody.BaseCodeResponse;
+import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ShoppingCart;
 import com.gs.buluo.store.model.GoodsModel;
 import com.gs.buluo.store.model.ShoppingModel;
@@ -254,9 +254,9 @@ public class CarListAdapter extends BaseExpandableListAdapter {
 
     private void deleteGoods(final int groupPosition, final CartItem goods) {
         String ids= goods.id;
-        new ShoppingModel().deleteShoppingItem(ids, new Callback<BaseCodeResponse>() {
+        new ShoppingModel().deleteShoppingItem(ids, new Callback<BaseResponse>() {
             @Override
-            public void onResponse(Call<BaseCodeResponse> call, Response<BaseCodeResponse> response) {
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.body()!=null&&response.body().code==204){
                     List<CartItem> goodsList = ((ShoppingCart) getGroup(groupPosition)).goodsList;
                     goodsList.remove(goods);
@@ -276,7 +276,7 @@ public class CarListAdapter extends BaseExpandableListAdapter {
             }
 
             @Override
-            public void onFailure(Call<BaseCodeResponse> call, Throwable t) {
+            public void onFailure(Call<BaseResponse> call, Throwable t) {
                 ToastUtils.ToastMessage(context,context.getString(R.string.delete_fail));
             }
         });
@@ -303,9 +303,9 @@ public class CarListAdapter extends BaseExpandableListAdapter {
         });
         panel.show();
         LoadingDialog.getInstance().show(context,R.string.loading,true);
-        new GoodsModel().getGoodsStandard(standardId, new Callback<BaseCodeResponse<GoodsStandard>>() {
+        new GoodsModel().getGoodsStandard(standardId, new Callback<BaseResponse<GoodsStandard>>() {
             @Override
-            public void onResponse(Call<BaseCodeResponse<GoodsStandard>> call, Response<BaseCodeResponse<GoodsStandard>> response) {
+            public void onResponse(Call<BaseResponse<GoodsStandard>> call, Response<BaseResponse<GoodsStandard>> response) {
                 LoadingDialog.getInstance().dismissDialog();
                 if (response.body()!=null&&response.body().code==200){
                     panel.setData(response.body().data);
@@ -315,7 +315,7 @@ public class CarListAdapter extends BaseExpandableListAdapter {
             }
 
             @Override
-            public void onFailure(Call<BaseCodeResponse<GoodsStandard>> call, Throwable t) {
+            public void onFailure(Call<BaseResponse<GoodsStandard>> call, Throwable t) {
                 LoadingDialog.getInstance().dismissDialog();
             }
         });

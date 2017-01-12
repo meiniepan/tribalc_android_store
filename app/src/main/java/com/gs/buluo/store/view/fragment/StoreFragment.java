@@ -1,33 +1,28 @@
 package com.gs.buluo.store.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.adapter.CommunityListAdapter;
-import com.gs.buluo.store.bean.ResponseBody.CommunityResponse;
-import com.gs.buluo.store.model.CommunityModel;
+import com.gs.buluo.store.TribeApplication;
+import com.gs.buluo.store.adapter.BillListAdapter;
+import com.gs.buluo.store.presenter.BasePresenter;
+import com.gs.buluo.store.presenter.ShoppingCarPresenter;
 import com.gs.buluo.store.utils.ToastUtils;
-import com.gs.buluo.store.view.widget.loadMoreRecycle.Action;
+import com.gs.buluo.store.view.activity.CreateGoodsVarietyActivity;
+import com.gs.buluo.store.view.activity.CreateStoreVarietyActivity;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView;
 
 import butterknife.Bind;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by admin on 2016/11/1.
  */
-public class StoreFragment extends BaseFragment implements Callback<CommunityResponse> {
-    @Bind(R.id.community_list)
+public class StoreFragment extends BaseFragment  {
+    @Bind(R.id.store_list)
     RefreshRecyclerView recyclerView;
-    @Bind(R.id.store_floating)
-    FloatingActionButton actionButton;
-    private CommunityListAdapter adapter;
-    private CommunityModel model;
 
     @Override
     protected int getContentLayout() {
@@ -36,44 +31,32 @@ public class StoreFragment extends BaseFragment implements Callback<CommunityRes
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        setUserVisibleHint(false);
-        model = new CommunityModel();
-        model.getCommunitiesList(this);
-        adapter = new CommunityListAdapter(getContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        recyclerView.setAdapter(adapter);
-        recyclerView.setNeedLoadMore(false);
-        recyclerView.setRefreshAction(new Action() {
-            @Override
-            public void onAction() {
-                loadData();
-            }
-        });
+        if (TribeApplication.getInstance().getUserInfo() != null) {
 
-        actionButton.setOnClickListener(new View.OnClickListener() {
+        } else {
+            ToastUtils.ToastMessage(getContext(), R.string.connect_fail);
+        }
+
+        getActivity().findViewById(R.id.store_floating).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.ToastMessage(getActivity(),"click");
+                startActivity(new Intent(getActivity(), CreateGoodsVarietyActivity.class));
             }
         });
+        getActivity().findViewById(R.id.store_manager).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+//        recyclerView.setAdapter(adapter);
+        recyclerView.showNoData("请创建店铺");
     }
 
-    private void loadData() {
-        model.getCommunitiesList(this);
-    }
-
-    @Override
-    public void onResponse(Call<CommunityResponse> call, Response<CommunityResponse> response) {
-        recyclerView.dismissSwipeRefresh();
-        if (response.body()!=null&&response.body().code==200){
-            if (mContext==null)return;
-            adapter.clear();
-            adapter.addAll(response.body().data);
-        }
-    }
 
     @Override
-    public void onFailure(Call<CommunityResponse> call, Throwable t) {
-        ToastUtils.ToastMessage(getActivity(),R.string.connect_fail);
+    protected BasePresenter getPresenter() {
+        return new ShoppingCarPresenter();
     }
 }

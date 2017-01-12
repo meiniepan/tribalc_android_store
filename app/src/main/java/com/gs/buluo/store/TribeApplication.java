@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.gs.buluo.store.bean.UserInfoEntity;
+import com.gs.buluo.store.bean.StoreInfo;
 
 import org.greenrobot.eventbus.EventBus;
 import org.xutils.DbManager;
@@ -16,7 +16,7 @@ import org.xutils.x;
 public class TribeApplication extends Application {
     private static TribeApplication instance;
     private DbManager.DaoConfig daoConfig;
-    private UserInfoEntity user;
+    private StoreInfo user;
 
     @Override
     public void onCreate() {
@@ -33,7 +33,7 @@ public class TribeApplication extends Application {
 
     private void initDb() {
         daoConfig=new DbManager.DaoConfig()
-                .setDbName("tribe")
+                .setDbName("store")
                 .setDbOpenListener(new DbManager.DbOpenListener() {
                     @Override
                     public void onDbOpened(DbManager db) {
@@ -55,11 +55,11 @@ public class TribeApplication extends Application {
         return daoConfig;
     }
 
-    public void setUserInfo(UserInfoEntity info){
+    public void setUserInfo(StoreInfo info){
         user = info;
     }
 
-    public UserInfoEntity getUserInfo(){
+    public StoreInfo getUserInfo(){
         return user;
     }
 }

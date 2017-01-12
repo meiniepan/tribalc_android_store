@@ -13,10 +13,8 @@ import android.widget.TextView;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.bean.UserInfoEntity;
-import com.gs.buluo.store.dao.AddressInfoDao;
-import com.gs.buluo.store.dao.UserInfoDao;
-import com.gs.buluo.store.dao.UserSensitiveDao;
+import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.utils.DataCleanManager;
 import com.gs.buluo.store.utils.SharePreferenceManager;
@@ -32,12 +30,12 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
     Switch mSwitch;
     @Bind(R.id.setting_cache_size)
     TextView tvCache;
-    private UserInfoEntity info;
+    private StoreInfo info;
     private Context mCtx;
     @Override
     protected void bindView(Bundle savedInstanceState) {
         mCtx =this;
-        UserInfoDao dao=new UserInfoDao();
+        StoreInfoDao dao=new StoreInfoDao();
         info = dao.findFirst();
         setSwitch();
         mSwitch.setOnCheckedChangeListener(this);
@@ -121,9 +119,7 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
                 break;
             case R.id.exit:
                 SharePreferenceManager.getInstance(getApplicationContext()).clearValue(Constant.WALLET_PWD);
-                new UserInfoDao().clear();
-                new UserSensitiveDao().clear();
-                new AddressInfoDao().clear();
+                new StoreInfoDao().clear();
                 TribeApplication.getInstance().setUserInfo(null);
                 intent.setClass(mCtx,MainActivity.class);
                 startActivity(intent);

@@ -11,34 +11,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.bean.CompanyDetail;
-import com.gs.buluo.store.bean.ResponseBody.BaseCodeResponse;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
-import com.gs.buluo.store.bean.UserInfoEntity;
-import com.gs.buluo.store.dao.UserInfoDao;
+import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.model.MainModel;
-import com.gs.buluo.store.network.CompanyService;
-import com.gs.buluo.store.network.TribeCallback;
-import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.MinePresenter;
 import com.gs.buluo.store.utils.FresoUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.activity.CaptureActivity;
-import com.gs.buluo.store.view.activity.CompanyActivity;
-import com.gs.buluo.store.view.activity.CompanyDetailActivity;
 import com.gs.buluo.store.view.activity.LoginActivity;
-import com.gs.buluo.store.view.activity.PropertyListActivity;
-import com.gs.buluo.store.view.activity.ReserveActivity;
 import com.gs.buluo.store.view.activity.SelfActivity;
 import com.gs.buluo.store.view.activity.SettingActivity;
-import com.gs.buluo.store.view.activity.CreateVarietyActivity;
-import com.gs.buluo.store.view.activity.StoreDetailActivity;
+import com.gs.buluo.store.view.activity.CreateStoreVarietyActivity;
 import com.gs.buluo.store.view.activity.StoreSettingActivity;
 import com.gs.buluo.store.view.activity.VerifyActivity;
 import com.gs.buluo.store.view.activity.WalletActivity;
@@ -50,8 +39,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
-
-import retrofit2.Response;
 
 
 /**
@@ -134,7 +121,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-//        if (!checkUser(getActivity())) return;
+        if (!checkUser(getActivity())) return;
         final Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.mine_head:
@@ -173,7 +160,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.mine_create:
-                intent.setClass(getActivity(), CreateVarietyActivity.class);
+                intent.setClass(getActivity(), CreateStoreVarietyActivity.class);
                 startActivity(intent);
                 break;
             case R.id.mine_store:
@@ -212,9 +199,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     @Override
                     public void onSuccess(String result) {
                         if (result.contains("200")) {
-                            UserInfoEntity userInfo = TribeApplication.getInstance().getUserInfo();
+                            StoreInfo userInfo = TribeApplication.getInstance().getUserInfo();
                             userInfo.setCover(url);
-                            new UserInfoDao().update(userInfo);
+                            new StoreInfoDao().update(userInfo);
                             mCover.setImageURI("file://" + path);
                         }
                     }
@@ -247,7 +234,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             } else {
                 mNick.setText("");
             }
-            FresoUtils.loadImage(TribeApplication.getInstance().getUserInfo().getPicture(), mHead);
             FresoUtils.loadImage(TribeApplication.getInstance().getUserInfo().getCover(), mCover);
         } else {
             llLogin.setVisibility(View.GONE);

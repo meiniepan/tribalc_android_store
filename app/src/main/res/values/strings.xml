@@ -41,13 +41,12 @@
     <string name="recharge_fail">充值失败</string>
 
     <!--用户相关-->
-    <string name="nickname">昵称</string>
     <string name="birthday">出生日期</string>
     <string name="sex">性别</string>
-    <string name="main_usual">常用</string>
-    <string name="head">头像</string>
+    <string name="main_manager">订单</string>
+    <string name="head">商户图标</string>
     <string name="address">所在地</string>
-    <string name="detail_address">收货地址</string>
+    <string name="detail_address">发货地址</string>
     <string name="number">手机号</string>
     <string name="motion">情感状态</string>
     <string name="add_address">新增地址</string>
@@ -67,14 +66,14 @@
     <string name="name">姓名</string>
     <string name="detail_street_info">街道门牌信息</string>
     <string name="phone_bind">手机绑定</string>
-    <string name="self_info">个人信息</string>
+    <string name="self_info">商户信息</string>
     <string name="lady">女士</string>
     <string name="gentlemen">先生</string>
-    <string name="identity_verify">身份认证</string>
+    <string name="identity_verify">商户认证</string>
     <string name="phone_can_not_receive">手机收不到短信验证码，点击</string>
     <string name="get_voice_verify">获取语音验证码</string>
     <string name="edit_name">请输入姓名</string>
-    <string name="real_name">真实姓名</string>
+    <string name="real_name">店主姓名</string>
     <string name="input_real_birthday">请选择真实出生日期</string>
     <string name="identify_number">身份证号</string>
     <string name="input_identify_number">请输入身份证号</string>
@@ -85,7 +84,7 @@
     <string name="location">所在地</string>
 
     <!--购物相关-->
-    <string name="my_order">我的订单</string>
+    <string name="my_order">订单管理</string>
     <string name="pre_pay">待付款</string>
     <string name="pre_receive">待收货</string>
     <string name="al_cancel">已取消</string>
@@ -189,7 +188,7 @@
     <string name="property_fix">物业报修</string>
     <string name="repast">餐饮</string>
     <string name="entertainment">娱乐</string>
-    <string name="my_reserve">我的预定</string>
+    <string name="my_reserve">座位预定</string>
     <string name="time">时间</string>
     <string name="people_count">人数</string>
     <string name="restaurant">餐厅</string>
@@ -254,5 +253,10 @@
     <string name="store_identify">商户认证</string>
     <string name="store_set">店铺设置</string>
     <string name="community">社区</string>
+    <string name="upload_photo">上传图片</string>
+    <string name="store_name">店铺名称</string>
+    <string name="input_store_name">请输入店铺名称</string>
+    <string name="store_phone">店主手机号码</string>
+    <string name="store_main_phone">主要电话</string>
 
 </resources>

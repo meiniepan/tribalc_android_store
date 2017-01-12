@@ -36,18 +36,18 @@ public class FacilityAdapter extends RecyclerAdapter<Integer> {
 
         @Override
         public void onInitializeView() {
-            super.onInitializeView();
             text = findViewById(R.id.text_item);
         }
 
         @Override
         public void setData(Integer entity) {
+            super.setData(entity);
             text.setText(entity);
         }
 
         @Override
         public void onItemViewClick(Integer entity) {
-            ToastUtils.ToastMessage(context,entity);
+            text.setBackgroundResource(R.color.custom_color);
         }
     }
 }

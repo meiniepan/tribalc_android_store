@@ -31,6 +31,7 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/store_setting_head_area"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="@dimen/edit_height"
@@ -114,15 +115,8 @@
             android:layout_height="wrap_content">
         </android.support.v7.widget.RecyclerView>
 
-        <TextView
-            android:layout_marginTop="16dp"
-            android:layout_gravity="center"
-            android:layout_width="315dp"
-            android:layout_height="@dimen/button_height"
-            android:textSize="@dimen/dimens_16sp"
-            android:gravity="center"
+        <Button
             android:text="@string/next"
-            android:textColor="@color/white"
-            android:background="@drawable/button_selector" />
+           style="@style/button_style"/>
     </LinearLayout>
 </ScrollView>

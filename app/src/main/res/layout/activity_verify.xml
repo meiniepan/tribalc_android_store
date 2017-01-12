@@ -61,7 +61,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/real_name"
+                android:text="@string/store_name"
                 android:textSize="18sp" />
 
             <EditText
@@ -70,7 +70,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:background="@null"
-                android:hint="@string/input_real_name"
+                android:hint="@string/input_store_name"
                 android:textColor="@color/common_gray"
                 android:textSize="@dimen/dimens_16sp" />
         </LinearLayout>
@@ -86,7 +86,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/birthday"
+                android:text="@string/real_name"
                 android:textSize="18sp" />
 
             <TextView
@@ -96,7 +96,7 @@
                 android:layout_marginStart="10dp"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:text="@string/input_real_birthday"
+                android:text="@string/input_real_name"
                 android:textColor="@color/common_gray"
                 android:textSize="@dimen/dimens_16sp" />
         </LinearLayout>
@@ -112,7 +112,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="性        别"
+                android:text="@string/store_phone"
                 android:textSize="18sp" />
 
             <TextView
@@ -153,26 +153,12 @@
         </LinearLayout>
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/identify_area"
-        android:background="@color/tint_bg"
-        android:gravity="center_horizontal">
-
-        <TextView
-            android:id="@+id/identify_finish"
-            android:layout_width="315dp"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="70dp"
-            android:layout_marginTop="36dp"
-            android:background="@drawable/button_selector"
-            android:gravity="center"
-            android:text="认证"
-            android:textColor="@color/white"
-            android:textSize="@dimen/dimens_16sp" />
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/identify_finish"
+        style="@style/button_style"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="认证" />
 
     <ImageView
         android:id="@+id/identify_sign"

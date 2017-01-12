@@ -1,7 +1,7 @@
 package com.gs.buluo.store.dao;
 
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.bean.UserSensitiveEntity;
+import com.gs.buluo.store.bean.StoreInfo;
 
 import org.xutils.DbManager;
 import org.xutils.db.sqlite.WhereBuilder;
@@ -11,22 +11,22 @@ import org.xutils.x;
 /**
  * Created by hjn on 2016/11/3.
  */
-public class UserSensitiveDao {
+public class StoreInfoDao {
     private DbManager db;
 
-    public UserSensitiveDao(){
+    public StoreInfoDao(){
         db = x.getDb(TribeApplication.getInstance().getDaoConfig());
     }
 
     public void clear(){
         try {
-            db.delete(UserSensitiveEntity.class);
+            db.delete(StoreInfo.class);
         } catch (DbException e) {
             e.printStackTrace();
         }
     }
 
-    public void saveBindingId(UserSensitiveEntity userInfo){
+    public void saveBindingId(StoreInfo userInfo){
         try {
             db.saveBindingId(userInfo);
         } catch (DbException e) {
@@ -34,7 +34,8 @@ public class UserSensitiveDao {
         }
     }
 
-    public void update(UserSensitiveEntity userInfo){
+    public void update(StoreInfo userInfo){
+        TribeApplication.getInstance().setUserInfo(userInfo);
         try {
             db.update(userInfo);
         } catch (DbException e) {
@@ -42,18 +43,18 @@ public class UserSensitiveDao {
         }
     }
 
-    public UserSensitiveEntity findFirst(){
+    public StoreInfo findFirst(){
         try {
-            return db.findFirst(UserSensitiveEntity.class);
+            return db.findFirst(StoreInfo.class);
         } catch (DbException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public UserSensitiveEntity find(String assigned) {
+    public StoreInfo find(String assigned) {
         try {
-            return db.selector(UserSensitiveEntity.class).where(WhereBuilder.b("uid", "=", assigned)).findFirst();
+            return db.selector(StoreInfo.class).where(WhereBuilder.b("uid", "=", assigned)).findFirst();
         } catch (DbException e) {
             e.printStackTrace();
         }

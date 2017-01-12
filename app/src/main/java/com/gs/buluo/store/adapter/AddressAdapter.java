@@ -14,8 +14,6 @@ import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.UserAddressEntity;
-import com.gs.buluo.store.bean.UserSensitiveEntity;
-import com.gs.buluo.store.dao.UserSensitiveDao;
 import com.gs.buluo.store.view.activity.AddAddressActivity;
 import com.gs.buluo.store.view.activity.AddressListActivity;
 import com.gs.buluo.store.view.widget.CustomAlertDialog;
@@ -35,8 +33,6 @@ public class AddressAdapter extends  RecyclerView.Adapter<AddressAdapter.Address
     public AddressAdapter(AddressListActivity context, List<UserAddressEntity> datas) {
         mCtx=context;
         mDatas = datas;
-        UserSensitiveEntity first = new UserSensitiveDao().findFirst();
-        defaultAddressID = first.getAddressID();
     }
 
     @Override

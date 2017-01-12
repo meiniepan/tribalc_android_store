@@ -1,7 +1,7 @@
 package com.gs.buluo.store.network;
 
 import com.gs.buluo.store.bean.CommunityDetail;
-import com.gs.buluo.store.bean.ResponseBody.BaseCodeResponse;
+import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CommunityResponse;
 import com.gs.buluo.store.bean.StoreDetail;
 
@@ -17,10 +17,10 @@ public interface CommunityService {
     Call<CommunityResponse> getCommunitiesList();
 
     @GET("communities/{id}")
-    Call<BaseCodeResponse<CommunityDetail>> getCommunityDetail(
+    Call<BaseResponse<CommunityDetail>> getCommunityDetail(
             @Path("id") String uid);
 
     @GET("store_set_meals/store/{id}")
-    Call<BaseCodeResponse<StoreDetail>> getStoreDetail(
+    Call<BaseResponse<StoreDetail>> getStoreDetail(
             @Path("id") String storeId);
 }

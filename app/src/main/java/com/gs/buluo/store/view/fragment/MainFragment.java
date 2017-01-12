@@ -2,7 +2,6 @@ package com.gs.buluo.store.view.fragment;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -11,13 +10,8 @@ import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.MainPresenter;
-import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.DensityUtils;
 import com.gs.buluo.store.utils.FrescoImageLoader;
-import com.gs.buluo.store.utils.ToastUtils;
-import com.gs.buluo.store.view.activity.CaptureActivity;
-import com.gs.buluo.store.view.activity.OpenDoorActivity;
-import com.gs.buluo.store.view.activity.PropertyActivity;
 import com.gs.buluo.store.view.activity.ServeActivity;
 import com.gs.buluo.store.view.impl.IMainView;
 import com.gs.buluo.store.view.activity.GoodsListActivity;
@@ -25,7 +19,6 @@ import com.gs.buluo.store.view.widget.AlphaScrollView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 

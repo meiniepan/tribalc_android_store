@@ -16,8 +16,8 @@ import com.bruce.pickerview.popwindow.DatePickerPopWin;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.bean.UserInfoEntity;
-import com.gs.buluo.store.dao.UserInfoDao;
+import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.SelfPresenter;
@@ -44,7 +44,7 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
 
 
     private String info;
-    private UserInfoEntity userInfo;
+    private StoreInfo userInfo;
 
     private Intent intent;
     private String oldData = "1990-11-11";
@@ -64,7 +64,7 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
             case Constant.NICKNAME:
                 View nameView = ((ViewStub) findViewById(R.id.modify_nickname)).inflate();
                 final EditText name = (EditText) nameView.findViewById(R.id.modify_nickname_edit);
-                title.setText(R.string.nickname);
+                title.setText(R.string.store_name);
                 save.setVisibility(View.VISIBLE);
                 showKeyBoard(name);
                 save.setOnClickListener(new View.OnClickListener() {
@@ -169,7 +169,6 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
         LoadingDialog.getInstance().dismissDialog();
         switch (key) {
             case Constant.PICTURE:
-                userInfo.setPicture(value);
                 SelfEvent event = new SelfEvent();
                 event.head = value;
                 EventBus.getDefault().post(event);
@@ -186,23 +185,19 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
                 break;
             case Constant.SEX:
                 setSelfSex(value);
-                userInfo.setSex(value);
                 break;
             case Constant.BIRTHDAY:
 //                mBirthday.setText());
-                userInfo.setBirthday(value);
                 intent.putExtra(Constant.BIRTHDAY,value);
                 break;
             case Constant.EMOTION:
                 setSelfEmotion(value);
-                userInfo.setEmotion(value);
                 break;
             case Constant.AREA:
-                userInfo.setArea(value);
                 intent.putExtra(Constant.ADDRESS,value);
                 break;
         }
-        new UserInfoDao().update(userInfo);
+        new StoreInfoDao().update(userInfo);
     }
     public void showKeyBoard(final View view){
         new Handler().postDelayed(new Runnable() {

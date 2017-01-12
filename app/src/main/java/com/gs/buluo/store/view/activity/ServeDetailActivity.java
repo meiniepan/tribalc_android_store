@@ -13,7 +13,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.DetailStoreSetMeal;
-import com.gs.buluo.store.bean.ResponseBody.BaseCodeResponse;
+import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.model.ServeModel;
 import com.gs.buluo.store.utils.FrescoImageLoader;
 import com.gs.buluo.store.utils.FresoUtils;
@@ -31,7 +31,7 @@ import retrofit2.Response;
 /**
  * Created by hjn on 2016/11/24.
  */
-public class ServeDetailActivity extends BaseActivity implements View.OnClickListener, Callback<BaseCodeResponse<DetailStoreSetMeal>> {
+public class ServeDetailActivity extends BaseActivity implements View.OnClickListener, Callback<BaseResponse<DetailStoreSetMeal>> {
     Context mCtx;
     TextView tvName;
     private TextView tvPrice;
@@ -129,7 +129,7 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void onResponse(Call<BaseCodeResponse<DetailStoreSetMeal>> call, Response<BaseCodeResponse<DetailStoreSetMeal>> response) {
+    public void onResponse(Call<BaseResponse<DetailStoreSetMeal>> call, Response<BaseResponse<DetailStoreSetMeal>> response) {
         dismissDialog();
         if (response.body() != null && response.body().code == 200 && response.body().data != null) {
             DetailStoreSetMeal data = response.body().data;
@@ -159,7 +159,7 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void onFailure(Call<BaseCodeResponse<DetailStoreSetMeal>> call, Throwable t) {
+    public void onFailure(Call<BaseResponse<DetailStoreSetMeal>> call, Throwable t) {
         dismissDialog();
         ToastUtils.ToastMessage(this, R.string.connect_fail);
     }

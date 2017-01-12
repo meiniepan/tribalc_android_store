@@ -13,7 +13,7 @@ import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.adapter.CommunityDetailStoreAdapter;
 import com.gs.buluo.store.bean.CommunityDetail;
-import com.gs.buluo.store.bean.ResponseBody.BaseCodeResponse;
+import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.model.CommunityModel;
 import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.FrescoImageLoader;
@@ -30,7 +30,7 @@ import retrofit2.Response;
 /**
  * Created by hjn on 2016/11/28.
  */
-public class CommunityDetailActivity extends BaseActivity implements View.OnClickListener, Callback<BaseCodeResponse<CommunityDetail>> {
+public class CommunityDetailActivity extends BaseActivity implements View.OnClickListener, Callback<BaseResponse<CommunityDetail>> {
     Context mCtx;
     private Banner banner;
 
@@ -85,7 +85,7 @@ public class CommunityDetailActivity extends BaseActivity implements View.OnClic
 
 
     @Override
-    public void onResponse(Call<BaseCodeResponse<CommunityDetail>> call, Response<BaseCodeResponse<CommunityDetail>> response) {
+    public void onResponse(Call<BaseResponse<CommunityDetail>> call, Response<BaseResponse<CommunityDetail>> response) {
         dismissDialog();
         findViewById(R.id.community_detail_order).setVisibility(View.VISIBLE);
         if (response.body()!=null&&response.body().code==200){
@@ -102,7 +102,7 @@ public class CommunityDetailActivity extends BaseActivity implements View.OnClic
     }
 
     @Override
-    public void onFailure(Call<BaseCodeResponse<CommunityDetail>> call, Throwable t) {
+    public void onFailure(Call<BaseResponse<CommunityDetail>> call, Throwable t) {
         dismissDialog();
         ToastUtils.ToastMessage(mCtx,R.string.connect_fail);
     }

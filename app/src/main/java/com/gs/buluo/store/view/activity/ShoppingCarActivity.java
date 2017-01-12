@@ -1,6 +1,5 @@
 package com.gs.buluo.store.view.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStub;
@@ -14,7 +13,7 @@ import com.gs.buluo.store.ResponseCode;
 import com.gs.buluo.store.adapter.CarListAdapter;
 import com.gs.buluo.store.bean.CartItem;
 import com.gs.buluo.store.bean.ResponseBody.ShoppingCartResponse;
-import com.gs.buluo.store.bean.ResponseBody.BaseCodeResponse;
+import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ShoppingCart;
 import com.gs.buluo.store.eventbus.NewOrderEvent;
 import com.gs.buluo.store.model.ShoppingModel;
@@ -27,7 +26,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -150,27 +148,6 @@ public class ShoppingCarActivity extends BaseActivity implements IShoppingView, 
     }
 
     private void accountOrder() {
-        Intent intent = new Intent(ShoppingCarActivity.this, NewOrderActivity.class);
-        ArrayList<ShoppingCart> carts = new ArrayList<>();
-        for (int i = 0; i < cartList.size(); i++) {
-            ShoppingCart cart = cartList.get(i);
-            ShoppingCart newCart =new ShoppingCart();
-            newCart.goodsList=new ArrayList<>();
-            for (int j = 0; j < cart.goodsList.size(); j++) {
-                CartItem item = cart.goodsList.get(j);
-                if (item.isSelected) {
-                    newCart.goodsList.add(item);
-                }
-            }
-            if (newCart.goodsList.size() != 0) {
-                newCart.id=cart.id;
-                newCart.store=cart.store;
-                carts.add(newCart);
-            }
-        }
-        intent.putExtra("count", total / 100);
-        intent.putParcelableArrayListExtra("cart", carts);
-        startActivity(intent);
     }
 
     private void deleteSelected() {
@@ -183,9 +160,9 @@ public class ShoppingCarActivity extends BaseActivity implements IShoppingView, 
                 }
         }
 
-        new ShoppingModel().deleteShoppingItem(sb.toString().substring(0,sb.length()-1), new Callback<BaseCodeResponse>() {
+        new ShoppingModel().deleteShoppingItem(sb.toString().substring(0,sb.length()-1), new Callback<BaseResponse>() {
             @Override
-            public void onResponse(Call<BaseCodeResponse> call, Response<BaseCodeResponse> response) {
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.body()!=null&&response.body().code== ResponseCode.DELETE_SUCCESS){
                     removeSelected();
                     ToastUtils.ToastMessage(ShoppingCarActivity.this,R.string.delete_success);
@@ -201,7 +178,7 @@ public class ShoppingCarActivity extends BaseActivity implements IShoppingView, 
             }
 
             @Override
-            public void onFailure(Call<BaseCodeResponse> call, Throwable t) {
+            public void onFailure(Call<BaseResponse> call, Throwable t) {
                 ToastUtils.ToastMessage(ShoppingCarActivity.this,R.string.connect_fail);
             }
         });

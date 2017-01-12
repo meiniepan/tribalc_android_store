@@ -12,13 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
          android:background="@color/common_dark">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textSize="@dimen/dimens_18sp"
-            android:textColor="#fff"
-            android:text="@string/self_info"/>
 
         <View
             android:layout_width="wrap_content"
@@ -28,9 +21,21 @@
 
         <include layout="@layout/back_img_white"
             android:id="@+id/self_back"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="@dimen/dimens_18sp"
+            android:textColor="#fff"
+            android:text="@string/self_info"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/textView8" />
     </RelativeLayout>
 
     <include layout="@layout/split_area"/>
+
     <RelativeLayout
         android:paddingStart="@dimen/activity_horizontal_margin"
         android:paddingEnd="@dimen/activity_horizontal_margin"
@@ -66,7 +71,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/nickname"
+            android:text="@string/store_name"
             android:gravity="center_vertical"
             android:textSize="@dimen/dimens_16sp"/>
 
@@ -82,81 +87,6 @@
     </RelativeLayout>
 
     <include layout="@layout/split_line" />
-
-    <RelativeLayout
-        android:id="@+id/ll_sex"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/self_item_height"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/sex"
-            android:gravity="center_vertical"
-            android:textSize="@dimen/dimens_16sp"/>
-
-        <TextView
-            android:id="@+id/tv_sex"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/self_margin_end"
-            android:textSize="16sp"/>
-    </RelativeLayout>
-
-    <include layout="@layout/split_line" />
-
-    <RelativeLayout
-        android:id="@+id/ll_birthday"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/self_item_height"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/birthday"
-            android:gravity="center_vertical"
-            android:textSize="@dimen/dimens_16sp"/>
-
-        <TextView
-            android:id="@+id/tv_birthday"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/self_margin_end"
-            android:textSize="@dimen/dimens_16sp"/>
-    </RelativeLayout>
-
-    <include layout="@layout/split_line" />
-
-    <RelativeLayout
-        android:id="@+id/ll_motion"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/self_item_height"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/motion"
-            android:gravity="center_vertical"
-            android:textSize="@dimen/dimens_16sp"/>
-
-        <TextView
-            android:id="@+id/tv_motion"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/self_margin_end"
-            android:textSize="16sp"/>
-    </RelativeLayout>
-
-    <include layout="@layout/split_area" />
 
     <RelativeLayout
         android:id="@+id/ll_number"
@@ -180,8 +110,8 @@
             android:layout_marginEnd="@dimen/self_margin_end"
             android:textSize="16sp"/>
     </RelativeLayout>
-
     <include layout="@layout/split_line" />
+
 
     <RelativeLayout
         android:id="@+id/ll_address"

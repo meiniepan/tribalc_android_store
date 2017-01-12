@@ -7,22 +7,21 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.MainPagerAdapter;
-import com.gs.buluo.store.bean.UserInfoEntity;
-import com.gs.buluo.store.dao.UserInfoDao;
+import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.LoginPresenter;
 import com.gs.buluo.store.view.fragment.BaseFragment;
 import com.gs.buluo.store.view.fragment.StoreFragment;
 import com.gs.buluo.store.view.fragment.MainFragment;
 import com.gs.buluo.store.view.fragment.MineFragment;
-import com.gs.buluo.store.view.fragment.UsualFragment;
+import com.gs.buluo.store.view.fragment.ManagerFragment;
 import com.gs.buluo.store.view.impl.ILoginView;
 import com.gs.buluo.store.view.widget.panel.AroundPanel;
 
@@ -63,7 +62,7 @@ public class MainActivity extends BaseActivity implements ILoginView, ViewPager.
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (new UserInfoDao().findFirst()==null){
+        if (new StoreInfoDao().findFirst()==null){
             mineFragment.setLoginState(false);
         }else {
             mineFragment.setLoginState(true);
@@ -76,7 +75,7 @@ public class MainActivity extends BaseActivity implements ILoginView, ViewPager.
         list = new ArrayList<>();
         list.add(new MainFragment());
         list.add(new StoreFragment());
-        list.add(new UsualFragment());
+        list.add(new ManagerFragment());
         mineFragment = new MineFragment();
         list.add(mineFragment);
         findViewById(R.id.main_home_layout).setOnClickListener(new MainOnClickListener(0));
@@ -93,7 +92,7 @@ public class MainActivity extends BaseActivity implements ILoginView, ViewPager.
     }
 
     private void initUser() {
-        UserInfoEntity first = new UserInfoDao().findFirst();
+        StoreInfo first = new StoreInfoDao().findFirst();
         TribeApplication.getInstance().setUserInfo(first);
     }
 
@@ -103,12 +102,12 @@ public class MainActivity extends BaseActivity implements ILoginView, ViewPager.
         tabs.add(mUsual);
         tabs.add(mMine);
         imageRids.add(R.mipmap.tabbar_home_normal);
-        imageRids.add(R.mipmap.tabbar_discover_normal);
-        imageRids.add(R.mipmap.tabbar_common_normal);
+        imageRids.add(R.mipmap.tabbar_goods_normal);
+        imageRids.add(R.mipmap.tabbar_order_normal);
         imageRids.add(R.mipmap.tabbar_profile_normal);
         imageSelectedRids.add(R.mipmap.tabbar_home_selected);
-        imageSelectedRids.add(R.mipmap.tabbar_discover_selected);
-        imageSelectedRids.add(R.mipmap.tabbar_common_selected);
+        imageSelectedRids.add(R.mipmap.tabbar_goods_selected);
+        imageSelectedRids.add(R.mipmap.tabbar_order_selected);
         imageSelectedRids.add(R.mipmap.tabbar_profile_selected);
         tabIcons.add(mHomeImage);
         tabIcons.add(mFoundImage);

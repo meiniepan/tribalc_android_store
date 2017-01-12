@@ -113,7 +113,7 @@ public class TribeUploader {
     }
 
     public interface UploadCallback {
-        void uploadSuccess(UploadAccessResponse.UploadResponseBody url);
+        void uploadSuccess(UploadAccessResponse.UploadResponseBody data);
 
         void uploadFail();
     }

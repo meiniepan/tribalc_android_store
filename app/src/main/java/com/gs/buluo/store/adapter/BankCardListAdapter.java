@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.BankCard;
-import com.gs.buluo.store.bean.ResponseBody.BaseCodeResponse;
+import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.model.MoneyModel;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.LoadingDialog;
@@ -201,9 +201,9 @@ public class BankCardListAdapter extends BaseAdapter {
 
     private void deleteBankCard(final BankCard card) {
         LoadingDialog.getInstance().show(mContext,R.string.loading,true);
-        new MoneyModel().deleteCard(card.id, new Callback<BaseCodeResponse>() {
+        new MoneyModel().deleteCard(card.id, new Callback<BaseResponse>() {
             @Override
-            public void onResponse(Call<BaseCodeResponse> call, Response<BaseCodeResponse> response) {
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.body()!=null&&response.body().code==204){
                     LoadingDialog.getInstance().dismissDialog();
                     datas.remove(card);
@@ -212,7 +212,7 @@ public class BankCardListAdapter extends BaseAdapter {
             }
 
             @Override
-            public void onFailure(Call<BaseCodeResponse> call, Throwable t) {
+            public void onFailure(Call<BaseResponse> call, Throwable t) {
                 ToastUtils.ToastMessage(mContext,R.string.connect_fail);
             }
         });

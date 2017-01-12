@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@string/main_usual"
+                android:text="@string/main_manager"
                 android:textColor="@color/white"
                 android:textSize="@dimen/title_size" />
 
@@ -44,39 +44,6 @@
             app:indicator_height="8dp"
             app:indicator_margin="6dp"
             app:indicator_width="8dp" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="33dp"
-            android:background="@color/tint_bg">
-
-            <TextView
-                android:id="@+id/usual_area"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="10dp"
-                android:text="办公地带"
-                android:textSize="@dimen/dimens_18sp" />
-
-            <View
-                android:layout_width="72dp"
-                android:layout_height="0.5dp"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="40dp"
-                android:layout_toStartOf="@+id/usual_area"
-                android:background="#000" />
-
-            <View
-                android:layout_width="72dp"
-                android:layout_height="0.5dp"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="10dp"
-                android:layout_toEndOf="@+id/usual_area"
-                android:background="#000" />
-        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -105,7 +72,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="手机开门"
+                        android:text="订单管理"
                         android:textColor="@color/white"
                         android:textSize="@dimen/dimens_16sp" />
                 </LinearLayout>
@@ -140,7 +107,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="物业报修"
+                        android:text="预定管理"
                         android:textColor="@color/white"
                         android:textSize="@dimen/dimens_16sp" />
                 </LinearLayout>

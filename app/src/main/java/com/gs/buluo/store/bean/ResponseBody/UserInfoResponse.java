@@ -1,6 +1,6 @@
 package com.gs.buluo.store.bean.ResponseBody;
 
-import com.gs.buluo.store.bean.UserInfoEntity;
+import com.gs.buluo.store.bean.StoreInfo;
 
 /**
  * Created by hjn on 2016/11/10.
@@ -8,14 +8,14 @@ import com.gs.buluo.store.bean.UserInfoEntity;
 public class UserInfoResponse {
     private int iid;
     private int code;
-    private UserInfoEntity data;
+    private StoreInfo data;
     private String message;
 
     public void setCode(int code) {
         this.code = code;
     }
 
-    public void setData(UserInfoEntity data) {
+    public void setData(StoreInfo data) {
         this.data = data;
     }
 
@@ -27,9 +27,9 @@ public class UserInfoResponse {
         return code;
     }
 
-    public UserInfoEntity getData() {
+    public StoreInfo getData() {
         if (data == null) {
-            data = new UserInfoEntity();
+            data = new StoreInfo();
         }
         return data;
     }

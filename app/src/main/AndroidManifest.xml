@@ -49,7 +49,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="D7eeGAb9un6bugnniVTnVeTelvLfcHso"/>
+            android:value="UXd9G8TPCXLcOF4oK5BVGhbtCXCUwOSY"/>
 
         <service
             android:name="com.baidu.location.f"
@@ -82,9 +82,6 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.gs.buluo.store.view.activity.FindActivity"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name="com.gs.buluo.store.view.activity.ServeActivity"
             android:screenOrientation="portrait"/>
         <activity
@@ -93,9 +90,6 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.gs.buluo.store.view.activity.VerifyActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name="com.gs.buluo.store.view.activity.CompanyRegisterActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.gs.buluo.store.view.activity.SettingActivity"
@@ -172,74 +166,41 @@
             android:name="com.gs.buluo.store.view.activity.ReserveDetailActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.gs.buluo.store.view.activity.BookingServeActivity"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name="com.gs.buluo.store.view.activity.ShoppingCarActivity"
             android:screenOrientation="portrait"/>
-        <activity
-            android:name="com.gs.buluo.store.view.activity.NewOrderActivity"
-            android:screenOrientation="portrait"/>
 
-        <activity
-            android:name="com.gs.buluo.store.view.activity.PropertyActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name="com.gs.buluo.store.view.activity.BindCompanyActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name="com.gs.buluo.store.view.activity.CompanyActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name="com.gs.buluo.store.view.activity.AddPartFixActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name="com.gs.buluo.store.view.activity.PickCommunityActivity"
-            android:screenOrientation="portrait">
-        </activity>
         <activity
             android:name="com.gs.buluo.store.view.activity.ModifyInfoActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity
-            android:name="com.gs.buluo.store.view.activity.ChooseCompanyActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name="com.gs.buluo.store.view.activity.CompanyDetailActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name="com.gs.buluo.store.view.activity.PropertyListActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask">
-        </activity>
-        <activity
-            android:name="com.gs.buluo.store.view.activity.PropertyFixDetailActivity"
-            android:screenOrientation="portrait">
-        </activity>
         <activity android:name="com.gs.buluo.store.view.activity.CaptureActivity"/>
-        <activity
-            android:name="com.gs.buluo.store.view.activity.OpenDoorActivity"
-            android:screenOrientation="portrait">
-        </activity>
         <activity android:name="com.gs.buluo.store.view.activity.BankPickActivity">
         </activity>
         <activity android:name="com.gs.buluo.store.view.activity.FeedbackActivity"
             android:windowSoftInputMode="stateVisible"/>
         <activity android:name="com.gs.buluo.store.view.activity.GuideActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.CreateVarietyActivity"
+        <activity android:name=".view.activity.CreateStoreVarietyActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.CreateDetailActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.StoreSettingActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.PhotoActivity"
             android:screenOrientation="portrait"/>
 
         <activity android:name="com.gs.buluo.store.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"
             />
+        <activity android:name=".view.activity.CreateDetailActivitySecond"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.CreateGoodsVarietyActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.QualificationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.CreateStateActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

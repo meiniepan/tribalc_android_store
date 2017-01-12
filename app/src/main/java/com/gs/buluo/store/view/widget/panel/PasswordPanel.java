@@ -15,7 +15,7 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.ResponseCode;
 import com.gs.buluo.store.bean.OrderBean;
 import com.gs.buluo.store.bean.OrderPayment;
-import com.gs.buluo.store.bean.ResponseBody.BaseCodeResponse;
+import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.eventbus.PaymentEvent;
 import com.gs.buluo.store.model.MoneyModel;
 import com.gs.buluo.store.utils.DensityUtils;
@@ -38,7 +38,7 @@ import retrofit2.Response;
 /**
  * Created by hjn on 2016/12/13.
  */
-public class PasswordPanel extends Dialog implements Callback<BaseCodeResponse<OrderPayment>> {
+public class PasswordPanel extends Dialog implements Callback<BaseResponse<OrderPayment>> {
     private  OnPasswordPanelDismissListener onPasswordPanelDismissListener;
     private List<String> orderId;
     private Context mContext;
@@ -97,7 +97,7 @@ public class PasswordPanel extends Dialog implements Callback<BaseCodeResponse<O
     }
 
     @Override
-    public void onResponse(Call<BaseCodeResponse<OrderPayment>> call, Response<BaseCodeResponse<OrderPayment>> response) {
+    public void onResponse(Call<BaseResponse<OrderPayment>> call, Response<BaseResponse<OrderPayment>> response) {
 //        pwdEditText.dismissKeyBoard();
         if (response.body()!=null&&response.code()==ResponseCode.GET_SUCCESS){
             setStatus(response.body().data);
@@ -108,7 +108,7 @@ public class PasswordPanel extends Dialog implements Callback<BaseCodeResponse<O
     }
 
     @Override
-    public void onFailure(Call<BaseCodeResponse<OrderPayment>> call, Throwable t) {
+    public void onFailure(Call<BaseResponse<OrderPayment>> call, Throwable t) {
         LoadingDialog.getInstance().dismissDialog();
         ToastUtils.ToastMessage(mContext,R.string.connect_fail);
     }
@@ -130,9 +130,9 @@ public class PasswordPanel extends Dialog implements Callback<BaseCodeResponse<O
     }
 
     public void getPaymentInfo(OrderPayment data) {
-        new MoneyModel().getPaymentStatus(data.id, new Callback<BaseCodeResponse<OrderPayment>>() {
+        new MoneyModel().getPaymentStatus(data.id, new Callback<BaseResponse<OrderPayment>>() {
             @Override
-            public void onResponse(Call<BaseCodeResponse<OrderPayment>> call, Response<BaseCodeResponse<OrderPayment>> response) {
+            public void onResponse(Call<BaseResponse<OrderPayment>> call, Response<BaseResponse<OrderPayment>> response) {
                 if (response.body()!=null&&response.code()== ResponseCode.GET_SUCCESS){
                     setStatusAgain(response.body().data);
                 }else {
@@ -142,7 +142,7 @@ public class PasswordPanel extends Dialog implements Callback<BaseCodeResponse<O
             }
 
             @Override
-            public void onFailure(Call<BaseCodeResponse<OrderPayment>> call, Throwable t) {
+            public void onFailure(Call<BaseResponse<OrderPayment>> call, Throwable t) {
                 ToastUtils.ToastMessage(mContext,R.string.connect_fail);
                 LoadingDialog.getInstance().dismissDialog();
             }

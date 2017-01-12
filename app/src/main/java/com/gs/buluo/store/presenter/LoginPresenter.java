@@ -5,24 +5,18 @@ import android.util.Log;
 
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.bean.ResponseBody.BaseCodeResponse;
+import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
-import com.gs.buluo.store.bean.ResponseBody.UserAddressListResponse;
 import com.gs.buluo.store.bean.ResponseBody.UserBeanResponse;
-import com.gs.buluo.store.bean.SipBean;
-import com.gs.buluo.store.bean.UserAddressEntity;
-import com.gs.buluo.store.bean.UserInfoEntity;
+import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.bean.ResponseBody.UserInfoResponse;
-import com.gs.buluo.store.bean.UserSensitiveEntity;
-import com.gs.buluo.store.dao.AddressInfoDao;
-import com.gs.buluo.store.dao.UserInfoDao;
-import com.gs.buluo.store.dao.UserSensitiveDao;
+import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.model.MainModel;
+import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.triphone.LinphoneManager;
 import com.gs.buluo.store.triphone.LinphonePreferences;
 import com.gs.buluo.store.triphone.LinphoneUtils;
-import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.view.impl.ILoginView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -30,7 +24,6 @@ import org.linphone.core.LinphoneAddress;
 import org.linphone.core.LinphoneCoreException;
 import org.linphone.core.LinphoneCoreFactory;
 
-import java.util.List;
 import java.util.Map;
 
 
@@ -58,9 +51,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                     Log.e("Login Result: userId ", "Retrofit Response: "+ response.body().getData().getAssigned());
                     String uid = user.getData().getAssigned();
                     token = response.body().getData().getToken();
-                    getUserInfo(uid);
-                    getSensitiveInfo(uid);
-                    getAddressInfo(uid);
+                    getStoreInfo(uid);
                 } else if (user!=null&&user.getCode()==401){
                     if (isAttach()) mView.showError(R.string.wrong_verify);
                 }
@@ -76,11 +67,11 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
 
 
     public void doVerify(String phone) {
-        mainModel.doVerify(phone, new Callback<BaseCodeResponse<CodeResponse>>() {
+        mainModel.doVerify(phone, new Callback<BaseResponse<CodeResponse>>() {
             @Override
-            public void onResponse(Call<BaseCodeResponse<CodeResponse>> call, Response<BaseCodeResponse<CodeResponse>> response) {
+            public void onResponse(Call<BaseResponse<CodeResponse>> call, Response<BaseResponse<CodeResponse>> response) {
                 if (response.body()!=null){
-                    BaseCodeResponse res = response.body();
+                    BaseResponse res = response.body();
                     if (res.code==202){
                         mView.dealWithIdentify(202);
                     }else {
@@ -94,85 +85,35 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
             }
 
             @Override
-            public void onFailure(Call<BaseCodeResponse<CodeResponse>> call, Throwable t) {
+            public void onFailure(Call<BaseResponse<CodeResponse>> call, Throwable t) {
                 if (null == mView) return;
                 mView.showError(R.string.connect_fail);
             }
         });
     }
 
-    public void getUserInfo(String uid) {
-        mainModel.getUserInfo(uid, new Callback<UserInfoResponse>() {
+    public void getStoreInfo(String uid) {
+        mainModel.getStoreInfo(uid, new TribeCallback<StoreInfo>(){
             @Override
-            public void onResponse(Call<UserInfoResponse> call, Response<UserInfoResponse> response) {
-                UserInfoResponse info =response.body();
-                if (null==info){
-                    mView.showError(R.string.connect_fail);
-                    return;
-                }
-                UserInfoEntity entity = info.getData();
+            public void onSuccess(Response<BaseResponse<StoreInfo>> response) {
+                StoreInfo entity = response.body().data;
                 entity.setToken(token);
-                if (entity.getDistrict()!=null)
-                    entity.setArea(entity.getProvince()+"-"+entity.getCity()+"-"+entity.getDistrict());
-                else
-                    entity.setArea(entity.getProvince()+"-"+entity.getCity());
-
                 TribeApplication.getInstance().setUserInfo(entity);
-                UserInfoDao dao=new UserInfoDao();
+                StoreInfoDao dao=new StoreInfoDao();
                 dao.saveBindingId(entity);
                 EventBus.getDefault().post(new SelfEvent());
                 if (isAttach()){
                     mView.loginSuccess();
                 }
             }
-            @Override
-            public void onFailure(Call<UserInfoResponse> call, Throwable t) {
-                if (isAttach()){
-                    mView.showError(R.string.connect_fail);
-                }
-            }
-        });
-    }
-
-    public void getSensitiveInfo(String uid){
-        mainModel.getSensitiveUserInfo(uid, new Callback<BaseCodeResponse<UserSensitiveEntity>>() {
-            @Override
-            public void onResponse(Call<BaseCodeResponse<UserSensitiveEntity>> call, Response<BaseCodeResponse<UserSensitiveEntity>> response) {
-                UserSensitiveEntity data = response.body().data;
-                data.setSipJson();
-                if (!CommonUtils.isLibc64()){
-                    SipBean sip = data.getSip();
-                    saveCreatedAccount(sip.user,sip.password,null,null,sip.domain, LinphoneAddress.TransportType.LinphoneTransportUdp);
-                }
-                new UserSensitiveDao().saveBindingId(data);
-            }
 
             @Override
-            public void onFailure(Call<BaseCodeResponse<UserSensitiveEntity>> call, Throwable t) {
+            public void onFail(int responseCode, BaseResponse<StoreInfo> body) {
                 mView.showError(R.string.connect_fail);
             }
         });
     }
 
-    private void getAddressInfo(String assigned) {
-        mainModel.getAddressList(assigned, new Callback<UserAddressListResponse>() {
-            @Override
-            public void onResponse(Call<UserAddressListResponse> call, Response<UserAddressListResponse> response) {
-                List<UserAddressEntity > list=response.body().data;
-                AddressInfoDao dao=new AddressInfoDao();
-                for (UserAddressEntity address:list){
-                    address.setUid(TribeApplication.getInstance().getUserInfo().getId());
-                    address.setArea(address.getProvice(),address.getCity(),address.getDistrict());
-                    dao.saveBindingId(address);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<UserAddressListResponse> call, Throwable t) {
-                mView.showError(R.string.connect_fail);
-            }
-        });
-    }
 
     private void saveCreatedAccount(String username, String password, String prefix, String ha1, String domain, LinphoneAddress.TransportType transport) {
         username = LinphoneUtils.getDisplayableUsernameFromAddress(username);
