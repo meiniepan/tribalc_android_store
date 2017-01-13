@@ -30,7 +30,7 @@ public class OrderActivity extends BaseActivity {
                 finish();
             }
         });
-        String[] titles = new String[]{getString(R.string.all), getString(R.string.wait_pay), getString(R.string.wait_receive), getString(R.string.complete)};
+        String[] titles = new String[]{getString(R.string.all), getString(R.string.wait_pay), getString(R.string.wait_send), getString(R.string.complete)};
         OrderFragmentAdapter adapter =
                 new OrderFragmentAdapter(getSupportFragmentManager(), Arrays.asList(titles));
         pager.setAdapter(adapter);

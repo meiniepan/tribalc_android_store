@@ -81,7 +81,7 @@ public class AddressPickPanel extends Dialog implements View.OnClickListener, On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_confirm:
-                onSelectedFinished.onSelected(mCurrentProviceName + "-" + mCurrentCityName + "-" + mCurrentDistrictName);
+                onSelectedFinished.onSelected(mCurrentProviceName+"-"+mCurrentCityName+"-" +mCurrentDistrictName,mCurrentProviceName,mCurrentCityName,mCurrentDistrictName);
                 dismiss();
                 break;
         }
@@ -204,6 +204,6 @@ public class AddressPickPanel extends Dialog implements View.OnClickListener, On
     }
 
     public interface OnSelectedFinished {
-        void onSelected(String string);
+        void onSelected(String area,String province,String city,String district);
     }
 }

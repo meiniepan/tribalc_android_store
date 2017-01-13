@@ -13,11 +13,15 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
+import com.gs.buluo.store.bean.CreateStoreBean;
+import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.model.MainModel;
+import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.MinePresenter;
@@ -25,11 +29,9 @@ import com.gs.buluo.store.utils.FresoUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.activity.CaptureActivity;
 import com.gs.buluo.store.view.activity.LoginActivity;
-import com.gs.buluo.store.view.activity.ProtocolActivity;
 import com.gs.buluo.store.view.activity.SelfActivity;
 import com.gs.buluo.store.view.activity.SettingActivity;
 import com.gs.buluo.store.view.activity.CreateStoreVarietyActivity;
-import com.gs.buluo.store.view.activity.StoreSettingActivity;
 import com.gs.buluo.store.view.activity.VerifyActivity;
 import com.gs.buluo.store.view.activity.WalletActivity;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
@@ -40,6 +42,8 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+
+import retrofit2.Response;
 
 
 /**
@@ -165,8 +169,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.mine_store:
-                intent.setClass(getActivity(), StoreSettingActivity.class);
-                startActivity(intent);
                 break;
         }
     }
@@ -195,29 +197,21 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     private void updateUserCover(final UploadAccessResponse.UploadResponseBody body, final String path) {
         final String url = body.objectKey;
+        CreateStoreBean bean=new CreateStoreBean();
+        bean.setCover(url);
         new MainModel().updateUser(TribeApplication.getInstance().getUserInfo().getId(),
-                "cover", url, new org.xutils.common.Callback.CommonCallback<String>() {
+                "cover" ,url,bean, new TribeCallback<CodeResponse>() {
                     @Override
-                    public void onSuccess(String result) {
-                        if (result.contains("200")) {
-                            StoreInfo userInfo = TribeApplication.getInstance().getUserInfo();
-                            userInfo.setCover(url);
-                            new StoreInfoDao().update(userInfo);
-                            mCover.setImageURI("file://" + path);
-                        }
+                    public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
+                        StoreInfo userInfo = TribeApplication.getInstance().getUserInfo();
+                        userInfo.setCover(url);
+                        new StoreInfoDao().update(userInfo);
+                        mCover.setImageURI("file://" + path);
                     }
 
                     @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
-                        ToastUtils.ToastMessage(getActivity(), R.string.connect_fail);
-                    }
-
-                    @Override
-                    public void onCancelled(CancelledException cex) {
-                    }
-
-                    @Override
-                    public void onFinished() {
+                    public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
+                        ToastUtils.ToastMessage(mContext,R.string.connect_fail);
                     }
                 });
     }
@@ -229,13 +223,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         if (loginState) {
             llLogin.setVisibility(View.VISIBLE);
             llUnLogin.setVisibility(View.GONE);
-            String nickname = TribeApplication.getInstance().getUserInfo().getNickname();
+            String nickname = TribeApplication.getInstance().getUserInfo().getName();
             if (!TextUtils.isEmpty(nickname)) {
                 mNick.setText(nickname);
             } else {
                 mNick.setText("");
             }
             FresoUtils.loadImage(TribeApplication.getInstance().getUserInfo().getCover(), mCover);
+            FresoUtils.loadImage(TribeApplication.getInstance().getUserInfo().getLogo(), mHead);
         } else {
             llLogin.setVisibility(View.GONE);
             llUnLogin.setVisibility(View.VISIBLE);

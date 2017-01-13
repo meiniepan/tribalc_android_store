@@ -128,8 +128,8 @@ public class AddAddressActivity extends BaseActivity implements IAddAddressView 
     private void initAddressPicker() {
         AddressPickPanel pickPanel = new AddressPickPanel(this, new AddressPickPanel.OnSelectedFinished() {
             @Override
-            public void onSelected(String res) {
-                mAddress.setText(res);
+            public void onSelected(String area ,String mCurrentProviceName, String mCurrentCityName, String district) {
+                mAddress.setText(area);
             }
         });
         pickPanel.show();

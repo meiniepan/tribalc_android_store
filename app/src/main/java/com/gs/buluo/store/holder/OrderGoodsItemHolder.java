@@ -20,25 +20,17 @@ public class OrderGoodsItemHolder {
 
     public TextView name;
     public TextView brand;
-    public TextView money;
-    public TextView number;
-    public TextView color;
-    public TextView size;
     public SimpleDraweeView picture;
-    public TextView colorKey;
-    public TextView sizeKey;
+    public TextView account;
+    public TextView people;
     public View view;
 
     public View getHolderView() {
         view = LayoutInflater.from(mCtx).inflate(R.layout.order_goods_item, null);
         name = (TextView) view.findViewById(R.id.order_item_goods_name);
         brand = (TextView) view.findViewById(R.id.order_item_goods_brand);
-        money = (TextView) view.findViewById(R.id.order_item_goods_money);
-        number = (TextView) view.findViewById(R.id.order_item_goods_number);
-        size = (TextView) view.findViewById(R.id.order_item_goods_size);
-        color = (TextView) view.findViewById(R.id.order_item_goods_color);
-        sizeKey = (TextView) view.findViewById(R.id.order_item_goods_size_key);
-        colorKey = (TextView) view.findViewById(R.id.order_item_goods_color_key);
+        account = (TextView) view.findViewById(R.id.order_item_goods_account);
+        people = (TextView) view.findViewById(R.id.order_item_people);
         picture = (SimpleDraweeView) view.findViewById(R.id.order_item_goods_head);
         return view;
     }

@@ -54,7 +54,6 @@ public class StoreFragment extends BaseFragment {
 
     }
 
-
     @Override
     protected BasePresenter getPresenter() {
         return new ShoppingCarPresenter();

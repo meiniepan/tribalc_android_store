@@ -16,6 +16,7 @@ import com.bruce.pickerview.popwindow.DatePickerPopWin;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
+import com.gs.buluo.store.bean.CreateStoreBean;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.eventbus.SelfEvent;
@@ -61,25 +62,22 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
 
     private void initView(final String info) {
         switch (info) {
-            case Constant.NICKNAME:
+            case Constant.NAME:
                 View nameView = ((ViewStub) findViewById(R.id.modify_nickname)).inflate();
                 final EditText name = (EditText) nameView.findViewById(R.id.modify_nickname_edit);
-                title.setText(R.string.store_name);
+                title.setText(R.string.name);
                 save.setVisibility(View.VISIBLE);
                 showKeyBoard(name);
                 save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (name.length() == 0) return;
-                        ((SelfPresenter) mPresenter).updateUser(Constant.NICKNAME, name.getText().toString().trim());
+                        CreateStoreBean bean = new CreateStoreBean();
+                        String value = name.getText().toString().trim();
+                        bean.setName(value);
+                        ((SelfPresenter) mPresenter).updateUser(Constant.NAME, value, bean);
                     }
                 });
-                break;
-            case Constant.SEX:
-                View sexView = ((ViewStub) findViewById(R.id.modify_sex)).inflate();
-                title.setText(R.string.sex);
-                sexView.findViewById(R.id.modify_male).setOnClickListener(this);
-                sexView.findViewById(R.id.modify_female).setOnClickListener(this);
                 break;
             case Constant.BIRTHDAY:
                 title.setText(R.string.birthday);
@@ -102,13 +100,6 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
                         finish();
                     }
                 });
-                break;
-            case Constant.EMOTION:
-                title.setText(R.string.motion);
-                View motionView = ((ViewStub) findViewById(R.id.modify_motion)).inflate();
-                motionView.findViewById(R.id.modify_single).setOnClickListener(this);
-                motionView.findViewById(R.id.modify_married).setOnClickListener(this);
-                motionView.findViewById(R.id.modify_loving).setOnClickListener(this);
                 break;
             case Constant.ADDRESS:
                 title.setText(R.string.address);
@@ -143,20 +134,11 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.modify_male:
-                updateSex(R.string.male);
-                break;
-            case R.id.modify_female:
-                updateSex(R.string.female);
-                break;
             case R.id.modify_single:
-                updateMotion(R.string.single);
                 break;
             case R.id.modify_loving:
-                updateMotion(R.string.loving);
                 break;
             case R.id.modify_married:
-                updateMotion(R.string.married);
                 break;
             case R.id.modify_back:
                 finish();
@@ -168,32 +150,16 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
     public void updateSuccess(String key, String value) {
         LoadingDialog.getInstance().dismissDialog();
         switch (key) {
-            case Constant.PICTURE:
-                SelfEvent event = new SelfEvent();
-                event.head = value;
-                EventBus.getDefault().post(event);
-//                intent.putExtra(Constant.PICTURE,value);
-//                setResult(200,intent);
-                break;
-            case Constant.NICKNAME:
+            case Constant.NAME:
 //                mName.setText(value);
-                intent.putExtra(Constant.NICKNAME, value);
+                intent.putExtra(Constant.NAME, value);
                 setResult(RESULT_OK, intent);
-                userInfo.setNickname(value);
+                userInfo.setName(value);
                 EventBus.getDefault().post(new SelfEvent());
                 finish();
                 break;
-            case Constant.SEX:
-                setSelfSex(value);
-                break;
-            case Constant.BIRTHDAY:
-//                mBirthday.setText());
-                intent.putExtra(Constant.BIRTHDAY, value);
-                break;
-            case Constant.EMOTION:
-                setSelfEmotion(value);
-                break;
             case Constant.AREA:
+                userInfo.setArea(value);
                 intent.putExtra(Constant.ADDRESS, value);
                 break;
         }
@@ -212,6 +178,7 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void showError(int res) {
+        dismissDialog();
         ToastUtils.ToastMessage(this, getString(res));
     }
 
@@ -220,24 +187,18 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
         return new SelfPresenter();
     }
 
-    private void updateSex(int sex) {
-        String value;
-        if (sex == R.string.male) {
-            value = Constant.MALE;
-        } else {
-            value = Constant.FEMALE;
-        }
-        showLoadingDialog();
-        ((SelfPresenter) mPresenter).updateUser(Constant.SEX, value);
-    }
 
     private void initAddressPicker(final TextView address) {
         AddressPickPanel pickPanel = new AddressPickPanel(this, new AddressPickPanel.OnSelectedFinished() {
             @Override
-            public void onSelected(String result) {
+            public void onSelected(String area, String province, String city, String district) {
                 showLoadingDialog();
-                address.setText(result);
-                ((SelfPresenter) mPresenter).updateUser(Constant.AREA, result);
+                address.setText(area);
+                CreateStoreBean bean = new CreateStoreBean();
+                bean.setProvince(province);
+                bean.setCity(city);
+                bean.setDistrict(district);
+                ((SelfPresenter) mPresenter).updateUser(Constant.AREA, area,bean);
             }
         });
         pickPanel.show();
@@ -251,14 +212,13 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onDatePickCompleted(int year, int month, int day, String dateDesc) {
                         showLoadingDialog();
-                        StringBuffer sb = new StringBuffer();
+                        StringBuilder sb = new StringBuilder();
                         month = month - 1;
                         sb.append(year).append("年").append(month + 1).append("月").append(day).append("日");
                         Calendar date = Calendar.getInstance();
                         date.set(Calendar.YEAR, year);
                         date.set(Calendar.MONTH, month);
                         date.set(Calendar.DAY_OF_MONTH, day);
-                        ((SelfPresenter) mPresenter).updateUser(Constant.BIRTHDAY, date.getTimeInMillis() + "");
                         birthday.setText(sb.toString());
                     }
                 }).textConfirm(getString(R.string.yes)) //text of confirm button
@@ -275,45 +235,4 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
             }
         }, 300);
     }
-
-    private void setSelfEmotion(String value) {
-        if (TextUtils.equals(value, "SINGLE")) {
-            value = getString(R.string.single);
-        } else if (TextUtils.equals(value, "LOVE")) {
-            value = getString(R.string.loving);
-        } else if (TextUtils.equals(value, "MARRIED")) {
-            value = getString(R.string.married);
-        } else {
-            value = "";
-        }
-//        mMotion.setText(value);
-        intent.putExtra(Constant.EMOTION, value);
-        setResult(RESULT_OK, intent);
-        finish();
-    }
-
-    private void setSelfSex(String value) {
-        if (TextUtils.equals(value, "MALE")) {
-            intent.putExtra(Constant.SEX, getString(R.string.male));
-        } else {
-            intent.putExtra(Constant.SEX, getString(R.string.female));
-        }
-        setResult(RESULT_OK, intent);
-        finish();
-    }
-
-
-    private void updateMotion(int motion) {
-        showLoadingDialog();
-        String emotion;
-        if (motion == R.string.single) {
-            emotion = Constant.SINGLE;
-        } else if (motion == R.string.married) {
-            emotion = Constant.MARRIED;
-        } else {
-            emotion = Constant.LOVE;
-        }
-        ((SelfPresenter) mPresenter).updateUser(Constant.EMOTION, emotion);
-    }
-
 }

@@ -7,98 +7,93 @@
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/order_item_goods_head"
-        android:paddingTop="2dp"
-        android:paddingBottom="4dp"
-        android:paddingStart="4dp"
         android:layout_width="85dp"
         android:layout_height="79dp"
+        android:layout_centerVertical="true"
+        android:paddingBottom="4dp"
+        android:paddingStart="4dp"
+        android:paddingTop="2dp"
+        fresco:actualImageScaleType="centerInside"
         fresco:placeholderImage="@mipmap/head_icon"
         fresco:placeholderImageScaleType="fitCenter"
-        fresco:actualImageScaleType="centerInside"
-        android:layout_centerVertical="true"
         fresco:roundedCornerRadius="2dp" />
 
     <TextView
         android:id="@+id/order_item_goods_name"
-        android:paddingTop="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:textSize="@dimen/dimens_12sp"
+        android:layout_marginStart="6dp"
         android:layout_toRightOf="@+id/order_item_goods_head"
-        android:layout_marginStart="6dp" />
-
-    <TextView
-        android:id="@+id/order_item_goods_money"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:textSize="@dimen/dimens_12sp"
-        android:layout_alignTop="@+id/order_item_goods_name" />
-
-    <TextView
-        android:id="@+id/order_item_goods_number"
-        android:layout_marginEnd="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:textSize="@dimen/dimens_12sp"
-        android:layout_below="@+id/order_item_goods_money" />
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingTop="4dp"
+        android:text="商品名称" />
 
     <TextView
         android:id="@+id/order_item_goods_brand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/dimens_12sp"
-        android:layout_toRightOf="@+id/order_item_goods_head"
         android:layout_below="@+id/order_item_goods_name"
-        android:layout_marginStart="6dp" />
+        android:layout_marginStart="6dp"
+        android:layout_toRightOf="@+id/order_item_goods_head"
+        android:text="商家名称"
+        android:textSize="@dimen/dimens_12sp" />
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:id="@+id/account_area"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/order_item_goods_name"
-        android:paddingBottom="10dp">
+        android:layout_below="@+id/order_item_goods_brand"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/order_item_goods_head"
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/order_item_goods_color_key"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/dimens_12sp"
-            android:textColor="@color/common_gray" />
+            android:text="账号:"
+            android:textColor="@color/common_gray"
+            android:textSize="@dimen/dimens_12sp" />
 
         <TextView
-            android:id="@+id/order_item_goods_color"
+            android:id="@+id/order_item_goods_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/dimens_12sp"
-            android:textColor="@color/common_gray" />
+            android:layout_marginStart="10dp"
+            android:text="31313212"
+            android:textSize="@dimen/dimens_12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/account_area"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@+id/order_item_goods_head"
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_marginStart="4dp"
-            android:id="@+id/order_item_goods_size_key"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/dimens_12sp"
-            android:textColor="@color/common_gray" />
+            android:text="购买人"
+            android:textColor="@color/common_gray"
+            android:textSize="@dimen/dimens_12sp" />
 
         <TextView
-            android:id="@+id/order_item_goods_size"
+            android:id="@+id/order_item_people"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/dimens_12sp"
-            android:textColor="@color/common_gray" />
+            android:layout_marginStart="10dp"
+            android:text="佛祖"
+            android:textSize="@dimen/dimens_12sp" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/white"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:background="@color/white" />
 </RelativeLayout>

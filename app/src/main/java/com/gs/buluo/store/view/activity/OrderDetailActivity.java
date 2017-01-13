@@ -89,12 +89,14 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     private void initView() {
         if (bean.status == OrderBean.OrderStatus.NO_SETTLE) {  //待付款
             findViewById(R.id.order_detail_cancel).setVisibility(View.VISIBLE);
-        } else if (bean.status == OrderBean.OrderStatus.SETTLE) {  //付款未发货
+        } else if (bean.status == OrderBean.OrderStatus.RECEIVED) {    //付款未发货,选物流
             findViewById(R.id.ll_send_time).setVisibility(View.GONE);
             findViewById(R.id.ll_pay_time).setVisibility(View.VISIBLE);
+            findViewById(R.id.ll_logistics_number).setVisibility(View.VISIBLE);
+            findViewById(R.id.ll_logistics_way).setVisibility(View.VISIBLE);
             findViewById(R.id.order_detail_cancel).setVisibility(View.GONE);
             tvPayTime.setText(TribeDateUtils.dateFormat7(new Date(bean.settleTime)));
-            tvButton.setText(R.string.set_no_send);
+            tvButton.setText(R.string.send);
         } else if (bean.status == OrderBean.OrderStatus.DELIVERY) { //待收货
             findViewById(R.id.ll_send_time).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_pay_time).setVisibility(View.VISIBLE);

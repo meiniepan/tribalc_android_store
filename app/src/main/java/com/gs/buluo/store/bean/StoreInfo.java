@@ -18,7 +18,7 @@ public class StoreInfo implements IBaseResponse {
     private String id;
 
     @Column(name = "name")
-    private String nickname;
+    private String name;
 
     @Column(name = "token")
     private String token;
@@ -35,11 +35,39 @@ public class StoreInfo implements IBaseResponse {
     @Column(name = "cover")
     private String cover;
 
-    @Column(name = "coordinate")
-    private String coordinate;
+    @Column(name = "district")
+    private String district;
+
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "province")
+    private String province;
 
     @Column(name = "logo")
     private String logo;
+
+    @Column(name = "area")
+    private String area;
+
+    public String getArea() {
+        if (area==null||area.contains("null"))
+            return "";
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getName() {
+
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getMid() {
         return mid;
@@ -57,12 +85,20 @@ public class StoreInfo implements IBaseResponse {
         this.id = id;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getCity() {
+        return city;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
     }
 
     public String getStoreType() {
@@ -97,12 +133,12 @@ public class StoreInfo implements IBaseResponse {
         this.cover = cover;
     }
 
-    public String getCoordinate() {
-        return coordinate;
+    public String getDistrict() {
+        return district;
     }
 
-    public void setCoordinate(String coordinate) {
-        this.coordinate = coordinate;
+    public void setDistrict(String coordinate) {
+        this.district = coordinate;
     }
 
     public String getLogo() {

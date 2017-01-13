@@ -1,181 +1,251 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:clipToPadding="true"
-    android:background="#fff">
-
-    <RelativeLayout
+    android:background="@color/white">
+    <LinearLayout
+        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:background="@color/common_dark">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="0.5dp"
-            android:layout_alignParentBottom="true"
-            android:background="#000" />
-
-        <include
-            layout="@layout/back_img_white"
-            android:id="@+id/self_back" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textSize="@dimen/dimens_18sp"
-            android:textColor="#fff"
-            android:text="@string/self_info"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/textView8" />
-    </RelativeLayout>
-
-    <include layout="@layout/split_area" />
-
-    <RelativeLayout
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingEnd="@dimen/activity_horizontal_margin"
-        android:id="@+id/ll_head"
-        android:layout_width="match_parent"
-        android:layout_height="90dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/head"
-            android:gravity="center_vertical"
-            android:textSize="@dimen/dimens_16sp" />
-
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/self_iv_head"
-            android:layout_centerVertical="true"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentEnd="true"
-            fresco:placeholderImage="@mipmap/head_icon"
-            fresco:roundAsCircle="true"
-            fresco:placeholderImageScaleType="fitXY" />
-    </RelativeLayout>
-
-    <include layout="@layout/split_line" />
-
-    <RelativeLayout
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:id="@+id/ll_nickname"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/self_item_height"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/store_name"
-            android:gravity="center_vertical"
-            android:textSize="@dimen/dimens_16sp" />
-
-        <TextView
-            android:id="@+id/tv_nickname"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_alignParentEnd="true"
-            android:maxLength="18"
-            android:layout_marginEnd="@dimen/self_margin_end"
-            android:textSize="@dimen/dimens_16sp" />
-    </RelativeLayout>
-
-    <include layout="@layout/split_line" />
-
-    <RelativeLayout
-        android:id="@+id/ll_number"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/self_item_height"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/number"
-            android:gravity="center_vertical"
-            android:textSize="@dimen/dimens_16sp" />
-
-        <TextView
-            android:id="@+id/tv_number"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/self_margin_end"
-            android:textSize="16sp" />
-    </RelativeLayout>
-
-    <include layout="@layout/split_line" />
-
-
-    <RelativeLayout
-        android:id="@+id/ll_address"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/self_item_height"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/address"
-            android:gravity="center_vertical"
-            android:textSize="@dimen/dimens_16sp" />
-
-        <TextView
-            android:id="@+id/tv_address"
-            android:layout_width="160dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:ellipsize="end"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/self_margin_end"
-            android:textSize="16sp" />
-    </RelativeLayout>
-
-    <include layout="@layout/split_line" />
-
-    <RelativeLayout
-        android:id="@+id/ll_detail_address"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/self_item_height"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingEnd="@dimen/activity_horizontal_margin"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/receive"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/detail_address"
-            android:gravity="center_vertical"
-            android:textSize="@dimen/dimens_16sp" />
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_toRightOf="@+id/receive">
+            android:layout_height="@dimen/title_height"
+            android:background="@color/common_dark">
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="#000" />
+
+            <include
+                layout="@layout/back_img_white"
+                android:id="@+id/self_back" />
 
             <TextView
-                android:id="@+id/tv_detail_address"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="@dimen/dimens_18sp"
+                android:textColor="#fff"
+                android:text="@string/self_info"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/textView8" />
+        </RelativeLayout>
+
+        <include layout="@layout/split_area" />
+
+        <RelativeLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:id="@+id/ll_head"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:layout_width="match_parent"
+            android:layout_height="90dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/head"
+                android:gravity="center_vertical" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/self_iv_head"
+                android:layout_centerVertical="true"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                fresco:placeholderImage="@mipmap/head_icon"
+                fresco:roundAsCircle="true"
+                fresco:placeholderImageScaleType="fitXY" />
+        </RelativeLayout>
+
+        <include layout="@layout/split_line" />
+
+        <RelativeLayout
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:id="@+id/ll_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/store_name"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/tv_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:layout_alignParentEnd="true"
+                android:maxLength="18"
+                android:layout_marginEnd="@dimen/self_margin_end"
+                android:textSize="@dimen/dimens_16sp" />
+        </RelativeLayout>
+
+        <include layout="@layout/split_line" />
+
+        <RelativeLayout
+            android:id="@+id/ll_number"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/number"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/tv_number"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/self_margin_end"
                 android:textSize="16sp" />
         </RelativeLayout>
-    </RelativeLayout>
 
-    <include layout="@layout/split_line" />
-</LinearLayout>
+        <include layout="@layout/split_line" />
+
+
+        <RelativeLayout
+            android:id="@+id/ll_address"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/address"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="160dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:ellipsize="end"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/self_margin_end"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <include layout="@layout/split_line_no_margin_common" />
+        <RelativeLayout
+            android:id="@+id/ll_detail_address"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/receive"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/detail_address"
+                android:gravity="center_vertical" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_toRightOf="@+id/receive">
+
+                <TextView
+                    android:id="@+id/tv_detail_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_alignParentEnd="true"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+        <include layout="@layout/split_line_no_margin_common" />
+        <LinearLayout
+            android:id="@+id/store_setting_introduce_area"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edit_height"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="店铺介绍" />
+        </LinearLayout>
+
+        <include layout="@layout/split_line_no_margin_common" />
+
+        <LinearLayout
+            android:id="@+id/store_setting_fee_area"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edit_height"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="人均消费" />
+        </LinearLayout>
+
+        <include layout="@layout/split_area" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="预定餐位"
+                android:layout_centerVertical="true"
+                />
+            <Switch
+                android:id="@+id/self_reserve"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+        <include layout="@layout/split_area" />
+        <TextView
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edit_height"
+            android:gravity="center_vertical"
+            android:text="餐厅设施" />
+        <include layout="@layout/split_line" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/store_setting_facility"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/self_save"
+            android:text="@string/save"
+            style="@style/button_style"
+            />
+    </LinearLayout>
+</ScrollView>

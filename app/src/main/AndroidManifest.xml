@@ -184,8 +184,6 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.CreateDetailActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.StoreSettingActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.PhotoActivity"
             android:screenOrientation="portrait"/>
 

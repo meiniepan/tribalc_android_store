@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
+import com.gs.buluo.store.TribeApplication;
+import com.gs.buluo.store.bean.CreateStoreBean;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
@@ -42,6 +44,8 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
         String s = getIntent().getStringExtra(Constant.ForIntent.PHOTO_TYPE);
         if ("logo".equals(s)) {
             isLogo = true;
+            String logo = TribeApplication.getInstance().getUserInfo().getLogo();
+            if (logo!=null) Glide.with(this).load(FresoUtils.formatImageUrl(logo)).centerCrop().into(image);
         }
 
         findViewById(R.id.add_photo_finish).setOnClickListener(new View.OnClickListener() {
@@ -80,7 +84,9 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
     }
 
     private void updateStoreInfo(UploadAccessResponse.UploadResponseBody data) {
-        ((SelfPresenter) mPresenter).updateUser(Constant.PICTURE, data.objectKey);
+        CreateStoreBean bean=new CreateStoreBean();
+        bean.setLogo(data.objectKey);
+        ((SelfPresenter) mPresenter).updateUser(Constant.LOGO,data.objectKey,bean);
     }
 
     @Override
@@ -111,7 +117,7 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
             StoreInfo storeInfo = storeInfoDao.findFirst();
             storeInfo.setLogo(value);
             storeInfoDao.update(storeInfo);
-            Glide.with(this).load(value).centerCrop().into(image);
+            Glide.with(this).load(FresoUtils.formatImageUrl(value)).centerCrop().into(image);
             SelfEvent event = new SelfEvent();
             event.head = value;
             EventBus.getDefault().post(event);

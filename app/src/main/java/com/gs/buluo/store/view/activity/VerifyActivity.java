@@ -104,10 +104,6 @@ public class VerifyActivity extends BaseActivity implements View.OnClickListener
                 intent.putExtra(Constant.BIRTHDAY, mBirthTime.getText().toString().trim());
                 startActivityForResult(intent, 201);
                 break;
-            case R.id.identify_sex:
-                intent.putExtra(Constant.ForIntent.MODIFY, Constant.SEX);
-                startActivityForResult(intent, 202);
-                break;
             case R.id.identify_finish:
                 String id = mIdCardNumber.getText().toString().trim();
                 if (mBirthTime.length() == 0 || mIdCardNumber.length() == 0 || mName.length() == 0 || mSex.length() == 0) {
@@ -133,8 +129,6 @@ public class VerifyActivity extends BaseActivity implements View.OnClickListener
             if (requestCode == 201) {
                 birthday = Long.parseLong(data.getStringExtra(Constant.BIRTHDAY));
                 mBirthTime.setText(TribeDateUtils.dateFormat5(new Date(birthday)));
-            } else {
-                mSex.setText(data.getStringExtra(Constant.SEX));
             }
         }
     }

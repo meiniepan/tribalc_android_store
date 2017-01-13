@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.triphone.LinphoneManager;
 import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.SharePreferenceManager;
 
@@ -56,9 +55,6 @@ public class AppStartActivity extends BaseActivity {
 
     @Override
     protected void init() {
-        if (!CommonUtils.isLibc64()) {
-            LinphoneManager.createAndStart(TribeApplication.getInstance().getApplicationContext());
-        }
     }
 
     @Override

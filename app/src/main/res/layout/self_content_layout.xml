@@ -83,6 +83,7 @@
 
     <LinearLayout
         android:id="@+id/mine_store"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/mine_item_height">
 

@@ -2,6 +2,7 @@ package com.gs.buluo.store.model;
 
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.TribeApplication;
+import com.gs.buluo.store.bean.CreateStoreBean;
 import com.gs.buluo.store.bean.RequestBodyBean.AuthorityRequest;
 import com.gs.buluo.store.bean.RequestBodyBean.PhoneUpdateBody;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
@@ -12,12 +13,10 @@ import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
 import com.gs.buluo.store.bean.ResponseBody.UserAddressListResponse;
 import com.gs.buluo.store.bean.ResponseBody.UserBeanResponse;
 import com.gs.buluo.store.bean.RequestBodyBean.LoginBody;
-import com.gs.buluo.store.bean.ResponseBody.UserInfoResponse;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.network.MainService;
 import com.gs.buluo.store.network.TribeRetrofit;
 
-import org.xutils.common.Callback.CommonCallback;
 import org.xutils.common.util.MD5;
 import org.xutils.http.HttpMethod;
 import org.xutils.http.RequestParams;
@@ -51,23 +50,12 @@ public class MainModel {             //登录数据同步,上传，验证码
                 getUser(uid).enqueue(callback);
     }
 
-    public void updateUser(String id, String key, String value, CommonCallback<String> callback) {
-        RequestParams params = new RequestParams(Constant.Base.BASE_URL + "persons/" + id + "/" + key);
-        params.setHeader("Content-Type", "application/json");
-        params.setHeader("Accept", "application/json");
-        params.setAsJsonContent(true);
+    public void updateUser(String id, String key, String value, CreateStoreBean bean, Callback<BaseResponse<CodeResponse>> callback) {
         if (key.equals(Constant.AREA)) {
-            String str[] = value.split("-");
-            String province = str[0];
-            String city = str[1];
-            String district = str[2];
-            params.addBodyParameter(Constant.PROVINCE, province);
-            params.addBodyParameter(Constant.CITY, city);
-            params.addBodyParameter(Constant.DISTRICT, district);
-        } else {
-            params.addBodyParameter(key, value);
+            key="province,city,district";
         }
-        x.http().request(HttpMethod.PUT, params, callback);
+        TribeRetrofit.getInstance().createApi(MainService.class).
+                updateUser(id,key,bean).enqueue(callback);
     }
 
     public void getAddressList(String uid, Callback<UserAddressListResponse> callback) {
@@ -107,4 +95,10 @@ public class MainModel {             //登录数据同步,上传，验证码
         TribeRetrofit.getInstance().createApi(MainService.class).
                 updatePhone(TribeApplication.getInstance().getUserInfo().getId(), body).enqueue(callback);
     }
+
+    public void getCreateStoreInfo(Callback<BaseResponse<CreateStoreBean>> callback){
+        TribeRetrofit.getInstance().createApi(MainService.class).
+                getCreateStore(TribeApplication.getInstance().getUserInfo().getId()).enqueue(callback);
+    }
+
 }

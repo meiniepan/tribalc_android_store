@@ -1,6 +1,5 @@
 package com.gs.buluo.store.presenter;
 
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.gs.buluo.store.R;
@@ -9,20 +8,13 @@ import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.ResponseBody.UserBeanResponse;
 import com.gs.buluo.store.bean.StoreInfo;
-import com.gs.buluo.store.bean.ResponseBody.UserInfoResponse;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.model.MainModel;
 import com.gs.buluo.store.network.TribeCallback;
-import com.gs.buluo.store.triphone.LinphoneManager;
-import com.gs.buluo.store.triphone.LinphonePreferences;
-import com.gs.buluo.store.triphone.LinphoneUtils;
 import com.gs.buluo.store.view.impl.ILoginView;
 
 import org.greenrobot.eventbus.EventBus;
-import org.linphone.core.LinphoneAddress;
-import org.linphone.core.LinphoneCoreException;
-import org.linphone.core.LinphoneCoreFactory;
 
 import java.util.Map;
 
@@ -97,6 +89,11 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
             public void onSuccess(Response<BaseResponse<StoreInfo>> response) {
                 StoreInfo entity = response.body().data;
                 entity.setToken(token);
+                if (entity.getDistrict()!=null)
+                    entity.setArea(entity.getProvince()+"-"+entity.getCity()+"-"+entity.getDistrict());
+                else
+                    entity.setArea(entity.getProvince()+"-"+entity.getCity());
+
                 TribeApplication.getInstance().setUserInfo(entity);
                 StoreInfoDao dao = new StoreInfoDao();
                 dao.saveBindingId(entity);
@@ -111,57 +108,5 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                 mView.showError(R.string.connect_fail);
             }
         });
-    }
-
-
-    private void saveCreatedAccount(String username, String password, String prefix, String ha1, String domain, LinphoneAddress.TransportType transport) {
-        username = LinphoneUtils.getDisplayableUsernameFromAddress(username);
-        domain = LinphoneUtils.getDisplayableUsernameFromAddress(domain);
-
-        String identity = "sip:" + username + "@" + domain;
-        try {
-            LinphoneAddress address = LinphoneCoreFactory.instance().createLinphoneAddress(identity);
-        } catch (LinphoneCoreException e) {
-            org.linphone.mediastream.Log.e(e);
-        }
-
-        LinphonePreferences.AccountBuilder builder = new LinphonePreferences.AccountBuilder(LinphoneManager.getLc())
-                .setUsername(username)
-                .setDomain(domain)
-                .setHa1(ha1)
-                .setPassword(password);
-
-        if (prefix != null) {
-            builder.setPrefix(prefix);
-        }
-        String forcedProxy = "";
-        if (!TextUtils.isEmpty(forcedProxy)) {
-            builder.setProxy(forcedProxy)
-                    .setOutboundProxyEnabled(true)
-                    .setAvpfRRInterval(5);
-        }
-
-        if (transport != null) {
-            builder.setTransport(transport);
-        }
-
-//        if (getResources().getBoolean(R.bool.enable_push_id)) {
-//            String regId = mPrefs.getPushNotificationRegistrationID();
-//            String appId = getString(R.string.push_sender_id);
-//            if (regId != null && mPrefs.isPushNotificationEnabled()) {
-//                String contactInfos = "app-id=" + appId + ";pn-type=google;pn-tok=" + regId;
-//                builder.setContactParameters(contactInfos);
-//            }
-//        }
-
-        try {
-            builder.saveNewAccount();
-//            if(!newAccount) {
-//                displayRegistrationInProgressDialog();
-//            }
-//            accountCreated = true;
-        } catch (LinphoneCoreException e) {
-            org.linphone.mediastream.Log.e(e);
-        }
     }
 }

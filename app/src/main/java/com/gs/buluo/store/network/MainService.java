@@ -1,5 +1,6 @@
 package com.gs.buluo.store.network;
 
+import com.gs.buluo.store.bean.CreateStoreBean;
 import com.gs.buluo.store.bean.RequestBodyBean.AuthorityRequest;
 import com.gs.buluo.store.bean.RequestBodyBean.LoginBody;
 import com.gs.buluo.store.bean.RequestBodyBean.PhoneUpdateBody;
@@ -50,4 +51,9 @@ public interface MainService {
     @PUT("stores/{id}/sensitive_info")
     Call<BaseResponse<CodeResponse>> updatePhone(@Path("id") String id, @Body PhoneUpdateBody body);
 
+    @GET("stores/{id}/create_store")
+    Call<BaseResponse<CreateStoreBean>> getCreateStore(@Path("id")String uid);
+
+    @PUT("stores/{id}/{propNames}")
+    Call<BaseResponse<CodeResponse>> updateUser(@Path("id") String id,@Path("propNames") String propNames,@Body CreateStoreBean bean);
 }
