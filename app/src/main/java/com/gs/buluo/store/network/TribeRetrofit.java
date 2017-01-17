@@ -1,11 +1,14 @@
 package com.gs.buluo.store.network;
 
+import android.os.Environment;
+
 import com.gs.buluo.store.Constant;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -14,7 +17,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by admin on 2016/11/1.
  */
 public class TribeRetrofit {
-
     private static TribeRetrofit instance;
     private Map<Class, Object> apis = new HashMap<>();
     private final Retrofit retrofit;
@@ -24,6 +26,7 @@ public class TribeRetrofit {
         builder.interceptors().add(new HttpInterceptor());
         builder.connectTimeout(10, TimeUnit.SECONDS);
         builder.readTimeout(20, TimeUnit.SECONDS);
+//        builder.cache(new Cache(Environment.getExternalStorageDirectory(),(long)50*1024));
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(Constant.Base.BASE_URL)

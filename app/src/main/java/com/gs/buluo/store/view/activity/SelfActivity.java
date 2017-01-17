@@ -76,6 +76,7 @@ public class SelfActivity extends BaseActivity implements View.OnClickListener, 
         showLoadingDialog();
         new MainModel().getCreateStoreInfo(this);
         mCtx = this;
+
     }
 
     private void initFacility() {
@@ -179,38 +180,43 @@ public class SelfActivity extends BaseActivity implements View.OnClickListener, 
     protected BasePresenter getPresenter() {
         return new SelfPresenter();
     }
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (resultCode == RESULT_OK) {
-//            switch (requestCode) {
-//                case 201:
-//                    mName.setText(data.getStringExtra(Constant.NAME));
-//                    break;
-//                case 205:
-//                    mDistrict.setText(data.getStringExtra(Constant.AREA));
-//                    break;
-//            }
-//        }
-//    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case 201:
+                    mName.setText(data.getStringExtra(Constant.NAME));
+                    break;
+                case 205:
+                    mDistrict.setText(data.getStringExtra(Constant.AREA));
+                    break;
+            }
+        }
+    }
 
     @Override
     public void onResponse(Call<BaseResponse<CreateStoreBean>> call, Response<BaseResponse<CreateStoreBean>> response) {
         dismissDialog();
-        bean = response.body().data;
-        reserveSwitch.setChecked(bean.reservable);
-        List<String> list = bean.facilities;
-        for (FacilityBean bean:facilityList){
-            if (list!=null&&list.contains(bean.key)){
-                bean.isSelect=true;
+        if (response.body()!=null){
+            bean = response.body().data;
+            reserveSwitch.setChecked(bean.reservable);
+            List<String> list = bean.facilities;
+            for (FacilityBean bean:facilityList){
+                if (list!=null&&list.contains(bean.key)){
+                    bean.isSelect=true;
+                }
             }
+            adapter.notifyDataSetChanged();
+        }else {
+            ToastUtils.ToastMessage(this, R.string.connect_fail);
         }
-        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onFailure(Call<BaseResponse<CreateStoreBean>> call, Throwable t) {
         dismissDialog();
-        ToastUtils.ToastMessage(this, R.string.connect_fail);
+
     }
 
     @Override

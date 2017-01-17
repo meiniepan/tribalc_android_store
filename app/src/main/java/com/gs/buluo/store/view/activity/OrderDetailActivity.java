@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -67,6 +69,10 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     TextView tvReceiveTime;
     @Bind(R.id.order_detail_button)
     TextView tvButton;
+    @Bind(R.id.ll_logistics_number)
+    TextView tvLogNum;
+    @Bind(R.id.ll_logistics_way)
+    TextView tvLogWay;
 
     private Context mCtx;
     private OrderBean bean;
@@ -76,7 +82,6 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         mCtx = this;
         EventBus.getDefault().register(this);
         findViewById(R.id.order_detail_back).setOnClickListener(this);
-        findViewById(R.id.order_detail_cancel).setOnClickListener(this);
         findViewById(R.id.order_detail_button).setOnClickListener(this);
         bean = getIntent().getParcelableExtra(Constant.ORDER);
 
@@ -87,23 +92,21 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void initView() {
-        if (bean.status == OrderBean.OrderStatus.NO_SETTLE) {  //待付款
-            findViewById(R.id.order_detail_cancel).setVisibility(View.VISIBLE);
+        if (bean.status == OrderBean.OrderStatus.NO_SETTLE) { //待付款
+
+
         } else if (bean.status == OrderBean.OrderStatus.RECEIVED) {    //付款未发货,选物流
             findViewById(R.id.ll_send_time).setVisibility(View.GONE);
             findViewById(R.id.ll_pay_time).setVisibility(View.VISIBLE);
-            findViewById(R.id.ll_logistics_number).setVisibility(View.VISIBLE);
-            findViewById(R.id.ll_logistics_way).setVisibility(View.VISIBLE);
-            findViewById(R.id.order_detail_cancel).setVisibility(View.GONE);
+            tvLogNum.setVisibility(View.VISIBLE);
+            tvLogWay.setVisibility(View.VISIBLE);
             tvPayTime.setText(TribeDateUtils.dateFormat7(new Date(bean.settleTime)));
-            tvButton.setText(R.string.send);
         } else if (bean.status == OrderBean.OrderStatus.DELIVERY) { //待收货
             findViewById(R.id.ll_send_time).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_pay_time).setVisibility(View.VISIBLE);
             tvPayTime.setText(TribeDateUtils.dateFormat7(new Date(bean.settleTime)));
             tvSendTime.setText(TribeDateUtils.dateFormat7(new Date(bean.deliveryTime)));
-            tvButton.setText(R.string.set_receive);
-            tvButton.setOnClickListener(this);
+            findViewById(R.id.order_bottom).setVisibility(View.GONE);
         } else if (bean.status == OrderBean.OrderStatus.SETTLE) {  //完成 取消
             findViewById(R.id.ll_send_time).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_pay_time).setVisibility(View.VISIBLE);
@@ -113,9 +116,6 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
             tvReceiveTime.setText(TribeDateUtils.dateFormat7(new Date(bean.receivedTime)));
             findViewById(R.id.order_bottom).setVisibility(View.GONE);
         } else {
-            findViewById(R.id.ll_send_time).setVisibility(View.GONE);
-            findViewById(R.id.ll_pay_time).setVisibility(View.GONE);
-            findViewById(R.id.ll_receive_time).setVisibility(View.GONE);
             findViewById(R.id.order_bottom).setVisibility(View.GONE);
         }
     }
@@ -165,30 +165,17 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
             case R.id.order_detail_back:
                 finish();
                 break;
-            case R.id.order_detail_cancel:
-                cancelOrder();
-                break;
             case R.id.order_detail_button:
-                if (bean.status == OrderBean.OrderStatus.NO_SETTLE) {
-                    PayPanel payPanel = new PayPanel(this, null);
-                    List<String> ids = new ArrayList<>();
-                    ids.add(bean.id);
-                    payPanel.setData(bean.totalFee + "", ids, "order");
-                    payPanel.show();
-                } else if (bean.status == OrderBean.OrderStatus.DELIVERY) {
-                    ((OrderPresenter) mPresenter).updateOrderStatus(bean.id, OrderBean.OrderStatus.RECEIVED.name());
+                String way= tvLogWay.getText().toString().trim();
+                String num = tvLogNum.getText().toString().trim();
+                if (TextUtils.isEmpty(way)||TextUtils.isEmpty(num)){
+                    ToastUtils.ToastMessage(mCtx,"请填写物流信息");
+                    return;
                 }
-                break;
+                if (bean.status == OrderBean.OrderStatus.SETTLE) { //发货
+                    ((OrderPresenter) mPresenter).updateOrderStatus(bean.id,way,num ,OrderBean.OrderStatus.RECEIVED.name());
+                }
         }
-    }
-
-    private void cancelOrder() {
-        new CustomAlertDialog.Builder(this).setMessage("确定取消订单？").setTitle("提示").setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                ((OrderPresenter) mPresenter).updateOrderStatus(bean.id, OrderBean.OrderStatus.CANCEL.name());
-            }
-        }).setNegativeButton(getString(R.string.cancel), null).create().show();
     }
 
     @Override

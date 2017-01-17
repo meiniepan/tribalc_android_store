@@ -35,9 +35,4 @@ public class ReserveModel {
         TribeRetrofit.getInstance().createApi(ReserveService.class).
                 cancelReserve(id, myId, body).enqueue(callback);
     }
-
-    public void createReserve(String id, NewReserveRequest body, Callback<BaseResponse<DetailReservation>> callback) {
-        TribeRetrofit.getInstance().createApi(ReserveService.class).
-                createReserve(id, body).enqueue(callback);
-    }
 }

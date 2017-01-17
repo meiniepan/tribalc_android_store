@@ -18,19 +18,16 @@
     <uses-permission android:name="android.permission.CAPTURE_SECURE_VIDEO_OUTPUT"/>
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-feature 	 android:name="android.hardware.telephony" android:required="false" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
-    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>
-    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
-    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
-    <!-- Needed for in-app purchase -->
-    <uses-permission android:name="com.android.vending.BILLING" />
-    <uses-permission android:name="org.linphone.permission.C2D_MESSAGE" />  <!-- Change package ! -->
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!--<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>-->
+    <!--<uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>-->
+    <!--<uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>-->
+    <!--<uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>-->
+    <!--<uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>-->
+    <!--&lt;!&ndash; Needed for in-app purchase &ndash;&gt;-->
+    <!--<uses-permission android:name="com.android.vending.BILLING" />-->
+    <!--<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>-->
+    <!--<uses-permission android:name="android.permission.WAKE_LOCK"/>-->
+    <!--<uses-permission android:name="android.permission.GET_ACCOUNTS" />-->
 
 
     <supports-screens
@@ -70,7 +67,7 @@
         <activity
             android:name="com.gs.buluo.store.view.activity.SelfActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
         <activity
             android:name="com.gs.buluo.store.view.activity.AddressListActivity"
             android:screenOrientation="portrait"/>
@@ -144,7 +141,8 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.gs.buluo.store.view.activity.OrderActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:label=""/>
         <activity
             android:name="com.gs.buluo.store.view.activity.OrderDetailActivity"
             android:screenOrientation="portrait"

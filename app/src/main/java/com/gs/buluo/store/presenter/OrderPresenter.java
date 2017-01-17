@@ -80,8 +80,8 @@ public class OrderPresenter extends BasePresenter<IOrderView> {
         });
     }
 
-    public void updateOrderStatus(String orderId, String status) {
-        model.updateOrder(TribeApplication.getInstance().getUserInfo().getId(), new ValueRequestBody(status), orderId, new Callback<BaseResponse>() {
+    public void updateOrderStatus(String orderId,String num, String way, String status) {
+        model.updateOrder(TribeApplication.getInstance().getUserInfo().getId(),num,way, new ValueRequestBody(status), orderId, new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.body() != null && response.body().code == 200) {

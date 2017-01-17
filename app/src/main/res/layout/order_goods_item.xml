@@ -2,21 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="96dp"
     android:background="@color/tint_bg">
-
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/order_item_goods_head"
-        android:layout_width="85dp"
-        android:layout_height="79dp"
-        android:layout_centerVertical="true"
-        android:paddingBottom="4dp"
-        android:paddingStart="4dp"
-        android:paddingTop="2dp"
-        fresco:actualImageScaleType="centerInside"
-        fresco:placeholderImage="@mipmap/head_icon"
-        fresco:placeholderImageScaleType="fitCenter"
-        fresco:roundedCornerRadius="2dp" />
 
     <TextView
         android:id="@+id/order_item_goods_name"
@@ -44,10 +31,9 @@
         android:id="@+id/account_area"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/order_item_goods_brand"
         android:layout_marginStart="6dp"
-        android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/order_item_goods_head"
+        android:layout_above="@+id/item_buyer"
         android:orientation="horizontal">
 
         <TextView
@@ -67,11 +53,12 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/item_buyer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/account_area"
         android:layout_marginStart="6dp"
-        android:layout_marginTop="2dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="6dp"
         android:layout_toEndOf="@+id/order_item_goods_head"
         android:orientation="horizontal">
 
@@ -96,4 +83,18 @@
         android:layout_height="2dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white" />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/order_item_goods_head"
+        android:layout_width="85dp"
+        android:layout_height="79dp"
+        android:paddingBottom="6dp"
+        android:paddingStart="6dp"
+        android:paddingTop="2dp"
+        fresco:actualImageScaleType="centerInside"
+        fresco:placeholderImage="@mipmap/head_icon"
+        fresco:placeholderImageScaleType="fitCenter"
+        fresco:roundedCornerRadius="2dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

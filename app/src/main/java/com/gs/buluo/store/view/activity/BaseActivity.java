@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,8 +49,6 @@ public abstract class BaseActivity<T extends BasePresenter<IBaseView>> extends A
 
         mRoot = createView();
         setContentView(mRoot);
-//        mToolbar = (Toolbar) findViewById(getToolBarId());
-//        setSupportActionBar(mToolbar);
         bindView(savedInstanceState);
         initSystemBar(this);
     }

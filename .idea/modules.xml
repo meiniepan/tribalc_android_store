@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/searchbox/searchbox.iml" filepath="$PROJECT_DIR$/searchbox/searchbox.iml" />
       <module fileurl="file://$PROJECT_DIR$/tribalc-store.iml" filepath="$PROJECT_DIR$/tribalc-store.iml" />
     </modules>
   </component>

@@ -426,23 +426,13 @@
             android:gravity="center_vertical">
 
             <TextView
-                android:visibility="gone"
-                android:id="@+id/order_detail_cancel"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/cancel_order"
-                android:textColor="@color/common_dark" />
-
-            <TextView
                 android:id="@+id/order_detail_button"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:background="@color/custom_color"
                 android:gravity="center"
-                android:text="@string/go_pay"
+                android:text="@string/go_send"
                 android:textColor="@color/white" />
         </LinearLayout>
 

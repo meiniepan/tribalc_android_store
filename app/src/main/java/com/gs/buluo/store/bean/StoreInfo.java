@@ -78,6 +78,7 @@ public class StoreInfo implements IBaseResponse {
     }
 
     public String getId() {
+//        return "584e4f8c1c3e73d1bc07e6ea";
         return id;
     }
 

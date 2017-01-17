@@ -45,7 +45,7 @@ public class OrderGoodsAdapter extends BaseAdapter {
         OrderGoodsItemHolder holder = null;
         if (convertView == null) {
             holder = new OrderGoodsItemHolder(mCtx);
-            convertView = holder.getHolderView();
+            convertView = holder.getHolderView(parent);
         } else {
             holder = (OrderGoodsItemHolder) convertView.getTag();
         }

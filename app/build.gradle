@@ -10,7 +10,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0.0-alpha.1"
+        versionName "1.0.0-alpha-2"
     }
     signingConfigs {
         release {
@@ -52,6 +52,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'com.android.support:recyclerview-v7:24.0.0'
+    compile 'com.android.support:support-v4:24.0.0'
+    compile 'com.android.support:design:24.0.0'
     compile 'com.jakewharton:butterknife:7.0.0'
     compile 'com.facebook.fresco:fresco:1.0.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
@@ -63,9 +65,8 @@ dependencies {
     compile 'com.alibaba:fastjson:1.2.20'
     compile 'cn.finalteam:galleryfinal:1.4.8.7'
     compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
-    compile 'com.android.support:support-v4:24.0.0'
-    compile 'com.android.support:design:24.0.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.google.zxing:core:3.2.1'
+    compile project(':searchbox')
 }

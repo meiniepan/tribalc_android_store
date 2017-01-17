@@ -3,6 +3,7 @@ package com.gs.buluo.store.holder;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -25,8 +26,8 @@ public class OrderGoodsItemHolder {
     public TextView people;
     public View view;
 
-    public View getHolderView() {
-        view = LayoutInflater.from(mCtx).inflate(R.layout.order_goods_item, null);
+    public View getHolderView(ViewGroup parent) {
+        view = LayoutInflater.from(mCtx).inflate(R.layout.order_goods_item, parent,false);
         name = (TextView) view.findViewById(R.id.order_item_goods_name);
         brand = (TextView) view.findViewById(R.id.order_item_goods_brand);
         account = (TextView) view.findViewById(R.id.order_item_goods_account);

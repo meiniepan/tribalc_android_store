@@ -203,6 +203,7 @@
     <string name="sure_to_pay">确认支付</string>
     <string name="input_pwd">输入密码</string>
     <string name="go_pay">去付款</string>
+    <string name="go_send">发货</string>
     <string name="pay_success">支付成功</string>
 
     <!--服务预定-->

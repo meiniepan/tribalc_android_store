@@ -30,9 +30,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressH
     private final int REQUEST_UPDATE = 201;
     private boolean fromOrder;
 
-    public AddressAdapter(AddressListActivity context, List<UserAddressEntity> datas) {
+    public AddressAdapter(AddressListActivity context) {
         mCtx = context;
-        mDatas = datas;
     }
 
     @Override
@@ -92,7 +91,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.AddressH
     }
 
     private void showDeleteDialog(final UserAddressEntity entity) {
-        new CustomAlertDialog.Builder(mCtx).setTitle("确定删除?").setPositiveButton(mCtx.getString(R.string.yes), new DialogInterface.OnClickListener() {
+        new CustomAlertDialog.Builder(mCtx).setTitle("提示").setMessage("确定删除?").setPositiveButton(mCtx.getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 mCtx.getAddressPresenter().deleteAddress(TribeApplication.getInstance().getUserInfo().getId(), entity);

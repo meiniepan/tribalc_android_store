@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/text_background_round"
@@ -15,6 +15,10 @@
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         android:id="@+id/text_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>

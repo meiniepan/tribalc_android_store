@@ -55,16 +55,13 @@ public class AddressListActivity extends BaseActivity implements IAddressView {
 
         addressInfoDao = new AddressInfoDao();
         mDatas = addressInfoDao.findAll(TribeApplication.getInstance().getUserInfo().getId());
-        if (null == mDatas || mDatas.size() == 0) {
-            return;
-        }
         boolean fromOrder = getIntent().getBooleanExtra(Constant.ForIntent.FROM_ORDER, false);
-
-        mAdapter = new AddressAdapter(this, mDatas);
-
+        mAdapter = new AddressAdapter(this);
         mAdapter.setFromOrder(fromOrder);
         mRecView.setAdapter(mAdapter);
-
+        if (null != mDatas) {
+            mAdapter.setDatas(mDatas);
+        }
     }
 
     @Override
@@ -86,7 +83,8 @@ public class AddressListActivity extends BaseActivity implements IAddressView {
                 mDatas.add(entity);
             }
             if (mAdapter == null) {
-                mAdapter = new AddressAdapter(this, mDatas);
+                mAdapter = new AddressAdapter(this);
+                mAdapter.setDatas(mDatas);
                 mAdapter.notifyDataSetChanged();
             } else {
                 mAdapter.notifyDataSetChanged();

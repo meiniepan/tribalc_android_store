@@ -24,23 +24,18 @@ import retrofit2.http.Query;
  */
 public interface ShoppingService {
 
-    @GET("orders?type=owner")
-    Call<OrderResponse> getOrderFirst(@Query("me") String uid, @Query("limitSize") String limitSize,
+    @GET("orders?type=store")
+    Call<OrderResponse> getOrderFirst(@Query("store") String uid, @Query("limitSize") String limitSize,
                                       @Query("status") String status);
 
-    @GET("orders?type=owner")
-    Call<OrderResponse> getOrder(@Query("me") String uid, @Query("limitSize") String limitSize
+    @GET("orders?type=store")
+    Call<OrderResponse> getOrder(@Query("store") String uid, @Query("limitSize") String limitSize
             , @Query("sortSkip") String sortSkip, @Query("status") String status);
 
-    @POST("orders?type=owner")
-    Call<NewOrderResponse> createNewOrder(@Query("me") String uid, @Body NewOrderRequestBody requestBody);
-
-    @PUT("orders/{orderId}/status?type=owner")
-    Call<BaseResponse> updateOrderStatus(@Path("orderId") String orderId, @Query("me") String uid, @Body ValueRequestBody status);
-
-    @GET("shopping_cart")
-    Call<ShoppingCartResponse> getShoppingCarList(@Query("me") String uid, @Query("sortSkip") String sortSkip);
-
+    @PUT("orders/{orderId}/status?type=store")
+    Call<BaseResponse> updateOrderToSend(@Path("orderId") String orderId, @Query("storeId") String uid,
+                                         @Query("logisticsNum")String logisticsNum,
+                                         @Query("logisticsCompany")String logisticsCompany,@Body ValueRequestBody status);
     @GET("persons/{id}/shopping_cart")
     Call<ShoppingCartResponse> getShoppingCarListFirst(@Path("id") String uid, @Query("limitSize") int limitSize);
 

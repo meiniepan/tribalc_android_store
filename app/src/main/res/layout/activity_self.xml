@@ -2,14 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    android:background="@color/white"
     android:clipToPadding="true"
-    android:background="@color/white">
-    <LinearLayout
-        xmlns:fresco="http://schemas.android.com/apk/res-auto"
-        android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout xmlns:fresco="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -23,229 +23,273 @@
                 android:background="#000" />
 
             <include
-                layout="@layout/back_img_white"
-                android:id="@+id/self_back" />
+                android:id="@+id/self_back"
+                layout="@layout/back_img_white" />
 
             <TextView
+                android:id="@+id/textView8"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:textSize="@dimen/dimens_18sp"
-                android:textColor="#fff"
-                android:text="@string/self_info"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true"
-                android:id="@+id/textView8" />
+                android:layout_alignParentTop="true"
+                android:gravity="center"
+                android:text="@string/self_info"
+                android:textColor="#fff"
+                android:textSize="@dimen/dimens_18sp" />
         </RelativeLayout>
 
         <include layout="@layout/split_area" />
 
         <RelativeLayout
+            android:id="@+id/ll_head"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:id="@+id/ll_head"
-            android:paddingStart="@dimen/activity_horizontal_margin"
             android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:layout_width="match_parent"
-            android:layout_height="90dp">
+            android:paddingStart="@dimen/activity_horizontal_margin">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/head"
-                android:gravity="center_vertical" />
+                android:gravity="center_vertical"
+                android:text="@string/head" />
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/self_iv_head"
-                android:layout_centerVertical="true"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 fresco:placeholderImage="@mipmap/head_icon"
-                fresco:roundAsCircle="true"
-                fresco:placeholderImageScaleType="fitXY" />
+                fresco:placeholderImageScaleType="fitXY"
+                fresco:roundAsCircle="true" />
         </RelativeLayout>
 
         <include layout="@layout/split_line" />
 
         <RelativeLayout
-            android:paddingStart="@dimen/activity_horizontal_margin"
             android:id="@+id/ll_nickname"
             android:layout_width="match_parent"
             android:layout_height="@dimen/self_item_height"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:gravity="center_vertical"
+            android:paddingEnd="@dimen/activity_horizontal_margin_arrow">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/store_name"
-                android:gravity="center_vertical"/>
+                android:layout_height="wrap_content"
+                android:text="@string/store_name" />
 
             <TextView
                 android:id="@+id/tv_nickname"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:maxLength="18"
                 android:layout_marginEnd="@dimen/self_margin_end"
+                android:maxLength="18"
                 android:textSize="@dimen/dimens_16sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:src="@mipmap/arrow_right"
+                android:layout_marginStart="6dp"/>
         </RelativeLayout>
-
         <include layout="@layout/split_line" />
-
         <RelativeLayout
             android:id="@+id/ll_number"
             android:layout_width="match_parent"
             android:layout_height="@dimen/self_item_height"
+            android:orientation="horizontal"
             android:paddingStart="@dimen/activity_horizontal_margin"
-            android:orientation="horizontal">
+            android:paddingEnd="@dimen/activity_horizontal_margin_arrow"
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/number"
-                android:gravity="center_vertical"/>
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/number" />
 
             <TextView
                 android:id="@+id/tv_number"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/self_margin_end"
                 android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:src="@mipmap/arrow_right"
+                android:layout_marginStart="6dp"/>
         </RelativeLayout>
 
         <include layout="@layout/split_line" />
-
 
         <RelativeLayout
             android:id="@+id/ll_address"
             android:layout_width="match_parent"
             android:layout_height="@dimen/self_item_height"
+            android:orientation="horizontal"
             android:paddingStart="@dimen/activity_horizontal_margin"
-            android:orientation="horizontal">
+            android:paddingEnd="@dimen/activity_horizontal_margin_arrow"
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/address"
-                android:gravity="center_vertical"/>
+                android:layout_height="wrap_content"
+                android:text="@string/address" />
 
             <TextView
                 android:id="@+id/tv_address"
                 android:layout_width="160dp"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
                 android:ellipsize="end"
+                android:textSize="16sp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="@dimen/self_margin_end"
-                android:textSize="16sp" />
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"/>
+
+            <ImageView
+                android:id="@+id/arrow_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:src="@mipmap/arrow_right"
+                android:layout_marginStart="6dp"/>
         </RelativeLayout>
 
         <include layout="@layout/split_line_no_margin_common" />
+
         <RelativeLayout
             android:id="@+id/ll_detail_address"
             android:layout_width="match_parent"
             android:layout_height="@dimen/self_item_height"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:orientation="horizontal">
+            android:gravity="center_vertical"
+            android:paddingEnd="@dimen/activity_horizontal_margin_arrow"
+            android:paddingStart="@dimen/activity_horizontal_margin">
 
             <TextView
                 android:id="@+id/receive"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/detail_address"
-                android:gravity="center_vertical" />
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/detail_address" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_toRightOf="@+id/receive">
 
-                <TextView
-                    android:id="@+id/tv_detail_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:layout_alignParentEnd="true"
-                    android:textSize="16sp" />
-            </RelativeLayout>
+            <ImageView
+                android:id="@+id/arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:src="@mipmap/arrow_right"
+                android:layout_marginStart="6dp"/>
+
+            <TextView
+                android:id="@+id/tv_detail_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"/>
         </RelativeLayout>
+
         <include layout="@layout/split_line_no_margin_common" />
-        <LinearLayout
+
+        <RelativeLayout
             android:id="@+id/store_setting_introduce_area"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/edit_height"
-            android:gravity="center_vertical"
+            android:layout_height="@dimen/self_item_height"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin_arrow"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin">
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="店铺介绍" />
-        </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:src="@mipmap/arrow_right" />
+        </RelativeLayout>
 
         <include layout="@layout/split_line_no_margin_common" />
 
         <LinearLayout
             android:id="@+id/store_setting_fee_area"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/edit_height"
-            android:gravity="center_vertical"
+            android:layout_height="@dimen/self_item_height"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="人均消费" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="end"
+                android:layout_marginEnd="10dp"
+                android:hint="请输入餐厅人均消费金额"
+                android:textSize="@dimen/dimens_14sp" />
         </LinearLayout>
 
         <include layout="@layout/split_area" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/self_item_height"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin">
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="预定餐位"
                 android:layout_centerVertical="true"
-                />
+                android:text="预定餐位" />
+
             <Switch
                 android:id="@+id/self_reserve"
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"/>
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true" />
         </RelativeLayout>
+
         <include layout="@layout/split_area" />
+
         <TextView
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_width="match_parent"
             android:layout_height="@dimen/edit_height"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:gravity="center_vertical"
             android:text="餐厅设施" />
+
         <include layout="@layout/split_line" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/store_setting_facility"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
         <Button
             android:id="@+id/self_save"
-            android:text="@string/save"
             style="@style/button_style"
-            />
+            android:text="@string/save" />
     </LinearLayout>
 </ScrollView>

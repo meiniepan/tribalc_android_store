@@ -42,27 +42,4 @@ public class ShoppingCarPresenter extends BasePresenter<IShoppingView> {
             }
         });
     }
-
-    public void getShoppingCarMore() {
-        model.getShoppingListMore(TribeApplication.getInstance().getUserInfo().getId(), nextSkip, new Callback<ShoppingCartResponse>() {
-            @Override
-            public void onResponse(Call<ShoppingCartResponse> call, Response<ShoppingCartResponse> response) {
-                if (response.body() != null && response.body().code == 200) {
-                    ShoppingCartResponse.ShoppingCartResponseBody data = response.body().data;
-                    mView.getShoppingCarInfoSuccess(data);
-                    nextSkip = data.nextSkip;
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ShoppingCartResponse> call, Throwable t) {
-                mView.showError(R.string.connect_fail);
-            }
-        });
-    }
-
-    public void updateGoods(ListGoodsDetail item) {
-
-
-    }
 }

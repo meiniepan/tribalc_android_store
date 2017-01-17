@@ -6,39 +6,27 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:clipToPadding="true">
-
-    <RelativeLayout
-        android:id="@+id/fragment_title"
-        android:paddingTop="20dp"
+    <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="#2A2A2A">
+        android:layout_height="20dp"
+        android:background="@color/common_dark"
+        android:layout_alignParentTop="true"/>
 
+    <android.support.v7.widget.Toolbar
+        android:layout_below="@+id/view"
+        android:id="@+id/order_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/common_dark">
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textSize="@dimen/title_size"
-            android:textColor="@color/white"
-            android:text="@string/store_management" />
-
-        <TextView
-            android:id="@+id/store_manager"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:paddingTop="20dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
             android:textColor="@color/white"
-            android:text="管理" />
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="0.5dp"
-            android:layout_alignParentBottom="true"
-            android:background="#000" />
-    </RelativeLayout>
+            android:layout_gravity="center"
+            android:textSize="@dimen/dimens_18sp"
+            android:text="@string/store_management"/>
+    </android.support.v7.widget.Toolbar>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/store_floating"
@@ -59,5 +47,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"></com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView>
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/order_bar" />
 </RelativeLayout>
