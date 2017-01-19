@@ -1,51 +1,63 @@
 package com.gs.buluo.store.view.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.bean.CreateStoreBean;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
-import com.gs.buluo.store.bean.StoreInfo;
-import com.gs.buluo.store.dao.StoreInfoDao;
-import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.network.TribeUploader;
-import com.gs.buluo.store.presenter.BasePresenter;
-import com.gs.buluo.store.presenter.SelfPresenter;
 import com.gs.buluo.store.utils.DensityUtils;
 import com.gs.buluo.store.utils.FresoUtils;
 import com.gs.buluo.store.utils.ToastUtils;
-import com.gs.buluo.store.view.impl.ISelfView;
 import com.gs.buluo.store.view.widget.CustomAddLayout;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.io.File;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 
 /**
  * Created by hjn on 2017/1/10.
  */
-public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSelectedFinished, ISelfView {
+public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSelectedFinished {
     private boolean isLogo;
     @Bind(R.id.holder_image)
     ImageView image;
     @Bind(R.id.image_group)
     CustomAddLayout llGroup;
 
+    Context mCtx;
+    private ArrayList<String> pictures = new ArrayList<>();
+    private ArrayList<String> oldPictures;
+
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        mCtx = this;
         String s = getIntent().getStringExtra(Constant.ForIntent.PHOTO_TYPE);
         if ("logo".equals(s)) {
             isLogo = true;
             String logo = TribeApplication.getInstance().getUserInfo().getLogo();
-            if (logo!=null) Glide.with(this).load(FresoUtils.formatImageUrl(logo)).centerCrop().into(image);
+            if (logo != null)
+                Glide.with(this).load(FresoUtils.formatImageUrl(logo)).centerCrop().into(image);
+        } else {
+            oldPictures = getIntent().getStringArrayListExtra(Constant.ENVIRONMENT);
+            if (oldPictures != null) {
+                for (String url : oldPictures) {
+                    ImageView imageView = new ImageView(mCtx);
+                    Glide.with(mCtx).load(FresoUtils.formatImageUrl(url)).centerCrop().into(imageView);
+                    llGroup.setmCellHeight(DensityUtils.dip2px(mCtx, 100));
+                    llGroup.setmCellWidth(DensityUtils.dip2px(mCtx, 100));
+                    llGroup.addView(imageView);
+                }
+            }
         }
 
         findViewById(R.id.add_photo_finish).setOnClickListener(new View.OnClickListener() {
@@ -71,8 +83,24 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
         TribeUploader.getInstance().uploadFile("photo", "", new File(file), new TribeUploader.UploadCallback() {
             @Override
             public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
+                dismissDialog();
                 if (isLogo) {
-                    updateStoreInfo(data);
+                    Glide.with(mCtx).load(FresoUtils.formatImageUrl(data.objectKey)).centerCrop().into(image);
+                    Intent intent = new Intent();
+                    intent.putExtra(Constant.LOGO, data.objectKey);
+                    setResult(201, intent);
+                } else {
+                    image.setVisibility(View.GONE);
+                    ImageView imageView = new ImageView(mCtx);
+                    Glide.with(mCtx).load(FresoUtils.formatImageUrl(data.objectKey)).centerCrop().into(imageView);
+                    llGroup.setmCellHeight(DensityUtils.dip2px(mCtx, 100));
+                    llGroup.setmCellWidth(DensityUtils.dip2px(mCtx, 100));
+                    llGroup.addView(imageView);
+
+                    Intent intent = new Intent();
+                    pictures.add(data.objectKey);
+                    intent.putStringArrayListExtra(Constant.ENVIRONMENT, pictures);
+                    setResult(202, intent);
                 }
             }
 
@@ -83,16 +111,6 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
         });
     }
 
-    private void updateStoreInfo(UploadAccessResponse.UploadResponseBody data) {
-        CreateStoreBean bean=new CreateStoreBean();
-        bean.setLogo(data.objectKey);
-        ((SelfPresenter) mPresenter).updateUser(Constant.LOGO,data.objectKey,bean);
-    }
-
-    @Override
-    protected BasePresenter getPresenter() {
-        return new SelfPresenter();
-    }
 
     @Override
     protected int getContentLayout() {
@@ -101,39 +119,30 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
 
     @Override
     public void onSelected(String string) {
-        showLoadingDialog();
-        if (isLogo){
-            updatePic(string);
-        }else {
-
-        }
+        showLoadingDialog(R.string.uploading);
+        updatePic(string);
     }
 
-    @Override
-    public void updateSuccess(String key, String value) {
-        dismissDialog();
-        if (isLogo) {
-            StoreInfoDao storeInfoDao = new StoreInfoDao();
-            StoreInfo storeInfo = storeInfoDao.findFirst();
-            storeInfo.setLogo(value);
-            storeInfoDao.update(storeInfo);
-            Glide.with(this).load(FresoUtils.formatImageUrl(value)).centerCrop().into(image);
-            SelfEvent event = new SelfEvent();
-            event.head = value;
-            EventBus.getDefault().post(event);
-        } else {
-            image.setVisibility(View.GONE);
-            ImageView imageView = new ImageView(this);
-            Glide.with(this).load(FresoUtils.formatImageUrl(value)).centerCrop().into(imageView);
-            llGroup.setmCellHeight(DensityUtils.dip2px(this, 100));
-            llGroup.setmCellWidth(DensityUtils.dip2px(this, 100));
-            llGroup.addView(imageView);
-        }
-    }
-
-    @Override
-    public void showError(int res) {
-        dismissDialog();
-        ToastUtils.ToastMessage(this, R.string.connect_fail);
-    }
+//    @Override
+//    public void updateSuccess(String key, String value) {
+//        dismissDialog();
+//        if (isLogo) {
+//            StoreInfoDao storeInfoDao = new StoreInfoDao();
+//            StoreInfo storeInfo = storeInfoDao.findFirst();
+//            storeInfo.setLogo(value);
+//            storeInfoDao.update(storeInfo);
+//            Glide.with(this).load(FresoUtils.formatImageUrl(value)).centerCrop().into(image);
+//            SelfEvent event = new SelfEvent();
+//            event.head = value;
+//            EventBus.getDefault().post(event);
+//        } else {
+//
+//        }
+//    }
+//
+//    @Override
+//    public void showError(int res) {
+//        dismissDialog();
+//        ToastUtils.ToastMessage(this, R.string.connect_fail);
+//    }
 }

@@ -1,5 +1,8 @@
 package com.gs.buluo.store.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.gs.buluo.store.bean.ResponseBody.IBaseResponse;
 
 import org.xutils.db.annotation.Column;
@@ -11,57 +14,53 @@ import java.util.List;
  * Created by hjn on 2016/11/10.
  */
 @Table(name = "store_info")
-public class StoreInfo implements IBaseResponse {
+public class StoreInfo implements IBaseResponse, Parcelable {
     @Column(name = "id", isId = true)
     private int mid;
     @Column(name = "cid")
     private String id;
 
     @Column(name = "name")
-    private String name;
+    public String name;
+
+    public String getLinkman() {
+        return linkman;
+    }
+
+    public void setLinkman(String linkman) {
+        this.linkman = linkman;
+    }
+
+    public String getStoreAuthenticationStatus() {
+        return storeAuthenticationStatus;
+    }
+
+    public void setStoreAuthenticationStatus(String storeAuthenticationStatus) {
+        this.storeAuthenticationStatus = storeAuthenticationStatus;
+    }
+
+    @Column(name = "linkman")
+    public String linkman;
 
     @Column(name = "token")
-    private String token;
+    public String token;
 
     @Column(name = "store_type")
-    private String storeType;
+    public String storeType;
 
     @Column(name = "phone")
-    private String phone;
-
-    @Column(name = "address")
-    private String address;
+    public String phone;
 
     @Column(name = "cover")
-    private String cover;
-
-    @Column(name = "district")
-    private String district;
-
-    @Column(name = "city")
-    private String city;
-
-    @Column(name = "province")
-    private String province;
+    public String cover;
 
     @Column(name = "logo")
-    private String logo;
+    public String logo;
 
-    @Column(name = "area")
-    private String area;
-
-    public String getArea() {
-        if (area==null||area.contains("null"))
-            return "";
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
+    @Column(name = "status")
+    public String storeAuthenticationStatus;
 
     public String getName() {
-
         return name;
     }
 
@@ -86,22 +85,6 @@ public class StoreInfo implements IBaseResponse {
         this.id = id;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
     public String getStoreType() {
         return storeType;
     }
@@ -118,13 +101,6 @@ public class StoreInfo implements IBaseResponse {
         this.phone = phone;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public String getCover() {
         return cover;
@@ -132,14 +108,6 @@ public class StoreInfo implements IBaseResponse {
 
     public void setCover(String cover) {
         this.cover = cover;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String coordinate) {
-        this.district = coordinate;
     }
 
     public String getLogo() {
@@ -150,7 +118,6 @@ public class StoreInfo implements IBaseResponse {
         this.logo = logo;
     }
 
-
     public String getToken() {
         return token;
     }
@@ -159,4 +126,51 @@ public class StoreInfo implements IBaseResponse {
     public void setToken(String token) {
         this.token = token;
     }
+
+    public StoreInfo() {
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.mid);
+        dest.writeString(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.linkman);
+        dest.writeString(this.token);
+        dest.writeString(this.storeType);
+        dest.writeString(this.phone);
+        dest.writeString(this.cover);
+        dest.writeString(this.logo);
+        dest.writeString(this.storeAuthenticationStatus);
+    }
+
+    protected StoreInfo(Parcel in) {
+        this.mid = in.readInt();
+        this.id = in.readString();
+        this.name = in.readString();
+        this.linkman = in.readString();
+        this.token = in.readString();
+        this.storeType = in.readString();
+        this.phone = in.readString();
+        this.cover = in.readString();
+        this.logo = in.readString();
+        this.storeAuthenticationStatus = in.readString();
+    }
+
+    public static final Creator<StoreInfo> CREATOR = new Creator<StoreInfo>() {
+        @Override
+        public StoreInfo createFromParcel(Parcel source) {
+            return new StoreInfo(source);
+        }
+
+        @Override
+        public StoreInfo[] newArray(int size) {
+            return new StoreInfo[size];
+        }
+    };
 }

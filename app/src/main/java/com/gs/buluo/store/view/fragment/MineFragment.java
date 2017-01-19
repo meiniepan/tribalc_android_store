@@ -3,7 +3,6 @@ package com.gs.buluo.store.view.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -29,10 +28,12 @@ import com.gs.buluo.store.presenter.MinePresenter;
 import com.gs.buluo.store.utils.FresoUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.activity.CaptureActivity;
+import com.gs.buluo.store.view.activity.CreateGoodsVarietyActivity;
+import com.gs.buluo.store.view.activity.CreateStoreVarietyActivity;
 import com.gs.buluo.store.view.activity.LoginActivity;
 import com.gs.buluo.store.view.activity.SelfActivity;
 import com.gs.buluo.store.view.activity.SettingActivity;
-import com.gs.buluo.store.view.activity.CreateStoreVarietyActivity;
+import com.gs.buluo.store.view.activity.StoreInfoActivity;
 import com.gs.buluo.store.view.activity.VerifyActivity;
 import com.gs.buluo.store.view.activity.WalletActivity;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
@@ -85,6 +86,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         headView.findViewById(R.id.mine_login).setOnClickListener(this);
         headView.findViewById(R.id.mine_register).setOnClickListener(this);
         headView.findViewById(R.id.mine_update).setOnClickListener(this);
+        headView.findViewById(R.id.head_area).setOnClickListener(this);
 
         initContentView(contentView);
         zoomView.findViewById(R.id.mine_setting).setOnClickListener(this);
@@ -130,7 +132,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         if (!checkUser(getActivity())) return;
         final Intent intent = new Intent();
         switch (view.getId()) {
-            case R.id.mine_head:
+            case R.id.head_area:
                 intent.setClass(getActivity(), SelfActivity.class);
                 startActivity(intent);
                 break;
@@ -166,10 +168,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.mine_create:
-                intent.setClass(getActivity(), CreateStoreVarietyActivity.class);
+                StoreInfo userInfo = TribeApplication.getInstance().getUserInfo();
+                String storeType = userInfo.getStoreType();
+//                if (storeType !=null) {
+//                    intent.setClass(mContext, StoreInfoActivity.class);
+//                }else{
+                    intent.setClass(mContext, CreateStoreVarietyActivity.class);
+//                }
                 startActivity(intent);
-                break;
-            case R.id.mine_store:
                 break;
         }
     }
@@ -198,10 +204,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     private void updateUserCover(final UploadAccessResponse.UploadResponseBody body, final String path) {
         final String url = body.objectKey;
-        CreateStoreBean bean=new CreateStoreBean();
+        CreateStoreBean bean = new CreateStoreBean();
         bean.setCover(url);
         new MainModel().updateUser(TribeApplication.getInstance().getUserInfo().getId(),
-                "cover" ,url,bean, new TribeCallback<CodeResponse>() {
+                "cover", url, bean, new TribeCallback<CodeResponse>() {
                     @Override
                     public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
                         StoreInfo userInfo = TribeApplication.getInstance().getUserInfo();
@@ -212,7 +218,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
                     @Override
                     public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
-                        ToastUtils.ToastMessage(mContext,R.string.connect_fail);
+                        ToastUtils.ToastMessage(mContext, R.string.connect_fail);
                     }
                 });
     }

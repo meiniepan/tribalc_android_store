@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="#2A2A2A">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="门店地址"
+            android:textColor="#fff"
+            android:textSize="@dimen/title_size" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="#000" />
+
+        <include
+            android:id="@+id/back"
+            layout="@layout/back_img_white" />
+    </RelativeLayout>
+
+    <include layout="@layout/split_area" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_create_address"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/address" />
+
+            <TextView
+                android:id="@+id/create_address_area"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/common_gray"
+                android:gravity="end" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/arrow_right" />
+        </LinearLayout>
+
+        <include layout="@layout/split_line_no_margin_common" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="分店地址" />
+
+            <EditText
+                android:id="@+id/create_address_edit"
+                android:background="@null"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textSize="@dimen/dimens_14sp"
+                android:textColor="@color/common_gray"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/create_address_search"
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:text="搜索"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:background="@color/custom_yellow"/>
+        </LinearLayout>
+    </LinearLayout>
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/create_map"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <Button
+        android:id="@+id/create_map_save"
+        android:text="@string/save"
+        style="@style/button_style"/>
+</LinearLayout>

@@ -1,5 +1,7 @@
 package com.gs.buluo.store.network;
 
+import android.provider.CallLog;
+
 import com.gs.buluo.store.bean.CreateStoreBean;
 import com.gs.buluo.store.bean.RequestBodyBean.AuthorityRequest;
 import com.gs.buluo.store.bean.RequestBodyBean.LoginBody;
@@ -12,6 +14,8 @@ import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
 import com.gs.buluo.store.bean.ResponseBody.UserAddressListResponse;
 import com.gs.buluo.store.bean.ResponseBody.UserBeanResponse;
 import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.bean.StoreSetMeal;
+import com.gs.buluo.store.bean.StoreSetMealCreation;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -27,7 +31,7 @@ import retrofit2.http.Query;
 public interface MainService {
 
     @GET("stores/{id}")
-    Call<BaseResponse<StoreInfo>> getUser(
+    Call<BaseResponse<StoreInfo>> getStoreInfo(
             @Path("id") String uid);
 
     @POST("stores/login")
@@ -51,9 +55,18 @@ public interface MainService {
     @PUT("stores/{id}/sensitive_info")
     Call<BaseResponse<CodeResponse>> updatePhone(@Path("id") String id, @Body PhoneUpdateBody body);
 
-    @GET("stores/{id}/create_store")
+    @GET("stores/{id}/store_detail")
     Call<BaseResponse<CreateStoreBean>> getCreateStore(@Path("id")String uid);
+
+    @GET("store_set_meals/{id}/get_set_meal")
+    Call<BaseResponse<StoreSetMeal>> getCreateSetMeal(@Path("id")String uid);
 
     @PUT("stores/{id}/{propNames}")
     Call<BaseResponse<CodeResponse>> updateUser(@Path("id") String id,@Path("propNames") String propNames,@Body CreateStoreBean bean);
+
+    @POST("stores/{id}")
+    Call<BaseResponse<StoreInfo>> createStore(@Path("id") String id,@Body CreateStoreBean bean);
+
+    @POST("store_set_meals/store/{storeId}/creation")
+    Call<BaseResponse<CodeResponse>> createServe(@Path("storeId")String uid, @Body StoreSetMealCreation body);
 }

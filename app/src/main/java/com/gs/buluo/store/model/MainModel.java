@@ -14,13 +14,11 @@ import com.gs.buluo.store.bean.ResponseBody.UserAddressListResponse;
 import com.gs.buluo.store.bean.ResponseBody.UserBeanResponse;
 import com.gs.buluo.store.bean.RequestBodyBean.LoginBody;
 import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.bean.StoreSetMeal;
 import com.gs.buluo.store.network.MainService;
 import com.gs.buluo.store.network.TribeRetrofit;
 
 import org.xutils.common.util.MD5;
-import org.xutils.http.HttpMethod;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +45,7 @@ public class MainModel {             //登录数据同步,上传，验证码
 
     public void getStoreInfo(String uid, Callback<BaseResponse<StoreInfo>> callback) {
         TribeRetrofit.getInstance().createApi(MainService.class).
-                getUser(uid).enqueue(callback);
+                getStoreInfo(uid).enqueue(callback);
     }
 
     public void updateUser(String id, String key, String value, CreateStoreBean bean, Callback<BaseResponse<CodeResponse>> callback) {
@@ -96,9 +94,13 @@ public class MainModel {             //登录数据同步,上传，验证码
                 updatePhone(TribeApplication.getInstance().getUserInfo().getId(), body).enqueue(callback);
     }
 
-    public void getCreateStoreInfo(Callback<BaseResponse<CreateStoreBean>> callback){
+    public void getDetailStoreInfo(Callback<BaseResponse<CreateStoreBean>> callback){
         TribeRetrofit.getInstance().createApi(MainService.class).
                 getCreateStore(TribeApplication.getInstance().getUserInfo().getId()).enqueue(callback);
     }
 
+    public void getSetMeal(Callback<BaseResponse<StoreSetMeal>> callback) {
+        TribeRetrofit.getInstance().createApi(MainService.class).
+                getCreateSetMeal(TribeApplication.getInstance().getUserInfo().getId()).enqueue(callback);
+    }
 }

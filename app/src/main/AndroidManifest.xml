@@ -181,6 +181,7 @@
         <activity android:name=".view.activity.CreateStoreVarietyActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.CreateDetailActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.PhotoActivity"
             android:screenOrientation="portrait"/>
@@ -190,12 +191,18 @@
             android:launchMode="singleTop"
             />
         <activity android:name=".view.activity.CreateDetailActivitySecond"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.CreateGoodsVarietyActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.QualificationActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.CreateStateActivity"
+        <activity android:name=".view.activity.CreateStoreAddressActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.CreateStoreFinishActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.StoreInfoActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.ProtocolActivity"/>
     </application>

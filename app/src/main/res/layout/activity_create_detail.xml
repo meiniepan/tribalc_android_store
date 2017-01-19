@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="true"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,175 +12,108 @@
         android:background="#2A2A2A">
 
         <TextView
+            android:id="@+id/create_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textSize="@dimen/title_size"
+            android:text="创建门店"
             android:textColor="#fff"
-            android:text="创建门店" />
+            android:textSize="@dimen/title_size" />
 
         <View
             android:layout_width="wrap_content"
             android:layout_height="0.5dp"
             android:layout_alignParentBottom="true"
             android:background="#000" />
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开店手册"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/white"
+            android:layout_marginEnd="10dp"/>
         <include
-            layout="@layout/back_img_white"
-            android:id="@+id/back" />
+            android:id="@+id/back"
+            layout="@layout/back_img_white" />
     </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ViewStub
+                android:id="@+id/create_serve_stub"
+                android:layout="@layout/create_serve_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <ViewStub
+                android:id="@+id/create_goods_stub"
+                android:layout="@layout/create_goods_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-    <LinearLayout
+            <LinearLayout
+                android:id="@+id/create_food_area"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <include layout="@layout/split_area" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/self_item_height"
+                    android:text="菜系类型"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"/>
+                <include layout="@layout/split_line_no_margin_common"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/create_food_variety"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="入住过程如有问题请拨打"
+                    android:textColor="@color/common_gray"
+                    android:textSize="@dimen/dimens_12sp"
+                    android:id="@+id/textView13" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autoLink="phone"
+                    android:text="4009-208-251"
+                    android:textColorLink="@color/custom_yellow"
+                    android:textSize="@dimen/dimens_12sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <RelativeLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/verify_edit_height"
-            android:layout_marginTop="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/store_name"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/verify_name"
-                android:layout_width="@dimen/verify_edit_width"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:background="@null"
-                android:hint="@string/input_store_name"
-                android:textColor="@color/common_gray"
-                android:textSize="@dimen/dimens_14sp" />
-        </LinearLayout>
-
-        <include layout="@layout/split_line_no_margin_common" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/verify_edit_height"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="经营品类"
-                android:textSize="16sp" />
-
-            <EditText
-                android:layout_width="@dimen/verify_edit_width"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:background="@null"
-                android:textColor="@color/common_gray"
-                android:textSize="@dimen/dimens_14sp" />
-        </LinearLayout>
-
-        <include layout="@layout/split_area" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/verify_edit_height"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/store_main_phone"
-                android:textSize="16sp" />
-
-            <EditText
-                android:layout_width="@dimen/verify_edit_width"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:background="@null"
-                android:textColor="@color/common_gray"
-                android:textSize="@dimen/dimens_14sp" />
-        </LinearLayout>
-
-        <include layout="@layout/split_line_no_margin_common" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/verify_edit_height"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="其他电话"
-                android:textSize="16sp" />
-
-            <EditText
-                android:layout_width="@dimen/verify_edit_width"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:background="@null"
-                android:textColor="@color/common_gray"
-                android:textSize="@dimen/dimens_14sp" />
-        </LinearLayout>
-
-        <include layout="@layout/split_line_no_margin_common" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/verify_edit_height"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="发货地址"
-                android:textSize="16sp" />
-
-            <EditText
-                android:layout_width="@dimen/verify_edit_width"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:background="@null"
-                android:textColor="@color/common_gray"
-                android:textSize="@dimen/dimens_14sp" />
-        </LinearLayout>
-
-        <include layout="@layout/split_line_no_margin_common" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/verify_edit_height"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="优惠买单"
-                android:textSize="16sp" />
-
-            <EditText
-                android:layout_width="@dimen/verify_edit_width"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:background="@null"
-                android:textColor="@color/common_gray"
-                android:textSize="@dimen/dimens_14sp" />
-        </LinearLayout>
-
-        <include layout="@layout/split_line_no_margin_common" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/create_next_1"
-        android:text="@string/next"
-        style="@style/button_style" />
+        android:gravity="bottom">
+        <Button
+            android:id="@+id/store_create_next"
+            style="@style/button_style"
+            android:text="@string/next" />
+    </RelativeLayout>
 </LinearLayout>

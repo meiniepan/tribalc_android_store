@@ -7,6 +7,9 @@ public class Constant {
 
 
     public static final String VCODE = "vcode";
+    public static final String ENVIRONMENT = "environment";
+    public static final String GOODS = "GOODS";
+    public static final String SET_MEAL = "SET_MEAL";
 
 
     public final static class Base {
@@ -20,10 +23,9 @@ public class Constant {
 
     public static final String VERIFICATION = "verificationCode";
     public static final String NAME = "name";
+    public static final String LINKMAN = "linkman";
     public static final String LOGO = "logo";
     public static final String BIRTHDAY = "birthday";
-    public static final String RESERVABLE = "reservable";
-    public static final String FACILITIES = "facilities";
     public static final String AREA = "province,city,district";
     public static final String PHONE = "phone";
     public static final String ADDRESS = "address";
@@ -59,6 +61,7 @@ public class Constant {
         public static final String MODIFY = "self_modify";
         public static final String PHOTO_TYPE = "photo_type";
         public static final String STORE_BEAN = "store_bean";
+        public static final String STORE_NAME = "store_name";
     }
 
 }

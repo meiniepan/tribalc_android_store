@@ -1,6 +1,8 @@
 package com.gs.buluo.store.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -32,6 +34,7 @@ public class FacilityAdapter extends RecyclerAdapter<FacilityBean> {
     private class FacilityHolder extends BaseViewHolder<FacilityBean> {
 
         private TextView text;
+        private View textBg;
 
         FacilityHolder(ViewGroup itemView) {
             super(itemView, R.layout.facility_item);
@@ -40,6 +43,7 @@ public class FacilityAdapter extends RecyclerAdapter<FacilityBean> {
         @Override
         public void onInitializeView() {
             text = findViewById(R.id.text_item);
+            textBg = findViewById(R.id.text_bg);
         }
 
         @Override
@@ -47,17 +51,20 @@ public class FacilityAdapter extends RecyclerAdapter<FacilityBean> {
             super.setData(entity);
             text.setText(entity.value);
             if (entity.isSelect){
-                text.setBackgroundResource(R.color.custom_color);
+                textBg.setBackgroundResource(R.drawable.facility_choosed);
+                text.setTextColor(Color.WHITE);
             }
         }
 
         @Override
         public void onItemViewClick(FacilityBean entity) {
             if (entity.isSelect){
-                text.setBackground(null);
+                textBg.setBackgroundResource(R.drawable.text_background_round);
+                text.setTextColor(0xff2a2a2a);
                 entity.isSelect=false;
             }else {
-                text.setBackgroundResource(R.color.custom_color);
+                textBg.setBackgroundResource(R.drawable.facility_choosed);
+                text.setTextColor(Color.WHITE);
                 entity.isSelect=true;
             }
         }

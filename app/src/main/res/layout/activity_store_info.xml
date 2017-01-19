@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_height"
+            android:background="#2A2A2A">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="店铺信息"
+
+                android:textColor="#fff"
+                android:textSize="@dimen/title_size" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="#000" />
+
+            <TextView
+                android:id="@+id/info_store_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit"
+                android:textColor="@color/white"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"/>
+            <include
+                android:id="@+id/back"
+                layout="@layout/back_img_white" />
+        </RelativeLayout>
+        <include layout="@layout/split_area"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/store_name"/>
+            <EditText
+                android:layout_marginStart="20dp"
+                android:id="@+id/info_store_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <include layout="@layout/split_line_no_margin_common"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sub_store_name"/>
+            <EditText
+                android:background="@null"
+                android:layout_marginStart="20dp"
+                android:id="@+id/info_sub_store_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <include layout="@layout/split_line_no_margin_common"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/store_category"/>
+            <TextView
+                android:layout_marginStart="20dp"
+                android:id="@+id/info_store_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <include layout="@layout/split_line_no_margin_common"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/location"/>
+            <TextView
+                android:layout_marginStart="20dp"
+                android:id="@+id/info_store_area"
+                android:layout_width="match_parent"
+                android:gravity="end"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <include layout="@layout/split_line_no_margin_common"/>
+        <LinearLayout
+            android:id="@+id/info_store_introduction"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/store_introduction"/>
+            <TextView
+                android:textColor="@color/common_gray"
+                android:layout_marginStart="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:gravity="end"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/info_introduction_arrow"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/arrow_right"/>
+        </LinearLayout>
+        <include layout="@layout/split_line_no_margin_common"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/average_fee"/>
+            <EditText
+                android:background="@null"
+                android:layout_marginStart="20dp"
+                android:id="@+id/info_store_fee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <include layout="@layout/split_area"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/store_main_phone"/>
+            <TextView
+                android:layout_marginStart="20dp"
+                android:id="@+id/info_store_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <include layout="@layout/split_line_no_margin_common"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/store_other_phone"/>
+            <TextView
+                android:layout_marginStart="20dp"
+                android:id="@+id/info_store_other_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <include layout="@layout/split_line_no_margin_common"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/store_address"/>
+            <TextView
+                android:layout_marginStart="20dp"
+                android:id="@+id/info_store_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <include layout="@layout/split_area"/>
+        <LinearLayout
+            android:id="@+id/info_store_logo"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/store_logo"/>
+            <TextView
+                android:layout_marginStart="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/info_logo_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/arrow_right"/>
+        </LinearLayout>
+        <include layout="@layout/split_line_no_margin_common"/>
+
+        <LinearLayout
+            android:id="@+id/info_store_environment"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/store_environment"/>
+            <TextView
+                android:layout_marginStart="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/info_en_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/arrow_right"/>
+        </LinearLayout>
+        <include layout="@layout/split_line_no_margin_common"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/self_item_height"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/recommend_reason"/>
+
+        <TextView
+            android:id="@+id/info_store_recommend"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:paddingTop="4dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="4dp"
+            android:hint="例：艺术美术馆外隐藏的文艺餐厅，花园中心的小阁楼 享受田园般乐趣。"
+            android:textSize="@dimen/dimens_12sp"
+            android:minHeight="60dp"
+            android:background="@drawable/text_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/self_item_height"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="@string/recommend_topic"/>
+
+        <TextView
+            android:id="@+id/info_store_topic"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="10dp"
+            android:paddingTop="4dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="4dp"
+            android:hint="例：可28人同事就坐的异形餐台享意式午餐。"
+            android:textSize="@dimen/dimens_12sp"
+            android:minHeight="60dp"
+            android:background="@drawable/text_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include layout="@layout/split_area"/>
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="预定餐位"/>
+
+            <Switch
+                android:id="@+id/info_store_reserve"
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+
+        <include layout="@layout/split_area"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/self_item_height"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:text="餐厅设施"/>
+        <include layout="@layout/split_line_no_margin_common"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/store_info_facility"
+            android:layout_marginStart="@dimen/activity_horizontal_margin_arrow"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin_arrow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+
+        <Button
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:id="@+id/info_store_auth"
+            style="@style/button_style"
+            android:text="店铺认证"
+            />
+    </LinearLayout>
+</ScrollView>

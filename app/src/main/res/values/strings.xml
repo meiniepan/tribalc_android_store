@@ -45,9 +45,9 @@
     <string name="sex">性别</string>
     <string name="main_manager">订单</string>
     <string name="head">商户图标</string>
-    <string name="address">所在地</string>
+    <string name="address">所在地区</string>
     <string name="detail_address">发货地址</string>
-    <string name="number">手机号</string>
+    <string name="number">联系人手机号码"</string>
     <string name="motion">情感状态</string>
     <string name="add_address">新增地址</string>
     <string name="register">注册</string>
@@ -79,7 +79,7 @@
     <string name="input_identify_number">请输入身份证号</string>
     <string name="reset_pay_pwd">重置支付密码</string>
     <string name="forget_pwd">忘记原密码</string>
-    <string name="input_nickname">请输入昵称(最多8个字)</string>
+    <string name="input_nickname">请输入名称(最多8个字)</string>
     <string name="save">保存</string>
     <string name="location">所在地</string>
 
@@ -255,11 +255,33 @@
     <string name="store_set">店铺设置</string>
     <string name="community">社区</string>
     <string name="upload_photo">上传图片</string>
-    <string name="store_name">店铺名称</string>
+    <string name="store_name">商家名称</string>
     <string name="input_store_name">请输入店铺名称</string>
     <string name="store_phone">店主手机号码</string>
     <string name="store_main_phone">主要电话</string>
     <string name="logistics_number">物流单号</string>
     <string name="logistics_way">选择物流公司</string>
+    <string name="contacy_name">联系人姓名</string>
+    <string name="store_setting">店铺设置</string>
+    <string name="office">办公用品</string>
+    <string name="life_use">生活用品</string>
+    <string name="furniture">家具</string>
+    <string name="dress">个护化妆</string>
+    <string name="baby">妇婴用品</string>
+    <string name="submit">提交</string>
+    <string name="uploading">上传中</string>
+    <string name="store_category">经营品咧</string>
+    <string name="sub_store_name">分店名称</string>
+    <string name="average_fee">人均消费</string>
+    <string name="store_other_phone">其他电话</string>
+    <string name="store_address">门店地址</string>
+    <string name="store_logo">店铺LOGO</string>
+    <string name="store_environment">店铺环境图</string>
+    <string name="recommend_reason">推荐理由</string>
+    <string name="recommend_topic">推荐话题</string>
+    <string name="store_introduction">店铺介绍</string>
+
+    <!--餐厅类型-->
+
 
 </resources>

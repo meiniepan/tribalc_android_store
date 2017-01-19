@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tint_bg"
+    android:gravity="center_horizontal"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="#2A2A2A">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="正在审核"
+
+            android:textColor="#fff"
+            android:textSize="@dimen/title_size" />
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="#000" />
+
+        <include
+            android:id="@+id/back"
+            layout="@layout/back_img_white" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_marginTop="100dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/create_wait"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="申请已提交，后台正在审核，请耐心等待。"
+        />
+
+    <Button
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="30dp"
+        android:text="继续认证"
+        android:id="@+id/create_to_auth"
+        style="@style/button_style"
+        />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/dimens_12sp"
+        android:textColor="@color/common_gray"
+        android:text="继续认证商户商业信息，营业执照，身份证与行业许可证信息，没有认证的商户不能进行上传商品或者接受预定"/>
+</LinearLayout>

@@ -62,10 +62,10 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
 
     private void initView(final String info) {
         switch (info) {
-            case Constant.NAME:
+            case Constant.LINKMAN:
                 View nameView = ((ViewStub) findViewById(R.id.modify_nickname)).inflate();
                 final EditText name = (EditText) nameView.findViewById(R.id.modify_nickname_edit);
-                title.setText(R.string.name);
+                title.setText("联系人姓名");
                 save.setVisibility(View.VISIBLE);
                 showKeyBoard(name);
                 save.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +74,24 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
                         if (name.length() == 0) return;
                         CreateStoreBean bean = new CreateStoreBean();
                         String value = name.getText().toString().trim();
+                        bean.linkman=value;
+                        ((SelfPresenter) mPresenter).updateUser(Constant.LINKMAN, value, bean);
+                    }
+                });
+                break;
+
+            case Constant.ForIntent.STORE_NAME:
+                View storeNameView = ((ViewStub) findViewById(R.id.modify_nickname)).inflate();
+                final EditText storeName = (EditText) storeNameView.findViewById(R.id.modify_nickname_edit);
+                title.setText("商店名称");
+                save.setVisibility(View.VISIBLE);
+                showKeyBoard(storeName);
+                save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (storeName.length() == 0) return;
+                        CreateStoreBean bean = new CreateStoreBean();
+                        String value = storeName.getText().toString().trim();
                         bean.setName(value);
                         ((SelfPresenter) mPresenter).updateUser(Constant.NAME, value, bean);
                     }
@@ -109,7 +127,6 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
                 address.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        initAddressPicker(address);
                     }
                 });
                 save.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +137,6 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
                         finish();
                     }
                 });
-                initAddressPicker(address);
                 break;
         }
 
@@ -151,16 +167,19 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
         LoadingDialog.getInstance().dismissDialog();
         switch (key) {
             case Constant.NAME:
-//                mName.setText(value);
                 intent.putExtra(Constant.NAME, value);
                 setResult(RESULT_OK, intent);
                 userInfo.setName(value);
                 EventBus.getDefault().post(new SelfEvent());
                 finish();
                 break;
+            case Constant.LINKMAN:
+                userInfo.setLinkman(value);
+                intent.putExtra(Constant.LINKMAN, value);
+                setResult(RESULT_OK, intent);
+                finish();
+                break;
             case Constant.AREA:
-                userInfo.setArea(value);
-                intent.putExtra(Constant.ADDRESS, value);
                 break;
         }
         new StoreInfoDao().update(userInfo);
@@ -187,22 +206,6 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
         return new SelfPresenter();
     }
 
-
-    private void initAddressPicker(final TextView address) {
-        AddressPickPanel pickPanel = new AddressPickPanel(this, new AddressPickPanel.OnSelectedFinished() {
-            @Override
-            public void onSelected(String area, String province, String city, String district) {
-                showLoadingDialog();
-                address.setText(area);
-                CreateStoreBean bean = new CreateStoreBean();
-                bean.setProvince(province);
-                bean.setCity(city);
-                bean.setDistrict(district);
-                ((SelfPresenter) mPresenter).updateUser(Constant.AREA, area,bean);
-            }
-        });
-        pickPanel.show();
-    }
 
     private void initBirthdayPicker(final TextView birthday) {
         new Handler().postDelayed(new TimerTask() {

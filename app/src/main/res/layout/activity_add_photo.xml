@@ -50,7 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:orientation="horizontal"></com.gs.buluo.store.view.widget.CustomAddLayout>
+            android:orientation="horizontal">
+        </com.gs.buluo.store.view.widget.CustomAddLayout>
     </RelativeLayout>
 
 
@@ -63,7 +64,7 @@
         android:text="请上传清晰图片,招牌要与商家名称一致" />
 
     <Button
+        style="@style/short_button_style"
         android:id="@+id/add_photo_finish"
-        style="@style/button_style"
         android:text="@string/upload_photo" />
 </LinearLayout>

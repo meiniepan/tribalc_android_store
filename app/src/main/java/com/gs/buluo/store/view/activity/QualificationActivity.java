@@ -15,7 +15,6 @@ public class QualificationActivity extends BaseActivity {
         findViewById(R.id.qualification_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(QualificationActivity.this, CreateStateActivity.class));
             }
         });
     }

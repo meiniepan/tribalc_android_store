@@ -89,10 +89,6 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
             public void onSuccess(Response<BaseResponse<StoreInfo>> response) {
                 StoreInfo entity = response.body().data;
                 entity.setToken(token);
-                if (entity.getDistrict()!=null)
-                    entity.setArea(entity.getProvince()+"-"+entity.getCity()+"-"+entity.getDistrict());
-                else
-                    entity.setArea(entity.getProvince()+"-"+entity.getCity());
 
                 TribeApplication.getInstance().setUserInfo(entity);
                 StoreInfoDao dao = new StoreInfoDao();
