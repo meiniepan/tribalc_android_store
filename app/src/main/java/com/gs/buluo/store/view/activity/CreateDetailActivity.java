@@ -50,11 +50,13 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
     TextView tvAddress;
     TextView tvLogo;
     TextView tvEnvi;
+    TextView tvTime;
     EditText recommendReason;
     @Bind(R.id.store_create_next)
     TextView button;
 
     CreateStoreBean storeBean;
+    private List<RepastCategoryBean> categoryBeanList;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -114,6 +116,7 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
                     ToastUtils.ToastMessage(CreateDetailActivity.this, "信息填写不完整");
                     return;
                 }
+                setCookingStyle();
                 storeBean.name = tvName.getText().toString().trim();
                 storeBean.phone = tvPhone.getText().toString().trim();
                 storeBean.otherPhone = tvOtherPhone.getText().toString().trim();
@@ -121,6 +124,18 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
                 createStore();
             }
         });
+    }
+
+    private void setCookingStyle() {
+        if (Constant.SET_MEAL.equals(storeBean.storeType)) {
+            List<String> list = new ArrayList<>();
+            for (RepastCategoryBean bean :categoryBeanList) {
+                if (bean.isSelect){
+                    list.add(bean.value);
+                }
+            }
+            storeBean.cookingStyle = list;
+        }
     }
 
     private void setServeData(ViewStub serveStub) {
@@ -136,6 +151,8 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
             findViewById(R.id.create_food_area).setVisibility(View.VISIBLE);
             initFoodCategory();
         }
+        tvTime = (TextView) serveView.findViewById(R.id.store_time);
+        serveView.findViewById(R.id.store_create_time).setOnClickListener(this);
         findViewById(R.id.store_create_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,24 +202,24 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void initFoodCategory() {
-        List<RepastCategoryBean> list = new ArrayList<>();
-        list.add(new RepastCategoryBean("西餐"));
-        list.add(new RepastCategoryBean("咖啡厅"));
-        list.add(new RepastCategoryBean("日料"));
-        list.add(new RepastCategoryBean("自助餐"));
-        list.add(new RepastCategoryBean("粤菜"));
-        list.add(new RepastCategoryBean("意大利菜"));
-        list.add(new RepastCategoryBean("火锅"));
-        list.add(new RepastCategoryBean("融合菜"));
-        list.add(new RepastCategoryBean("韩国料理"));
-        list.add(new RepastCategoryBean("东南亚菜"));
-        list.add(new RepastCategoryBean("西班牙菜"));
-        list.add(new RepastCategoryBean("法国菜"));
-        list.add(new RepastCategoryBean("云南菜"));
-        list.add(new RepastCategoryBean("台湾菜"));
-        list.add(new RepastCategoryBean("德国菜"));
-        list.add(new RepastCategoryBean("其他"));
-        recyclerView.setAdapter(new RepastBeanAdapter(CreateDetailActivity.this,list));
+        categoryBeanList = new ArrayList<>();
+        categoryBeanList.add(new RepastCategoryBean("西餐"));
+        categoryBeanList.add(new RepastCategoryBean("咖啡厅"));
+        categoryBeanList.add(new RepastCategoryBean("日料"));
+        categoryBeanList.add(new RepastCategoryBean("自助餐"));
+        categoryBeanList.add(new RepastCategoryBean("粤菜"));
+        categoryBeanList.add(new RepastCategoryBean("意大利菜"));
+        categoryBeanList.add(new RepastCategoryBean("火锅"));
+        categoryBeanList.add(new RepastCategoryBean("融合菜"));
+        categoryBeanList.add(new RepastCategoryBean("韩国料理"));
+        categoryBeanList.add(new RepastCategoryBean("东南亚菜"));
+        categoryBeanList.add(new RepastCategoryBean("西班牙菜"));
+        categoryBeanList.add(new RepastCategoryBean("法国菜"));
+        categoryBeanList.add(new RepastCategoryBean("云南菜"));
+        categoryBeanList.add(new RepastCategoryBean("台湾菜"));
+        categoryBeanList.add(new RepastCategoryBean("德国菜"));
+        categoryBeanList.add(new RepastCategoryBean("其他"));
+        recyclerView.setAdapter(new RepastBeanAdapter(CreateDetailActivity.this, categoryBeanList));
 
         StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL) {
             @Override
@@ -229,29 +246,35 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
             storeBean.district = arrs[2];
             storeBean.address = address;
             tvAddress.setText(area + address);
-        }else if (data != null && requestCode == 200 && resultCode == 201) {  //logo
+        } else if (data != null && requestCode == 200 && resultCode == 201) {  //logo
             storeBean.logo = data.getStringExtra(Constant.LOGO);
             tvLogo.setText("一张");
         } else if (data != null && requestCode == 201 && resultCode == 202) {   //environment
             ArrayList<String> enPictures = data.getStringArrayListExtra(Constant.ENVIRONMENT);
             storeBean.pictures = enPictures;
-            if (enPictures!=null)tvEnvi.setText(enPictures.size() + "张");
+            if (enPictures != null) tvEnvi.setText(enPictures.size() + "张");
+        } else if (data != null && requestCode == 203 && resultCode == RESULT_OK) {
+            storeBean.businessHours = data.getStringExtra(Constant.SERVE_TIME);
+            tvTime.setText(storeBean.businessHours);
         }
     }
 
     @Override
     public void onClick(View v) {
-        Intent intent=new Intent();
-        switch (v.getId()){
+        Intent intent = new Intent();
+        switch (v.getId()) {
             case R.id.create_logo_area:
                 intent.setClass(this, PhotoActivity.class);
-                intent.putExtra(Constant.ForIntent.PHOTO_TYPE,"logo");
+                intent.putExtra(Constant.ForIntent.PHOTO_TYPE, "logo");
                 startActivityForResult(intent, 200);
                 break;
             case R.id.create_environment_area:
                 intent.setClass(this, PhotoActivity.class);
                 startActivityForResult(intent, 201);
                 break;
+            case R.id.store_create_time:
+                intent.setClass(this, ServeTimeActivity.class);
+                startActivityForResult(intent, 203);
         }
     }
 }

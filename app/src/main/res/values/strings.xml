@@ -270,7 +270,7 @@
     <string name="baby">妇婴用品</string>
     <string name="submit">提交</string>
     <string name="uploading">上传中</string>
-    <string name="store_category">经营品咧</string>
+    <string name="store_category">经营品类</string>
     <string name="sub_store_name">分店名称</string>
     <string name="average_fee">人均消费</string>
     <string name="store_other_phone">其他电话</string>
@@ -280,6 +280,8 @@
     <string name="recommend_reason">推荐理由</string>
     <string name="recommend_topic">推荐话题</string>
     <string name="store_introduction">店铺介绍</string>
+    <string name="send_address">发货地址</string>
+    <string name="serve_time">营业时间</string>
 
     <!--餐厅类型-->
 

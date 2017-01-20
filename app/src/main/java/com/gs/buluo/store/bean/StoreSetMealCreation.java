@@ -7,6 +7,7 @@ import java.util.List;
  */
 
 public class StoreSetMealCreation {
+    public String id;
     public String name ;
     public List<String> pictures;
     public String topics;

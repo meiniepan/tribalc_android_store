@@ -26,6 +26,8 @@ public class CreateStoreBean extends StoreInfo implements Parcelable, IBaseRespo
     public String topics;
     public String personExpense;
     public boolean isReservable;
+    public List<String> cookingStyle;
+    public String businessHours;
 
     public enum StoreCategory {
         FOOD("食品"), GIFT("礼品"), OFFICE("办公用品"), LIVING("生活用品"), HOUSE("家居用品"), MAKEUP("化妆品"), PENETRATION("妇婴用品"),
@@ -66,6 +68,8 @@ public class CreateStoreBean extends StoreInfo implements Parcelable, IBaseRespo
         dest.writeString(this.topics);
         dest.writeString(this.personExpense);
         dest.writeByte(this.isReservable ? (byte) 1 : (byte) 0);
+        dest.writeStringList(this.cookingStyle);
+        dest.writeString(this.businessHours);
     }
 
     protected CreateStoreBean(Parcel in) {
@@ -84,6 +88,8 @@ public class CreateStoreBean extends StoreInfo implements Parcelable, IBaseRespo
         this.topics = in.readString();
         this.personExpense = in.readString();
         this.isReservable = in.readByte() != 0;
+        this.cookingStyle = in.createStringArrayList();
+        this.businessHours = in.readString();
     }
 
     public static final Creator<CreateStoreBean> CREATOR = new Creator<CreateStoreBean>() {

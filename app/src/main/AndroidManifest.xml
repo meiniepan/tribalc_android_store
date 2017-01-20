@@ -86,7 +86,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.gs.buluo.store.view.activity.VerifyActivity"
+            android:name="com.gs.buluo.store.view.activity.BusinessVerifyActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.gs.buluo.store.view.activity.SettingActivity"
@@ -181,7 +181,7 @@
         <activity android:name=".view.activity.CreateStoreVarietyActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.CreateDetailActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.PhotoActivity"
             android:screenOrientation="portrait"/>
@@ -191,18 +191,25 @@
             android:launchMode="singleTop"
             />
         <activity android:name=".view.activity.CreateDetailActivitySecond"
-            android:windowSoftInputMode="stateAlwaysHidden"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.CreateGoodsVarietyActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.QualificationActivity"
+        <activity android:name=".view.activity.IdentificationActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.CreateStoreAddressActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.CreateStoreFinishActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.StoreInfoActivity"
+        <activity android:name=".view.activity.MealStoreInfoActivity"
             android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.TradeLicenceActivity"/>
+        <activity android:name=".view.activity.GoodsStoreInfoActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.VerifyProcessingActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.ServeTimeActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.ProtocolActivity"/>
     </application>

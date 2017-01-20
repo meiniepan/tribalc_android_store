@@ -161,7 +161,6 @@ public class DatePickerPanel extends Dialog {
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         params.gravity = Gravity.BOTTOM;
         window.setAttributes(params);
-        ButterKnife.bind(this, rootView);
     }
 
 

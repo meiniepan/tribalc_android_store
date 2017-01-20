@@ -110,7 +110,7 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
                 break;
             case R.id.create_finish:
                 storeBean.topics = etTopic.getText().toString().trim();
-                storeBean.recommendedReason = etTopic.toString().trim();
+                storeBean.recommendedReason = etRecommend.getText().toString().trim();
                 setFacility();
                 createStore();
                 break;

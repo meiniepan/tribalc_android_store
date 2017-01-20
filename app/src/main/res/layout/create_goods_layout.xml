@@ -248,6 +248,7 @@
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
         android:paddingBottom="4dp"
+        android:gravity="top"
         android:hint="例：艺术美术馆外隐藏的文艺餐厅，花园中心的小阁楼 享受田园般乐趣。"
         android:textSize="@dimen/dimens_12sp"
         android:height="60dp"

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="#2A2A2A">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="商铺认证"
+            android:textColor="#fff"
+            android:textSize="@dimen/title_size" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="#000" />
+
+        <include
+            android:id="@+id/back"
+            layout="@layout/back_img_white" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="认证中"
+        android:gravity="center"
+        android:textSize="@dimen/dimens_24sp"/>
+</LinearLayout>

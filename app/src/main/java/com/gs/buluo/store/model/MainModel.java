@@ -2,19 +2,19 @@ package com.gs.buluo.store.model;
 
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.TribeApplication;
+import com.gs.buluo.store.bean.AuthenticationData;
 import com.gs.buluo.store.bean.CreateStoreBean;
-import com.gs.buluo.store.bean.RequestBodyBean.AuthorityRequest;
 import com.gs.buluo.store.bean.RequestBodyBean.PhoneUpdateBody;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
+import com.gs.buluo.store.bean.ResponseBody.StoreSetMealResponse;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessBody;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
 import com.gs.buluo.store.bean.ResponseBody.UserAddressListResponse;
 import com.gs.buluo.store.bean.ResponseBody.UserBeanResponse;
 import com.gs.buluo.store.bean.RequestBodyBean.LoginBody;
 import com.gs.buluo.store.bean.StoreInfo;
-import com.gs.buluo.store.bean.StoreSetMeal;
 import com.gs.buluo.store.network.MainService;
 import com.gs.buluo.store.network.TribeRetrofit;
 
@@ -48,10 +48,7 @@ public class MainModel {             //登录数据同步,上传，验证码
                 getStoreInfo(uid).enqueue(callback);
     }
 
-    public void updateUser(String id, String key, String value, CreateStoreBean bean, Callback<BaseResponse<CodeResponse>> callback) {
-        if (key.equals(Constant.AREA)) {
-            key="province,city,district";
-        }
+    public void updateStore(String id, String key, String value, CreateStoreBean bean, Callback<BaseResponse<CodeResponse>> callback) {
         TribeRetrofit.getInstance().createApi(MainService.class).
                 updateUser(id,key,bean).enqueue(callback);
     }
@@ -76,14 +73,9 @@ public class MainModel {             //登录数据同步,上传，验证码
                 getUploadUrl(TribeApplication.getInstance().getUserInfo().getId(), body).enqueue(callback);
     }
 
-    public void doAuthentication(String name, String sex, long birthday, String idNo, Callback<BaseResponse<StoreInfo>> callback) {
-        AuthorityRequest request = new AuthorityRequest();
-        request.birthday = birthday + "";
-        request.idNo = idNo;
-        request.name = name;
-        request.personSex = sex;
+    public void doAuthentication(AuthenticationData data, Callback<BaseResponse<CodeResponse>> callback) {
         TribeRetrofit.getInstance().createApi(MainService.class).
-                doAuthentication(TribeApplication.getInstance().getUserInfo().getId(), request).enqueue(callback);
+                doAuthentication(TribeApplication.getInstance().getUserInfo().getId(), data).enqueue(callback);
     }
 
     public void updatePhone(String phone, String code, Callback<BaseResponse<CodeResponse>> callback) {
@@ -99,7 +91,7 @@ public class MainModel {             //登录数据同步,上传，验证码
                 getCreateStore(TribeApplication.getInstance().getUserInfo().getId()).enqueue(callback);
     }
 
-    public void getSetMeal(Callback<BaseResponse<StoreSetMeal>> callback) {
+    public void getSetMeal(Callback<StoreSetMealResponse> callback) {
         TribeRetrofit.getInstance().createApi(MainService.class).
                 getCreateSetMeal(TribeApplication.getInstance().getUserInfo().getId()).enqueue(callback);
     }

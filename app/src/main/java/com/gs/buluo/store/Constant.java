@@ -10,6 +10,8 @@ public class Constant {
     public static final String ENVIRONMENT = "environment";
     public static final String GOODS = "GOODS";
     public static final String SET_MEAL = "SET_MEAL";
+    public static final String AUTH = "auth";
+    public static final String SERVE_TIME = "serve_time";
 
 
     public final static class Base {

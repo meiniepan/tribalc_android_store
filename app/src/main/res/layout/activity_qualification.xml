@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="提交资质"
+            android:text="身份认证"
 
             android:textColor="#fff"
             android:textSize="@dimen/title_size" />
@@ -31,140 +31,99 @@
             layout="@layout/back_img_white" />
     </RelativeLayout>
 
-    <LinearLayout
+    <TextView
+        android:textSize="@dimen/dimens_12sp"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="28dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/common_gray"
+        android:text="必须本人身份证正反面照片，且内容清晰可辨认"
+        android:drawablePadding="4dp"
+        android:drawableStart="@drawable/circle_red"
+        android:id="@+id/textView15" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/verify_edit_height"
-            android:layout_marginTop="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="注册号"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/verify_name"
-                android:layout_width="@dimen/verify_edit_width"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:background="@null"
-                android:hint="@string/input_store_name"
-                android:textColor="@color/common_gray"
-                android:textSize="@dimen/dimens_14sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/verify_edit_height"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="执照名称"
-                android:textSize="16sp" />
-
-            <EditText
-                android:layout_width="@dimen/verify_edit_width"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:background="@null"
-                android:hint="@string/input_store_name"
-                android:textColor="@color/common_gray"
-                android:textSize="@dimen/dimens_14sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/verify_edit_height"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="营业执照"
-                android:textSize="16sp" />
-
-            <EditText
-                android:layout_width="@dimen/verify_edit_width"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:background="@null"
-                android:hint="@string/input_store_name"
-                android:textColor="@color/common_gray"
-                android:textSize="@dimen/dimens_14sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <include layout="@layout/split_area" />
-
-    <LinearLayout
+    <TextView
+        android:textSize="@dimen/dimens_12sp"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <LinearLayout
+        android:layout_height="28dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/common_gray"
+        android:text="请您确认拍照权限已开"
+        android:drawablePadding="4dp"
+        android:drawableStart="@drawable/circle_red"/>
+    <TextView
+        android:textSize="@dimen/dimens_12sp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/common_gray"
+        android:text="本页位必填项"
+        android:drawablePadding="4dp"
+        android:drawableStart="@drawable/circle_red"/>
+    
+    <LinearLayout
+        android:id="@+id/ll_identify_front"
+        android:layout_width="300dp"
+        android:layout_height="181dp"
+        android:orientation="vertical"
+        android:background="@drawable/text_background_round"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal">
+        <TextView
+            android:id="@+id/identify_front"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="身份证反面照上传"
+            android:drawableTop="@mipmap/camera"
+            android:drawablePadding="6dp"
+            android:textColor="@color/common_gray"/>
+        <ImageView
+            android:id="@+id/identify_front_image"
+            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/verify_edit_height"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="法人姓名"
-                android:textSize="16sp" />
-
-            <EditText
-                android:layout_width="@dimen/verify_edit_width"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:background="@null"
-                android:hint="@string/input_store_name"
-                android:textColor="@color/common_gray"
-                android:textSize="@dimen/dimens_14sp" />
-        </LinearLayout>
-
-        <LinearLayout
+            android:layout_height="match_parent"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_identify_back"
+        android:layout_marginTop="10dp"
+        android:layout_width="300dp"
+        android:layout_height="181dp"
+        android:orientation="vertical"
+        android:background="@drawable/text_background_round"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal">
+        <TextView
+            android:id="@+id/identify_back"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="身份证反面照上传"
+            android:drawableTop="@mipmap/camera"
+            android:textColor="@color/common_gray"/>
+        <ImageView
+            android:id="@+id/identify_back_image"
+            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/verify_edit_height"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="法人身份证"
-                android:textSize="16sp" />
-
-            <EditText
-                android:layout_width="@dimen/verify_edit_width"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:background="@null"
-                android:hint="@string/input_store_name"
-                android:textColor="@color/common_gray"
-                android:textSize="@dimen/dimens_14sp" />
-        </LinearLayout>
+            android:layout_height="match_parent"
+            />
     </LinearLayout>
 
-    <include layout="@layout/split_area" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom">
+        <Button
+            android:id="@+id/qualification_finish"
+            android:text="@string/next"
+            style="@style/button_style" />
+    </RelativeLayout>
 
-    <Button
-        android:id="@+id/qualification_finish"
-        android:text="提交"
-        style="@style/button_style" />
 </LinearLayout>

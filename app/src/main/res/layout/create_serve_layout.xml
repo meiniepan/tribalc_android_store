@@ -168,7 +168,7 @@
         <include layout="@layout/split_line_no_margin_common" />
 
         <LinearLayout
-            android:id="@+id/store_create__time"
+            android:id="@+id/store_create_time"
             android:layout_width="match_parent"
             android:layout_height="@dimen/verify_edit_height"
             android:gravity="center_vertical"

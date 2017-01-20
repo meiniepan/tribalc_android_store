@@ -1,26 +1,26 @@
 package com.gs.buluo.store.view.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.gs.buluo.store.R;
 
 /**
- * Created by hjn on 2017/1/12.
+ * Created by hjn on 2017/1/20.
  */
-public class QualificationActivity extends BaseActivity {
+public class VerifyProcessingActivity extends BaseActivity{
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        findViewById(R.id.qualification_finish).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
             }
         });
     }
 
     @Override
     protected int getContentLayout() {
-        return R.layout.activity_qualification;
+        return R.layout.activity_verify_processing;
     }
 }

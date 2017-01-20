@@ -1,20 +1,18 @@
 package com.gs.buluo.store.network;
 
-import android.provider.CallLog;
-
+import com.gs.buluo.store.bean.AuthenticationData;
 import com.gs.buluo.store.bean.CreateStoreBean;
-import com.gs.buluo.store.bean.RequestBodyBean.AuthorityRequest;
 import com.gs.buluo.store.bean.RequestBodyBean.LoginBody;
 import com.gs.buluo.store.bean.RequestBodyBean.PhoneUpdateBody;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
+import com.gs.buluo.store.bean.ResponseBody.StoreSetMealResponse;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessBody;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
 import com.gs.buluo.store.bean.ResponseBody.UserAddressListResponse;
 import com.gs.buluo.store.bean.ResponseBody.UserBeanResponse;
 import com.gs.buluo.store.bean.StoreInfo;
-import com.gs.buluo.store.bean.StoreSetMeal;
 import com.gs.buluo.store.bean.StoreSetMealCreation;
 
 import retrofit2.Call;
@@ -49,8 +47,8 @@ public interface MainService {
     @POST("oss_authorization/picture")
     Call<UploadAccessResponse> getUploadUrl(@Query("me") String id, @Body UploadAccessBody body);
 
-    @POST("stores/{id}/authentication")
-    Call<BaseResponse<StoreInfo>> doAuthentication(@Path("id") String id, @Body AuthorityRequest request);
+    @PUT("stores/{id}/authentication")
+    Call<BaseResponse<CodeResponse>> doAuthentication(@Path("id") String id, @Body AuthenticationData request);
 
     @PUT("stores/{id}/sensitive_info")
     Call<BaseResponse<CodeResponse>> updatePhone(@Path("id") String id, @Body PhoneUpdateBody body);
@@ -58,15 +56,18 @@ public interface MainService {
     @GET("stores/{id}/store_detail")
     Call<BaseResponse<CreateStoreBean>> getCreateStore(@Path("id")String uid);
 
-    @GET("store_set_meals/{id}/get_set_meal")
-    Call<BaseResponse<StoreSetMeal>> getCreateSetMeal(@Path("id")String uid);
-
     @PUT("stores/{id}/{propNames}")
     Call<BaseResponse<CodeResponse>> updateUser(@Path("id") String id,@Path("propNames") String propNames,@Body CreateStoreBean bean);
 
     @POST("stores/{id}")
     Call<BaseResponse<StoreInfo>> createStore(@Path("id") String id,@Body CreateStoreBean bean);
 
-    @POST("store_set_meals/store/{storeId}/creation")
-    Call<BaseResponse<CodeResponse>> createServe(@Path("storeId")String uid, @Body StoreSetMealCreation body);
+    @GET("store_set_meals/for_store")
+    Call<StoreSetMealResponse> getCreateSetMeal(@Query("me")String uid);
+
+    @POST("store_set_meals/creation")
+    Call<BaseResponse<CodeResponse>> createServe(@Query("me") String uid, @Body StoreSetMealCreation body);
+
+    @PUT("store_set_meals/{id}/{propNames}")
+    Call<BaseResponse<CodeResponse>> updateMeal(@Path("id")String mealId,@Path("propNames") String propNames,@Body StoreSetMealCreation mealCreation);
 }

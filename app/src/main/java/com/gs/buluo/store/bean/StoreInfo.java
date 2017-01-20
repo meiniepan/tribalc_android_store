@@ -8,8 +8,6 @@ import com.gs.buluo.store.bean.ResponseBody.IBaseResponse;
 import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;
 
-import java.util.List;
-
 /**
  * Created by hjn on 2016/11/10.
  */
@@ -23,6 +21,18 @@ public class StoreInfo implements IBaseResponse, Parcelable {
     @Column(name = "name")
     public String name;
 
+    public static final Creator<StoreInfo> CREATOR = new Creator<StoreInfo>() {
+        @Override
+        public StoreInfo createFromParcel(Parcel in) {
+            return new StoreInfo(in);
+        }
+
+        @Override
+        public StoreInfo[] newArray(int size) {
+            return new StoreInfo[size];
+        }
+    };
+
     public String getLinkman() {
         return linkman;
     }
@@ -31,12 +41,12 @@ public class StoreInfo implements IBaseResponse, Parcelable {
         this.linkman = linkman;
     }
 
-    public String getStoreAuthenticationStatus() {
-        return storeAuthenticationStatus;
+    public String getAuthenticationStatus() {
+        return authenticationStatus;
     }
 
-    public void setStoreAuthenticationStatus(String storeAuthenticationStatus) {
-        this.storeAuthenticationStatus = storeAuthenticationStatus;
+    public void setAuthenticationStatus(String authenticationStatus) {
+        this.authenticationStatus = authenticationStatus;
     }
 
     @Column(name = "linkman")
@@ -58,7 +68,7 @@ public class StoreInfo implements IBaseResponse, Parcelable {
     public String logo;
 
     @Column(name = "status")
-    public String storeAuthenticationStatus;
+    public String authenticationStatus;
 
     public String getName() {
         return name;
@@ -146,7 +156,7 @@ public class StoreInfo implements IBaseResponse, Parcelable {
         dest.writeString(this.phone);
         dest.writeString(this.cover);
         dest.writeString(this.logo);
-        dest.writeString(this.storeAuthenticationStatus);
+        dest.writeString(this.authenticationStatus);
     }
 
     protected StoreInfo(Parcel in) {
@@ -159,18 +169,7 @@ public class StoreInfo implements IBaseResponse, Parcelable {
         this.phone = in.readString();
         this.cover = in.readString();
         this.logo = in.readString();
-        this.storeAuthenticationStatus = in.readString();
+        this.authenticationStatus = in.readString();
     }
 
-    public static final Creator<StoreInfo> CREATOR = new Creator<StoreInfo>() {
-        @Override
-        public StoreInfo createFromParcel(Parcel source) {
-            return new StoreInfo(source);
-        }
-
-        @Override
-        public StoreInfo[] newArray(int size) {
-            return new StoreInfo[size];
-        }
-    };
 }

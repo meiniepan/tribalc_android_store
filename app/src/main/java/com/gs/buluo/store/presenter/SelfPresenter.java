@@ -23,7 +23,7 @@ public class SelfPresenter extends BasePresenter<ISelfView> {
     }
 
     public void  updateUser(final String key, final String value,CreateStoreBean bean){
-        mainModel.updateUser(TribeApplication.getInstance().getUserInfo().getId(), key, value, bean, new TribeCallback<CodeResponse>() {
+        mainModel.updateStore(TribeApplication.getInstance().getUserInfo().getId(), key, value, bean, new TribeCallback<CodeResponse>() {
             @Override
             public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
                 if (isAttach())mView.updateSuccess(key,value);
