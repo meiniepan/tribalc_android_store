@@ -12,6 +12,7 @@ public class Constant {
     public static final String SET_MEAL = "SET_MEAL";
     public static final String AUTH = "auth";
     public static final String SERVE_TIME = "serve_time";
+    public static final String STANDARD_INFO="standard_info";
 
 
     public final static class Base {
@@ -19,7 +20,7 @@ public class Constant {
                 public static final String BASE_URL="https://dev-app-services.buluo-gs.com:443/tribalc/v1.0/";
 //        public static final String BASE_URL="http://dev-app-services.buluo-gs.com:10086/tribalc/v1.0/";
         public static final String BASE_IMG_URL = "http://dev-app-services.buluo-gs.com/resources/";   //图片地址要加此前缀
-        public static final String BASE_ALI_URL = "http://buluo-gs-pictures.oss-cn-beijing.aliyuncs.com/";   //阿里云图片地址base
+        public static final String BASE_ONLINE_URL = "http://pictures.buluo-gs.com/";   //阿里云图片地址base
         public static final String WX_ID = "wx1906c6844a4273e2";
     }
 
@@ -41,7 +42,7 @@ public class Constant {
     public static final int REQUEST_ADDRESS = 208;
     public static final String RECEIVER = "receiver";
 
-    public static final String TYPE = "type";
+    public static final String TYPE = "types";
     public static final String COMMUNITY_ID = "community_id";
     public static final String COMMUNITY_NAME = "community_name";
 
@@ -64,6 +65,9 @@ public class Constant {
         public static final String PHOTO_TYPE = "photo_type";
         public static final String STORE_BEAN = "store_bean";
         public static final String STORE_NAME = "store_name";
+        public static final String GOODS_BEAN = "goods_bean";
+        public static final String META = "goods_meta";
+        public static final String GOODS_CATEGORY = "goods_category";
     }
 
 }

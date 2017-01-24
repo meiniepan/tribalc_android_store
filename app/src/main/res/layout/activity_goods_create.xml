@@ -29,22 +29,202 @@
             layout="@layout/back_img_white"
             android:id="@+id/back" />
     </RelativeLayout>
+    <include layout="@layout/split_area"/>
+
 
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin">
 
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+        <LinearLayout
+            android:id="@+id/store_food"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:orientation="vertical"
             android:gravity="center"
-            android:text="食品" />
+            android:background="@drawable/text_background_round">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@mipmap/food"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimens_12sp"
+                android:textColor="@color/common_gray"
+                android:text="食品" />
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+
+        <LinearLayout
+            android:id="@+id/store_gift"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:orientation="vertical"
             android:gravity="center"
-            android:text="礼品" />
+            android:background="@drawable/text_background_round"
+            android:layout_marginStart="12dp">
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@mipmap/gift"
+                android:id="@+id/imageView4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimens_12sp"
+                android:textColor="@color/common_gray"
+                android:text="礼品" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/store_office"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/text_background_round"
+            android:layout_marginStart="12dp">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@mipmap/office"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimens_12sp"
+                android:textColor="@color/common_gray"
+                android:text="@string/office" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/store_life"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/text_background_round"
+            android:layout_marginStart="12dp">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@mipmap/living"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimens_12sp"
+                android:textColor="@color/common_gray"
+                android:text="@string/life_use" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="20dp">
+
+        <LinearLayout
+            android:id="@+id/store_furniture"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/text_background_round">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@mipmap/furniture"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimens_12sp"
+                android:textColor="@color/common_gray"
+                android:text="@string/furniture" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/store_dress"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/text_background_round"
+            android:layout_marginStart="12dp">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@mipmap/dress"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimens_12sp"
+                android:textColor="@color/common_gray"
+                android:text="@string/dress" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/store_baby"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/text_background_round"
+            android:layout_marginStart="12dp">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@mipmap/baby"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimens_12sp"
+                android:textColor="@color/common_gray"
+                android:text="@string/baby" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/store_vip"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/text_background_round"
+            android:layout_marginStart="12dp">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@mipmap/vip"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimens_12sp"
+                android:textColor="@color/common_gray"
+                android:text="@string/vip" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

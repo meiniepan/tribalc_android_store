@@ -3,10 +3,16 @@ package com.gs.buluo.store.network;
 import com.gs.buluo.store.bean.GoodList;
 import com.gs.buluo.store.bean.GoodsStandard;
 import com.gs.buluo.store.bean.ListGoodsDetail;
+import com.gs.buluo.store.bean.RequestBodyBean.CreateGoodsRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
+import com.gs.buluo.store.bean.ResponseBody.CreateGoodsResponse;
+import com.gs.buluo.store.bean.ResponseBody.GoodsStandardResponse;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -32,4 +38,10 @@ public interface GoodsService {
 
     @GET("goods_standards/{id}")
     Call<BaseResponse<GoodsStandard>> getGoodsStandard(@Path("id") String id);
+
+    @GET("goods_standards?sort=createTime,desc/createTime,asc")
+    Call<BaseResponse<GoodsStandardResponse>> getStandardList(@Query("me")String storeId,@Query("category")String category);
+
+    @POST("goods")
+    Call<CreateGoodsResponse> createGoods(@Query("me")String uid , @Body CreateGoodsRequestBody body);
 }

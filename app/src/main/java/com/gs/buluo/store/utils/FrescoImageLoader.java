@@ -51,7 +51,7 @@ public class FrescoImageLoader extends ImageLoader {
         String body = arrs[1];
         switch (head) {
             case "oss":
-                return Constant.Base.BASE_ALI_URL + body;
+                return Constant.Base.BASE_ONLINE_URL + body;
             default:
                 return Constant.Base.BASE_IMG_URL + body;
         }

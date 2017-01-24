@@ -9,6 +9,6 @@ public class UploadAccessResponse {
 
     public class UploadResponseBody {
         public String url;          //图片的阿里云服务器url
-        public String objectKey;   //更新用户头像信息的key
+        public String objectKey;   // 有效url
     }
 }

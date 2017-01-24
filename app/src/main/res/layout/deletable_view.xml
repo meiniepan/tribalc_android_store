@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <View
+        android:id="@+id/holder"
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"/>
+    <TextView
+        android:id="@+id/custom_text"
+        android:layout_below="@+id/holder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/text_background"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:paddingStart="20dp"
+        android:text="慢100件10"
+        android:paddingEnd="20dp"/>
+    <ImageView
+        android:layout_alignEnd="@+id/custom_text"
+        android:id="@+id/delete_icon"
+        android:layout_below="@+id/holder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/delete_2"
+        android:layout_marginTop="-6dp"
+        android:layout_marginEnd="-6dp"/>
+</RelativeLayout>

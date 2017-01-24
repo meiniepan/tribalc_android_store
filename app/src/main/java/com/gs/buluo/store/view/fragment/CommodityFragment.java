@@ -76,11 +76,6 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
     }
 
     @Override
-    protected BasePresenter getPresenter() {
-        return new ShoppingCarPresenter();
-    }
-
-    @Override
     public void OnSearchClick(String keyword) {
         ToastUtils.ToastMessage(getActivity(), keyword);
     }

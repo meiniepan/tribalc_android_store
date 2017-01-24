@@ -62,10 +62,10 @@ public interface MainService {
     @POST("stores/{id}")
     Call<BaseResponse<StoreInfo>> createStore(@Path("id") String id,@Body CreateStoreBean bean);
 
-    @GET("store_set_meals/for_store")
+    @GET("store_set_meals")
     Call<StoreSetMealResponse> getCreateSetMeal(@Query("me")String uid);
 
-    @POST("store_set_meals/creation")
+    @POST("store_set_meals")
     Call<BaseResponse<CodeResponse>> createServe(@Query("me") String uid, @Body StoreSetMealCreation body);
 
     @PUT("store_set_meals/{id}/{propNames}")

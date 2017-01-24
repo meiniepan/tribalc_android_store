@@ -36,6 +36,7 @@
         android:backgroundTint="@color/custom_yellow"
         android:elevation="6dp"
         app:borderWidth="0dp"
+        android:src="@mipmap/add"
         app:pressedTranslationZ="12dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"

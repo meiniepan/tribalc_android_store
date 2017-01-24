@@ -211,6 +211,20 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.ServeTimeActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.GoodsStandardActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.NewGoodsActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.CreateStandardActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.CreateGoodsFinalActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.AddGoodsWithStandardActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.ProtocolActivity"/>
     </application>
 

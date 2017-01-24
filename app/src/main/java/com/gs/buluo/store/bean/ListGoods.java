@@ -17,6 +17,9 @@ public class ListGoods implements Parcelable {
     public String saleQuantity;
     public String standardSnapshot;
 
+    public ListGoods() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -35,9 +38,6 @@ public class ListGoods implements Parcelable {
         dest.writeString(this.standardSnapshot);
     }
 
-    public ListGoods() {
-    }
-
     protected ListGoods(Parcel in) {
         this.id = in.readString();
         this.storeId = in.readString();
@@ -50,7 +50,7 @@ public class ListGoods implements Parcelable {
         this.standardSnapshot = in.readString();
     }
 
-    public static final Parcelable.Creator<ListGoods> CREATOR = new Parcelable.Creator<ListGoods>() {
+    public static final Creator<ListGoods> CREATOR = new Creator<ListGoods>() {
         @Override
         public ListGoods createFromParcel(Parcel source) {
             return new ListGoods(source);

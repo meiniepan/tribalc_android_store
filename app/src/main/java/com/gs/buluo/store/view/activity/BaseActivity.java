@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
@@ -127,6 +128,9 @@ public abstract class BaseActivity<T extends BasePresenter<IBaseView>> extends A
         LoadingDialog.getInstance().dismissDialog();
     }
 
+    protected Context getCtx(){
+        return this;
+    }
 
     protected abstract void bindView(Bundle savedInstanceState);
 
@@ -144,6 +148,10 @@ public abstract class BaseActivity<T extends BasePresenter<IBaseView>> extends A
             return false;
         }
         return true;
+    }
+
+    protected  <T extends View> T findView(int resId) {
+        return (T) findViewById(resId);
     }
 }
 

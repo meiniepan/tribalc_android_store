@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="28dp">
+        <ImageView
+            android:id="@+id/item_standard_delete"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin_arrow"
+            android:src="@mipmap/dele_pic"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+    <include layout="@layout/split_line"/>
+    <TextView
+        android:id="@+id/item_standard_name"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="红色-盒子精装"/>
+    <LinearLayout
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingBottom="10dp">
+        <EditText
+            android:id="@+id/item_standard_origin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dimens_12sp"
+            android:hint="输入原价"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:background="@drawable/text_background"/>
+        <EditText
+            android:id="@+id/item_standard_sale"
+            android:layout_marginStart="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dimens_12sp"
+            android:hint="输入现价"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:background="@drawable/text_background"/>
+        <EditText
+            android:id="@+id/item_standard_repertory"
+            android:layout_marginStart="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/dimens_12sp"
+            android:hint="输入库存"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:background="@drawable/text_background"/>
+    </LinearLayout>
+</LinearLayout>

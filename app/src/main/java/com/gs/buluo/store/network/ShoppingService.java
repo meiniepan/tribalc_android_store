@@ -24,15 +24,15 @@ import retrofit2.http.Query;
  */
 public interface ShoppingService {
 
-    @GET("orders?type=store")
+    @GET("orders?types=store")
     Call<OrderResponse> getOrderFirst(@Query("store") String uid, @Query("limitSize") String limitSize,
                                       @Query("status") String status);
 
-    @GET("orders?type=store")
+    @GET("orders?types=store")
     Call<OrderResponse> getOrder(@Query("store") String uid, @Query("limitSize") String limitSize
             , @Query("sortSkip") String sortSkip, @Query("status") String status);
 
-    @PUT("orders/{orderId}/status?type=store")
+    @PUT("orders/{orderId}/status?types=store")
     Call<BaseResponse> updateOrderToSend(@Path("orderId") String orderId, @Query("storeId") String uid,
                                          @Query("logisticsNum")String logisticsNum,
                                          @Query("logisticsCompany")String logisticsCompany,@Body ValueRequestBody status);

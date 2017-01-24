@@ -62,7 +62,7 @@ public interface MoneyService {
     Call<BaseResponse<OrderPayment>> getPaymentStatus(@Path("id") String uid, @Path("paymentId") String paymentId);
 
     @POST("wallets/{id}/payments")
-    Call<BaseResponse<OrderPayment>> createPayment(@Path("id") String uid, @Query("type") String type, @Body NewPaymentRequest request);
+    Call<BaseResponse<OrderPayment>> createPayment(@Path("id") String uid, @Query("types") String type, @Body NewPaymentRequest request);
 
     @POST("recharge/wechat/unifiedorder")
     Call<BaseResponse<WxPayResponse>> payInWx(@Query("me") String uid, @Body ValueRequestBody body);
