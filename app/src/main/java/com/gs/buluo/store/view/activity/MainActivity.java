@@ -9,6 +9,7 @@ import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.MainPagerAdapter;
@@ -68,10 +70,16 @@ public class MainActivity extends BaseActivity implements ILoginView, ViewPager.
     private List<ImageView> tabIcons = new ArrayList<>(4);
     private MineFragment mineFragment;
     private long mkeyTime = 0;
+    private CommodityFragment commodityFragment;
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        String flag = intent.getStringExtra(Constant.ForIntent.FLAG);
+        if (TextUtils.equals(flag,Constant.GOODS)){
+            commodityFragment.refreshList(intent.getBooleanExtra(Constant.PUBLISHED,false));
+            return;
+        }
         if (new StoreInfoDao().findFirst() == null) {
             mineFragment.setLoginState(false);
         } else {
@@ -84,7 +92,8 @@ public class MainActivity extends BaseActivity implements ILoginView, ViewPager.
         setBarColor(R.color.transparent);
         list = new ArrayList<>();
         list.add(new MainFragment());
-        list.add(new CommodityFragment());
+        commodityFragment = new CommodityFragment();
+        list.add(commodityFragment);
         list.add(new ManagerFragment());
         mineFragment = new MineFragment();
         list.add(mineFragment);

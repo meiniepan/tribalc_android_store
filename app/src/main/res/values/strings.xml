@@ -283,6 +283,8 @@
     <string name="send_address">发货地址</string>
     <string name="serve_time">营业时间</string>
     <string name="vip">会员卡</string>
+    <string name="create_goods_standard">创建新规格商品</string>
+    <string name="goods_info_not_complete">商品信息填写不完全</string>
 
     <!--餐厅类型-->
 

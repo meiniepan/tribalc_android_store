@@ -20,6 +20,7 @@ import com.gs.buluo.store.adapter.GoodsLevel1Adapter1;
 import com.gs.buluo.store.adapter.GoodsLevel1Adapter2;
 import com.gs.buluo.store.bean.ListGoodsDetail;
 import com.gs.buluo.store.bean.GoodsStandard;
+import com.gs.buluo.store.bean.StandardLevel;
 import com.gs.buluo.store.utils.FresoUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 
@@ -101,14 +102,14 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
     }
 
     private void setLevelOneData(GoodsStandard entity) {
-        GoodsStandard.GoodsType type = entity.descriptions.primary;
-        type1.setText(type.label);
-        final GoodsLevel1Adapter1 adapter1 = new GoodsLevel1Adapter1(mContext, type.types);
+        StandardLevel primary = entity.descriptions.primary;
+        type1.setText(primary.label);
+        final GoodsLevel1Adapter1 adapter1 = new GoodsLevel1Adapter1(mContext, primary.types);
         leve1View1.setAdapter(adapter1);
 
 //        leve11Key = (entity.descriptions.primary.types).get(0);
         final Map<String, ListGoodsDetail> goodsMap = entity.goodsIndexes;
-        for (String s : type.types) {
+        for (String s : primary.types) {
             if (goodsMap.get(s) == null) {
                 adapter1.setUnClickable(s);
             }
@@ -129,13 +130,13 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
     }
 
     private void setLevelTwoData(GoodsStandard entity) {
-        final GoodsStandard.GoodsType t1 = entity.descriptions.primary;
-        type1.setText(t1.label);
-        adapter1 = new GoodsLevel1Adapter1(mContext, t1.types);
+        final StandardLevel primary = entity.descriptions.primary;
+        type1.setText(primary.label);
+        adapter1 = new GoodsLevel1Adapter1(mContext, primary.types);
         leve1View1.setAdapter(adapter1);
-        final GoodsStandard.GoodsType t2 = entity.descriptions.secondary;
-        type2.setText(t2.label);
-        adapter2 = new GoodsLevel1Adapter2(mContext, t2.types);
+        final StandardLevel secondary = entity.descriptions.secondary;
+        type2.setText(secondary.label);
+        adapter2 = new GoodsLevel1Adapter2(mContext, secondary.types);
         leve1View2.setAdapter(adapter2);
 //        leve11Key = t1.types.get(0);
 //        level2Key = t2.types.get(0);
@@ -146,7 +147,7 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
             public void onClick(String s) {
                 mKind.setText(s);
                 leve11Key = s;
-                changeSelectAdapter2(goodsMap, adapter2, t2.types, s);
+                changeSelectAdapter2(goodsMap, adapter2, secondary.types, s);
 
             }
         });
@@ -154,7 +155,7 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
             @Override
             public void onClick(String s) {
                 level2Key = s;
-                changeSelectAdapter1(goodsMap, adapter1, t1.types, s);
+                changeSelectAdapter1(goodsMap, adapter1, primary.types, s);
             }
         });
     }

@@ -87,6 +87,7 @@
                 <EditText
                     android:id="@+id/create_standard_primary"
                     android:layout_width="match_parent"
+                    android:maxLines="1"
                     android:layout_height="match_parent"
                     android:background="@drawable/text_background"
                     android:layout_marginStart="10dp"

@@ -8,6 +8,7 @@ import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.ResponseBody.CreateGoodsResponse;
 import com.gs.buluo.store.bean.ResponseBody.GoodsStandardResponse;
+import com.gs.buluo.store.bean.StoreGoodsList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -44,4 +45,10 @@ public interface GoodsService {
 
     @POST("goods")
     Call<CreateGoodsResponse> createGoods(@Query("me")String uid , @Body CreateGoodsRequestBody body);
+
+    @GET("goods?sort=saleQuantity,desc/salePrice,asc")
+    Call<BaseResponse<StoreGoodsList>> getStoreGoodsListFirst(@Query("me")String uid,@Query("published")boolean published);
+
+    @GET("goods?sort=saleQuantity,desc/salePrice,asc")
+    Call<BaseResponse<StoreGoodsList>> getStoreGoodsListMore(@Query("me")String uid,@Query("published")boolean published,@Query("sortSkip")String sortSkip);
 }

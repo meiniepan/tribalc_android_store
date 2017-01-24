@@ -24,8 +24,8 @@ public class BaseViewHolder<T> extends RecyclerView.ViewHolder {
 
     }
 
-    public <T extends View> T findViewById(@IdRes int resId) {
-        return (T) itemView.findViewById(resId);
+    public <Y extends View> Y findViewById(@IdRes int resId) {
+        return (Y) itemView.findViewById(resId);
     }
 
     public void setData(final T entity) {

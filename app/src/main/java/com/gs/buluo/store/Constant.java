@@ -13,6 +13,7 @@ public class Constant {
     public static final String AUTH = "auth";
     public static final String SERVE_TIME = "serve_time";
     public static final String STANDARD_INFO="standard_info";
+    public static final String PUBLISHED = "published";
 
 
     public final static class Base {
@@ -68,6 +69,7 @@ public class Constant {
         public static final String GOODS_BEAN = "goods_bean";
         public static final String META = "goods_meta";
         public static final String GOODS_CATEGORY = "goods_category";
+        public static final String GOODS_STANDARD = "goods_standard";
     }
 
 }

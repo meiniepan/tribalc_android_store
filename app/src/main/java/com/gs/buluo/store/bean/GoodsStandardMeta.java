@@ -10,6 +10,7 @@ import java.util.HashMap;
  */
 
 public class GoodsStandardMeta implements Parcelable {
+    public String id;
     public String title;
     public GoodsStandardDescriptions descriptions;
     public HashMap<String,GoodsPriceAndRepertory> priceAndRepertoryMap ;
@@ -24,13 +25,17 @@ public class GoodsStandardMeta implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
         dest.writeString(this.title);
         dest.writeParcelable(this.descriptions, flags);
+        dest.writeSerializable(this.priceAndRepertoryMap);
     }
 
     protected GoodsStandardMeta(Parcel in) {
+        this.id = in.readString();
         this.title = in.readString();
         this.descriptions = in.readParcelable(GoodsStandardDescriptions.class.getClassLoader());
+        this.priceAndRepertoryMap = (HashMap<String, GoodsPriceAndRepertory>) in.readSerializable();
     }
 
     public static final Creator<GoodsStandardMeta> CREATOR = new Creator<GoodsStandardMeta>() {

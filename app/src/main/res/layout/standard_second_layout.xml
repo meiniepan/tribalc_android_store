@@ -33,6 +33,7 @@
             android:id="@+id/goods_create_standard_name2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:maxLines="1"
             android:background="@drawable/text_background"
             android:textSize="@dimen/dimens_12sp"
             android:layout_marginStart="10dp"

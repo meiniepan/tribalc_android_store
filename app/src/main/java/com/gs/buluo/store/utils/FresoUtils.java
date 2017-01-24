@@ -47,6 +47,7 @@ public class FresoUtils {
     }
 
     public static String formatImageUrl(String url) {
+        if (url==null)return "";
         String ret = url;
         if (url.contains("://")) {
             String[] arrs = url.split("\\://");

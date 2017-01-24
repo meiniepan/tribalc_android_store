@@ -153,7 +153,6 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
             standardMeta = bundle.getParcelable("data");
             standardMeta.priceAndRepertoryMap = serMap.getMap();
             tvStandard.setText(standardMeta.title);
-//            standardMeta = data.getParcelableExtra(Constant.STANDARD_INFO);
             findView(R.id.ll_create_goods_orgin).setVisibility(View.GONE);
             findView(R.id.ll_create_goods_sale).setVisibility(View.GONE);
             findView(R.id.ll_create_goods_repertory).setVisibility(View.GONE);
@@ -161,7 +160,6 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void goNext() {
-        meta.category=GoodsCategory.FOOD;
         meta.name =etTitle.getText().toString().trim();
         meta.title = etTitleDetail.getText().toString().trim();
         meta.pictures = picList;
@@ -171,7 +169,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
         if (standardMeta==null){
             GoodsPriceAndRepertory goods = new GoodsPriceAndRepertory();
             if (etSale.length()==0||etStock.length()==0){
-                ToastUtils.ToastMessage(this,"请完善信息填写");
+                ToastUtils.ToastMessage(this,R.string.goods_info_not_complete);
                 return;
             }
             goods.orginPrice = Float.parseFloat(etOrigin.getText().toString().trim());

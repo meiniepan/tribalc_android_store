@@ -101,4 +101,5 @@ public abstract class BaseFragment<T extends IBaseView> extends Fragment {
     protected BasePresenter getPresenter() {
         return null;
     }
+
 }

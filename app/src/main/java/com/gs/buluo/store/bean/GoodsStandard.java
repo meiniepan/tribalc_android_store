@@ -11,16 +11,5 @@ import java.util.Map;
 public class GoodsStandard implements IBaseResponse {
     public String id;
     public Map<String, ListGoodsDetail> goodsIndexes;
-    public GoodsDescription descriptions;
-
-    public class GoodsDescription {
-        public GoodsType primary;
-        public GoodsType secondary;
-    }
-
-
-    public class GoodsType {
-        public String label;
-        public List<String> types;
-    }
+    public GoodsStandardDescriptions descriptions;
 }

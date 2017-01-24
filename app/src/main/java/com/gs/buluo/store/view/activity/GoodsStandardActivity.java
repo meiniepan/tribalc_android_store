@@ -19,6 +19,7 @@ import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -34,18 +35,32 @@ public class GoodsStandardActivity extends BaseActivity implements Callback<Base
     RefreshRecyclerView refreshRecyclerView;
 
     StandardListAdapter listAdapter;
+    private List<GoodsStandardMeta> standardMetas;
+
     @Override
     protected void bindView(Bundle savedInstanceState) {
         final String category = getIntent().getStringExtra(Constant.ForIntent.GOODS_CATEGORY);
-        findViewById(R.id.goods_create).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.choose_standard_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GoodsStandardActivity.this, NewGoodsActivity.class);
-                intent.putExtra(Constant.ForIntent.GOODS_CATEGORY,category);
-                startActivity(intent);
+                if (listAdapter==null)return;
+                if (listAdapter.getCurrentPos() == 0){
+                    Intent intent = new Intent(GoodsStandardActivity.this, NewGoodsActivity.class);
+                    intent.putExtra(Constant.ForIntent.GOODS_CATEGORY,category);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(GoodsStandardActivity.this, AddGoodsWithStandardActivity.class);
+                    intent.putExtra(Constant.ForIntent.GOODS_STANDARD,standardMetas.get(listAdapter.getCurrentPos()));
+                    intent.putExtra(Constant.ForIntent.GOODS_CATEGORY,category);
+                    startActivity(intent);
+                }
             }
         });
-        listAdapter=new StandardListAdapter(this);
+        GoodsStandardMeta goodsStandardMeta= new GoodsStandardMeta();
+        goodsStandardMeta.title = getString(R.string.create_goods_standard);
+        standardMetas = new ArrayList<>();
+        standardMetas.add(goodsStandardMeta);
+        listAdapter=new StandardListAdapter(this, standardMetas);
         refreshRecyclerView.setAdapter(listAdapter);
         TribeRetrofit.getInstance().createApi(GoodsService.class).getStandardList(TribeApplication.getInstance().getUserInfo().getId(),category)
         .enqueue(this);
@@ -61,6 +76,7 @@ public class GoodsStandardActivity extends BaseActivity implements Callback<Base
         if (response!=null&&response.body()!=null&&response.body().code==200){
             List<GoodsStandardMeta> content = response.body().data.content;
             listAdapter.addAll(content);
+            refreshRecyclerView.setAdapter(listAdapter);
         }else {
             ToastUtils.ToastMessage(this,R.string.connect_fail);
         }
@@ -70,4 +86,6 @@ public class GoodsStandardActivity extends BaseActivity implements Callback<Base
     public void onFailure(Call<BaseResponse<GoodsStandardResponse>> call, Throwable t) {
         ToastUtils.ToastMessage(this,R.string.connect_fail);
     }
+
+
 }

@@ -39,6 +39,8 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
     private GoodsMeta goodsMeta;
     private GoodsStandardMeta standardMeta;
 
+    private boolean published;
+
     @Override
     protected void bindView(Bundle savedInstanceState) {
         Intent intent = getIntent();
@@ -62,9 +64,11 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
         switch (v.getId()) {
             case R.id.create_goods_save:
                 createGoods(false);
+                published=false;
                 break;
             case R.id.create_goods_publish:
                 createGoods(true);
+                published =true;
                 break;
 
         }
@@ -76,7 +80,10 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
         goodsMeta.published = b;
         CreateGoodsRequestBody body = new CreateGoodsRequestBody();
         body.goodsMeta = goodsMeta;
-        body.standardMeta = standardMeta;
+        if (standardMeta!=null){
+            body.standardMeta = standardMeta;
+        }
+
         TribeRetrofit.getInstance().createApi(GoodsService.class).createGoods(TribeApplication.getInstance().getUserInfo().getId(), body).enqueue(this);
     }
 
@@ -84,7 +91,10 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
     public void onResponse(Call<CreateGoodsResponse> call, Response<CreateGoodsResponse> response) {
         if (response != null && response.body() != null && response.body().code == 201) {
             ToastUtils.ToastMessage(this, R.string.add_success);
-            startActivity(new Intent(getCtx(),MainActivity.class));
+            Intent intent = new Intent(getCtx(), MainActivity.class);
+            intent.putExtra(Constant.ForIntent.FLAG,Constant.GOODS);
+            intent.putExtra(Constant.PUBLISHED,published);
+            startActivity(intent);
             finish();
         } else {
             ToastUtils.ToastMessage(this, R.string.connect_fail);
