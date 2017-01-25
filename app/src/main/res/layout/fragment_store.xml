@@ -47,7 +47,6 @@
         android:layout_width="match_parent"
         android:layout_height="41dp"
         android:orientation="horizontal">
-
         <LinearLayout
             android:id="@+id/ll_goods_sale"
             android:layout_width="0dp"
@@ -117,6 +116,10 @@
                 android:textSize="@dimen/dimens_12sp"/>
         </LinearLayout>
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/goods_tab" />
     <com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView
         android:id="@+id/store_list_store"
         android:visibility="gone"

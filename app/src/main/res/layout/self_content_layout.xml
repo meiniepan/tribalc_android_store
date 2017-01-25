@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:drawableLeft="@mipmap/order_icon"
+            android:drawableLeft="@mipmap/store_icon"
             android:drawablePadding="10dp"
             android:text="@string/create_store"
             android:textSize="@dimen/dimens_16sp" />

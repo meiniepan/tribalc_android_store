@@ -7,6 +7,5 @@ public class ValueRequestBody {
     public ValueRequestBody(String value) {
         this.value = value;
     }
-
     public String value;
 }

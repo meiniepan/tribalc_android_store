@@ -71,14 +71,25 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        initView();
+
         String category = getIntent().getStringExtra(Constant.ForIntent.GOODS_CATEGORY);
-        meta=new GoodsMeta();
-        meta.category = GoodsCategory.valueOf(category);
+        meta = getIntent().getParcelableExtra(Constant.ForIntent.GOODS_BEAN);
+        if (meta!=null){        //编辑商品
+            banner.setImages(meta.pictures);
+
+        }else {                 //创建商品
+            meta=new GoodsMeta();
+            meta.category = GoodsCategory.valueOf(category);
+        }
+        tvCategory.setText(GoodsCategory.valueOf(category).toString());
+    }
+
+    private void initView() {
         banner.setImageLoader(new FrescoImageLoader());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         banner.setOnPageChangeListener(this);
         banner.isAutoPlay(false);
-        tvCategory.setText(GoodsCategory.valueOf(category).toString());
 
         findViewById(R.id.goods_create_del_pic).setOnClickListener(this);
         findViewById(R.id.goods_create_add_pic).setOnClickListener(this);

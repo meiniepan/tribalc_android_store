@@ -4,6 +4,8 @@ import com.gs.buluo.store.bean.GoodList;
 import com.gs.buluo.store.bean.GoodsStandard;
 import com.gs.buluo.store.bean.ListGoodsDetail;
 import com.gs.buluo.store.bean.RequestBodyBean.CreateGoodsRequestBody;
+import com.gs.buluo.store.bean.RequestBodyBean.ValueBooleanRequest;
+import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.ResponseBody.CreateGoodsResponse;
@@ -12,8 +14,10 @@ import com.gs.buluo.store.bean.StoreGoodsList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -51,4 +55,10 @@ public interface GoodsService {
 
     @GET("goods?sort=saleQuantity,desc/salePrice,asc")
     Call<BaseResponse<StoreGoodsList>> getStoreGoodsListMore(@Query("me")String uid,@Query("published")boolean published,@Query("sortSkip")String sortSkip);
+
+    @PUT("goods/{goodsId}/published")
+    Call<BaseResponse<CodeResponse>> pullOffGoods(@Path("goodsId")String goodsId, @Query("me")String uid, @Body ValueBooleanRequest body);
+
+    @DELETE("goods/{goodsId}")
+    Call<BaseResponse<CodeResponse>> deleteGoods(@Path("goodsId")String goodsId);
 }

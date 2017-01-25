@@ -51,6 +51,5 @@ public class StandardValueAdapter extends RecyclerView.Adapter<StandardValueAdap
             textView = (TextView) itemView.findViewById(R.id.custom_text);
             delete = itemView.findViewById(R.id.delete_icon);
         }
-
     }
 }

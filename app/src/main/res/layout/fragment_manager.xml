@@ -61,7 +61,7 @@
                 android:layout_weight="1">
 
                 <LinearLayout
-                    android:id="@+id/usual_open_door"
+                    android:id="@+id/usual_order_manager"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"

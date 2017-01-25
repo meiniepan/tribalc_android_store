@@ -1,6 +1,7 @@
 package com.gs.buluo.store.view.fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.TextUtils;
@@ -247,6 +248,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             FresoUtils.loadImage(userInfo.getLogo(), mHead);
             if (userInfo.getStoreType()!=null){
                 tvSign.setText(R.string.store_setting);
+                Drawable drawable= getResources().getDrawable(R.mipmap.store_setting);
+                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                tvSign.setCompoundDrawables(drawable,null,null,null);
             }
         } else {
             llLogin.setVisibility(View.GONE);

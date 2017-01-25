@@ -16,6 +16,7 @@ import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.SaleGoodsListAdapter;
 import com.gs.buluo.store.adapter.StoreGoodsListAdapter;
 import com.gs.buluo.store.bean.GoodsMeta;
+import com.gs.buluo.store.eventbus.GoodsChangedEvent;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.StoreGoodsPresenter;
 import com.gs.buluo.store.utils.ToastUtils;
@@ -26,6 +27,10 @@ import com.gs.buluo.store.view.widget.loadMoreRecycle.Action;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView;
 import com.wyt.searchbox.SearchFragment;
 import com.wyt.searchbox.custom.IOnSearchClickListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -82,6 +87,7 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
         } else {
             recyclerViewSale.showNoData("请先登录和创建店铺");
         }
+        EventBus.getDefault().register(this);
         getActivity().findViewById(R.id.ll_goods_sale).setOnClickListener(this);
         getActivity().findViewById(R.id.ll_goods_store).setOnClickListener(this);
         getActivity().findViewById(R.id.store_floating).setOnClickListener(this);
@@ -111,6 +117,12 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
                 ((StoreGoodsPresenter) mPresenter).getMore(false);
             }
         });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onGoodsChanged(GoodsChangedEvent event){
+        goodsListAdapter.clear();
+        ((StoreGoodsPresenter) mPresenter).getGoodsListFirst(false);
     }
 
     private void initSaleList() {
@@ -205,5 +217,11 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
             goodsListAdapter.clear();
         
         ((StoreGoodsPresenter) mPresenter).getGoodsListFirst(published);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

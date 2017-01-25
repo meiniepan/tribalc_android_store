@@ -2,14 +2,10 @@ package com.gs.buluo.store.view.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.gs.buluo.store.R;
 
-import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.activity.OrderActivity;
 import com.gs.buluo.store.view.activity.ReserveActivity;
 
@@ -24,7 +20,7 @@ public class ManagerFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        getActivity().findViewById(R.id.usual_open_door).setOnClickListener(this);
+        getActivity().findViewById(R.id.usual_order_manager).setOnClickListener(this);
         getActivity().findViewById(R.id.usual_property).setOnClickListener(this);
     }
 
@@ -38,7 +34,7 @@ public class ManagerFragment extends BaseFragment implements View.OnClickListene
                 intent.setClass(getActivity(), ReserveActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.usual_open_door:
+            case R.id.usual_order_manager:
                 intent.setClass(getActivity(), OrderActivity.class);
                 startActivity(intent);
                 break;
