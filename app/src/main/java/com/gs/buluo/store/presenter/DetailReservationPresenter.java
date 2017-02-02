@@ -43,8 +43,8 @@ public class DetailReservationPresenter extends BasePresenter<IDetailReserveView
         });
     }
 
-    public void cancelReserve(String id, String key) {
-        model.cancelReserve(id, TribeApplication.getInstance().getUserInfo().getId(), new ValueRequestBody(key), new Callback<BaseResponse>() {
+    public void updateReserve(String id, String key) {
+        model.updateReserve(id, TribeApplication.getInstance().getUserInfo().getId(), new ValueRequestBody(key), new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.body() != null && response.body().code == 200) {

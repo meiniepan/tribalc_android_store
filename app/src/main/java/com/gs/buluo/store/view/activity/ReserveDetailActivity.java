@@ -55,8 +55,10 @@ public class ReserveDetailActivity extends BaseActivity implements IDetailReserv
     @Bind(R.id.reserve_detail_item_picture)
     SimpleDraweeView picture;
 
-    @Bind(R.id.reserve_detail_finish)
+    @Bind(R.id.reserve_detail_cancel)
     TextView tvFinish;
+    @Bind(R.id.reserve_detail_confirm)
+    TextView tvConfirm;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -80,7 +82,13 @@ public class ReserveDetailActivity extends BaseActivity implements IDetailReserv
         tvFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((DetailReservationPresenter) mPresenter).cancelReserve(reservation.id, ListReservation.ReserveStatus.CANCEL.toString());
+                ((DetailReservationPresenter) mPresenter).updateReserve(reservation.id, ListReservation.ReserveStatus.CANCEL.toString());
+            }
+        });
+        tvConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((DetailReservationPresenter) mPresenter).updateReserve(reservation.id, ListReservation.ReserveStatus.SUCCEED.toString());
             }
         });
         findViewById(R.id.reserve_detail_back).setOnClickListener(new View.OnClickListener() {
@@ -98,9 +106,11 @@ public class ReserveDetailActivity extends BaseActivity implements IDetailReserv
         } else if (entity.status == ListReservation.ReserveStatus.SUCCEED) {
             tvTitle.setText(R.string.reserve_success);
             tvFinish.setText(R.string.cancel_order);
+            tvConfirm.setVisibility(View.GONE);
         } else {
             tvTitle.setText(R.string.reserve_fail);
             tvFinish.setVisibility(View.GONE);
+            tvConfirm.setVisibility(View.GONE);
         }
     }
 

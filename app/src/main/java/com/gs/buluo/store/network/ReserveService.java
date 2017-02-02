@@ -19,14 +19,14 @@ import retrofit2.http.Query;
  */
 public interface ReserveService {
     @GET("reservations?types=store")
-    Call<ReserveResponse> getReserviceList(
+    Call<ReserveResponse> getReservationList(
 //            @Query("status") String status,
             @Query("limitSize") int limitSize,
             @Query("store") String myId,
             @Query("sortSkip") String sortSkip);
 
     @GET("reservations?types=store")
-    Call<ReserveResponse> getReserviceListFirst(
+    Call<ReserveResponse> getReservationListFirst(
 //            @Query("status") String status,
             @Query("store") String myId,
             @Query("limitSize") int limitSize);
@@ -36,6 +36,7 @@ public interface ReserveService {
     Call<BaseResponse<DetailReservation>> getReserveDetail(@Path("id") String reserveId, @Query("store") String myId);
 
     @PUT("reservations/{id}/status?types=store")
-    Call<BaseResponse> cancelReserve(@Path("id") String id, @Query("store") String myId, @Body ValueRequestBody body);
+    Call<BaseResponse> updateReserve(@Path("id") String id, @Query("store") String myId,
+                                     @Query("store")String storeId, @Body ValueRequestBody body);
 }
 

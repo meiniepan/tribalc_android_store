@@ -47,6 +47,7 @@
                 android:src="@mipmap/reserve_process" />
 
             <TextView
+                android:layout_marginStart="4dp"
                 android:id="@+id/reserve_detail_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,8 +62,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/common_gray"
             android:textSize="@dimen/dimens_12sp"
-            android:layout_marginTop="6dp"
-            android:text="预定一年内告知结婚过" />
+            android:layout_marginTop="6dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -318,24 +318,43 @@
                 android:text="有问题请联系客服:" />
 
             <TextView
-                android:text="110-120-119"
+                android:text="@string/help_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/custom_color"
+                android:textColor="@color/custom_yellow"
+                android:autoLink="phone"
                 android:textSize="@dimen/dimens_14sp" />
         </LinearLayout>
 
-        <TextView
-            android:layout_marginTop="4dp"
-            android:layout_gravity="center"
-            android:id="@+id/reserve_detail_finish"
-            android:layout_width="315dp"
-            android:layout_height="@dimen/button_height"
-            android:textSize="@dimen/dimens_16sp"
-            android:gravity="center"
-            android:text="@string/cancel_order"
-            android:textColor="@color/white"
-            android:background="@drawable/button_selector" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_marginTop="4dp"
+                android:layout_gravity="center"
+                android:id="@+id/reserve_detail_cancel"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/bottom_height"
+                android:textSize="@dimen/dimens_16sp"
+                android:gravity="center"
+                android:text="@string/cancel_order"
+                android:textColor="@color/common_dark" />
+            <TextView
+                android:id="@+id/reserve_detail_confirm"
+                android:layout_marginTop="4dp"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/bottom_height"
+                android:textSize="@dimen/dimens_16sp"
+                android:gravity="center"
+                android:text="@string/confirm_order"
+                android:textColor="@color/white"
+                android:background="@drawable/button_selector" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

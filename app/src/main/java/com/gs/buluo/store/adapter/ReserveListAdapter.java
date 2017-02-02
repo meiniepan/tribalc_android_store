@@ -68,6 +68,7 @@ public class ReserveListAdapter extends RecyclerAdapter<ListReservation> {
             name.setText(entity.storeName);
             setStatus(entity);
             tags.setText(entity.markPlace);
+
             if (entity.tags != null && entity.tags.size() > 0) {
                 tags.setText(entity.tags.get(0) + "  |  " + entity.markPlace);
             }

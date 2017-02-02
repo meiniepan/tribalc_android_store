@@ -1,7 +1,7 @@
 package com.gs.buluo.store.model;
 
+import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.DetailReservation;
-import com.gs.buluo.store.bean.RequestBodyBean.NewReserveRequest;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.ReserveResponse;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
@@ -16,13 +16,13 @@ import retrofit2.Callback;
 public class ReserveModel {
     public void getReserveList(String category, String id, int limitSize, String nextSkip, Callback<ReserveResponse> callback) {
         TribeRetrofit.getInstance().createApi(ReserveService.class).
-                getReserviceList(limitSize, id, nextSkip).enqueue(callback);
+                getReservationList(limitSize, id, nextSkip).enqueue(callback);
 
     }
 
     public void getReserveListFirst(String category, String id, int limitSize, Callback<ReserveResponse> callback) {
         TribeRetrofit.getInstance().createApi(ReserveService.class).
-                getReserviceListFirst(id, limitSize).enqueue(callback);
+                getReservationListFirst(id, limitSize).enqueue(callback);
 
     }
 
@@ -31,8 +31,8 @@ public class ReserveModel {
                 getReserveDetail(id, myId).enqueue(callback);
     }
 
-    public void cancelReserve(String id, String myId, ValueRequestBody body, Callback<BaseResponse> callback) {
+    public void updateReserve(String id, String myId, ValueRequestBody body, Callback<BaseResponse> callback) {
         TribeRetrofit.getInstance().createApi(ReserveService.class).
-                cancelReserve(id, myId, body).enqueue(callback);
+                updateReserve(id, myId, TribeApplication.getInstance().getUserInfo().getId(), body).enqueue(callback);
     }
 }
