@@ -3,6 +3,7 @@ package com.gs.buluo.store.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +28,7 @@ public class GoodsMeta implements Parcelable {
     public String dispatchPlace;
     public String expressType;
     public float expressFee;
+    public ArrayList<CategoryBean> cookingStyle;
     public List<String> standardKeys;           ////如果standardId指向谋个规格），这里描述了各级（依次）规格的Key信息 "红色", "S码"
     public GoodsPriceAndRepertory priceAndRepertory;  //创建新商品时，如果新建规格组则被忽略，而采用规格组信息中的数据填充商品价格和库存
 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/common_dark">
+
+        <TextView
+            android:id="@+id/introduction_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="店铺介绍"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_size" />
+
+        <include
+            android:id="@+id/reserve_detail_back"
+            layout="@layout/back_img_white" />
+    </RelativeLayout>
+
+    <include layout="@layout/split_area"/>
+    <EditText
+        android:id="@+id/store_introduction_text"
+        android:paddingStart="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="160dp"
+        android:hint="请输入店铺介绍"
+        android:gravity="top"/>
+    <RelativeLayout
+        android:background="@color/tint_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:layout_alignParentBottom="true"
+            android:id="@+id/store_introduct_finish"
+            style="@style/button_style"
+            android:text="完成"
+            />
+    </RelativeLayout>
+</LinearLayout>

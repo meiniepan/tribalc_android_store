@@ -103,6 +103,7 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         findViewById(R.id.info_store_logo).setOnClickListener(this);
         findViewById(R.id.info_store_edit).setOnClickListener(this);
         findViewById(R.id.info_area).setOnClickListener(this);
+        findViewById(R.id.info_store_introduction).setOnClickListener(this);
         mAuth.setOnClickListener(this);
         initFacility();
         initData();
@@ -211,7 +212,6 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
                 intent.setClass(mCtx, IdentificationActivity.class);
                 startActivity(intent);
                 break;
-
             case R.id.info_store_logo:
                 intent.setClass(mCtx,PhotoActivity.class);
                 intent.putExtra(Constant.ForIntent.PHOTO_TYPE,"logo");
@@ -228,6 +228,10 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
 
             case R.id.info_store_edit:
                 updateStoreInfo();
+                break;
+            case R.id.info_store_introduction:
+                intent.setClass(mCtx,IntroductionActivity.class);
+                startActivityForResult(intent,203);
                 break;
 
         }
@@ -253,6 +257,8 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
             storeBean.address = address;
             tvArea.setText(area);
             tvAddress.setText(storeBean.address);
+        } else if (requestCode == 203 && resultCode == RESULT_OK){
+
         }
     }
 
@@ -267,6 +273,7 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
     }
 
     private void updateStoreInfo() {
+        showLoadingDialog();
         storeBean.name = tvName.getText().toString().trim();
         storeBean.subbranchName = tvSubName.getText().toString().trim();
         storeBean.otherPhone = tvOrPhone.getText().toString().trim();
@@ -296,11 +303,13 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         .enqueue(new TribeCallback<CodeResponse>() {
             @Override
             public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
+                dismissDialog();
                 finish();
             }
 
             @Override
             public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
+                dismissDialog();
                 ToastUtils.ToastMessage(mCtx,R.string.connect_fail);
             }
         });

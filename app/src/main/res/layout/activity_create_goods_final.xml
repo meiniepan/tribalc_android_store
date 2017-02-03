@@ -71,6 +71,7 @@
     </LinearLayout>
     <include layout="@layout/split_line_no_margin_common"/>
     <LinearLayout
+        android:id="@+id/create_goods_desc"
         android:layout_width="match_parent"
         android:layout_height="@dimen/self_item_height"
         android:orientation="horizontal"
@@ -101,6 +102,7 @@
         android:gravity="center_vertical"
         android:layout_marginStart="@dimen/activity_horizontal_margin"/>
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/create_goods_category"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"

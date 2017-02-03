@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.gs.buluo.store">
+    package="com.gs.buluo.store">
 
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.CAPTURE_SECURE_VIDEO_OUTPUT"/>
-    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAPTURE_SECURE_VIDEO_OUTPUT" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <!--<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>-->
     <!--<uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>-->
     <!--<uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>-->
@@ -34,7 +34,7 @@
         android:anyDensity="true"
         android:largeScreens="true"
         android:normalScreens="true"
-        android:smallScreens="true"/>
+        android:smallScreens="true" />
 
     <application
         android:name="com.gs.buluo.store.TribeApplication"
@@ -46,186 +46,206 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="UXd9G8TPCXLcOF4oK5BVGhbtCXCUwOSY"/>
+            android:value="UXd9G8TPCXLcOF4oK5BVGhbtCXCUwOSY" />
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote">
-        </service>
+            android:process=":remote"></service>
 
         <activity
             android:name="com.gs.buluo.store.view.activity.AppStartActivity"
-            android:theme="@style/AppSplash"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppSplash">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.gs.buluo.store.view.activity.SelfActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name="com.gs.buluo.store.view.activity.AddressListActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.LoginActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.ServeActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.MapActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.BusinessVerifyActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.SettingActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.AddAddressActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.PhoneVerifyActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysVisible"/>
+            android:windowSoftInputMode="stateAlwaysVisible" />
         <activity
             android:name="com.gs.buluo.store.view.activity.PhoneVerifyActivity2"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.GoodsListActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.GoodsDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.WalletActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.BillActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.ConfirmActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible"/>
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name="com.gs.buluo.store.view.activity.UpdateWalletPwdActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible"/>
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name="com.gs.buluo.store.view.activity.UpdateWalletPwdActivity2"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible"/>
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name="com.gs.buluo.store.view.activity.BillDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.BankCardActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.AddBankCardActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.ServeDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.OrderActivity"
-            android:screenOrientation="portrait"
-            android:label=""/>
+            android:label=""
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.OrderDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="com.gs.buluo.store.view.activity.CommunityDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.StoreDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.CommunityVisitActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.ReserveActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.ReserveDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.ShoppingCarActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.gs.buluo.store.view.activity.ModifyInfoActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="com.gs.buluo.store.view.activity.CaptureActivity"/>
-        <activity android:name="com.gs.buluo.store.view.activity.BankPickActivity">
-        </activity>
-        <activity android:name="com.gs.buluo.store.view.activity.FeedbackActivity"
-            android:windowSoftInputMode="stateVisible"/>
-        <activity android:name="com.gs.buluo.store.view.activity.GuideActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.CreateStoreVarietyActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.CreateDetailActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.PhotoActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"></activity>
+        <activity android:name="com.gs.buluo.store.view.activity.CaptureActivity" />
+        <activity android:name="com.gs.buluo.store.view.activity.BankPickActivity"></activity>
+        <activity
+            android:name="com.gs.buluo.store.view.activity.FeedbackActivity"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name="com.gs.buluo.store.view.activity.GuideActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.CreateStoreVarietyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.CreateDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".view.activity.PhotoActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name="com.gs.buluo.store.wxapi.WXPayEntryActivity"
+        <activity
+            android:name="com.gs.buluo.store.wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop"
-            />
-        <activity android:name=".view.activity.CreateDetailActivitySecond"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.CreateGoodsVarietyActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.IdentificationActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.CreateStoreAddressActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.CreateStoreFinishActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.MealStoreInfoActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.TradeLicenceActivity"/>
-        <activity android:name=".view.activity.GoodsStoreInfoActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.VerifyProcessingActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.ServeTimeActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.GoodsStandardActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.NewGoodsActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.CreateStandardActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.CreateGoodsFinalActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.AddGoodsWithStandardActivity"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.ProtocolActivity"/>
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".view.activity.CreateDetailActivitySecond"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity
+            android:name=".view.activity.CreateGoodsVarietyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.IdentificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.CreateStoreAddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.CreateStoreFinishActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.MealStoreInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".view.activity.TradeLicenceActivity" />
+        <activity
+            android:name=".view.activity.GoodsStoreInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.VerifyProcessingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.ServeTimeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.GoodsStandardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.NewGoodsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".view.activity.CreateStandardActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".view.activity.CreateGoodsFinalActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".view.activity.AddGoodsWithStandardActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".view.activity.IntroductionActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity android:name=".view.activity.ProtocolActivity" />
     </application>
 
 </manifest>

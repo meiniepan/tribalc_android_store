@@ -19,7 +19,6 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="店铺信息"
-
                 android:textColor="#fff"
                 android:textSize="@dimen/title_size" />
             <View

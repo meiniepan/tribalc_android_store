@@ -14,7 +14,7 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.RepastBeanAdapter;
 import com.gs.buluo.store.bean.CreateStoreBean;
-import com.gs.buluo.store.bean.RepastCategoryBean;
+import com.gs.buluo.store.bean.CategoryBean;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
@@ -56,7 +56,7 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
     TextView button;
 
     CreateStoreBean storeBean;
-    private List<RepastCategoryBean> categoryBeanList;
+    private List<CategoryBean> categoryBeanList;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -129,7 +129,7 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
     private void setCookingStyle() {
         if (Constant.SET_MEAL.equals(storeBean.storeType)) {
             List<String> list = new ArrayList<>();
-            for (RepastCategoryBean bean :categoryBeanList) {
+            for (CategoryBean bean :categoryBeanList) {
                 if (bean.isSelect){
                     list.add(bean.value);
                 }
@@ -203,22 +203,22 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
 
     private void initFoodCategory() {
         categoryBeanList = new ArrayList<>();
-        categoryBeanList.add(new RepastCategoryBean("西餐"));
-        categoryBeanList.add(new RepastCategoryBean("咖啡厅"));
-        categoryBeanList.add(new RepastCategoryBean("日料"));
-        categoryBeanList.add(new RepastCategoryBean("自助餐"));
-        categoryBeanList.add(new RepastCategoryBean("粤菜"));
-        categoryBeanList.add(new RepastCategoryBean("意大利菜"));
-        categoryBeanList.add(new RepastCategoryBean("火锅"));
-        categoryBeanList.add(new RepastCategoryBean("融合菜"));
-        categoryBeanList.add(new RepastCategoryBean("韩国料理"));
-        categoryBeanList.add(new RepastCategoryBean("东南亚菜"));
-        categoryBeanList.add(new RepastCategoryBean("西班牙菜"));
-        categoryBeanList.add(new RepastCategoryBean("法国菜"));
-        categoryBeanList.add(new RepastCategoryBean("云南菜"));
-        categoryBeanList.add(new RepastCategoryBean("台湾菜"));
-        categoryBeanList.add(new RepastCategoryBean("德国菜"));
-        categoryBeanList.add(new RepastCategoryBean("其他"));
+        categoryBeanList.add(new CategoryBean("西餐"));
+        categoryBeanList.add(new CategoryBean("咖啡厅"));
+        categoryBeanList.add(new CategoryBean("日料"));
+        categoryBeanList.add(new CategoryBean("自助餐"));
+        categoryBeanList.add(new CategoryBean("粤菜"));
+        categoryBeanList.add(new CategoryBean("意大利菜"));
+        categoryBeanList.add(new CategoryBean("火锅"));
+        categoryBeanList.add(new CategoryBean("融合菜"));
+        categoryBeanList.add(new CategoryBean("韩国料理"));
+        categoryBeanList.add(new CategoryBean("东南亚菜"));
+        categoryBeanList.add(new CategoryBean("西班牙菜"));
+        categoryBeanList.add(new CategoryBean("法国菜"));
+        categoryBeanList.add(new CategoryBean("云南菜"));
+        categoryBeanList.add(new CategoryBean("台湾菜"));
+        categoryBeanList.add(new CategoryBean("德国菜"));
+        categoryBeanList.add(new CategoryBean("其他"));
         recyclerView.setAdapter(new RepastBeanAdapter(CreateDetailActivity.this, categoryBeanList));
 
         StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL) {
