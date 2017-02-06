@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.bean.CreateStoreBean;
+import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
@@ -211,7 +211,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     private void updateUserCover(final UploadAccessResponse.UploadResponseBody body, final String path) {
         final String url = body.objectKey;
-        CreateStoreBean bean = new CreateStoreBean();
+        StoreMeta bean = new StoreMeta();
         bean.setCover(url);
         new MainModel().updateStore(TribeApplication.getInstance().getUserInfo().getId(),
                 "cover", url, bean, new TribeCallback<CodeResponse>() {
@@ -267,9 +267,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     }
 
     public void getStoreStatus() {
-        new MainModel().getStoreInfo(TribeApplication.getInstance().getUserInfo().getId(), new TribeCallback<StoreInfo>() {
+        new MainModel().getDetailStoreInfo(TribeApplication.getInstance().getUserInfo().getId(),new TribeCallback<StoreMeta>() {
             @Override
-            public void onSuccess(Response<BaseResponse<StoreInfo>> response) {
+            public void onSuccess(Response<BaseResponse<StoreMeta>> response) {
                 String storeAuthenticationStatus;
                 Intent intent = new Intent();
                 storeAuthenticationStatus = response.body().data.authenticationStatus;
@@ -283,7 +283,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             }
 
             @Override
-            public void onFail(int responseCode, BaseResponse<StoreInfo> body) {
+            public void onFail(int responseCode, BaseResponse<StoreMeta> body) {
                 ToastUtils.ToastMessage(getActivity(), R.string.connect_fail);
             }
         });

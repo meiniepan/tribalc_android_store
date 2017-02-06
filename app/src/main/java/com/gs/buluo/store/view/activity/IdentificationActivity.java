@@ -63,6 +63,12 @@ public class IdentificationActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        findView(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void showChoosePhoto(final boolean isFront) {
@@ -82,13 +88,13 @@ public class IdentificationActivity extends BaseActivity {
                 if (isFront){
                     frontImg.setVisibility(View.VISIBLE);
                     front = data.objectKey;
-                    Glide.with(IdentificationActivity.this).load(FresoUtils.formatImageUrl(data.objectKey)).into(frontImg);
+                    Glide.with(IdentificationActivity.this).load(FresoUtils.formatImageUrl(data.objectKey)).centerCrop().into(frontImg);
                     findViewById(R.id.identify_front).setVisibility(View.GONE);
                 }else {
                     backImg.setVisibility(View.VISIBLE);
                     back=data.objectKey;
                     findViewById(R.id.identify_back).setVisibility(View.GONE);
-                    Glide.with(IdentificationActivity.this).load(FresoUtils.formatImageUrl(data.objectKey)).into(backImg);
+                    Glide.with(IdentificationActivity.this).load(FresoUtils.formatImageUrl(data.objectKey)).centerCrop().into(backImg);
                 }
             }
 

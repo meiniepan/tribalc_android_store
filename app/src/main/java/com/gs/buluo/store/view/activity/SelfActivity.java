@@ -3,34 +3,20 @@ package com.gs.buluo.store.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.adapter.FacilityAdapter;
-import com.gs.buluo.store.bean.CreateStoreBean;
-import com.gs.buluo.store.bean.FacilityBean;
-import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.StoreInfo;
-import com.gs.buluo.store.model.MainModel;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.SelfPresenter;
-import com.gs.buluo.store.utils.FresoUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.ISelfView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.Bind;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 /**
@@ -46,7 +32,7 @@ public class SelfActivity extends BaseActivity implements View.OnClickListener,I
 
     Context mCtx;
     private StoreInfo userInfo;
-    private CreateStoreBean bean;
+    private StoreMeta bean;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {

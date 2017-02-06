@@ -24,6 +24,8 @@ public class IntroductionActivity extends BaseActivity{
     @Override
     protected void bindView(Bundle savedInstanceState) {
         String flag = getIntent().getStringExtra(Constant.ForIntent.FLAG);
+        String intro = getIntent().getStringExtra(Constant.ForIntent.INTRODUCTION);
+        etIntro.setText(intro);
         if (TextUtils.equals(flag,Constant.GOODS)){
             tvTitle.setText("商品描述");
             etIntro.setHint("请输入商品描述");
@@ -36,6 +38,7 @@ public class IntroductionActivity extends BaseActivity{
                 Intent intent =new Intent();
                 intent.putExtra(Constant.ForIntent.INTRODUCTION,info);
                 setResult(RESULT_OK,intent);
+                finish();
             }
         });
     }

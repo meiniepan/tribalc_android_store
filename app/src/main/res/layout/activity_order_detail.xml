@@ -15,7 +15,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -116,8 +117,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="20dp"
@@ -125,10 +126,10 @@
                         android:src="@mipmap/order_company" />
 
                     <TextView
-                        android:layout_marginStart="4dp"
                         android:id="@+id/order_detail_store_name"
                         android:layout_width="match_parent"
                         android:layout_height="41dp"
+                        android:layout_marginStart="4dp"
                         android:gravity="center_vertical"
                         android:textColor="@color/common_dark"
                         android:textSize="@dimen/dimens_12sp"
@@ -159,16 +160,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:textColor="@color/common_dark"
                         android:text="@string/send_method"
+                        android:textColor="@color/common_dark"
                         android:textSize="@dimen/dimens_12sp" />
 
                     <TextView
                         android:id="@+id/order_send_method"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textColor="@color/common_dark"
                         android:gravity="end|center_vertical"
+                        android:textColor="@color/common_dark"
                         android:textSize="@dimen/dimens_12sp" />
                 </LinearLayout>
 
@@ -183,8 +184,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:textColor="@color/common_dark"
                         android:text="@string/send_money"
+                        android:textColor="@color/common_dark"
                         android:textSize="@dimen/dimens_12sp" />
 
                     <TextView
@@ -192,8 +193,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="end|center_vertical"
-                        android:textColor="@color/common_dark"
                         android:text="0.00"
+                        android:textColor="@color/common_dark"
                         android:textSize="@dimen/dimens_12sp" />
                 </LinearLayout>
 
@@ -208,8 +209,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:textColor="@color/common_dark"
                         android:text="@string/total_price"
+                        android:textColor="@color/common_dark"
                         android:textSize="@dimen/dimens_12sp" />
 
                     <TextView
@@ -217,8 +218,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="end|center_vertical"
-                        android:textColor="@color/common_dark"
                         android:text="0.00"
+                        android:textColor="@color/common_dark"
                         android:textSize="@dimen/dimens_12sp" />
                 </LinearLayout>
 
@@ -230,8 +231,8 @@
                     android:layout_marginBottom="17dp"
                     android:layout_marginTop="4dp"
                     android:background="@color/tint_bg"
-                    android:paddingStart="6dp"
                     android:hint="订单补充说明"
+                    android:paddingStart="6dp"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -288,13 +289,13 @@
 
             <LinearLayout
                 android:id="@+id/ll_pay_time"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="8dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -315,11 +316,11 @@
                 android:id="@+id/ll_send_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="8dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -340,11 +341,11 @@
                 android:id="@+id/ll_receive_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="8dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -360,56 +361,6 @@
                     android:textColor="@color/common_gray"
                     android:textSize="@dimen/dimens_12sp" />
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/ll_logistics_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/logistics_number"
-                    android:textColor="@color/common_gray"
-                    android:textSize="@dimen/dimens_12sp" />
-
-                <TextView
-                    android:id="@+id/order_detail_logistics_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/common_gray"
-                    android:textSize="@dimen/dimens_12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_logistics_way"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/logistics_way"
-                    android:textColor="@color/common_gray"
-                    android:textSize="@dimen/dimens_12sp" />
-
-                <TextView
-                    android:id="@+id/order_detail_logistics_way"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/common_gray"
-                    android:textSize="@dimen/dimens_12sp" />
-            </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 
@@ -417,29 +368,12 @@
         android:id="@+id/order_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/bottom_height"
-        android:gravity="bottom">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/bottom_height"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:id="@+id/order_detail_button"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:background="@color/custom_color"
-                android:gravity="center"
-                android:text="@string/go_send"
-                android:textColor="@color/white" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/divide_gray" />
+        android:gravity="bottom"
+        android:visibility="gone">
+        <Button
+            android:text="发货"
+            android:id="@+id/order_detail_button"
+            style="@style/button_style" />
     </RelativeLayout>
 
 </LinearLayout>

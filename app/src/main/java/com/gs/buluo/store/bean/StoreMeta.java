@@ -12,8 +12,9 @@ import java.util.List;
  * Created by hjn on 2017/1/12.
  */
 
-public class CreateStoreBean extends StoreInfo implements Parcelable, IBaseResponse {
+public class StoreMeta extends StoreInfo implements Parcelable, IBaseResponse {
     public String subbranchName;
+    public String desc;
     public StoreCategory category;                //Default FOOD From { FOOD, GIFT, OFFICE, LIVING, HOUSE, MAKEUP, PENETRATION, REPAST, HAIRDRESSING, FITNESS, ENTERTAINMENT, KEEPHEALTHY}
     public String otherPhone;        //其他电话
     public String province;
@@ -44,7 +45,7 @@ public class CreateStoreBean extends StoreInfo implements Parcelable, IBaseRespo
         }
     }
 
-    public CreateStoreBean() {
+    public StoreMeta() {
     }
 
     @Override
@@ -56,6 +57,7 @@ public class CreateStoreBean extends StoreInfo implements Parcelable, IBaseRespo
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         dest.writeString(this.subbranchName);
+        dest.writeString(this.desc);
         dest.writeInt(this.category == null ? -1 : this.category.ordinal());
         dest.writeString(this.otherPhone);
         dest.writeString(this.province);
@@ -72,9 +74,10 @@ public class CreateStoreBean extends StoreInfo implements Parcelable, IBaseRespo
         dest.writeString(this.businessHours);
     }
 
-    protected CreateStoreBean(Parcel in) {
+    protected StoreMeta(Parcel in) {
         super(in);
         this.subbranchName = in.readString();
+        this.desc = in.readString();
         int tmpCategory = in.readInt();
         this.category = tmpCategory == -1 ? null : StoreCategory.values()[tmpCategory];
         this.otherPhone = in.readString();
@@ -92,15 +95,15 @@ public class CreateStoreBean extends StoreInfo implements Parcelable, IBaseRespo
         this.businessHours = in.readString();
     }
 
-    public static final Creator<CreateStoreBean> CREATOR = new Creator<CreateStoreBean>() {
+    public static final Creator<StoreMeta> CREATOR = new Creator<StoreMeta>() {
         @Override
-        public CreateStoreBean createFromParcel(Parcel source) {
-            return new CreateStoreBean(source);
+        public StoreMeta createFromParcel(Parcel source) {
+            return new StoreMeta(source);
         }
 
         @Override
-        public CreateStoreBean[] newArray(int size) {
-            return new CreateStoreBean[size];
+        public StoreMeta[] newArray(int size) {
+            return new StoreMeta[size];
         }
     };
 }

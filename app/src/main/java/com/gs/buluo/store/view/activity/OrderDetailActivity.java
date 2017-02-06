@@ -24,6 +24,7 @@ import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.utils.TribeDateUtils;
 import com.gs.buluo.store.view.impl.IOrderView;
 import com.gs.buluo.store.view.widget.CustomAlertDialog;
+import com.gs.buluo.store.view.widget.panel.LogisticsPanel;
 import com.gs.buluo.store.view.widget.panel.PayPanel;
 
 import org.greenrobot.eventbus.EventBus;
@@ -69,11 +70,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     TextView tvReceiveTime;
     @Bind(R.id.order_detail_button)
     TextView tvButton;
-    @Bind(R.id.ll_logistics_number)
-    TextView tvLogNum;
-    @Bind(R.id.ll_logistics_way)
-    TextView tvLogWay;
-
+    
     private Context mCtx;
     private OrderBean bean;
 
@@ -93,30 +90,24 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
     private void initView() {
         if (bean.status == OrderBean.OrderStatus.NO_SETTLE) { //待付款
-
-
-        } else if (bean.status == OrderBean.OrderStatus.RECEIVED) {    //付款未发货,选物流
-            findViewById(R.id.ll_send_time).setVisibility(View.GONE);
+        } else if (bean.status == OrderBean.OrderStatus.SETTLE) {    //付款,发货
             findViewById(R.id.ll_pay_time).setVisibility(View.VISIBLE);
-            tvLogNum.setVisibility(View.VISIBLE);
-            tvLogWay.setVisibility(View.VISIBLE);
             tvPayTime.setText(TribeDateUtils.dateFormat7(new Date(bean.settleTime)));
+            findViewById(R.id.order_bottom).setVisibility(View.VISIBLE);
         } else if (bean.status == OrderBean.OrderStatus.DELIVERY) { //待收货
             findViewById(R.id.ll_send_time).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_pay_time).setVisibility(View.VISIBLE);
             tvPayTime.setText(TribeDateUtils.dateFormat7(new Date(bean.settleTime)));
             tvSendTime.setText(TribeDateUtils.dateFormat7(new Date(bean.deliveryTime)));
-            findViewById(R.id.order_bottom).setVisibility(View.GONE);
-        } else if (bean.status == OrderBean.OrderStatus.SETTLE) {  //完成 取消
+        } else if (bean.status == OrderBean.OrderStatus.RECEIVED) {  //完成
             findViewById(R.id.ll_send_time).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_pay_time).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_receive_time).setVisibility(View.VISIBLE);
             tvPayTime.setText(TribeDateUtils.dateFormat7(new Date(bean.settleTime)));
             tvSendTime.setText(TribeDateUtils.dateFormat7(new Date(bean.deliveryTime)));
             tvReceiveTime.setText(TribeDateUtils.dateFormat7(new Date(bean.receivedTime)));
-            findViewById(R.id.order_bottom).setVisibility(View.GONE);
         } else {
-            findViewById(R.id.order_bottom).setVisibility(View.GONE);
+
         }
     }
 
@@ -166,16 +157,15 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.order_detail_button:
-                String way= tvLogWay.getText().toString().trim();
-                String num = tvLogNum.getText().toString().trim();
-                if (TextUtils.isEmpty(way)||TextUtils.isEmpty(num)){
-                    ToastUtils.ToastMessage(mCtx,"请填写物流信息");
-                    return;
-                }
-                if (bean.status == OrderBean.OrderStatus.SETTLE) { //发货
-                    ((OrderPresenter) mPresenter).updateOrderStatus(bean.id,way,num ,OrderBean.OrderStatus.RECEIVED.name());
-                }
+                showTransPanel();
         }
+    }
+
+    private void showTransPanel() {
+        LogisticsPanel panel  =new LogisticsPanel(this);
+        panel.setPresenter((OrderPresenter) mPresenter);
+        panel.setData(bean.id);
+        panel.show();
     }
 
     @Override
@@ -212,7 +202,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     //待付款订单页面 付款成功的通知
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void paySuccess(PaymentEvent event) {
-        bean.status = OrderBean.OrderStatus.SETTLE;
+        bean.status = OrderBean.OrderStatus.DELIVERY;
         initView();
     }
 

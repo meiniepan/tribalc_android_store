@@ -3,7 +3,7 @@ package com.gs.buluo.store.model;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.AuthenticationData;
-import com.gs.buluo.store.bean.CreateStoreBean;
+import com.gs.buluo.store.bean.RequestBodyBean.LoginBody;
 import com.gs.buluo.store.bean.RequestBodyBean.PhoneUpdateBody;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
@@ -13,8 +13,7 @@ import com.gs.buluo.store.bean.ResponseBody.UploadAccessBody;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
 import com.gs.buluo.store.bean.ResponseBody.UserAddressListResponse;
 import com.gs.buluo.store.bean.ResponseBody.UserBeanResponse;
-import com.gs.buluo.store.bean.RequestBodyBean.LoginBody;
-import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.network.MainService;
 import com.gs.buluo.store.network.TribeRetrofit;
 
@@ -43,21 +42,15 @@ public class MainModel {             //登录数据同步,上传，验证码
                 doVerify(new ValueRequestBody(phone)).enqueue(callback);
     }
 
-    public void getStoreInfo(String uid, Callback<BaseResponse<StoreInfo>> callback) {
+    public void updateStore(String id, String key, String value, StoreMeta bean, Callback<BaseResponse<CodeResponse>> callback) {
         TribeRetrofit.getInstance().createApi(MainService.class).
-                getStoreInfo(uid).enqueue(callback);
-    }
-
-    public void updateStore(String id, String key, String value, CreateStoreBean bean, Callback<BaseResponse<CodeResponse>> callback) {
-        TribeRetrofit.getInstance().createApi(MainService.class).
-                updateUser(id,key,bean).enqueue(callback);
+                updateUser(id, key, bean).enqueue(callback);
     }
 
     public void getAddressList(String uid, Callback<UserAddressListResponse> callback) {
         TribeRetrofit.getInstance().createApi(MainService.class).
                 getDetailAddressList(uid).enqueue(callback);
     }
-
 
     public void uploadFile(File file, String name, String type, Callback<UploadAccessResponse> callback) {
         UploadAccessBody body = new UploadAccessBody();
@@ -86,9 +79,9 @@ public class MainModel {             //登录数据同步,上传，验证码
                 updatePhone(TribeApplication.getInstance().getUserInfo().getId(), body).enqueue(callback);
     }
 
-    public void getDetailStoreInfo(Callback<BaseResponse<CreateStoreBean>> callback){
+    public void getDetailStoreInfo(String uid , Callback<BaseResponse<StoreMeta>> callback) {
         TribeRetrofit.getInstance().createApi(MainService.class).
-                getCreateStore(TribeApplication.getInstance().getUserInfo().getId()).enqueue(callback);
+                getStoreMeta(uid).enqueue(callback);
     }
 
     public void getSetMeal(Callback<StoreSetMealResponse> callback) {

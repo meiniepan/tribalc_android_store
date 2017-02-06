@@ -42,16 +42,16 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
-            android:background="@mipmap/main_h2" />
+            android:src="@mipmap/main_h2" />
 
-        <com.gs.buluo.store.view.widget.CustomAddLayout
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/image_group"
             android:layout_width="360dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
-        </com.gs.buluo.store.view.widget.CustomAddLayout>
+        </android.support.v7.widget.RecyclerView>
     </RelativeLayout>
 
 

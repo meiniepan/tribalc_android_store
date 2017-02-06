@@ -6,11 +6,7 @@ import android.view.View;
 
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.bean.CreateStoreBean;
 import com.gs.buluo.store.bean.GoodsCategory;
-import com.gs.buluo.store.bean.GoodsMeta;
-import com.gs.buluo.store.bean.GoodsStandard;
-import com.gs.buluo.store.bean.ListGoodsDetail;
 
 /**
  * Created by hjn on 2017/1/11.

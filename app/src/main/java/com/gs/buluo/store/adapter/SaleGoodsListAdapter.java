@@ -22,6 +22,7 @@ import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.FresoUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.utils.TribeDateUtils;
+import com.gs.buluo.store.view.activity.AddGoodsWithStandardActivity;
 import com.gs.buluo.store.view.activity.NewGoodsActivity;
 import com.gs.buluo.store.view.widget.SwipeMenuLayout;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.BaseViewHolder;
@@ -96,7 +97,7 @@ public class SaleGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
                 @Override
                 public void onClick(View v) {
                     swipeMenuLayout.quickClose();
-                    Intent intent = new Intent(getContext(), NewGoodsActivity.class);
+                    Intent intent = new Intent(getContext(), AddGoodsWithStandardActivity.class);
                     intent.putExtra(Constant.ForIntent.GOODS_BEAN,entity);
                     getContext().startActivity(intent);
                 }

@@ -1,6 +1,7 @@
 package com.gs.buluo.store.network;
 
 import com.gs.buluo.store.bean.GoodList;
+import com.gs.buluo.store.bean.GoodsMeta;
 import com.gs.buluo.store.bean.GoodsStandard;
 import com.gs.buluo.store.bean.ListGoodsDetail;
 import com.gs.buluo.store.bean.RequestBodyBean.CreateGoodsRequestBody;
@@ -49,6 +50,9 @@ public interface GoodsService {
 
     @POST("goods")
     Call<CreateGoodsResponse> createGoods(@Query("me")String uid , @Body CreateGoodsRequestBody body);
+
+    @PUT("goods/{goodsId}")
+    Call<BaseResponse<CodeResponse>> updateGoods(@Path("goodsId") String goodsId,@Query("me")String uid , @Body GoodsMeta goodsMeta);
 
     @GET("goods?sort=saleQuantity,desc/salePrice,asc")
     Call<BaseResponse<StoreGoodsList>> getStoreGoodsListFirst(@Query("me")String uid,@Query("published")boolean published);

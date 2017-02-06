@@ -1,9 +1,14 @@
 package com.gs.buluo.store.model;
 
+import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.GoodList;
+import com.gs.buluo.store.bean.GoodsMeta;
 import com.gs.buluo.store.bean.GoodsStandard;
 import com.gs.buluo.store.bean.ListGoodsDetail;
+import com.gs.buluo.store.bean.RequestBodyBean.CreateGoodsRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
+import com.gs.buluo.store.bean.ResponseBody.CreateGoodsResponse;
 import com.gs.buluo.store.network.GoodsService;
 import com.gs.buluo.store.network.TribeRetrofit;
 
@@ -32,4 +37,15 @@ public class GoodsModel {
         TribeRetrofit.getInstance().createApi(GoodsService.class).
                 getGoodsStandard(id).enqueue(callback);
     }
+
+    public void createGoods(CreateGoodsRequestBody body, Callback<CreateGoodsResponse> callback){
+        TribeRetrofit.getInstance().createApi(GoodsService.class).createGoods(TribeApplication.getInstance().getUserInfo().getId(),body)
+        .enqueue(callback);
+    }
+
+    public void updateGoods(String goodsId, GoodsMeta meta, Callback<BaseResponse<CodeResponse>> callback){
+        TribeRetrofit.getInstance().createApi(GoodsService.class).updateGoods(goodsId,TribeApplication.getInstance().getUserInfo().getId(),meta)
+                .enqueue(callback);
+    }
+
 }

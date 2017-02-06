@@ -66,7 +66,6 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
     private GoodsLevel1Adapter1 adapter1;
     private View car;
     //    private View buy;
-    private View finish;
     private OnSelectFinish selectFinish;
     private AddCartListener addCartListener;
 
@@ -222,7 +221,6 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
         leve1View2.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         findViewById(R.id.goods_board_add).setOnClickListener(this);
         findViewById(R.id.goods_board_reduce).setOnClickListener(this);
-        finish.setOnClickListener(this);
     }
 
     @Override
@@ -253,7 +251,6 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
         selectFinish = onSelectedFinished;
 //        buy.setVisibility(View.GONE);
         car.setVisibility(View.GONE);
-        finish.setVisibility(View.VISIBLE);
     }
 
     public void setAddCartListener(AddCartListener addCartListener) {

@@ -9,6 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_height"
@@ -201,7 +206,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/store_other_phone"/>
-            <TextView
+            <EditText
+                android:background="@null"
                 android:layout_marginStart="20dp"
                 android:id="@+id/info_store_other_phone"
                 android:layout_width="match_parent"
@@ -209,6 +215,7 @@
         </LinearLayout>
         <include layout="@layout/split_line_no_margin_common"/>
         <LinearLayout
+            android:id="@+id/ll_store_info_address"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="@dimen/self_item_height"
@@ -222,8 +229,13 @@
             <TextView
                 android:layout_marginStart="20dp"
                 android:id="@+id/info_store_address"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/arrow_right"/>
         </LinearLayout>
         <include layout="@layout/split_area"/>
         <LinearLayout
@@ -247,7 +259,6 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_height="wrap_content" />
             <ImageView
-                android:visibility="gone"
                 android:id="@+id/info_logo_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -267,6 +278,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/store_environment"/>
+
             <TextView
                 android:id="@+id/info_environment"
                 android:layout_marginStart="20dp"
@@ -275,8 +287,8 @@
                 android:gravity="end"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_height="wrap_content" />
+
             <ImageView
-                android:visibility="gone"
                 android:id="@+id/info_en_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -362,11 +374,36 @@
         <include layout="@layout/split_line_no_margin_common"/>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/store_info_facility"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="@dimen/activity_horizontal_margin_arrow"
             android:layout_marginEnd="@dimen/activity_horizontal_margin_arrow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </android.support.v7.widget.RecyclerView>
+        <LinearLayout
+            android:id="@+id/ll_cook_style"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include layout="@layout/split_area"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/self_item_height"
+                android:gravity="center"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:text="菜系类型"/>
+            <include layout="@layout/split_line_no_margin_common"/>
+            <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="10dp"
+                android:id="@+id/store_info_cook_style"
+                android:layout_marginStart="@dimen/activity_horizontal_margin_arrow"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin_arrow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </android.support.v7.widget.RecyclerView>
+            <include layout="@layout/split_area"/>
+        </LinearLayout>
 
         <Button
             android:layout_marginTop="10dp"

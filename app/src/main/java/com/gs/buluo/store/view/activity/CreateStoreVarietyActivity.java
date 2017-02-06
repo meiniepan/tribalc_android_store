@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.bean.CreateStoreBean;
+import com.gs.buluo.store.bean.StoreMeta;
 
 /**
  * Created by hjn on 2017/1/10.
@@ -37,77 +37,77 @@ public class CreateStoreVarietyActivity extends BaseActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        CreateStoreBean bean = new CreateStoreBean();
+        StoreMeta bean = new StoreMeta();
         Intent intent = new Intent(CreateStoreVarietyActivity.this, CreateDetailActivity.class);
         switch (v.getId()) {
             case R.id.store_food:
-                bean.category = CreateStoreBean.StoreCategory.FOOD;
+                bean.category = StoreMeta.StoreCategory.FOOD;
                 bean.storeType = Constant.GOODS;
                 intent.putExtra(Constant.ForIntent.STORE_BEAN,bean);
                 startActivity(intent);
                 break;
             case R.id.store_gift:
-                bean.category = CreateStoreBean.StoreCategory.GIFT;
+                bean.category = StoreMeta.StoreCategory.GIFT;
                 bean.storeType =Constant.GOODS;
                 intent.putExtra(Constant.ForIntent.STORE_BEAN,bean);
                 startActivity(intent);
                 break;
             case R.id.store_life:
-                bean.category = CreateStoreBean.StoreCategory.LIVING;
+                bean.category = StoreMeta.StoreCategory.LIVING;
                 bean.storeType =Constant.GOODS;
                 intent.putExtra(Constant.ForIntent.STORE_BEAN,bean);
                 startActivity(intent);
                 break;
             case R.id.store_furniture:
-                bean.category = CreateStoreBean.StoreCategory.HOUSE;
+                bean.category = StoreMeta.StoreCategory.HOUSE;
                 bean.storeType = Constant.GOODS;
                 intent.putExtra(Constant.ForIntent.STORE_BEAN,bean);
                 startActivity(intent);
                 break;
             case R.id.store_office:
-                bean.category = CreateStoreBean.StoreCategory.OFFICE;
+                bean.category = StoreMeta.StoreCategory.OFFICE;
                 bean.storeType = Constant.GOODS;
                 intent.putExtra(Constant.ForIntent.STORE_BEAN,bean);
                 startActivity(intent);
                 break;
             case R.id.store_dress:
-                bean.category = CreateStoreBean.StoreCategory.MAKEUP;
+                bean.category = StoreMeta.StoreCategory.MAKEUP;
                 bean.storeType = Constant.GOODS;
                 intent.putExtra(Constant.ForIntent.STORE_BEAN,bean);
                 startActivity(intent);
                 break;
             case R.id.store_baby:
-                bean.category = CreateStoreBean.StoreCategory.PENETRATION;
+                bean.category = StoreMeta.StoreCategory.PENETRATION;
                 bean.storeType = Constant.GOODS;
                 intent.putExtra(Constant.ForIntent.STORE_BEAN,bean);
                 startActivity(intent);
                 break;
             case R.id.serve_repast:
-                bean.category = CreateStoreBean.StoreCategory.REPAST;
+                bean.category = StoreMeta.StoreCategory.REPAST;
                 bean.storeType = Constant.SET_MEAL;
                 intent.putExtra(Constant.ForIntent.STORE_BEAN,bean);
                 startActivity(intent);
                 break;
             case R.id.serve_beauty:
-                bean.category = CreateStoreBean.StoreCategory.HAIRDRESSING;
+                bean.category = StoreMeta.StoreCategory.HAIRDRESSING;
                 bean.storeType =  Constant.SET_MEAL;
                 intent.putExtra(Constant.ForIntent.STORE_BEAN,bean);
                 startActivity(intent);
                 break;
             case R.id.serve_fitness:
-                bean.category = CreateStoreBean.StoreCategory.FITNESS;
+                bean.category = StoreMeta.StoreCategory.FITNESS;
                 bean.storeType =  Constant.SET_MEAL;
                 intent.putExtra(Constant.ForIntent.STORE_BEAN,bean);
                 startActivity(intent);
                 break;
             case R.id.serve_fun:
-                bean.category = CreateStoreBean.StoreCategory.ENTERTAINMENT;
+                bean.category = StoreMeta.StoreCategory.ENTERTAINMENT;
                 bean.storeType =  Constant.SET_MEAL;
                 intent.putExtra(Constant.ForIntent.STORE_BEAN,bean);
                 startActivity(intent);
                 break;
             case R.id.serve_regimen:
-                bean.category = CreateStoreBean.StoreCategory.KEEPHEALTHY;
+                bean.category = StoreMeta.StoreCategory.KEEPHEALTHY;
                 bean.storeType =  Constant.SET_MEAL;
                 intent.putExtra(Constant.ForIntent.STORE_BEAN,bean);
                 startActivity(intent);

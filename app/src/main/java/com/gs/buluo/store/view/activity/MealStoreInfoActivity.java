@@ -15,7 +15,9 @@ import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.FacilityAdapter;
-import com.gs.buluo.store.bean.CreateStoreBean;
+import com.gs.buluo.store.adapter.RepastBeanAdapter;
+import com.gs.buluo.store.bean.CategoryBean;
+import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.FacilityBean;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
@@ -70,6 +72,8 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
     Switch sReserve;
     @Bind(R.id.store_info_facility)
     RecyclerView recyclerView;
+    @Bind(R.id.store_info_cook_style)
+    RecyclerView cookRecyclerView;
 
     @Bind(R.id.info_store_auth)
     Button mAuth;
@@ -83,6 +87,7 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
 
     private boolean isEdit;
     private ArrayList<FacilityBean> facilityList;
+    private ArrayList<CategoryBean> cookingList;
     private Context mCtx;
 
     @Bind(R.id.info_introduction_arrow)
@@ -91,26 +96,30 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
     View logoArrow;
     @Bind(R.id.info_en_arrow)
     View enArrow;
-    private CreateStoreBean storeBean;
+    private StoreMeta storeBean;
     private StoreSetMealCreation mealCreation;
-
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
         mCtx = this;
         findViewById(R.id.info_store_introduction).setOnClickListener(this);
         findViewById(R.id.info_store_logo).setOnClickListener(this);
-        findViewById(R.id.info_store_logo).setOnClickListener(this);
+        findViewById(R.id.info_store_environment).setOnClickListener(this);
         findViewById(R.id.info_store_edit).setOnClickListener(this);
         findViewById(R.id.info_area).setOnClickListener(this);
+        findViewById(R.id.ll_store_info_address).setOnClickListener(this);
         findViewById(R.id.info_store_introduction).setOnClickListener(this);
+        findViewById(R.id.back).setOnClickListener(this);
         mAuth.setOnClickListener(this);
         initFacility();
         initData();
     }
 
-    public void setData(CreateStoreBean data) {
+    public void setData(StoreMeta data) {
         storeBean = data;
+        if (data.category == StoreMeta.StoreCategory.REPAST) {
+            initCookingStyle();
+        }
         if ("NOT_START".equals(data.authenticationStatus)) {
             mAuth.setVisibility(View.VISIBLE);
         }
@@ -128,6 +137,45 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
             }
         }
         recyclerView.setAdapter(new FacilityAdapter(this, facilityList));
+
+        List<String> cookingStyles  = data.cookingStyle;
+        if (cookingStyles!=null){
+            for (CategoryBean bean :cookingList){
+                if (cookingStyles.contains(bean.value)){
+                    bean.isSelect = true;
+                }
+            }
+        }
+        cookRecyclerView.setAdapter(new RepastBeanAdapter(getCtx(), cookingList));
+    }
+
+    private void initCookingStyle() {
+        findView(R.id.ll_cook_style).setVisibility(View.VISIBLE);
+        cookingList = new ArrayList<>();
+        cookingList.add(new CategoryBean("西餐"));
+        cookingList.add(new CategoryBean("咖啡厅"));
+        cookingList.add(new CategoryBean("日料"));
+        cookingList.add(new CategoryBean("自助餐"));
+        cookingList.add(new CategoryBean("西班牙菜"));
+        cookingList.add(new CategoryBean("意大利菜"));
+        cookingList.add(new CategoryBean("火锅"));
+        cookingList.add(new CategoryBean("融合菜"));
+        cookingList.add(new CategoryBean("韩国料理"));
+        cookingList.add(new CategoryBean("东南亚菜"));
+        cookingList.add(new CategoryBean("粤菜"));
+        cookingList.add(new CategoryBean("法国菜"));
+        cookingList.add(new CategoryBean("云南菜"));
+        cookingList.add(new CategoryBean("台湾菜"));
+        cookingList.add(new CategoryBean("其他"));
+        cookingList.add(new CategoryBean("德国菜"));
+
+        StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL) {
+            @Override
+            public boolean canScrollHorizontally() {
+                return false;
+            }
+        };
+        cookRecyclerView.setLayoutManager(layout);
     }
 
     public void setMealData(StoreSetMealCreation mealData) {
@@ -168,14 +216,14 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
 
     private void initData() {
         showLoadingDialog();
-        new MainModel().getDetailStoreInfo(new TribeCallback<CreateStoreBean>() {
+        new MainModel().getDetailStoreInfo(TribeApplication.getInstance().getUserInfo().getId(),new TribeCallback<StoreMeta>() {
             @Override
-            public void onSuccess(Response<BaseResponse<CreateStoreBean>> response) {
+            public void onSuccess(Response<BaseResponse<StoreMeta>> response) {
                 setData(response.body().data);
             }
 
             @Override
-            public void onFail(int responseCode, BaseResponse<CreateStoreBean> body) {
+            public void onFail(int responseCode, BaseResponse<StoreMeta> body) {
                 dismissDialog();
                 ToastUtils.ToastMessage(mCtx, R.string.connect_fail);
             }
@@ -185,16 +233,16 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onResponse(Call<StoreSetMealResponse> call, Response<StoreSetMealResponse> response) {
                 dismissDialog();
-                if (response!=null&&response.body() != null && response.body().code == 200) {
+                if (response != null && response.body() != null && response.body().code == 200) {
                     setMealData(response.body().data.get(0));
-                }else {
-                    ToastUtils.ToastMessage(mCtx,R.string.connect_fail);
+                } else {
+                    ToastUtils.ToastMessage(mCtx, R.string.connect_fail);
                 }
             }
 
             @Override
             public void onFailure(Call<StoreSetMealResponse> call, Throwable t) {
-                ToastUtils.ToastMessage(mCtx,R.string.connect_fail);
+                ToastUtils.ToastMessage(mCtx, R.string.connect_fail);
             }
         });
     }
@@ -213,25 +261,33 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
                 startActivity(intent);
                 break;
             case R.id.info_store_logo:
-                intent.setClass(mCtx,PhotoActivity.class);
-                intent.putExtra(Constant.ForIntent.PHOTO_TYPE,"logo");
-                startActivityForResult(intent,200);
+                intent.setClass(mCtx, PhotoActivity.class);
+                intent.putExtra(Constant.ForIntent.PHOTO_TYPE, "logo");
+                startActivityForResult(intent, 200);
                 break;
             case R.id.info_store_environment:
-                intent.setClass(mCtx,PhotoActivity.class);
-                startActivityForResult(intent,201);
+                intent.setClass(mCtx, PhotoActivity.class);
+                intent.putExtra(Constant.ENVIRONMENT,storeBean.pictures);
+                startActivityForResult(intent, 201);
                 break;
             case R.id.info_area:
-                intent.setClass(mCtx,CreateStoreAddressActivity.class);
-                startActivityForResult(intent,202);
+                intent.setClass(mCtx, CreateStoreAddressActivity.class);
+                startActivityForResult(intent, 202);
                 break;
-
+            case R.id.ll_store_info_address:
+                intent.setClass(mCtx, CreateStoreAddressActivity.class);
+                startActivityForResult(intent, 202);
+                break;
             case R.id.info_store_edit:
                 updateStoreInfo();
                 break;
             case R.id.info_store_introduction:
-                intent.setClass(mCtx,IntroductionActivity.class);
-                startActivityForResult(intent,203);
+                intent.setClass(mCtx, IntroductionActivity.class);
+                intent.putExtra(Constant.ForIntent.INTRODUCTION,storeBean.desc);
+                startActivityForResult(intent, 203);
+                break;
+            case R.id.back:
+                finish();
                 break;
 
         }
@@ -247,7 +303,7 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
             ArrayList<String> enPictures = data.getStringArrayListExtra(Constant.ENVIRONMENT);
             storeBean.pictures = enPictures;
             tvEnvi.setText(enPictures.size() + "张");
-        } else if (requestCode == 202 && resultCode == RESULT_OK){
+        } else if (data != null &&requestCode == 202 && resultCode == RESULT_OK) {
             String area = data.getStringExtra(Constant.AREA);
             String address = data.getStringExtra(Constant.ADDRESS);
             String[] arrs = area.split("-");
@@ -257,8 +313,8 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
             storeBean.address = address;
             tvArea.setText(area);
             tvAddress.setText(storeBean.address);
-        } else if (requestCode == 203 && resultCode == RESULT_OK){
-
+        } else if (data != null &&requestCode == 203 && resultCode == RESULT_OK) {
+            storeBean.desc = data.getStringExtra(Constant.ForIntent.INTRODUCTION);
         }
     }
 
@@ -279,43 +335,57 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         storeBean.otherPhone = tvOrPhone.getText().toString().trim();
         storeBean.isReservable = sReserve.isChecked();
         setFacility();
-        new MainModel().updateStore(TribeApplication.getInstance().getUserInfo().getId(), "name,subbranchName,desc,otherPhone,province,city,district,address" +
-                ",pictures,facilities", "", storeBean, new TribeCallback<CodeResponse>() {
+        String key = "name,subbranchName,desc,otherPhone,province,city,district,address" +
+                ",pictures,facilities";
+        if (storeBean.category == StoreMeta.StoreCategory.REPAST){
+            setCookingStyle();
+            key+=",cookingStyle";
+        }
+        new MainModel().updateStore(TribeApplication.getInstance().getUserInfo().getId(),key , "", storeBean, new TribeCallback<CodeResponse>() {
             @Override
             public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
                 saveStore(storeBean);
-                ToastUtils.ToastMessage(mCtx,R.string.update_success);
+                ToastUtils.ToastMessage(mCtx, R.string.update_success);
             }
 
             @Override
             public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
-                ToastUtils.ToastMessage(mCtx,R.string.connect_fail);
+                ToastUtils.ToastMessage(mCtx, R.string.connect_fail);
             }
         });
 
         mealCreation.personExpense = tvFee.getText().toString().trim();
         mealCreation.topics = tvTopic.getText().toString().trim();
         mealCreation.isReservable = sReserve.isChecked();
-        mealCreation.pictures =storeBean.pictures;
+        mealCreation.pictures = storeBean.pictures;
         mealCreation.name = storeBean.name;
         mealCreation.recommendedReason = tvRecommend.getText().toString().trim();
-        TribeRetrofit.getInstance().createApi(MainService.class).updateMeal(mealCreation.id,"name,pictures,topics,recommendedReason,personExpense,isReservable",mealCreation)
-        .enqueue(new TribeCallback<CodeResponse>() {
-            @Override
-            public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
-                dismissDialog();
-                finish();
-            }
+        TribeRetrofit.getInstance().createApi(MainService.class).updateMeal(mealCreation.id, "name,pictures,topics,recommendedReason,personExpense,isReservable", mealCreation)
+                .enqueue(new TribeCallback<CodeResponse>() {
+                    @Override
+                    public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
+                        dismissDialog();
+                        finish();
+                    }
 
-            @Override
-            public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
-                dismissDialog();
-                ToastUtils.ToastMessage(mCtx,R.string.connect_fail);
-            }
-        });
+                    @Override
+                    public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
+                        dismissDialog();
+                        ToastUtils.ToastMessage(mCtx, R.string.connect_fail);
+                    }
+                });
     }
 
-    private void saveStore(CreateStoreBean data) {
+    private void setCookingStyle() {
+        storeBean.cookingStyle =new ArrayList<>();
+        for (CategoryBean bean  : cookingList){
+            if (bean.isSelect){
+                storeBean.cookingStyle.add(bean.value);
+            }
+        }
+    }
+
+    private void saveStore(StoreMeta data) {
         StoreInfoDao storeInfoDao = new StoreInfoDao();
         StoreInfo first = storeInfoDao.findFirst();
         data.setToken(first.token);

@@ -8,6 +8,7 @@ import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.ResponseBody.UserBeanResponse;
 import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.model.MainModel;
@@ -84,25 +85,38 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
     }
 
     public void getStoreInfo(String uid) {
-        mainModel.getStoreInfo(uid, new TribeCallback<StoreInfo>() {
+        mainModel.getDetailStoreInfo(uid,new TribeCallback<StoreMeta>() {
             @Override
-            public void onSuccess(Response<BaseResponse<StoreInfo>> response) {
-                StoreInfo entity = response.body().data;
-                entity.setToken(token);
-
-                TribeApplication.getInstance().setUserInfo(entity);
-                StoreInfoDao dao = new StoreInfoDao();
-                dao.saveBindingId(entity);
-                EventBus.getDefault().post(new SelfEvent());
-                if (isAttach()) {
-                    mView.loginSuccess();
-                }
+            public void onSuccess(Response<BaseResponse<StoreMeta>> response) {
+                setStoreInfo(response.body().data);
             }
 
             @Override
-            public void onFail(int responseCode, BaseResponse<StoreInfo> body) {
-                mView.showError(R.string.connect_fail);
+            public void onFail(int responseCode, BaseResponse<StoreMeta> body) {
+
             }
         });
+    }
+
+
+    private void setStoreInfo(StoreMeta storeInfo) {
+        StoreInfo entity = new StoreInfo();
+        entity.setToken(token);
+        entity.setLogo(storeInfo.logo);
+        entity.setCover(storeInfo.cover);
+        entity.setAuthenticationStatus(storeInfo.authenticationStatus);
+        entity.setId(storeInfo.getId());
+        entity.setLinkman(storeInfo.linkman);
+        entity.setName(storeInfo.name);
+        entity.setPhone(storeInfo.phone);
+        entity.setStoreType(storeInfo.storeType);
+
+        TribeApplication.getInstance().setUserInfo(entity);
+        StoreInfoDao dao = new StoreInfoDao();
+        dao.saveBindingId(entity);
+        EventBus.getDefault().post(new SelfEvent());
+        if (isAttach()) {
+            mView.loginSuccess();
+        }
     }
 }

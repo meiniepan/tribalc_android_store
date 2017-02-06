@@ -9,18 +9,18 @@ import android.widget.EditText;
 
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.RepastBeanAdapter;
-import com.gs.buluo.store.bean.FacilityBean;
+import com.gs.buluo.store.bean.CategoryBean;
 import com.gs.buluo.store.bean.GoodsMeta;
 import com.gs.buluo.store.bean.GoodsPriceAndRepertory;
 import com.gs.buluo.store.bean.GoodsStandardMeta;
-import com.gs.buluo.store.bean.CategoryBean;
 import com.gs.buluo.store.bean.RequestBodyBean.CreateGoodsRequestBody;
+import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.ResponseBody.CreateGoodsResponse;
 import com.gs.buluo.store.bean.SerializableHashMap;
-import com.gs.buluo.store.network.GoodsService;
-import com.gs.buluo.store.network.TribeRetrofit;
+import com.gs.buluo.store.model.GoodsModel;
+import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ import retrofit2.Response;
 /**
  * Created by hjn on 2017/1/23.
  */
-public class CreateGoodsFinalActivity extends BaseActivity implements View.OnClickListener, Callback<CreateGoodsResponse> {
+public class CreateGoodsFinalActivity extends BaseActivity implements View.OnClickListener {
     @Bind(R.id.create_goods_number)
     EditText etNum;
     @Bind(R.id.create_goods_fee)
@@ -49,9 +49,12 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
 
     private boolean published;
     private ArrayList<CategoryBean> categoryBeanList;
+    private RepastBeanAdapter beanAdapter;
+    private GoodsModel model;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        model = new GoodsModel();
         Intent intent = getIntent();
         goodsMeta = intent.getParcelableExtra(Constant.ForIntent.META);
         setCategoryData();
@@ -64,6 +67,21 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
         findView(R.id.create_goods_save).setOnClickListener(this);
         findView(R.id.create_goods_publish).setOnClickListener(this);
         findView(R.id.create_goods_desc).setOnClickListener(this);
+
+        setTags();
+    }
+
+    private void setTags() {
+        ArrayList<String> tags = goodsMeta.tags;
+        if (tags != null) {
+            for (CategoryBean bean : categoryBeanList) {
+                if (tags.contains(bean.value)) {
+                    bean.isSelect = true;
+                }
+            }
+        }
+        etNum.setText(goodsMeta.number);
+        etFee.setText(goodsMeta.expressFee + "");
     }
 
     private void setCategoryData() {
@@ -89,6 +107,16 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
                 setFoodData();
                 break;
         }
+        beanAdapter = new RepastBeanAdapter(this, categoryBeanList);
+        beanAdapter.setLimit(3);
+        recyclerView.setAdapter(beanAdapter);
+        StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL) {
+            @Override
+            public boolean canScrollHorizontally() {
+                return false;
+            }
+        };
+        recyclerView.setLayoutManager(layout);
     }
 
     private void setFoodData() {
@@ -99,15 +127,6 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
         categoryBeanList.add(new CategoryBean("中外名酒"));
         categoryBeanList.add(new CategoryBean("新鲜水果"));
         categoryBeanList.add(new CategoryBean("名茶"));
-        recyclerView.setAdapter(new RepastBeanAdapter(this, categoryBeanList));
-
-        StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL) {
-            @Override
-            public boolean canScrollHorizontally() {
-                return false;
-            }
-        };
-        recyclerView.setLayoutManager(layout);
     }
 
     private void setLivingData() {
@@ -124,34 +143,16 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
         categoryBeanList.add(new CategoryBean("烘焙/烧烤"));
         categoryBeanList.add(new CategoryBean("刀剪菜盘"));
         categoryBeanList.add(new CategoryBean("餐具 "));
-        recyclerView.setAdapter(new RepastBeanAdapter(this, categoryBeanList));
-
-        StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL) {
-            @Override
-            public boolean canScrollHorizontally() {
-                return false;
-            }
-        };
-        recyclerView.setLayoutManager(layout);
     }
 
     private void setPenetrationData() {
         categoryBeanList = new ArrayList<>();
-        categoryBeanList.add(new CategoryBean("奶粉"));
         categoryBeanList.add(new CategoryBean("营养辅食"));
         categoryBeanList.add(new CategoryBean("童车童床"));
         categoryBeanList.add(new CategoryBean("尿裤湿巾"));
         categoryBeanList.add(new CategoryBean("洗护用品"));
         categoryBeanList.add(new CategoryBean("培养用品"));
-        recyclerView.setAdapter(new RepastBeanAdapter(this, categoryBeanList));
-
-        StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL) {
-            @Override
-            public boolean canScrollHorizontally() {
-                return false;
-            }
-        };
-        recyclerView.setLayoutManager(layout);
+        categoryBeanList.add(new CategoryBean("奶粉"));
     }
 
     private void setHouseData() {
@@ -160,26 +161,15 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
         categoryBeanList.add(new CategoryBean("布艺软饰"));
         categoryBeanList.add(new CategoryBean("抱枕靠垫"));
         categoryBeanList.add(new CategoryBean("床上用品"));
-        categoryBeanList.add(new CategoryBean("毯子"));
-        categoryBeanList.add(new CategoryBean("家纺"));
+        categoryBeanList.add(new CategoryBean("创意家具"));
+        categoryBeanList.add(new CategoryBean("花瓶花艺"));
         categoryBeanList.add(new CategoryBean("浴室用品"));
         categoryBeanList.add(new CategoryBean("净化除味"));
         categoryBeanList.add(new CategoryBean("装饰字画"));
         categoryBeanList.add(new CategoryBean("地毯地垫"));
         categoryBeanList.add(new CategoryBean("灯具"));
-        categoryBeanList.add(new CategoryBean("创意家具"));
-        categoryBeanList.add(new CategoryBean("花瓶花艺"));
-        recyclerView.setAdapter(new RepastBeanAdapter(this, categoryBeanList));
-
-        StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL) {
-            @Override
-            public boolean canScrollHorizontally() {
-                return false;
-            }
-        };
-        recyclerView.setLayoutManager(layout);
-
-
+        categoryBeanList.add(new CategoryBean("毯子"));
+        categoryBeanList.add(new CategoryBean("家纺"));
     }
 
     private void setBeautyData() {
@@ -196,15 +186,6 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
         categoryBeanList.add(new CategoryBean("干性肌肤"));
         categoryBeanList.add(new CategoryBean("无酒精"));
         categoryBeanList.add(new CategoryBean("纯植物"));
-        recyclerView.setAdapter(new RepastBeanAdapter(this, categoryBeanList));
-
-        StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL) {
-            @Override
-            public boolean canScrollHorizontally() {
-                return false;
-            }
-        };
-        recyclerView.setLayoutManager(layout);
     }
 
     private void setOfficeData() {
@@ -221,15 +202,6 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
         categoryBeanList.add(new CategoryBean("办公文具"));
         categoryBeanList.add(new CategoryBean("文件管理"));
         categoryBeanList.add(new CategoryBean("财会用品"));
-        recyclerView.setAdapter(new RepastBeanAdapter(this, categoryBeanList));
-
-        StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL) {
-            @Override
-            public boolean canScrollHorizontally() {
-                return false;
-            }
-        };
-        recyclerView.setLayoutManager(layout);
     }
 
     @Override
@@ -261,43 +233,69 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
             goodsMeta.expressFee = Float.parseFloat(etFee.getText().toString().trim());
         goodsMeta.number = etNum.getText().toString().trim();
         goodsMeta.published = b;
-        goodsMeta.cookingStyle= new ArrayList<>();
-        if (etTags.length()>0){
+        goodsMeta.tags = new ArrayList<>();
+        if (etTags.length() > 0) {
             List<String> asList = Arrays.asList(etTags.getText().toString().trim().split("、"));
-            for (String s :asList){
-                goodsMeta.cookingStyle.add(new CategoryBean(s));
-            }
+            goodsMeta.tags.addAll(asList);
         }
-        for (CategoryBean bean:categoryBeanList){
-            if (bean.isSelect){}
-            goodsMeta.cookingStyle.add(bean);
+        for (CategoryBean bean : categoryBeanList) {
+            if (bean.isSelect)
+                goodsMeta.tags.add(bean.value);
         }
+        if (goodsMeta.tags.size()>3){
+            ToastUtils.ToastMessage(this,R.string.tags_max);
+            return;
+        }
+        if (goodsMeta.isEdit) {
+            updateGoods();
+        } else {
+            doCreateGoods();
+        }
+    }
+
+    private void doCreateGoods() {
         CreateGoodsRequestBody body = new CreateGoodsRequestBody();
         body.goodsMeta = goodsMeta;
         if (standardMeta != null) {
             body.standardMeta = standardMeta;
         }
+        model.createGoods(body, new Callback<CreateGoodsResponse>() {
+            @Override
+            public void onResponse(Call<CreateGoodsResponse> call, Response<CreateGoodsResponse> response) {
+                ToastUtils.ToastMessage(getCtx(), R.string.add_success);
+                Intent intent = new Intent(getCtx(), MainActivity.class);
+                intent.putExtra(Constant.ForIntent.FLAG, Constant.GOODS);
+                intent.putExtra(Constant.PUBLISHED, published);
+                startActivity(intent);
+                finish();
+            }
 
-        TribeRetrofit.getInstance().createApi(GoodsService.class).createGoods(TribeApplication.getInstance().getUserInfo().getId(), body).enqueue(this);
+            @Override
+            public void onFailure(Call<CreateGoodsResponse> call, Throwable t) {
+                ToastUtils.ToastMessage(getCtx(), R.string.connect_fail);
+            }
+        });
+
     }
 
-    @Override
-    public void onResponse(Call<CreateGoodsResponse> call, Response<CreateGoodsResponse> response) {
-        if (response != null && response.body() != null && response.body().code == 201) {
-            ToastUtils.ToastMessage(this, R.string.add_success);
-            Intent intent = new Intent(getCtx(), MainActivity.class);
-            intent.putExtra(Constant.ForIntent.FLAG, Constant.GOODS);
-            intent.putExtra(Constant.PUBLISHED, published);
-            startActivity(intent);
-            finish();
-        } else {
-            ToastUtils.ToastMessage(this, R.string.connect_fail);
-        }
-    }
+    private void updateGoods() {
+        model.updateGoods(goodsMeta.id, goodsMeta, new TribeCallback<CodeResponse>() {
+            @Override
+            public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
+                ToastUtils.ToastMessage(getCtx(), R.string.update_success);
+                Intent intent = new Intent(getCtx(), MainActivity.class);
+                intent.putExtra(Constant.ForIntent.FLAG, Constant.GOODS);
+                intent.putExtra(Constant.PUBLISHED, published);
+                startActivity(intent);
+                finish();
+            }
 
-    @Override
-    public void onFailure(Call<CreateGoodsResponse> call, Throwable t) {
-        ToastUtils.ToastMessage(this, R.string.connect_fail);
+            @Override
+            public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
+                ToastUtils.ToastMessage(getCtx(), R.string.connect_fail);
+            }
+        });
+
     }
 
     @Override

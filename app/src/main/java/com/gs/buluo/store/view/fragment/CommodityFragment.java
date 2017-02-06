@@ -82,19 +82,18 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
         searchFragment = SearchFragment.newInstance();
         searchFragment.setOnSearchClickListener(this);
 
-        if (TribeApplication.getInstance().getUserInfo() != null) {
-
-        } else {
-            recyclerViewSale.showNoData("请先登录和创建店铺");
-        }
         EventBus.getDefault().register(this);
         getActivity().findViewById(R.id.ll_goods_sale).setOnClickListener(this);
         getActivity().findViewById(R.id.ll_goods_store).setOnClickListener(this);
         getActivity().findViewById(R.id.store_floating).setOnClickListener(this);
-
-        initSaleList();
-        initStoreList();
-
+        if (TribeApplication.getInstance().getUserInfo() != null) {
+            initSaleList();
+            initStoreList();
+        } else {
+            recyclerViewSale.showNoData("请先登录和创建店铺");
+            recyclerViewStore.showNoData("请先登录和创建店铺");
+            return;
+        }
     }
 
     private void initStoreList() {
@@ -191,6 +190,7 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.store_floating:
+                if (TribeApplication.getInstance().getUserInfo()==null)return;
                 startActivity(new Intent(getActivity(), CreateGoodsVarietyActivity.class));
                 break;
             case R.id.ll_goods_store:

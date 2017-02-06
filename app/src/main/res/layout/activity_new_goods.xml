@@ -247,7 +247,7 @@
                     android:layout_marginStart="20dp"
                     android:background="@null"
                     android:maxLines="1"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="请输入商品销售价格"/>
@@ -269,7 +269,7 @@
                     android:layout_marginStart="20dp"
                     android:background="@null"
                     android:maxLines="1"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="请输入商品原始价格"/>
@@ -291,7 +291,7 @@
                     android:id="@+id/goods_create_stock"
                     android:layout_marginStart="36dp"
                     android:background="@null"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:maxLines="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

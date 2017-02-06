@@ -2,7 +2,6 @@ package com.gs.buluo.store.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.opengl.ETC1;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -31,7 +30,6 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.bean.CreateStoreBean;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.panel.AddressPickPanel;
 

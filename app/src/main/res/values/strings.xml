@@ -287,6 +287,7 @@
     <string name="goods_info_not_complete">商品信息填写不完全</string>
     <string name="confirm_order">确认通过</string>
     <string name="help_phone">110-120-119</string>
+    <string name="tags_max">最多只能选择三个标签</string>
 
     <!--餐厅类型-->
 

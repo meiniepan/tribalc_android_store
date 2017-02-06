@@ -1,6 +1,7 @@
 package com.gs.buluo.store.network;
 
 import com.gs.buluo.store.bean.CartItemUpdateResponse;
+import com.gs.buluo.store.bean.RequestBodyBean.LogisticsRequestBody;
 import com.gs.buluo.store.bean.RequestBodyBean.NewOrderBean;
 import com.gs.buluo.store.bean.RequestBodyBean.NewOrderRequestBody;
 import com.gs.buluo.store.bean.RequestBodyBean.ShoppingCartGoodsItem;
@@ -24,18 +25,16 @@ import retrofit2.http.Query;
  */
 public interface ShoppingService {
 
-    @GET("orders?types=store")
+    @GET("orders?type=me")
     Call<OrderResponse> getOrderFirst(@Query("store") String uid, @Query("limitSize") String limitSize,
                                       @Query("status") String status);
 
-    @GET("orders?types=store")
+    @GET("orders?type=me")
     Call<OrderResponse> getOrder(@Query("store") String uid, @Query("limitSize") String limitSize
             , @Query("sortSkip") String sortSkip, @Query("status") String status);
 
-    @PUT("orders/{orderId}/status?types=store")
-    Call<BaseResponse> updateOrderToSend(@Path("orderId") String orderId, @Query("storeId") String uid,
-                                         @Query("logisticsNum")String logisticsNum,
-                                         @Query("logisticsCompany")String logisticsCompany,@Body ValueRequestBody status);
+    @PUT("orders/{orderId}/status?type=me")
+    Call<BaseResponse> updateOrderToSend(@Path("orderId") String orderId, @Query("store") String uid,@Body LogisticsRequestBody status);
     @GET("persons/{id}/shopping_cart")
     Call<ShoppingCartResponse> getShoppingCarListFirst(@Path("id") String uid, @Query("limitSize") int limitSize);
 

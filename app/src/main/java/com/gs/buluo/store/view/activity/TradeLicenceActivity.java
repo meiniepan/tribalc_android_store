@@ -92,7 +92,7 @@ public class TradeLicenceActivity extends BaseActivity{
             @Override
             public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
                 tradeImage.setVisibility(View.VISIBLE);
-                Glide.with(TradeLicenceActivity.this).load(FresoUtils.formatImageUrl(data.objectKey)).into(tradeImage);
+                Glide.with(TradeLicenceActivity.this).load(FresoUtils.formatImageUrl(data.objectKey)).centerCrop().into(tradeImage);
                 findViewById(R.id.identify_trade_sign).setVisibility(View.GONE);
                 path =data.objectKey;
             }

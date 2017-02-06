@@ -3,9 +3,9 @@ package com.gs.buluo.store.presenter;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.OrderBean;
-import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
-import com.gs.buluo.store.bean.ResponseBody.OrderResponse;
+import com.gs.buluo.store.bean.RequestBodyBean.LogisticsRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.store.bean.ResponseBody.OrderResponse;
 import com.gs.buluo.store.model.ShoppingModel;
 import com.gs.buluo.store.view.impl.IOrderView;
 
@@ -80,8 +80,8 @@ public class OrderPresenter extends BasePresenter<IOrderView> {
         });
     }
 
-    public void updateOrderStatus(String orderId,String num, String way, String status) {
-        model.updateOrder(TribeApplication.getInstance().getUserInfo().getId(),num,way, new ValueRequestBody(status), orderId, new Callback<BaseResponse>() {
+    public void updateOrderStatus(String orderId, String num, String way, String status) {
+        model.updateOrder(TribeApplication.getInstance().getUserInfo().getId(), new LogisticsRequestBody(num, way, status), orderId, new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.body() != null && response.body().code == 200) {

@@ -1,7 +1,7 @@
 package com.gs.buluo.store.network;
 
 import com.gs.buluo.store.bean.AuthenticationData;
-import com.gs.buluo.store.bean.CreateStoreBean;
+import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.RequestBodyBean.LoginBody;
 import com.gs.buluo.store.bean.RequestBodyBean.PhoneUpdateBody;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
@@ -28,10 +28,6 @@ import retrofit2.http.Query;
  */
 public interface MainService {
 
-    @GET("stores/{id}")
-    Call<BaseResponse<StoreInfo>> getStoreInfo(
-            @Path("id") String uid);
-
     @POST("stores/login")
     Call<UserBeanResponse> doLogin(@Body LoginBody params);
 
@@ -53,14 +49,14 @@ public interface MainService {
     @PUT("stores/{id}/sensitive_info")
     Call<BaseResponse<CodeResponse>> updatePhone(@Path("id") String id, @Body PhoneUpdateBody body);
 
-    @GET("stores/{id}/store_detail")
-    Call<BaseResponse<CreateStoreBean>> getCreateStore(@Path("id")String uid);
+    @GET("stores/{id}")
+    Call<BaseResponse<StoreMeta>> getStoreMeta(@Path("id")String uid);
 
     @PUT("stores/{id}/{propNames}")
-    Call<BaseResponse<CodeResponse>> updateUser(@Path("id") String id,@Path("propNames") String propNames,@Body CreateStoreBean bean);
+    Call<BaseResponse<CodeResponse>> updateUser(@Path("id") String id,@Path("propNames") String propNames,@Body StoreMeta bean);
 
     @POST("stores/{id}")
-    Call<BaseResponse<StoreInfo>> createStore(@Path("id") String id,@Body CreateStoreBean bean);
+    Call<BaseResponse<StoreMeta>> createStore(@Path("id") String id,@Body StoreMeta bean);
 
     @GET("store_set_meals")
     Call<StoreSetMealResponse> getCreateSetMeal(@Query("me")String uid);

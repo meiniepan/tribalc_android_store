@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewStub;
 import android.view.inputmethod.InputMethodManager;
@@ -16,7 +15,7 @@ import com.bruce.pickerview.popwindow.DatePickerPopWin;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.bean.CreateStoreBean;
+import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.eventbus.SelfEvent;
@@ -24,7 +23,6 @@ import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.SelfPresenter;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.ISelfView;
-import com.gs.buluo.store.view.widget.panel.AddressPickPanel;
 import com.gs.buluo.store.view.widget.LoadingDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -72,7 +70,7 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onClick(View v) {
                         if (name.length() == 0) return;
-                        CreateStoreBean bean = new CreateStoreBean();
+                        StoreMeta bean = new StoreMeta();
                         String value = name.getText().toString().trim();
                         bean.linkman=value;
                         ((SelfPresenter) mPresenter).updateUser(Constant.LINKMAN, value, bean);
@@ -90,7 +88,7 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onClick(View v) {
                         if (storeName.length() == 0) return;
-                        CreateStoreBean bean = new CreateStoreBean();
+                        StoreMeta bean = new StoreMeta();
                         String value = storeName.getText().toString().trim();
                         bean.setName(value);
                         ((SelfPresenter) mPresenter).updateUser(Constant.NAME, value, bean);

@@ -2,7 +2,7 @@ package com.gs.buluo.store.presenter;
 
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.bean.CreateStoreBean;
+import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.model.MainModel;
@@ -22,7 +22,7 @@ public class SelfPresenter extends BasePresenter<ISelfView> {
         mainModel = new MainModel();
     }
 
-    public void  updateUser(final String key, final String value,CreateStoreBean bean){
+    public void  updateUser(final String key, final String value,StoreMeta bean){
         mainModel.updateStore(TribeApplication.getInstance().getUserInfo().getId(), key, value, bean, new TribeCallback<CodeResponse>() {
             @Override
             public void onSuccess(Response<BaseResponse<CodeResponse>> response) {

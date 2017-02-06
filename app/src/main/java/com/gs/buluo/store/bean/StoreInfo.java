@@ -21,18 +21,6 @@ public class StoreInfo implements IBaseResponse, Parcelable {
     @Column(name = "name")
     public String name;
 
-    public static final Creator<StoreInfo> CREATOR = new Creator<StoreInfo>() {
-        @Override
-        public StoreInfo createFromParcel(Parcel in) {
-            return new StoreInfo(in);
-        }
-
-        @Override
-        public StoreInfo[] newArray(int size) {
-            return new StoreInfo[size];
-        }
-    };
-
     public String getLinkman() {
         return linkman;
     }
@@ -172,4 +160,15 @@ public class StoreInfo implements IBaseResponse, Parcelable {
         this.authenticationStatus = in.readString();
     }
 
+    public static final Creator<StoreInfo> CREATOR = new Creator<StoreInfo>() {
+        @Override
+        public StoreInfo createFromParcel(Parcel source) {
+            return new StoreInfo(source);
+        }
+
+        @Override
+        public StoreInfo[] newArray(int size) {
+            return new StoreInfo[size];
+        }
+    };
 }

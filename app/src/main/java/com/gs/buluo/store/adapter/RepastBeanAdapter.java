@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.CategoryBean;
+import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.BaseViewHolder;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RecyclerAdapter;
 
@@ -18,6 +19,8 @@ import java.util.List;
  */
 public class RepastBeanAdapter extends RecyclerAdapter<CategoryBean> {
     Context context;
+    private int limit = 0;
+    private int count = 0;
 
     public RepastBeanAdapter(Context context, List<CategoryBean> list) {
         super(context,list);
@@ -27,6 +30,10 @@ public class RepastBeanAdapter extends RecyclerAdapter<CategoryBean> {
     @Override
     public BaseViewHolder<CategoryBean> onCreateBaseViewHolder(ViewGroup parent, int viewType) {
         return new RepastBeanAdapter.RepastHolder(parent);
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
     }
 
     private class RepastHolder extends BaseViewHolder<CategoryBean> {
@@ -56,10 +63,16 @@ public class RepastBeanAdapter extends RecyclerAdapter<CategoryBean> {
         @Override
         public void onItemViewClick(CategoryBean entity) {
             if (entity.isSelect){
+                count--;
                 textBg.setBackgroundResource(R.drawable.text_background_round);
                 text.setTextColor(0xff2a2a2a);
                 entity.isSelect=false;
             }else {
+                if (limit!=0&&count>=limit){
+                    ToastUtils.ToastMessage(getContext(),R.string.tags_max);
+                    return;
+                }
+                count++;
                 textBg.setBackgroundResource(R.drawable.facility_choosed);
                 text.setTextColor(Color.WHITE);
                 entity.isSelect=true;

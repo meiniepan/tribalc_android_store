@@ -15,7 +15,6 @@ import com.gs.buluo.store.bean.GoodsCategory;
 import com.gs.buluo.store.bean.GoodsMeta;
 import com.gs.buluo.store.bean.GoodsPriceAndRepertory;
 import com.gs.buluo.store.bean.GoodsStandardMeta;
-import com.gs.buluo.store.bean.ListGoodsDetail;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
 import com.gs.buluo.store.bean.SerializableHashMap;
 import com.gs.buluo.store.network.TribeUploader;
@@ -27,6 +26,7 @@ import com.youth.banner.BannerConfig;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import butterknife.Bind;
 
@@ -36,12 +36,12 @@ import butterknife.Bind;
 public class NewGoodsActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
     @Bind(R.id.goods_create_banner)
     Banner banner;
+    @Bind(R.id.goods_create_title_detail)
+    EditText etTitleDetail;
     @Bind(R.id.goods_create_title)
     EditText etTitle;
     @Bind(R.id.goods_create_desc)
     EditText etDesc;
-    @Bind(R.id.goods_create_title_detail)
-    EditText etTitleDetail;
     @Bind(R.id.goods_create_origin)
     EditText etOrigin;
     @Bind(R.id.goods_create_sale)
@@ -72,17 +72,10 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void bindView(Bundle savedInstanceState) {
         initView();
-
         String category = getIntent().getStringExtra(Constant.ForIntent.GOODS_CATEGORY);
-        meta = getIntent().getParcelableExtra(Constant.ForIntent.GOODS_BEAN);
-        if (meta!=null){        //编辑商品
-            banner.setImages(meta.pictures);
-
-        }else {                 //创建商品
-            meta=new GoodsMeta();
-            meta.category = GoodsCategory.valueOf(category);
-        }
-        tvCategory.setText(GoodsCategory.valueOf(category).toString());
+        meta = new GoodsMeta();
+        meta.category = GoodsCategory.valueOf(category);
+        tvCategory.setText(meta.category.toString());
     }
 
     private void initView() {
@@ -95,6 +88,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
         findViewById(R.id.goods_create_add_pic).setOnClickListener(this);
         findViewById(R.id.goods_create_next).setOnClickListener(this);
         findViewById(R.id.ll_goods_create_standard).setOnClickListener(this);
+        findViewById(R.id.back).setOnClickListener(this);
         etTitleDetail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -106,7 +100,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
 
             @Override
             public void afterTextChanged(Editable s) {
-                tvTitleWords.setText(s.length()+"");
+                tvTitleWords.setText(s.length() + "");
             }
         });
         etDesc.addTextChangedListener(new TextWatcher() {
@@ -120,7 +114,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
 
             @Override
             public void afterTextChanged(Editable s) {
-                tvDescWords.setText(s.length()+"");
+                tvDescWords.setText(s.length() + "");
             }
         });
     }
@@ -137,15 +131,19 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
                 showChoosePhoto();
                 break;
             case R.id.goods_create_del_pic:
-                if (picList.size()==0)return;
-                picList.remove(picList.get(pos));
-                banner.setImages(picList);
-                banner.setOffscreenPageLimit(pos-1);
-                banner.start();
-                pos -=1;
+                if (picList.size() == 0 || pos > picList.size()) return;
+                if (picList.size()==1){
+                    picList.remove(0);
+                    banner.update(picList);
+                    banner.setVisibility(View.GONE);
+                    return;
+                }
+                picList.remove(pos-1);
+                banner.update(picList);
+                pos = picList.size()-1;
                 break;
             case R.id.ll_goods_create_standard:
-                startActivityForResult(new Intent(getCtx(),CreateStandardActivity.class),201);
+                startActivityForResult(new Intent(getCtx(), CreateStandardActivity.class), 201);
                 break;
             case R.id.back:
                 finish();
@@ -158,7 +156,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data!=null&&requestCode==201&&resultCode==RESULT_OK){
+        if (data != null && requestCode == 201 && resultCode == RESULT_OK) {
             bundle = data.getExtras();
             SerializableHashMap<String, GoodsPriceAndRepertory> serMap = (SerializableHashMap<String, GoodsPriceAndRepertory>) bundle.getSerializable("map");
             standardMeta = bundle.getParcelable("data");
@@ -171,27 +169,28 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void goNext() {
-        meta.name =etTitle.getText().toString().trim();
+        meta.name = etTitle.getText().toString().trim();
         meta.title = etTitleDetail.getText().toString().trim();
         meta.pictures = picList;
-        if (picList!=null&&picList.size()!=0) meta.mainPicture = picList.get(0);
-        meta.brand =etBrand.getText().toString().trim();
+        if (picList != null && picList.size() != 0) meta.mainPicture = picList.get(0);
+        meta.brand = etBrand.getText().toString().trim();
+        meta.note = etDesc.getText().toString().trim();
         meta.originCounty = etSource.getText().toString().trim();
-        if (standardMeta==null){
+        if (standardMeta == null) {
             GoodsPriceAndRepertory goods = new GoodsPriceAndRepertory();
-            if (etSale.length()==0||etStock.length()==0){
-                ToastUtils.ToastMessage(this,R.string.goods_info_not_complete);
+            if (etSale.length() == 0 || etStock.length() == 0) {
+                ToastUtils.ToastMessage(this, R.string.goods_info_not_complete);
                 return;
             }
             goods.orginPrice = Float.parseFloat(etOrigin.getText().toString().trim());
             goods.salePrice = Float.parseFloat(etSale.getText().toString().trim());
             goods.repertory = Integer.parseInt(etStock.getText().toString().trim());
-            meta.priceAndRepertory  = goods;
+            meta.priceAndRepertory = goods;
         }
 
-        Intent intent =new Intent(this,CreateGoodsFinalActivity.class);
-        intent.putExtra(Constant.ForIntent.META,meta);
-        if (bundle!=null){
+        Intent intent = new Intent(this, CreateGoodsFinalActivity.class);
+        intent.putExtra(Constant.ForIntent.META, meta);
+        if (bundle != null) {
             intent.putExtras(bundle);
         }
         startActivity(intent);
@@ -211,9 +210,10 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
         TribeUploader.getInstance().uploadFile("goods", "", new File(path), new TribeUploader.UploadCallback() {
             @Override
             public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
+                banner.setVisibility(View.VISIBLE);
                 picList.add(data.objectKey);
-                banner.setImages(picList);
-                banner.start();
+                Collections.reverse(picList);
+                banner.update(picList);
             }
 
             @Override
@@ -230,6 +230,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onPageSelected(int position) {
+        if (position>picList.size())return;
         this.pos = position;
     }
 

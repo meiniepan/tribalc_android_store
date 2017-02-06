@@ -18,24 +18,24 @@ import retrofit2.http.Query;
  * Created by hjn on 2016/11/11.
  */
 public interface ReserveService {
-    @GET("reservations?types=store")
+    @GET("reservations?type=me")
     Call<ReserveResponse> getReservationList(
 //            @Query("status") String status,
             @Query("limitSize") int limitSize,
             @Query("store") String myId,
             @Query("sortSkip") String sortSkip);
 
-    @GET("reservations?types=store")
+    @GET("reservations?type=me")
     Call<ReserveResponse> getReservationListFirst(
 //            @Query("status") String status,
             @Query("store") String myId,
             @Query("limitSize") int limitSize);
 
 
-    @GET("reservations/{id}?types=store")
+    @GET("reservations/{id}?type=me")
     Call<BaseResponse<DetailReservation>> getReserveDetail(@Path("id") String reserveId, @Query("store") String myId);
 
-    @PUT("reservations/{id}/status?types=store")
+    @PUT("reservations/{id}/status?type=me")
     Call<BaseResponse> updateReserve(@Path("id") String id, @Query("store") String myId,
                                      @Query("store")String storeId, @Body ValueRequestBody body);
 }

@@ -13,7 +13,7 @@ import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.FacilityAdapter;
-import com.gs.buluo.store.bean.CreateStoreBean;
+import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.FacilityBean;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
@@ -55,7 +55,7 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
     Switch sReserve;
 
     private ArrayList<FacilityBean> facilityList;
-    private CreateStoreBean storeBean;
+    private StoreMeta storeBean;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -139,9 +139,9 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
 
     private void createStore() {
         TribeRetrofit.getInstance().createApi(MainService.class).createStore(TribeApplication.getInstance().getUserInfo().getId(), storeBean).
-                enqueue(new TribeCallback<StoreInfo>() {
+                enqueue(new TribeCallback<StoreMeta>() {
                     @Override
-                    public void onSuccess(Response<BaseResponse<StoreInfo>> response) {
+                    public void onSuccess(Response<BaseResponse<StoreMeta>> response) {
                         saveStore(response.body().data);
                         Intent intent = new Intent();
                         intent.setClass(CreateDetailActivitySecond.this, CreateStoreFinishActivity.class);
@@ -152,7 +152,7 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
                     }
 
                     @Override
-                    public void onFail(int responseCode, BaseResponse<StoreInfo> body) {
+                    public void onFail(int responseCode, BaseResponse<StoreMeta> body) {
                         ToastUtils.ToastMessage(CreateDetailActivitySecond.this, R.string.connect_fail);
                     }
                 });
@@ -177,7 +177,7 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
         });
     }
 
-    private void saveStore(StoreInfo data) {
+    private void saveStore(StoreMeta data) {
         StoreInfoDao storeInfoDao = new StoreInfoDao();
         StoreInfo first = storeInfoDao.findFirst();
         data.setToken(first.token);

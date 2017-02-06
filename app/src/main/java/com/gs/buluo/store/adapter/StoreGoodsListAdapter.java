@@ -21,6 +21,7 @@ import com.gs.buluo.store.presenter.StoreGoodsPresenter;
 import com.gs.buluo.store.utils.FresoUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.utils.TribeDateUtils;
+import com.gs.buluo.store.view.activity.AddGoodsWithStandardActivity;
 import com.gs.buluo.store.view.activity.NewGoodsActivity;
 import com.gs.buluo.store.view.widget.SwipeMenuLayout;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.BaseViewHolder;
@@ -77,7 +78,7 @@ public class StoreGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
             repertory.setText(entity.priceAndRepertory.repertory + "");
             price.setText(entity.priceAndRepertory.salePrice + "");
             saleNum.setText(100 + "");
-            time.setText(TribeDateUtils.dateFormat5(new Date()));
+            time.setText(TribeDateUtils.dateFormat5(new Date(entity.createTime)));
 
             findViewById(R.id.goods_item_delete).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -90,7 +91,7 @@ public class StoreGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
             findViewById(R.id.goods_item_edit).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getContext(), NewGoodsActivity.class);
+                    Intent intent = new Intent(getContext(), AddGoodsWithStandardActivity.class);
                     intent.putExtra(Constant.ForIntent.GOODS_BEAN,entity);
                     getContext().startActivity(intent);
                     swipeMenuLayout.quickClose();

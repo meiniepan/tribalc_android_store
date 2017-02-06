@@ -3,20 +3,20 @@ package com.gs.buluo.store.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
+import com.gs.buluo.store.adapter.PhotoAdapter;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
 import com.gs.buluo.store.network.TribeUploader;
-import com.gs.buluo.store.utils.DensityUtils;
 import com.gs.buluo.store.utils.FresoUtils;
 import com.gs.buluo.store.utils.ToastUtils;
-import com.gs.buluo.store.view.widget.CustomAddLayout;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 
 import java.io.File;
@@ -27,21 +27,33 @@ import butterknife.Bind;
 /**
  * Created by hjn on 2017/1/10.
  */
-public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSelectedFinished {
+public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSelectedFinished, PhotoAdapter.OnDeleteListener {
     private boolean isLogo;
     @Bind(R.id.holder_image)
     ImageView image;
     @Bind(R.id.image_group)
-    CustomAddLayout llGroup;
+    RecyclerView llGroup;
 
     Context mCtx;
     private ArrayList<String> pictures = new ArrayList<>();
     private ArrayList<String> oldPictures;
+    private PhotoAdapter adapter;
+    private Intent intent;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
         mCtx = this;
         String s = getIntent().getStringExtra(Constant.ForIntent.PHOTO_TYPE);
+        adapter = new PhotoAdapter(this,pictures,this);
+        llGroup.setAdapter(adapter);
+        StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL) {
+            @Override
+            public boolean canScrollHorizontally() {
+                return false;
+            }
+        };
+        llGroup.setLayoutManager(layout);
+
         if ("logo".equals(s)) {
             isLogo = true;
             String logo = TribeApplication.getInstance().getUserInfo().getLogo();
@@ -50,19 +62,18 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
         } else {
             oldPictures = getIntent().getStringArrayListExtra(Constant.ENVIRONMENT);
             if (oldPictures != null) {
-                for (String url : oldPictures) {
-                    ImageView imageView = new ImageView(mCtx);
-                    Glide.with(mCtx).load(FresoUtils.formatImageUrl(url)).centerCrop().into(imageView);
-                    llGroup.setmCellHeight(DensityUtils.dip2px(mCtx, 100));
-                    llGroup.setmCellWidth(DensityUtils.dip2px(mCtx, 100));
-                    llGroup.addView(imageView);
-                }
+                image.setVisibility(View.GONE);
+                adapter.addAll(oldPictures);
             }
         }
-
+        intent = new Intent();
         findViewById(R.id.add_photo_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (pictures.size()==9){
+                    ToastUtils.ToastMessage(getCtx(),"最多可选9张");
+                    return;
+                }
                 choosePhoto();
             }
         });
@@ -91,14 +102,7 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
                     setResult(201, intent);
                 } else {
                     image.setVisibility(View.GONE);
-                    ImageView imageView = new ImageView(mCtx);
-                    Glide.with(mCtx).load(FresoUtils.formatImageUrl(data.objectKey)).centerCrop().into(imageView);
-                    llGroup.setmCellHeight(DensityUtils.dip2px(mCtx, 100));
-                    llGroup.setmCellWidth(DensityUtils.dip2px(mCtx, 100));
-                    llGroup.addView(imageView);
-
-                    Intent intent = new Intent();
-                    pictures.add(data.objectKey);
+                    adapter.add(data.objectKey);
                     intent.putStringArrayListExtra(Constant.ENVIRONMENT, pictures);
                     setResult(202, intent);
                 }
@@ -111,7 +115,6 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
         });
     }
 
-
     @Override
     protected int getContentLayout() {
         return R.layout.activity_add_photo;
@@ -123,26 +126,9 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
         updatePic(string);
     }
 
-//    @Override
-//    public void updateSuccess(String key, String value) {
-//        dismissDialog();
-//        if (isLogo) {
-//            StoreInfoDao storeInfoDao = new StoreInfoDao();
-//            StoreInfo storeInfo = storeInfoDao.findFirst();
-//            storeInfo.setLogo(value);
-//            storeInfoDao.update(storeInfo);
-//            Glide.with(this).load(FresoUtils.formatImageUrl(value)).centerCrop().into(image);
-//            SelfEvent event = new SelfEvent();
-//            event.head = value;
-//            EventBus.getDefault().post(event);
-//        } else {
-//
-//        }
-//    }
-//
-//    @Override
-//    public void showError(int res) {
-//        dismissDialog();
-//        ToastUtils.ToastMessage(this, R.string.connect_fail);
-//    }
+    @Override
+    public void onDelete() {
+        intent.putStringArrayListExtra(Constant.ENVIRONMENT, pictures);
+        setResult(202, intent);
+    }
 }

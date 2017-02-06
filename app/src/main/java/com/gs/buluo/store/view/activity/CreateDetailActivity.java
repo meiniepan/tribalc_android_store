@@ -13,7 +13,7 @@ import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.RepastBeanAdapter;
-import com.gs.buluo.store.bean.CreateStoreBean;
+import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.CategoryBean;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.StoreInfo;
@@ -55,7 +55,7 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
     @Bind(R.id.store_create_next)
     TextView button;
 
-    CreateStoreBean storeBean;
+    StoreMeta storeBean;
     private List<CategoryBean> categoryBeanList;
 
     @Override
@@ -147,7 +147,7 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
         tvPhone = (TextView) serveView.findViewById(R.id.store_phone);
         tvOtherPhone = (TextView) serveView.findViewById(R.id.store_other_phone);
         tvAddress = (TextView) serveView.findViewById(R.id.store_address);
-        if (storeBean.category == CreateStoreBean.StoreCategory.REPAST) {
+        if (storeBean.category == StoreMeta.StoreCategory.REPAST) {
             findViewById(R.id.create_food_area).setVisibility(View.VISIBLE);
             initFoodCategory();
         }
@@ -173,10 +173,10 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void createStore() {
-        TribeRetrofit.getInstance().createApi(MainService.class).createStore(TribeApplication.getInstance().getUserInfo().getId(), storeBean).
-                enqueue(new TribeCallback<StoreInfo>() {
+        TribeRetrofit.getInstance().createApi(MainService.class).createStore(TribeApplication.getInstance().getUserInfo().getId(), storeBean)
+                .enqueue(new TribeCallback<StoreMeta>() {
                     @Override
-                    public void onSuccess(Response<BaseResponse<StoreInfo>> response) {
+                    public void onSuccess(Response<BaseResponse<StoreMeta>> response) {
                         saveStore(response.body().data);
                         Intent intent = new Intent();
                         intent.setClass(CreateDetailActivity.this, CreateStoreFinishActivity.class);
@@ -186,7 +186,7 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
                     }
 
                     @Override
-                    public void onFail(int responseCode, BaseResponse<StoreInfo> body) {
+                    public void onFail(int responseCode, BaseResponse<StoreMeta> body) {
                         ToastUtils.ToastMessage(CreateDetailActivity.this, R.string.connect_fail);
                     }
                 });

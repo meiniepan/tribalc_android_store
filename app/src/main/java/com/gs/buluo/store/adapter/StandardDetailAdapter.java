@@ -41,6 +41,7 @@ public class StandardDetailAdapter extends RecyclerAdapter<ListGoodsDetail> {
         @Override
         public void setData(ListGoodsDetail entity) {
             super.setData(entity);
+            if (entity==null)return;
             Glide.with(getContext()).load(FresoUtils.formatImageUrl(entity.mainPicture)).placeholder(R.mipmap.default_pic).into(picture);
         }
 
