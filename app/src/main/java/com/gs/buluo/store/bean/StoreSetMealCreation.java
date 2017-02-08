@@ -13,5 +13,5 @@ public class StoreSetMealCreation {
     public String topics;
     public String recommendedReason;
     public String personExpense;
-    public boolean isReservable;
+    public boolean reservable;
 }

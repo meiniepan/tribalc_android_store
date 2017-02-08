@@ -28,19 +28,6 @@
             android:text="@string/store_management"/>
     </android.support.v7.widget.Toolbar>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/store_floating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:rippleColor="@color/custom_yellow_select"
-        android:backgroundTint="@color/custom_yellow"
-        android:elevation="6dp"
-        app:borderWidth="0dp"
-        android:src="@mipmap/add"
-        app:pressedTranslationZ="12dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="28dp" />
     <LinearLayout
         android:layout_below="@+id/goods_bar"
         android:id="@+id/goods_tab"
@@ -136,4 +123,18 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/goods_tab"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/store_floating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:rippleColor="@color/custom_yellow_select"
+        android:backgroundTint="@color/custom_yellow"
+        android:elevation="6dp"
+        app:borderWidth="0dp"
+        android:src="@mipmap/add"
+        app:pressedTranslationZ="12dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="28dp" />
 </RelativeLayout>

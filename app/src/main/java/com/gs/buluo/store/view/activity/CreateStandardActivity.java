@@ -2,7 +2,6 @@ package com.gs.buluo.store.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -18,9 +17,14 @@ import com.gs.buluo.store.bean.GoodsStandardDescriptions;
 import com.gs.buluo.store.bean.GoodsStandardMeta;
 import com.gs.buluo.store.bean.SerializableHashMap;
 import com.gs.buluo.store.bean.StandardLevel;
+import com.gs.buluo.store.eventbus.StandardRemoveEvent;
 import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.panel.GroupSetStandardPanel;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,6 +42,7 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
     ArrayList<GoodsPriceAndRepertory> standardList = new ArrayList<>();
     ArrayList<String> valueList = new ArrayList<>();
     ArrayList<String> value2List = new ArrayList<>();
+    HashMap<String, GoodsPriceAndRepertory> cacheMap = new HashMap<>();
 
     @Bind(R.id.create_standard_name)
     EditText etTitle;
@@ -56,6 +61,7 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
     private View secondView;
     private String[] values2;
     private String[] values1;
+    private GoodsStandardMeta oldMeta;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -70,7 +76,22 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
         value1Group.setAdapter(valueAdapter);
 
         standardListAdapter = new NewStandardAdapter(this, standardList);
+        standardListAdapter.setCache(cacheMap);
         listView.setAdapter(standardListAdapter);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            SerializableHashMap<String, GoodsPriceAndRepertory> serMap = (SerializableHashMap<String, GoodsPriceAndRepertory>) bundle.getSerializable("map");
+            oldMeta = bundle.getParcelable("data");
+            oldMeta.priceAndRepertoryMap = serMap.getMap();
+            setOldData();
+        }
+        EventBus.getDefault().register(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onStandardRemoved(StandardRemoveEvent event) {
+        notifyPriceList();
     }
 
     @Override
@@ -83,12 +104,23 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
         switch (v.getId()) {
             case R.id.goods_create_standard_add:
                 if (etValue.length() == 0) return;
-                valueList.clear();
                 String value1 = etValue.getText().toString().trim();
                 values1 = value1.split("、");
                 if (values1 != null && values1.length > 0) {
                     Collections.addAll(valueList, values1);
+                    removeSame(valueList);
                     valueAdapter.notifyDataSetChanged();
+                }
+                notifyPriceList();
+                break;
+            case R.id.rl_goods_create_standard_add:
+                if (etValue2.length() == 0) return;
+                String value2 = etValue2.getText().toString().trim();
+                values2 = value2.split("、");
+                if (values2 != null && values2.length > 0) {
+                    Collections.addAll(value2List, values2);
+                    removeSame(value2List);
+                    valueAdapter2.notifyDataSetChanged();
                 }
                 notifyPriceList();
                 break;
@@ -102,34 +134,111 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
                     secondView.setVisibility(View.VISIBLE);
                 }
                 break;
-            case R.id.rl_goods_create_standard_add:
-                if (etValue2.length() == 0) return;
-                value2List.clear();
-                String value2 = etValue2.getText().toString().trim();
-                values2 = value2.split("、");
-                if (values2 != null && values2.length > 0) {
-                    Collections.addAll(value2List, values2);
-                    valueAdapter2.notifyDataSetChanged();
-                }
-                notifyPriceList();
-                break;
             case R.id.standard_group_set:
                 showSettingPanel();
                 break;
-            case R.id.goods_create_standard_delete:
-                notifyPriceList();
-                break;
             case R.id.create_standard_finish:
-                for (GoodsPriceAndRepertory repertory :standardList){
-                    if (repertory.repertory==0||repertory.salePrice==0){
-                        ToastUtils.ToastMessage(getCtx(),"规格信息填写不完整");
+                if (etTitle.length() == 0) {
+                    ToastUtils.ToastMessage(getCtx(), "商品规格标题不能为空");
+                    return;
+                }
+                if (etName.length() == 0 || (etValue2 != null && etName2.length() == 0)) {
+                    ToastUtils.ToastMessage(getCtx(), "商品规格名称不能为空");
+                    return;
+                }
+                for (GoodsPriceAndRepertory repertory : standardList) {
+                    if (repertory.salePrice == 0) {
+                        ToastUtils.ToastMessage(getCtx(), "销售价格不能为空");
+                        return;
+                    }
+                    if (repertory.repertory == 0) {
+                        ToastUtils.ToastMessage(getCtx(), "商品库存不能为空");
                         return;
                     }
                 }
                 setStandardResult();
                 break;
-
+            case R.id.goods_create_standard_delete:
+                removeFirstLevel();
+                notifyPriceList();
+                break;
+            case R.id.goods_create_standard_delete2:
+                secondView.setVisibility(View.GONE);
+                etName2.setText("");
+                etValue2.setText("");
+                value2List.clear();
+                valueAdapter2.notifyDataSetChanged();
+                view.setVisibility(View.VISIBLE);
+                notifyPriceList();
+                break;
+            case R.id.back:
+                finish();
+                break;
         }
+    }
+
+    private void removeFirstLevel() {
+        valueList.clear();
+        valueList.addAll(value2List);
+        etValue.setText("");
+        etName.setText("");
+        valueAdapter.notifyDataSetChanged();
+        if (etValue2 != null) {        //二级菜单被inflate
+            etValue.setText(etValue2.getText().toString().trim());
+            etName.setText(etName2.getText().toString().trim());
+            etValue2.setText("");
+            etName2.setText("");
+            secondView.setVisibility(View.GONE);
+            value2List.clear();
+            valueAdapter2.notifyDataSetChanged();
+            view.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void removeSame(ArrayList<String> oldList) {
+        ArrayList<String> newList = new ArrayList<>();
+        for (String s : oldList) {
+            if (!newList.contains(s)) newList.add(s);
+        }
+        oldList.clear();
+        oldList.addAll(newList);
+    }
+
+    private void setOldData() {
+        etTitle.setText(oldMeta.title);
+        etName.setText(oldMeta.descriptions.primary.label);
+        valueList.addAll(oldMeta.descriptions.primary.types);
+        valueAdapter.notifyDataSetChanged();
+        if (oldMeta.descriptions.secondary.label != null) {
+            view.setVisibility(View.GONE);
+            ViewStub stub = (ViewStub) findViewById(R.id.standard_second_stub);
+            if (stub != null) {
+                secondView = stub.inflate();
+                initSecondView(secondView);
+            }
+            etName2.setText(oldMeta.descriptions.secondary.label);
+            value2List.addAll(oldMeta.descriptions.secondary.types);
+            valueAdapter2.notifyDataSetChanged();
+        }
+        setPrice();
+    }
+
+    private void setPrice() {
+        HashMap<String, GoodsPriceAndRepertory> priceAndRepertoryMap = oldMeta.priceAndRepertoryMap;
+        cacheMap.putAll(priceAndRepertoryMap);
+        if (value2List.size() == 0) {
+            for (String s : valueList) {
+                standardList.add(priceAndRepertoryMap.get(s));
+            }
+        } else {
+            for (String s1 : valueList) {
+                for (String s2 : value2List) {
+                    standardList.add(priceAndRepertoryMap.get(s1 + "^" + s2));
+                }
+            }
+        }
+        standardListAdapter.notifyDataSetChanged();
+        CommonUtils.setListViewHeightBasedOnChildren(listView);
     }
 
     private void setStandardResult() {
@@ -147,14 +256,13 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
                 map.put(repo.firstName, repo);
             }
         }
-        SerializableHashMap<String, GoodsPriceAndRepertory> serMap =new SerializableHashMap<>();
+        SerializableHashMap<String, GoodsPriceAndRepertory> serMap = new SerializableHashMap<>();
         serMap.setMap(map);
 
-        Bundle bundle =new Bundle();
-        bundle.putParcelable("data",standardMeta);
-        bundle.putSerializable("map",serMap);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("data", standardMeta);
+        bundle.putSerializable("map", serMap);
         Intent intent = new Intent();
-//                intent.putExtra(Constant.STANDARD_INFO, standardMeta);
         intent.putExtras(bundle);
         setResult(RESULT_OK, intent);
         finish();
@@ -168,8 +276,6 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
             }
         });
         panel.show();
-
-
     }
 
     private void setStandard(float price, int repertory) {
@@ -177,6 +283,11 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
         for (GoodsPriceAndRepertory bean : standardList) {
             bean.salePrice = price;
             bean.repertory = repertory;
+            if (bean.secondName != null) {
+                cacheMap.put(bean.firstName + "-" + bean.secondName, bean);
+            } else {
+                cacheMap.put(bean.firstName, bean);
+            }
         }
         standardListAdapter.notifyDataSetChanged();
     }
@@ -214,26 +325,7 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         recyclerView.setAdapter(valueAdapter2);
 
-        secondView.findViewById(R.id.goods_create_standard_delete2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                valueList.clear();
-                valueList.addAll(value2List);
-                valueAdapter = new StandardValueAdapter(valueList);
-                value1Group.setAdapter(valueAdapter);
-                if (etValue2 != null) {        //二级菜单被inflate
-                    etValue.setText(etValue2.getText().toString().trim());
-                    etName.setText(etName2.getText().toString().trim());
-                }
-                secondView.setVisibility(View.GONE);
-                etName2.setText("");
-                etValue2.setText("");
-                value2List.clear();
-                valueAdapter2.notifyDataSetChanged();
-                view.setVisibility(View.VISIBLE);
-                notifyPriceList();
-            }
-        });
+        secondView.findViewById(R.id.goods_create_standard_delete2).setOnClickListener(this);
     }
 
     public void setMetaDescription(GoodsStandardMeta metaDescription) {
@@ -246,6 +338,12 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
             descriptions.secondary.label = etName2.getText().toString().trim();
             descriptions.secondary.types = value2List;
         }
-        metaDescription.descriptions = descriptions;  //ok?
+        metaDescription.descriptions = descriptions;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

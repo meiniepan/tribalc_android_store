@@ -36,20 +36,6 @@ public class ShoppingModel {
                 getOrderFirst(uid, limitSize, status).enqueue(callback);
     }
 
-    public void getShoppingListFirst(String uid, Callback<ShoppingCartResponse> callback) {
-        TribeRetrofit.getInstance().createApi(ShoppingService.class).
-                getShoppingCarListFirst(uid, 50).enqueue(callback);
-    }
-
-    public void deleteShoppingItem(String body, Callback<BaseResponse> callback) {
-        TribeRetrofit.getInstance().createApi(ShoppingService.class).
-                deleteCart(TribeApplication.getInstance().getUserInfo().getId(), body).enqueue(callback);
-    }
-
-    public void updateShoppingItem(ShoppingCartGoodsItem body, Callback<CartItemUpdateResponse> callback) {
-        TribeRetrofit.getInstance().createApi(ShoppingService.class).
-                updateCartItem(TribeApplication.getInstance().getUserInfo().getId(), body).enqueue(callback);
-    }
 
     public void addShoppingCart(NewOrderBean body, Callback<BaseResponse> callback) {
         TribeRetrofit.getInstance().createApi(ShoppingService.class).

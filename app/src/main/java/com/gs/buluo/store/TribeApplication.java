@@ -5,6 +5,7 @@ import android.app.Application;
 import com.baidu.mapapi.SDKInitializer;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.utils.TribeCrashCollector;
 
 import org.greenrobot.eventbus.EventBus;
 import org.xutils.DbManager;
@@ -22,6 +23,7 @@ public class TribeApplication extends Application {
     public void onCreate() {
         super.onCreate();
         SDKInitializer.initialize(this);  //map initialize
+        initCrashCollect();
         instance = this;
         x.Ext.init(this);//X utils初始化
         Fresco.initialize(this);
@@ -29,6 +31,11 @@ public class TribeApplication extends Application {
         initDb();
 
         EventBus.getDefault();
+    }
+
+    private void initCrashCollect() {
+        if (Constant.Base.BASE_URL.contains("dev"))
+            TribeCrashCollector.getIns(getApplicationContext());
     }
 
     private void initDb() {

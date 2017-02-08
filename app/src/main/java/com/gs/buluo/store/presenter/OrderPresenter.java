@@ -54,9 +54,12 @@ public class OrderPresenter extends BasePresenter<IOrderView> {
                 status = OrderBean.OrderStatus.NO_SETTLE.name();
                 break;
             case 2:
-                status = OrderBean.OrderStatus.DELIVERY.name();
+                status = OrderBean.OrderStatus.SETTLE.name();
                 break;
             case 3:
+                status = OrderBean.OrderStatus.DELIVERY.name();
+                break;
+            case 4:
                 status = OrderBean.OrderStatus.RECEIVED.name();
                 break;
         }

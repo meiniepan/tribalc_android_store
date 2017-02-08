@@ -29,11 +29,9 @@ public class BusinessVerifyActivity extends BaseActivity implements View.OnClick
     @Override
     protected void bindView(Bundle savedInstanceState) {
         authenticationData=new AuthenticationData();
-
         findViewById(R.id.identify_back).setOnClickListener(this);
         findViewById(R.id.ll_identify_business).setOnClickListener(this);
         findViewById(R.id.identify_business_next).setOnClickListener(this);
-
     }
 
     @Override

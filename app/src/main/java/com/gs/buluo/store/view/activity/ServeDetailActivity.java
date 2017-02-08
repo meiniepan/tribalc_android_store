@@ -153,7 +153,9 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
         tvPrice.setText(data.personExpense);
         tvReason.setText(data.recommendedReason);
         tvBrand.setText(data.detailStore.brand);
-        tvTime.setText("每天 " + data.detailStore.businessHours);
+        String businessHours = data.detailStore.businessHours;
+        if (businessHours == null) tvTime.setVisibility(View.GONE);
+        else tvTime.setText("每天 " + (businessHours == null ? 0 : businessHours));
         tvTopic.setText(data.topics);
         setFacilities(data.detailStore.faclities);
         FresoUtils.loadImage(data.mainPicture, logo); //TODO  LOGO
@@ -187,6 +189,7 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     public void setFacilities(List<String> faclities) {
+        if (faclities == null) return;
         for (String facility : faclities) {
             View facilityView = View.inflate(this, R.layout.serve_detail_facility, null);
             ImageView iv = (ImageView) facilityView.findViewById(R.id.facility_image);

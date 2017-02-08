@@ -24,7 +24,7 @@ public class GoodsMeta implements Parcelable {
     public String detail;
     public String note;
     public ArrayList<String> tags ;
-    public String originCounty;
+    public String originCountry;
     public String dispatchPlace;
     public String expressType;
     public float expressFee;
@@ -59,7 +59,7 @@ public class GoodsMeta implements Parcelable {
         dest.writeString(this.detail);
         dest.writeString(this.note);
         dest.writeStringList(this.tags);
-        dest.writeString(this.originCounty);
+        dest.writeString(this.originCountry);
         dest.writeString(this.dispatchPlace);
         dest.writeString(this.expressType);
         dest.writeFloat(this.expressFee);
@@ -86,7 +86,7 @@ public class GoodsMeta implements Parcelable {
         this.detail = in.readString();
         this.note = in.readString();
         this.tags = in.createStringArrayList();
-        this.originCounty = in.readString();
+        this.originCountry = in.readString();
         this.dispatchPlace = in.readString();
         this.expressType = in.readString();
         this.expressFee = in.readFloat();

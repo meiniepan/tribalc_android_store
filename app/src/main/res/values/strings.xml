@@ -137,7 +137,7 @@
 
 
     <!--银行卡-->
-    <string name="my_wallet">企业钱包</string>
+    <string name="my_wallet">商户钱包</string>
     <string name="bank_card">银行卡</string>
     <string name="add_bank_card">添加银行卡</string>
     <string name="card_bind">银行卡绑定</string>
@@ -166,6 +166,7 @@
     <string name="all">全部</string>
     <string name="wait_pay">待付款</string>
     <string name="wait_send">待发货</string>
+    <string name="wait_receive">待收货</string>
     <string name="delivery_order">卖家已发货</string>
     <string name="paying">付款中</string>
     <string name="payed_order">已付款</string>

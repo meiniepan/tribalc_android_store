@@ -53,7 +53,6 @@ public class CreateStoreAddressActivity extends BaseActivity implements OnGetGeo
     MapLocationListenner myListener = new MapLocationListenner();
     private LatLng currentPt;
 
-
     Context mCtx;
     private String chooseCity;
     @Override
@@ -71,11 +70,16 @@ public class CreateStoreAddressActivity extends BaseActivity implements OnGetGeo
                 finish();
             }
         });
-
         findViewById(R.id.ll_create_address).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 initAddressPicker();
+            }
+        });
+        findView(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class GoodsPriceAndRepertory implements Serializable {
     public String firstName;
     public String secondName;
-    public float orginPrice;
+    public float originPrice;
     public float salePrice;
     public int repertory;
 }

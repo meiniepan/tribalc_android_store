@@ -1,6 +1,8 @@
 package com.gs.buluo.store.adapter;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.GoodsPriceAndRepertory;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -22,6 +25,8 @@ public class NewStandardAdapter extends BaseAdapter {
     private EditText etSale;
     private EditText etRepo;
     private TextView tvName;
+    private HashMap<String, GoodsPriceAndRepertory> cache;
+    private GoodsPriceAndRepertory listBean;
 
     public NewStandardAdapter(Context context, List<GoodsPriceAndRepertory> standardListBeen) {
         standardList = standardListBeen;
@@ -35,12 +40,12 @@ public class NewStandardAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return standardList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
@@ -52,25 +57,40 @@ public class NewStandardAdapter extends BaseAdapter {
         etSale = (EditText) convertView.findViewById(R.id.item_standard_sale);
         etRepo = (EditText) convertView.findViewById(R.id.item_standard_repertory);
         tvName = (TextView) convertView.findViewById(R.id.item_standard_name);
-        convertView.findViewById(R.id.item_standard_delete).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                standardList.remove(position);
-                notifyDataSetChanged();
+        listBean = standardList.get(position);
+        if (listBean.secondName != null) {
+            tvName.setText(listBean.firstName + "-" + listBean.secondName);
+            GoodsPriceAndRepertory repertory = cache.get(listBean.firstName + "^" + listBean.secondName);
+            if (repertory != null){
+                listBean = repertory;
             }
-        });
-        GoodsPriceAndRepertory createStandardListBean = standardList.get(position);
-        if (createStandardListBean.secondName != null)
-            tvName.setText(createStandardListBean.firstName + "-" + createStandardListBean.secondName);
+        } else {
+            tvName.setText(listBean.firstName);
+            GoodsPriceAndRepertory repertory = cache.get(listBean.firstName);
+            if (repertory != null) listBean = repertory;
+        }
+
+        if (listBean.originPrice != 0)
+            etOrigin.setText(listBean.originPrice + "");
         else
-            tvName.setText(createStandardListBean.firstName);
+            etOrigin.setText("");
 
-        etOrigin.setText(createStandardListBean.orginPrice+"");
-        etSale.setText(createStandardListBean.salePrice+"");
-        etRepo.setText(createStandardListBean.repertory+"");
-        createStandardListBean.orginPrice = Float.parseFloat(etOrigin.getText().toString().trim());
-        createStandardListBean.salePrice = Float.parseFloat(etSale.getText().toString().trim());
-        createStandardListBean.repertory = Integer.parseInt(etRepo.getText().toString().trim());
+        if (listBean.salePrice != 0)
+            etSale.setText(listBean.salePrice + "");
+        else
+            etSale.setText("");
+
+        if (listBean.repertory != 0)
+            etRepo.setText(listBean.repertory + "");
+        else
+            etRepo.setText("");
+
+        etOrigin.setTag(position);
+        etSale.setTag(position);
+        etRepo.setTag(position);
+        etOrigin.addTextChangedListener(new MyTextWatcher(0, etOrigin));
+        etSale.addTextChangedListener(new MyTextWatcher(1, etSale));
+        etRepo.addTextChangedListener(new MyTextWatcher(2, etRepo));
 
         convertView.findViewById(R.id.item_standard_delete).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,8 +99,51 @@ public class NewStandardAdapter extends BaseAdapter {
                 notifyDataSetChanged();
             }
         });
-
         return convertView;
     }
 
+
+    public void setCache(HashMap<String, GoodsPriceAndRepertory> cache) {
+        this.cache = cache;
+    }
+
+    class MyTextWatcher implements TextWatcher {
+        EditText editText;
+        int pos;
+
+        MyTextWatcher(int i, EditText editText) {
+            pos = i;
+            this.editText = editText;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (s != null && !"".equals(s.toString())) {
+                GoodsPriceAndRepertory gpa = standardList.get((Integer) editText.getTag());
+                if (gpa == null) return;
+                if (pos == 0)
+                    gpa.originPrice = Float.parseFloat(s.toString());
+                else if (pos == 1)
+                    gpa.salePrice = Float.parseFloat(s.toString());
+                else
+                    gpa.repertory = Integer.parseInt(s.toString());
+
+                if (gpa.secondName != null) {
+                    cache.put(listBean.firstName + "^" + listBean.secondName, gpa);
+                } else {
+                    cache.put(listBean.firstName, gpa);
+                }
+            }
+        }
+    }
 }

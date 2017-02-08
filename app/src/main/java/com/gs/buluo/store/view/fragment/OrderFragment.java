@@ -55,8 +55,10 @@ public class OrderFragment extends BaseFragment implements IOrderView {
         } else if (type == 2) {
             showLoadingDialog();
             ((OrderPresenter) mPresenter).getOrderListFirst(2);
-        } else {
+        } else if (type==3){
             ((OrderPresenter) mPresenter).getOrderListFirst(3);
+        }   else {
+            ((OrderPresenter) mPresenter).getOrderListFirst(4);
         }
         adapter.setLoadMoreAction(new Action() {
             @Override
@@ -79,8 +81,10 @@ public class OrderFragment extends BaseFragment implements IOrderView {
             } else if (type == 2) {
                 showLoadingDialog();
                 ((OrderPresenter) mPresenter).getOrderListFirst(2);
-            } else {
+            }  else if (type==3){
                 ((OrderPresenter) mPresenter).getOrderListFirst(3);
+            }   else {
+                ((OrderPresenter) mPresenter).getOrderListFirst(4);
             }
             adapter.clear();
         }

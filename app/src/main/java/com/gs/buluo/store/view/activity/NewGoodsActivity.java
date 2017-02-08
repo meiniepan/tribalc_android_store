@@ -100,7 +100,13 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
 
             @Override
             public void afterTextChanged(Editable s) {
-                tvTitleWords.setText(s.length() + "");
+                if (s.length()>60){
+                    String res =s.subSequence(s.length(),s.length()-60).toString();
+                    etTitleDetail.setText(res);
+                    tvTitleWords.setText(60+"");
+                }else {
+                    tvTitleWords.setText(s.length() + "");
+                }
             }
         });
         etDesc.addTextChangedListener(new TextWatcher() {
@@ -114,7 +120,13 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
 
             @Override
             public void afterTextChanged(Editable s) {
-                tvDescWords.setText(s.length() + "");
+                if (s.length()>20){
+                    String res = s.subSequence(s.length(),s.length()-20).toString();
+                    etDesc.setText(res);
+                    tvDescWords.setText(20+"");
+                }else {
+                    tvDescWords.setText(s.length() + "");
+                }
             }
         });
     }
@@ -143,7 +155,11 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
                 pos = picList.size()-1;
                 break;
             case R.id.ll_goods_create_standard:
-                startActivityForResult(new Intent(getCtx(), CreateStandardActivity.class), 201);
+                Intent intent = new Intent(getCtx(), CreateStandardActivity.class);
+                if (bundle!=null){
+                    intent.putExtras(bundle);
+                }
+                startActivityForResult(intent, 201);
                 break;
             case R.id.back:
                 finish();
@@ -159,12 +175,14 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
         if (data != null && requestCode == 201 && resultCode == RESULT_OK) {
             bundle = data.getExtras();
             SerializableHashMap<String, GoodsPriceAndRepertory> serMap = (SerializableHashMap<String, GoodsPriceAndRepertory>) bundle.getSerializable("map");
-            standardMeta = bundle.getParcelable("data");
-            standardMeta.priceAndRepertoryMap = serMap.getMap();
-            tvStandard.setText(standardMeta.title);
-            findView(R.id.ll_create_goods_orgin).setVisibility(View.GONE);
-            findView(R.id.ll_create_goods_sale).setVisibility(View.GONE);
-            findView(R.id.ll_create_goods_repertory).setVisibility(View.GONE);
+            if (serMap!=null){
+                standardMeta = bundle.getParcelable("data");
+                standardMeta.priceAndRepertoryMap = serMap.getMap();
+                tvStandard.setText(standardMeta.title);
+                findView(R.id.ll_create_goods_orgin).setVisibility(View.GONE);
+                findView(R.id.ll_create_goods_sale).setVisibility(View.GONE);
+                findView(R.id.ll_create_goods_repertory).setVisibility(View.GONE);
+            }
         }
     }
 
@@ -175,14 +193,14 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
         if (picList != null && picList.size() != 0) meta.mainPicture = picList.get(0);
         meta.brand = etBrand.getText().toString().trim();
         meta.note = etDesc.getText().toString().trim();
-        meta.originCounty = etSource.getText().toString().trim();
+        meta.originCountry = etSource.getText().toString().trim();
         if (standardMeta == null) {
             GoodsPriceAndRepertory goods = new GoodsPriceAndRepertory();
             if (etSale.length() == 0 || etStock.length() == 0) {
                 ToastUtils.ToastMessage(this, R.string.goods_info_not_complete);
                 return;
             }
-            goods.orginPrice = Float.parseFloat(etOrigin.getText().toString().trim());
+            goods.originPrice = Float.parseFloat(etOrigin.getText().toString().trim());
             goods.salePrice = Float.parseFloat(etSale.getText().toString().trim());
             goods.repertory = Integer.parseInt(etStock.getText().toString().trim());
             meta.priceAndRepertory = goods;
@@ -213,7 +231,8 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
                 banner.setVisibility(View.VISIBLE);
                 picList.add(data.objectKey);
                 Collections.reverse(picList);
-                banner.update(picList);
+                banner.setImages(picList);
+                banner.start();
             }
 
             @Override

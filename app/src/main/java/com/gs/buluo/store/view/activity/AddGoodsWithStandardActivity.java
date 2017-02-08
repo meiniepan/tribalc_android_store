@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -30,7 +29,6 @@ import com.youth.banner.Banner;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -78,7 +76,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     EditText tvValue2;
 
     GoodsMeta meta;
-    List<String> picList = new ArrayList<>();
+    List<String> picList;
     private GoodsStandardDescriptions descriptions;
     private int pos = 0;
     private View llPrimay;
@@ -87,6 +85,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     @Override
     protected void bindView(Bundle savedInstanceState) {
         initView();
+        picList = new ArrayList<>();
         Intent intent = getIntent();
         meta = intent.getParcelableExtra(Constant.ForIntent.GOODS_BEAN);
         if (meta != null) {
@@ -110,6 +109,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     private void initView() {
         findView(R.id.goods_create_add_pic).setOnClickListener(this);
         findView(R.id.goods_create_del_pic).setOnClickListener(this);
+        findView(R.id.back).setOnClickListener(this);
         llPrimay = findView(R.id.ll_primary_standard);
         llSecond = findView(R.id.ll_second_standard);
         findView(goods_create_next).setOnClickListener(this);
@@ -156,9 +156,9 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         etDesc.setText(meta.note);
         etBrand.setText(meta.brand);
         tvCategory.setText(meta.category.toString());
-        etSource.setText(meta.originCounty);
+        etSource.setText(meta.originCountry);
         etSale.setText(meta.priceAndRepertory.salePrice + "");
-        etOrigin.setText(meta.priceAndRepertory.orginPrice + "");
+        etOrigin.setText(meta.priceAndRepertory.originPrice + "");
         etStock.setText(meta.priceAndRepertory.repertory + "");
         if (meta.standardKeys != null) {
             tvValue1.setText(meta.standardKeys.get(0));
@@ -189,7 +189,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.goods_create_next:
-                if (etSale.length() == 0 || etStock.length() == 0 || tvValue1.length() == 0 || tvValue2.length() == 0) {
+                if (etSale.length() == 0 || etStock.length() == 0 ) {
                     ToastUtils.ToastMessage(getCtx(), getString(R.string.goods_info_not_complete));
                     return;
                 }
@@ -198,7 +198,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
                 meta.pictures = picList;
                 if (picList != null && picList.size() != 0) meta.mainPicture = picList.get(0);
                 meta.brand = etBrand.getText().toString().trim();
-                meta.originCounty = etSource.getText().toString().trim();
+                meta.originCountry = etSource.getText().toString().trim();
                 meta.note = etDesc.getText().toString().trim();
                 if (descriptions != null) {
                     meta.standardKeys = new ArrayList<>();
@@ -206,7 +206,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
                     meta.standardKeys.add(tvValue2.getText().toString().trim());
                 }
                 meta.priceAndRepertory = new GoodsPriceAndRepertory();
-                meta.priceAndRepertory.orginPrice = Float.parseFloat(etOrigin.getText().toString().trim());
+                meta.priceAndRepertory.originPrice = Float.parseFloat(etOrigin.getText().toString().trim());
                 meta.priceAndRepertory.salePrice = Float.parseFloat(etSale.getText().toString().trim());
                 meta.priceAndRepertory.repertory = Integer.parseInt(etStock.getText().toString().trim());
 
@@ -229,6 +229,9 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
                 banner.update(picList);
                 pos = picList.size()-1;
                 break;
+            case R.id.back:
+                finish();
+                break;
         }
     }
 
@@ -239,7 +242,8 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
                 banner.setVisibility(View.VISIBLE);
                 picList.add(data.objectKey);
                 Collections.reverse(picList);
-                banner.update(picList);
+                banner.setImages(picList);
+                banner.start();
             }
 
             @Override

@@ -77,11 +77,12 @@ public class MainActivity extends BaseActivity implements ILoginView, ViewPager.
         super.onNewIntent(intent);
         String flag = intent.getStringExtra(Constant.ForIntent.FLAG);
         if (TextUtils.equals(flag,Constant.GOODS)){
-            commodityFragment.refreshList(intent.getBooleanExtra(Constant.PUBLISHED,false));
+            commodityFragment.refreshList();
             return;
         }
         if (new StoreInfoDao().findFirst() == null) {
             mineFragment.setLoginState(false);
+            commodityFragment.showLogin();
         } else {
             mineFragment.setLoginState(true);
         }

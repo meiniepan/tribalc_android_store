@@ -29,7 +29,8 @@
     </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -137,34 +138,29 @@
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="4dp"/>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <LinearLayout
-                    android:layout_alignParentBottom="true"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/tint_bg">
-                    <Button
-                        android:id="@+id/create_goods_save"
-                        style="@style/button_style"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="放入仓库"
-                        android:background="@color/custom_yellow_shallow"
-                        />
-                    <Button
-                        android:id="@+id/create_goods_publish"
-                        style="@style/button_style"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="立即发布"
-                        />
-                </LinearLayout>
-            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/tint_bg">
+        <Button
+            android:id="@+id/create_goods_save"
+            style="@style/button_style"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="放入仓库"
+            android:background="@color/custom_yellow_shallow"
+            />
+        <Button
+            android:id="@+id/create_goods_publish"
+            style="@style/button_style"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="立即发布"
+            />
+    </LinearLayout>
 </LinearLayout>

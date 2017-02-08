@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -34,15 +35,17 @@ import retrofit2.Response;
 public class GoodsStoreInfoActivity extends BaseActivity implements Callback<BaseResponse<StoreMeta>>, View.OnClickListener {
     @Bind(R.id.info_store_name)
     EditText tvName;
-    @Bind(R.id.info_sub_store_name)
-    EditText tvSubName;
     @Bind(R.id.info_store_category)
     TextView tvCategory;
     @Bind(R.id.info_send_address)
     TextView tvSend;
     @Bind(R.id.store_info_logo)
     TextView tvLogo;
+    @Bind(R.id.info_store_introduction)
+    EditText etDesc;
     private StoreMeta storeBean;
+    @Bind(R.id.info_store_auth)
+    Button auth;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -51,7 +54,7 @@ public class GoodsStoreInfoActivity extends BaseActivity implements Callback<Bas
         findViewById(R.id.info_store_save).setOnClickListener(this);
         findViewById(R.id.info_store_save).setOnClickListener(this);
         findViewById(R.id.ll_store_info_address).setOnClickListener(this);
-        findViewById(R.id.info_store_introduction).setOnClickListener(this);
+        auth.setOnClickListener(this);
         new MainModel().getDetailStoreInfo(TribeApplication.getInstance().getUserInfo().getId(),this);
     }
 
@@ -68,11 +71,14 @@ public class GoodsStoreInfoActivity extends BaseActivity implements Callback<Bas
     }
 
     private void initData(StoreMeta data) {
+        if (data.authenticationStatus == "PROCESSING"){
+            auth.setVisibility(View.VISIBLE);
+        }
         storeBean = data;
         tvName.setText(data.name);
-        tvSubName.setText(data.subbranchName);
         tvCategory.setText(data.category.toString());
         tvSend.setText(data.province + data.city + data.district + data.address);
+        etDesc.setText(data.desc);
     }
 
     @Override
@@ -96,10 +102,9 @@ public class GoodsStoreInfoActivity extends BaseActivity implements Callback<Bas
                 intent.setClass(getCtx(), CreateStoreAddressActivity.class);
                 startActivityForResult(intent, 202);
                 break;
-            case R.id.info_store_introduction:
-                intent.setClass(getCtx(), IntroductionActivity.class);
-                intent.putExtra(Constant.ForIntent.INTRODUCTION,storeBean.desc);
-                startActivityForResult(intent, 203);
+            case R.id.info_store_auth:
+                intent.setClass(getCtx(), BusinessVerifyActivity.class);
+                startActivity(intent);
                 break;
             case R.id.back:
                 finish();
@@ -109,7 +114,7 @@ public class GoodsStoreInfoActivity extends BaseActivity implements Callback<Bas
     private void updateStoreInfo() {
         showLoadingDialog();
         storeBean.name = tvName.getText().toString().trim();
-        storeBean.subbranchName = tvSubName.getText().toString().trim();
+        storeBean.desc = etDesc.getText().toString().trim();
         String key = "logo,name,subbranchName,desc,province,city,district,address";
         new MainModel().updateStore(TribeApplication.getInstance().getUserInfo().getId(),key , "", storeBean, new TribeCallback<CodeResponse>() {
             @Override
@@ -132,6 +137,7 @@ public class GoodsStoreInfoActivity extends BaseActivity implements Callback<Bas
         storeInfoDao.update(data);
         TribeApplication.getInstance().setUserInfo(data);
         EventBus.getDefault().post(new SelfEvent());
+        finish();
     }
 
 
@@ -141,8 +147,6 @@ public class GoodsStoreInfoActivity extends BaseActivity implements Callback<Bas
         if (data != null && requestCode == 200 && resultCode == 201) {  //logo
             storeBean.logo = data.getStringExtra(Constant.LOGO);
             tvLogo.setText("1张");
-        }else if (requestCode == 203 && resultCode == RESULT_OK) {
-            storeBean.desc = data.getStringExtra(Constant.ForIntent.INTRODUCTION);
         }else if (data != null &&requestCode == 202 && resultCode == RESULT_OK) {
             String area = data.getStringExtra(Constant.AREA);
             String address = data.getStringExtra(Constant.ADDRESS);

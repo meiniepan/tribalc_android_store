@@ -14,10 +14,16 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.PhotoAdapter;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
+import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.dao.StoreInfoDao;
+import com.gs.buluo.store.eventbus.SelfEvent;
+import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.store.utils.FresoUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;

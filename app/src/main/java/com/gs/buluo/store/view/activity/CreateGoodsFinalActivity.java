@@ -81,7 +81,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
             }
         }
         etNum.setText(goodsMeta.number);
-        etFee.setText(goodsMeta.expressFee + "");
+        etFee.setText(goodsMeta.expressFee ==0? "":goodsMeta.expressFee+"");
     }
 
     private void setCategoryData() {
@@ -213,12 +213,12 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.create_goods_save:
-                createGoods(false);
                 published = false;
+                createGoods(false);
                 break;
             case R.id.create_goods_publish:
-                createGoods(true);
                 published = true;
+                createGoods(true);
                 break;
             case R.id.create_goods_desc:
                 Intent intent = new Intent(this, IntroductionActivity.class);
@@ -265,7 +265,6 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
                 ToastUtils.ToastMessage(getCtx(), R.string.add_success);
                 Intent intent = new Intent(getCtx(), MainActivity.class);
                 intent.putExtra(Constant.ForIntent.FLAG, Constant.GOODS);
-                intent.putExtra(Constant.PUBLISHED, published);
                 startActivity(intent);
                 finish();
             }

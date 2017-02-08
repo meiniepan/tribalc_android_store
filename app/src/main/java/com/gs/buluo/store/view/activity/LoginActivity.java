@@ -54,6 +54,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 finish();
                 break;
             case R.id.login_send_verify:
+                et_verify.requestFocus();
                 if (!CommonUtils.checkPhone("86", phone, this)) return;
                 ((LoginPresenter) mPresenter).doVerify(phone);
                 break;

@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.gs.buluo.store.R;
+import com.gs.buluo.store.eventbus.StandardRemoveEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -31,8 +34,14 @@ public class StandardValueAdapter extends RecyclerView.Adapter<StandardValueAdap
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (position>=list.size()){
+                    list.remove(0);
+                    notifyItemRemoved(0);
+                    return;
+                }
                 list.remove(position);
                 notifyItemRemoved(position);
+                EventBus.getDefault().post(new StandardRemoveEvent());
             }
         });
     }

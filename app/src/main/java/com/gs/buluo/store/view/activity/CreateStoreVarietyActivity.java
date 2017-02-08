@@ -38,7 +38,7 @@ public class CreateStoreVarietyActivity extends BaseActivity implements View.OnC
     @Override
     public void onClick(View v) {
         StoreMeta bean = new StoreMeta();
-        Intent intent = new Intent(CreateStoreVarietyActivity.this, CreateDetailActivity.class);
+        Intent intent = new Intent(getCtx(), CreateDetailActivity.class);
         switch (v.getId()) {
             case R.id.store_food:
                 bean.category = StoreMeta.StoreCategory.FOOD;

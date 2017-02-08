@@ -156,8 +156,7 @@
                 android:layout_weight="1"
                 android:gravity="end"
                 android:text="请选择"
-                android:textColor="@color/common_gray"
-                android:textSize="@dimen/dimens_14sp" />
+                android:textColor="@color/common_gray"/>
 
             <ImageView
                 android:layout_width="20dp"

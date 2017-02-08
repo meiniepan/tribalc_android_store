@@ -48,6 +48,7 @@ public class StandardDetailAdapter extends RecyclerAdapter<ListGoodsDetail> {
         @Override
         public void onItemViewClick(ListGoodsDetail entity) {
             super.onItemViewClick(entity);
+            if (entity==null)return;
             ToastUtils.ToastMessage(getContext(),"你点击了"+entity.name+entity.title);
         }
     }

@@ -62,7 +62,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp">
                 <ImageView
-                    android:visibility="gone"
                     android:id="@+id/goods_create_standard_delete"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -169,7 +168,7 @@
             <ListView
                 android:id="@+id/standard_list"
                 android:divider="@color/tint_bg"
-                android:dividerHeight="4dp"
+                android:dividerHeight="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </ListView>

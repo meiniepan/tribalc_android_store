@@ -52,6 +52,7 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
     TextView tvEnvi;
     TextView tvTime;
     EditText recommendReason;
+    EditText etDesc;
     @Bind(R.id.store_create_next)
     TextView button;
 
@@ -102,25 +103,23 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
         tvPhone = (TextView) storeView.findViewById(R.id.store_phone);
         tvOtherPhone = (TextView) storeView.findViewById(R.id.store_other_phone);
         tvAddress = (TextView) storeView.findViewById(R.id.store_address);
-        recommendReason = (EditText) storeView.findViewById(R.id.create_recommend);
         tvLogo = (TextView) storeView.findViewById(R.id.create_logo);
         tvEnvi = (TextView) storeView.findViewById(R.id.create_environment);
-        recommendReason.clearFocus();
+        etDesc = (EditText) storeView.findViewById(R.id.create_store_introduction);
         button.setText(R.string.submit);
         storeView.findViewById(R.id.create_logo_area).setOnClickListener(this);
         storeView.findViewById(R.id.create_environment_area).setOnClickListener(this);
         findViewById(R.id.store_create_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (tvName.length() == 0 || tvAddress.length() == 0) {
-                    ToastUtils.ToastMessage(CreateDetailActivity.this, "信息填写不完整");
+                if (tvName.length() == 0 ) {
+                    ToastUtils.ToastMessage(getCtx(), "请填写商铺名称");
                     return;
                 }
-                setCookingStyle();
                 storeBean.name = tvName.getText().toString().trim();
                 storeBean.phone = tvPhone.getText().toString().trim();
                 storeBean.otherPhone = tvOtherPhone.getText().toString().trim();
-                storeBean.recommendedReason = recommendReason.getText().toString().trim();
+                storeBean.desc = etDesc.getText().toString().trim();
                 createStore();
             }
         });
@@ -156,10 +155,11 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
         findViewById(R.id.store_create_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (tvName.length() == 0 || tvAddress.length() == 0) {
-                    ToastUtils.ToastMessage(CreateDetailActivity.this, "信息填写不完整");
+                if (tvName.length() == 0) {
+                    ToastUtils.ToastMessage(getCtx(), "请填写店铺名称");
                     return;
                 }
+                if (storeBean.category == StoreMeta.StoreCategory.REPAST)setCookingStyle();
                 storeBean.name = tvName.getText().toString().trim();
                 storeBean.subbranchName = tvSubName.getText().toString().trim();
                 storeBean.phone = tvPhone.getText().toString().trim();
@@ -187,7 +187,7 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
 
                     @Override
                     public void onFail(int responseCode, BaseResponse<StoreMeta> body) {
-                        ToastUtils.ToastMessage(CreateDetailActivity.this, R.string.connect_fail);
+                        ToastUtils.ToastMessage(getCtx(), R.string.connect_fail);
                     }
                 });
     }
@@ -217,8 +217,8 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
         categoryBeanList.add(new CategoryBean("法国菜"));
         categoryBeanList.add(new CategoryBean("云南菜"));
         categoryBeanList.add(new CategoryBean("台湾菜"));
-        categoryBeanList.add(new CategoryBean("德国菜"));
         categoryBeanList.add(new CategoryBean("其他"));
+        categoryBeanList.add(new CategoryBean("德国菜"));
         recyclerView.setAdapter(new RepastBeanAdapter(CreateDetailActivity.this, categoryBeanList));
 
         StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL) {
@@ -248,7 +248,7 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
             tvAddress.setText(area + address);
         } else if (data != null && requestCode == 200 && resultCode == 201) {  //logo
             storeBean.logo = data.getStringExtra(Constant.LOGO);
-            tvLogo.setText("一张");
+            tvLogo.setText("1 张");
         } else if (data != null && requestCode == 201 && resultCode == 202) {   //environment
             ArrayList<String> enPictures = data.getStringArrayListExtra(Constant.ENVIRONMENT);
             storeBean.pictures = enPictures;

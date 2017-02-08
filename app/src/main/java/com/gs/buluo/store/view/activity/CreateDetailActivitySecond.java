@@ -110,7 +110,6 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
                 break;
             case R.id.create_finish:
                 storeBean.topics = etTopic.getText().toString().trim();
-                storeBean.recommendedReason = etRecommend.getText().toString().trim();
                 setFacility();
                 createStore();
                 break;
@@ -158,11 +157,11 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
                 });
 
         StoreSetMealCreation bean = new StoreSetMealCreation();
-        bean.isReservable = sReserve.isChecked();
+        bean.reservable = sReserve.isChecked();
         bean.personExpense = etFee.getText().toString().trim();
         bean.name = storeBean.name;
         bean.pictures = storeBean.pictures;
-        bean.recommendedReason = storeBean.recommendedReason;
+        bean.recommendedReason = etRecommend.getText().toString().trim();
         bean.topics = storeBean.topics;
         TribeRetrofit.getInstance().createApi(MainService.class).createServe(TribeApplication.getInstance().getUserInfo().getId(), bean).enqueue(new TribeCallback<CodeResponse>() {
             @Override

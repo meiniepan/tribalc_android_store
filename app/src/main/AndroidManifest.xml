@@ -162,9 +162,6 @@
         <activity
             android:name="com.gs.buluo.store.view.activity.ReserveDetailActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name="com.gs.buluo.store.view.activity.ShoppingCarActivity"
-            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.gs.buluo.store.view.activity.ModifyInfoActivity"

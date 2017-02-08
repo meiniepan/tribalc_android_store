@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
@@ -70,9 +73,11 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     TextView tvReceiveTime;
     @Bind(R.id.order_detail_button)
     TextView tvButton;
-    
+    @Bind(R.id.order_detail_counter)
+    TextView tvCounter;
     private Context mCtx;
     private OrderBean bean;
+    private long time;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -121,6 +126,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         tvReceiver.setText(address[0]);
         tvOrderNum.setText(order.orderNum);
         tvCreateTime.setText(TribeDateUtils.dateFormat7(new Date(order.createTime)));
+        setCounter(order.createTime);
 //        tvMethod.setText(order.expressType);
 //        if (order.expressType==null)
         tvMethod.setText("包邮");
@@ -209,6 +215,28 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        handler.removeCallbacks(runnable);
         EventBus.getDefault().unregister(this);
     }
+
+    public void setCounter(long createTime) {
+        time = createTime+48*3600*1000- SystemClock.currentThreadTimeMillis();
+        tvCounter.setText(TribeDateUtils.hourCounter(time));
+        handler.postDelayed(runnable,1000);
+    }
+    Handler handler = new Handler();
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            if (time<=0){
+                tvCounter.setText("时间到");
+                handler.removeCallbacks(runnable);
+                return;
+            }
+            time-= 1000;
+            tvCounter.setText(TribeDateUtils.hourCounter(time));
+            handler.postDelayed(this, 1000);
+        }
+    };
+
 }

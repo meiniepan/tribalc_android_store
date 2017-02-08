@@ -103,61 +103,6 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <include layout="@layout/split_line_no_margin_common"/>
-
-        <LinearLayout
-            android:id="@+id/info_area"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/self_item_height"
-            android:gravity="center_vertical"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/location"/>
-            <TextView
-                android:layout_marginStart="20dp"
-                android:id="@+id/info_store_area"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:layout_marginEnd="20dp"
-                android:layout_height="wrap_content" />
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/arrow_right"/>
-        </LinearLayout>
-
-        <include layout="@layout/split_line_no_margin_common"/>
-        <LinearLayout
-            android:id="@+id/info_store_introduction"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/self_item_height"
-            android:gravity="center_vertical"
-            android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/store_introduction"/>
-            <TextView
-                android:textColor="@color/common_gray"
-                android:layout_marginStart="20dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:gravity="end"
-                android:layout_height="wrap_content" />
-            <ImageView
-                android:id="@+id/info_introduction_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/arrow_right"/>
-        </LinearLayout>
-        <include layout="@layout/split_line_no_margin_common"/>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -231,7 +176,9 @@
                 android:id="@+id/info_store_address"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"/>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -295,6 +242,45 @@
                 android:src="@mipmap/arrow_right"/>
         </LinearLayout>
         <include layout="@layout/split_line_no_margin_common"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/store_introduction"/>
+            <TextView
+                android:textColor="@color/common_gray"
+                android:layout_marginStart="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:gravity="end"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <EditText
+            android:id="@+id/info_store_introduction"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:paddingTop="4dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="4dp"
+            android:gravity="top"
+            android:hint="请输入店铺介绍"
+            android:textSize="@dimen/dimens_12sp"
+            android:minHeight="60dp"
+            android:background="@drawable/text_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include layout="@layout/split_line_margin" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/self_item_height"
@@ -302,7 +288,7 @@
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:text="@string/recommend_reason"/>
 
-        <TextView
+        <EditText
             android:id="@+id/info_store_recommend"
             android:layout_marginBottom="20dp"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
@@ -311,13 +297,14 @@
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
             android:paddingBottom="4dp"
+            android:gravity="top"
             android:hint="例：艺术美术馆外隐藏的文艺餐厅，花园中心的小阁楼 享受田园般乐趣。"
             android:textSize="@dimen/dimens_12sp"
             android:minHeight="60dp"
             android:background="@drawable/text_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
+        <include layout="@layout/split_line_margin" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/self_item_height"
@@ -325,7 +312,7 @@
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:text="@string/recommend_topic"/>
 
-        <TextView
+        <EditText
             android:id="@+id/info_store_topic"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -334,6 +321,7 @@
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
             android:paddingBottom="4dp"
+            android:gravity="top"
             android:hint="例：可28人同事就坐的异形餐台享意式午餐。"
             android:textSize="@dimen/dimens_12sp"
             android:minHeight="60dp"
@@ -410,7 +398,6 @@
             android:visibility="gone"
             android:id="@+id/info_store_auth"
             style="@style/button_style"
-            android:text="店铺认证"
-            />
+            android:text="店铺认证"/>
     </LinearLayout>
 </ScrollView>

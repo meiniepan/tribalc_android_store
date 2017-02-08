@@ -17,6 +17,7 @@ import com.gs.buluo.store.adapter.SaleGoodsListAdapter;
 import com.gs.buluo.store.adapter.StoreGoodsListAdapter;
 import com.gs.buluo.store.bean.GoodsMeta;
 import com.gs.buluo.store.eventbus.GoodsChangedEvent;
+import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.StoreGoodsPresenter;
 import com.gs.buluo.store.utils.ToastUtils;
@@ -92,8 +93,13 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
         } else {
             recyclerViewSale.showNoData("请先登录和创建店铺");
             recyclerViewStore.showNoData("请先登录和创建店铺");
-            return;
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLoginSuccess(SelfEvent event) {
+        initSaleList();
+        initStoreList();
     }
 
     private void initStoreList() {
@@ -119,7 +125,7 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onGoodsChanged(GoodsChangedEvent event){
+    public void onGoodsChanged(GoodsChangedEvent event) {
         goodsListAdapter.clear();
         ((StoreGoodsPresenter) mPresenter).getGoodsListFirst(false);
     }
@@ -190,7 +196,10 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.store_floating:
-                if (TribeApplication.getInstance().getUserInfo()==null)return;
+                if (TribeApplication.getInstance().getUserInfo() == null){
+                    ToastUtils.ToastMessage(getContext(),"请先登录才能创建商品");
+                    return;
+                }
                 startActivity(new Intent(getActivity(), CreateGoodsVarietyActivity.class));
                 break;
             case R.id.ll_goods_store:
@@ -210,18 +219,23 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
         }
     }
 
-    public void refreshList(boolean published) {
-        if (published)
-            saleListAdapter.clear();
-        else
-            goodsListAdapter.clear();
-        
-        ((StoreGoodsPresenter) mPresenter).getGoodsListFirst(published);
+    public void refreshList() {
+        saleListAdapter.clear();
+        goodsListAdapter.clear();
+        ((StoreGoodsPresenter) mPresenter).getGoodsListFirst(true);
+        ((StoreGoodsPresenter) mPresenter).getGoodsListFirst(false);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    public void showLogin() {
+        saleListAdapter.clear();
+        goodsListAdapter.clear();
+        recyclerViewSale.showNoData("请先登录和创建店铺");
+        recyclerViewStore.showNoData("请先登录和创建店铺");
     }
 }

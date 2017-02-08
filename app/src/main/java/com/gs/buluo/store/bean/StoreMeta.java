@@ -22,7 +22,6 @@ public class StoreMeta extends StoreInfo implements Parcelable, IBaseResponse {
     public String district;
     public String address;
     public ArrayList<String> pictures;
-    public String recommendedReason;
     public List<String> facilities;              //辅助设施
     public String topics;
     public String personExpense;
@@ -65,7 +64,6 @@ public class StoreMeta extends StoreInfo implements Parcelable, IBaseResponse {
         dest.writeString(this.district);
         dest.writeString(this.address);
         dest.writeStringList(this.pictures);
-        dest.writeString(this.recommendedReason);
         dest.writeStringList(this.facilities);
         dest.writeString(this.topics);
         dest.writeString(this.personExpense);
@@ -86,7 +84,6 @@ public class StoreMeta extends StoreInfo implements Parcelable, IBaseResponse {
         this.district = in.readString();
         this.address = in.readString();
         this.pictures = in.createStringArrayList();
-        this.recommendedReason = in.readString();
         this.facilities = in.createStringArrayList();
         this.topics = in.readString();
         this.personExpense = in.readString();

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -53,8 +54,6 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
     TextView tvSubName;
     @Bind(R.id.info_store_category)
     TextView tvCategory;
-    @Bind(R.id.info_store_area)
-    TextView tvArea;
     @Bind(R.id.info_store_fee)
     TextView tvFee;
     @Bind(R.id.info_store_phone)
@@ -84,29 +83,22 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
     @Bind(R.id.info_environment)
     TextView tvEnvi;
 
-
     private boolean isEdit;
-    private ArrayList<FacilityBean> facilityList;
-    private ArrayList<CategoryBean> cookingList;
+    private ArrayList<FacilityBean> facilityList = new ArrayList<>();
+    private ArrayList<CategoryBean> cookingList =new ArrayList<>();
     private Context mCtx;
 
-    @Bind(R.id.info_introduction_arrow)
-    View introArrow;
-    @Bind(R.id.info_logo_arrow)
-    View logoArrow;
-    @Bind(R.id.info_en_arrow)
-    View enArrow;
+    @Bind(R.id.info_store_introduction)
+    EditText etDesc;
     private StoreMeta storeBean;
     private StoreSetMealCreation mealCreation;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
         mCtx = this;
-        findViewById(R.id.info_store_introduction).setOnClickListener(this);
         findViewById(R.id.info_store_logo).setOnClickListener(this);
         findViewById(R.id.info_store_environment).setOnClickListener(this);
         findViewById(R.id.info_store_edit).setOnClickListener(this);
-        findViewById(R.id.info_area).setOnClickListener(this);
         findViewById(R.id.ll_store_info_address).setOnClickListener(this);
         findViewById(R.id.info_store_introduction).setOnClickListener(this);
         findViewById(R.id.back).setOnClickListener(this);
@@ -123,17 +115,19 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         if ("NOT_START".equals(data.authenticationStatus)) {
             mAuth.setVisibility(View.VISIBLE);
         }
+        etDesc.setText(data.desc);
         tvName.setText(data.name);
         tvSubName.setText(data.subbranchName);
         tvCategory.setText(data.category.toString());
-        tvArea.setText(data.province + data.city + data.district);
         tvPhone.setText(data.phone);
         tvOrPhone.setText(data.otherPhone);
-        tvAddress.setText(data.address);
+        tvAddress.setText(data.province + data.city + data.district + data.address);
         List<String> list = data.facilities;
-        for (FacilityBean bean : facilityList) {
-            if (list.contains(bean.key)) {
-                bean.isSelect = true;
+        if (list!=null){
+            for (FacilityBean bean : facilityList) {
+                if (list.contains(bean.key)) {
+                    bean.isSelect = true;
+                }
             }
         }
         recyclerView.setAdapter(new FacilityAdapter(this, facilityList));
@@ -151,7 +145,6 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
 
     private void initCookingStyle() {
         findView(R.id.ll_cook_style).setVisibility(View.VISIBLE);
-        cookingList = new ArrayList<>();
         cookingList.add(new CategoryBean("西餐"));
         cookingList.add(new CategoryBean("咖啡厅"));
         cookingList.add(new CategoryBean("日料"));
@@ -183,11 +176,10 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         tvFee.setText(mealData.personExpense);
         tvRecommend.setText(mealData.recommendedReason);
         tvTopic.setText(mealData.topics);
-        sReserve.setChecked(mealData.isReservable);
+        sReserve.setChecked(mealData.reservable);
     }
 
     private void initFacility() {
-        facilityList = new ArrayList<>();
         facilityList.add(new FacilityBean("subway", R.string.subway));
         facilityList.add(new FacilityBean("bar", R.string.bar));
         facilityList.add(new FacilityBean("business_circle", R.string.business_circle));
@@ -234,6 +226,9 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
             public void onResponse(Call<StoreSetMealResponse> call, Response<StoreSetMealResponse> response) {
                 dismissDialog();
                 if (response != null && response.body() != null && response.body().code == 200) {
+                    if (response.body().data.size()==0){
+                        mealCreation = new StoreSetMealCreation();
+                    }
                     setMealData(response.body().data.get(0));
                 } else {
                     ToastUtils.ToastMessage(mCtx, R.string.connect_fail);
@@ -257,7 +252,7 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.info_store_auth:
-                intent.setClass(mCtx, IdentificationActivity.class);
+                intent.setClass(mCtx, BusinessVerifyActivity.class);
                 startActivity(intent);
                 break;
             case R.id.info_store_logo:
@@ -270,21 +265,12 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
                 intent.putExtra(Constant.ENVIRONMENT,storeBean.pictures);
                 startActivityForResult(intent, 201);
                 break;
-            case R.id.info_area:
-                intent.setClass(mCtx, CreateStoreAddressActivity.class);
-                startActivityForResult(intent, 202);
-                break;
             case R.id.ll_store_info_address:
                 intent.setClass(mCtx, CreateStoreAddressActivity.class);
                 startActivityForResult(intent, 202);
                 break;
             case R.id.info_store_edit:
                 updateStoreInfo();
-                break;
-            case R.id.info_store_introduction:
-                intent.setClass(mCtx, IntroductionActivity.class);
-                intent.putExtra(Constant.ForIntent.INTRODUCTION,storeBean.desc);
-                startActivityForResult(intent, 203);
                 break;
             case R.id.back:
                 finish();
@@ -311,10 +297,7 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
             storeBean.city = arrs[1];
             storeBean.district = arrs[2];
             storeBean.address = address;
-            tvArea.setText(area);
-            tvAddress.setText(storeBean.address);
-        } else if (data != null &&requestCode == 203 && resultCode == RESULT_OK) {
-            storeBean.desc = data.getStringExtra(Constant.ForIntent.INTRODUCTION);
+            tvAddress.setText(area + storeBean.address);
         }
     }
 
@@ -334,6 +317,7 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         storeBean.subbranchName = tvSubName.getText().toString().trim();
         storeBean.otherPhone = tvOrPhone.getText().toString().trim();
         storeBean.isReservable = sReserve.isChecked();
+        storeBean.desc = etDesc.getText().toString().trim();
         setFacility();
         String key = "name,subbranchName,desc,otherPhone,province,city,district,address" +
                 ",pictures,facilities";
@@ -356,11 +340,11 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
 
         mealCreation.personExpense = tvFee.getText().toString().trim();
         mealCreation.topics = tvTopic.getText().toString().trim();
-        mealCreation.isReservable = sReserve.isChecked();
+        mealCreation.reservable = sReserve.isChecked();
         mealCreation.pictures = storeBean.pictures;
         mealCreation.name = storeBean.name;
         mealCreation.recommendedReason = tvRecommend.getText().toString().trim();
-        TribeRetrofit.getInstance().createApi(MainService.class).updateMeal(mealCreation.id, "name,pictures,topics,recommendedReason,personExpense,isReservable", mealCreation)
+        TribeRetrofit.getInstance().createApi(MainService.class).updateMeal(mealCreation.id, "name,pictures,topics,recommendedReason,personExpense,reservable", mealCreation)
                 .enqueue(new TribeCallback<CodeResponse>() {
                     @Override
                     public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
@@ -392,6 +376,7 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         storeInfoDao.update(data);
         TribeApplication.getInstance().setUserInfo(data);
         EventBus.getDefault().post(new SelfEvent());
+        finish();
     }
 
     @Override

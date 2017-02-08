@@ -165,7 +165,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 intent.setClass(getActivity(), CaptureActivity.class);
                 startActivity(intent);
                 break;
-
             case R.id.mine_wallet:
                 intent.setClass(getActivity(), WalletActivity.class);
                 startActivity(intent);
@@ -174,7 +173,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 StoreInfo userInfo = TribeApplication.getInstance().getUserInfo();
                 String storeType = userInfo.getStoreType();
                 if (storeType != null) {
-                    if (storeType == "GOODS") {
+                    if (TextUtils.equals(storeType,"GOODS")) {
                         intent.setClass(mContext, GoodsStoreInfoActivity.class);
                     } else {
                         intent.setClass(mContext, MealStoreInfoActivity.class);

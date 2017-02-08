@@ -212,19 +212,18 @@
             android:layout_height="72dp"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@drawable/text_background_round"
             android:layout_marginStart="12dp">
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@mipmap/vip"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/dimens_12sp"
-                android:textColor="@color/common_gray"
-                android:text="@string/vip" />
+            <!--<ImageView-->
+                <!--android:layout_width="36dp"-->
+                <!--android:layout_height="36dp"-->
+                <!--android:src="@mipmap/vip"-->
+                <!--/>-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="@dimen/dimens_12sp"-->
+                <!--android:textColor="@color/common_gray"-->
+                <!--android:text="@string/vip" />-->
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
