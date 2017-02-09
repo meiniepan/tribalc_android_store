@@ -179,8 +179,11 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
     private void saveStore(StoreMeta data) {
         StoreInfoDao storeInfoDao = new StoreInfoDao();
         StoreInfo first = storeInfoDao.findFirst();
-        data.setToken(first.token);
-        storeInfoDao.update(data);
+        first.setLogo(data.getLogo());
+        first.setName(data.getName());
+        first.setStoreType(data.getStoreType());
+        first.setAuthenticationStatus(data.getAuthenticationStatus());
+        storeInfoDao.update(first);
         TribeApplication.getInstance().setUserInfo(data);
         EventBus.getDefault().post(new SelfEvent());
     }

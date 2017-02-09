@@ -7,13 +7,13 @@ import android.content.Intent;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.ListReservation;
-import com.gs.buluo.store.utils.FresoUtils;
+import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.TribeDateUtils;
 import com.gs.buluo.store.view.activity.ReserveDetailActivity;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.BaseViewHolder;
@@ -43,7 +43,7 @@ public class ReserveListAdapter extends RecyclerAdapter<ListReservation> {
         TextView name;
         TextView time;
         TextView count;
-        SimpleDraweeView picture;
+        ImageView picture;
         View itemView;
 
         public ReserveItemHolder(ViewGroup itemView) {
@@ -74,7 +74,7 @@ public class ReserveListAdapter extends RecyclerAdapter<ListReservation> {
             }
             time.setText(TribeDateUtils.dateFormat9(new Date(entity.appointTime)));
             count.setText(entity.personNum);
-            FresoUtils.loadImage(entity.mainPicture, picture);
+            GlideUtils.loadImage(getContext(),entity.mainPicture, picture);
         }
 
         private void setStatus(ListReservation entity) {

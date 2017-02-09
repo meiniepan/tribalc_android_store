@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.adapter.CommunityDetailStoreAdapter;
@@ -16,8 +16,8 @@ import com.gs.buluo.store.bean.CommunityDetail;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.model.CommunityModel;
 import com.gs.buluo.store.utils.CommonUtils;
-import com.gs.buluo.store.utils.FrescoImageLoader;
-import com.gs.buluo.store.utils.FresoUtils;
+import com.gs.buluo.store.utils.GlideBannerLoader;
+import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -46,7 +46,7 @@ public class CommunityDetailActivity extends BaseActivity implements View.OnClic
     @Bind(R.id.community_detail_description)
     TextView tvDesc;
     @Bind(R.id.community_detail_map)
-    SimpleDraweeView map;
+    ImageView map;
     @Bind(R.id.community_detail_name)
     TextView tvName;
     private String name;
@@ -91,7 +91,7 @@ public class CommunityDetailActivity extends BaseActivity implements View.OnClic
         if (response.body() != null && response.body().code == 200) {
             CommunityDetail communityDetail = response.body().data;
             banner.setImages(communityDetail.pictures);
-            banner.setImageLoader(new FrescoImageLoader());
+            banner.setImageLoader(new GlideBannerLoader());
             banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
             banner.isAutoPlay(false);
             banner.start();
@@ -113,7 +113,7 @@ public class CommunityDetailActivity extends BaseActivity implements View.OnClic
         tvDesc.setText(data.desc);
         name = data.name;
         tvName.setText(name);
-        FresoUtils.loadImage(data.map, map);
+        GlideUtils.loadImage(getCtx(),data.map, map);
         if (data.repastList != null || data.entertainmentList != null) {
             CommunityDetailStoreAdapter adapter = new CommunityDetailStoreAdapter(mCtx, data.repastList);
             lvFood.setAdapter(adapter);

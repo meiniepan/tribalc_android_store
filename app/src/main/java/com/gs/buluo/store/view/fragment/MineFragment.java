@@ -2,16 +2,17 @@ package com.gs.buluo.store.view.fragment;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.StoreMeta;
@@ -26,7 +27,7 @@ import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.MinePresenter;
-import com.gs.buluo.store.utils.FresoUtils;
+import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.activity.BusinessVerifyActivity;
 import com.gs.buluo.store.view.activity.CaptureActivity;
@@ -54,12 +55,12 @@ import retrofit2.Response;
  * Created by admin on 2016/11/1.
  */
 public class MineFragment extends BaseFragment implements View.OnClickListener {
-    SimpleDraweeView mHead;
+    ImageView mHead;
     LinearLayout llLogin;
     LinearLayout llUnLogin;
     TextView mNick;
 
-    SimpleDraweeView mCover;
+    ImageView mCover;
     PullToZoomScrollViewEx scrollView;
     private TextView tvSign;
 
@@ -84,7 +85,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.self_content_layout, null, false);
         View headView = LayoutInflater.from(getActivity()).inflate(R.layout.self_head_layout, null, false);
         scrollView = (PullToZoomScrollViewEx) getActivity().findViewById(R.id.self_scroll_view);
-        mHead = (SimpleDraweeView) headView.findViewById(R.id.mine_head);
+        mHead = (ImageView) headView.findViewById(R.id.mine_head);
         mHead.setOnClickListener(this);
         headView.findViewById(R.id.mine_login).setOnClickListener(this);
         headView.findViewById(R.id.mine_register).setOnClickListener(this);
@@ -104,7 +105,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         llLogin = (LinearLayout) headView.findViewById(R.id.self_ll_login);
         llUnLogin = (LinearLayout) headView.findViewById(R.id.self_ll_un_login);
         mNick = (TextView) headView.findViewById(R.id.self_nickname);
-        mCover = (SimpleDraweeView) zoomView.findViewById(R.id.rl_head_bg);
+        mCover = (ImageView) zoomView.findViewById(R.id.rl_head_bg);
 
 
         DisplayMetrics localDisplayMetrics = new DisplayMetrics();
@@ -219,7 +220,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                         StoreInfo userInfo = TribeApplication.getInstance().getUserInfo();
                         userInfo.setCover(url);
                         new StoreInfoDao().update(userInfo);
-                        mCover.setImageURI("file://" + path);
+                        mCover.setImageURI(Uri.parse("file://" + path));
                     }
 
                     @Override
@@ -243,8 +244,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             } else {
                 mNick.setText("");
             }
-            FresoUtils.loadImage(userInfo.getCover(), mCover);
-            FresoUtils.loadImage(userInfo.getLogo(), mHead);
+            GlideUtils.loadImage(getContext(),userInfo.getCover(), mCover);
+            GlideUtils.loadImage(getContext(),userInfo.getLogo(), mHead,true);
             if (userInfo.getStoreType()!=null){
                 tvSign.setText(R.string.store_setting);
                 Drawable drawable= getResources().getDrawable(R.mipmap.store_setting);
@@ -254,8 +255,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         } else {
             llLogin.setVisibility(View.GONE);
             llUnLogin.setVisibility(View.VISIBLE);
-            FresoUtils.loadImage("", mHead);
-            FresoUtils.loadImage("", mCover);
+            mHead.setImageURI(null);
+            mCover.setImageURI(null);
         }
     }
 

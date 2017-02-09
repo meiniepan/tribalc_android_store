@@ -220,7 +220,11 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     public void setCounter(long createTime) {
-        time = createTime+48*3600*1000- SystemClock.currentThreadTimeMillis();
+        time = createTime+48*3600*1000- System.currentTimeMillis();
+        if (time <= 0){
+            tvCounter.setText("已超时");
+            return;
+        }
         tvCounter.setText(TribeDateUtils.hourCounter(time));
         handler.postDelayed(runnable,1000);
     }

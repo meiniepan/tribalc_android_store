@@ -1,7 +1,6 @@
 package com.gs.buluo.store.view.activity;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,7 +15,7 @@ import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
 import com.gs.buluo.store.model.MainModel;
 import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.network.TribeUploader;
-import com.gs.buluo.store.utils.FresoUtils;
+import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 
@@ -92,7 +91,7 @@ public class TradeLicenceActivity extends BaseActivity{
             @Override
             public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
                 tradeImage.setVisibility(View.VISIBLE);
-                Glide.with(TradeLicenceActivity.this).load(FresoUtils.formatImageUrl(data.objectKey)).centerCrop().into(tradeImage);
+                Glide.with(TradeLicenceActivity.this).load(GlideUtils.formatImageUrl(data.objectKey)).centerCrop().into(tradeImage);
                 findViewById(R.id.identify_trade_sign).setVisibility(View.GONE);
                 path =data.objectKey;
             }

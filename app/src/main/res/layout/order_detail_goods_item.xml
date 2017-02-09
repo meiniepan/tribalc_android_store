@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:id="@+id/order_detail_item_goods_head"
         android:layout_width="85dp"
         android:layout_height="79dp"
-        fresco:placeholderImage="@mipmap/head_icon"
-        fresco:placeholderImageScaleType="fitCenter"
-        android:layout_centerVertical="true"
-        fresco:roundedCornerRadius="2dp" />
+        android:scaleType="centerInside"
+        android:layout_centerVertical="true"/>
 
     <TextView
         android:id="@+id/order_detail_detail_item_goods_name"

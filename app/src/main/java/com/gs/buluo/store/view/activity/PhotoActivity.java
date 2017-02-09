@@ -14,16 +14,10 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.PhotoAdapter;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
-import com.gs.buluo.store.bean.StoreInfo;
-import com.gs.buluo.store.dao.StoreInfoDao;
-import com.gs.buluo.store.eventbus.SelfEvent;
-import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.network.TribeUploader;
-import com.gs.buluo.store.utils.FresoUtils;
+import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -64,7 +58,7 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
             isLogo = true;
             String logo = TribeApplication.getInstance().getUserInfo().getLogo();
             if (logo != null)
-                Glide.with(this).load(FresoUtils.formatImageUrl(logo)).centerCrop().into(image);
+                Glide.with(this).load(GlideUtils.formatImageUrl(logo)).centerCrop().into(image);
         } else {
             oldPictures = getIntent().getStringArrayListExtra(Constant.ENVIRONMENT);
             if (oldPictures != null) {
@@ -102,7 +96,7 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
             public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
                 dismissDialog();
                 if (isLogo) {
-                    Glide.with(mCtx).load(FresoUtils.formatImageUrl(data.objectKey)).centerCrop().into(image);
+                    Glide.with(mCtx).load(GlideUtils.formatImageUrl(data.objectKey)).centerCrop().into(image);
                     Intent intent = new Intent();
                     intent.putExtra(Constant.LOGO, data.objectKey);
                     setResult(201, intent);

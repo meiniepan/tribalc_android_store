@@ -11,7 +11,7 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.AuthenticationData;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
 import com.gs.buluo.store.network.TribeUploader;
-import com.gs.buluo.store.utils.FresoUtils;
+import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 
@@ -73,7 +73,7 @@ public class BusinessVerifyActivity extends BaseActivity implements View.OnClick
             public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
                 authenticationData .businessLicence = data.objectKey;
                 businessImg.setVisibility(View.VISIBLE);
-                Glide.with(BusinessVerifyActivity.this).load(FresoUtils.formatImageUrl(data.objectKey)).into(businessImg);
+                Glide.with(BusinessVerifyActivity.this).load(GlideUtils.formatImageUrl(data.objectKey)).into(businessImg);
                 findViewById(R.id.identify_business).setVisibility(View.GONE);
             }
 

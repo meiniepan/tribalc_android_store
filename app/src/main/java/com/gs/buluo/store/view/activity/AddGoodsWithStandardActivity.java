@@ -22,7 +22,7 @@ import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
 import com.gs.buluo.store.model.GoodsModel;
 import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.network.TribeUploader;
-import com.gs.buluo.store.utils.FrescoImageLoader;
+import com.gs.buluo.store.utils.GlideBannerLoader;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 import com.youth.banner.Banner;
@@ -81,11 +81,24 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     private int pos = 0;
     private View llPrimay;
     private View llSecond;
+    private View addPic;
+    private View delPic;
+    private View addFirst;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        initView();
         picList = new ArrayList<>();
+        initView();
+        initData();
+
+        if (meta.pictures==null||meta.pictures.size()==0){
+            addFirst.setVisibility(View.VISIBLE);
+            addPic.setVisibility(View.GONE);
+            delPic.setVisibility(View.GONE);
+        }
+    }
+
+    private void initData() {
         Intent intent = getIntent();
         meta = intent.getParcelableExtra(Constant.ForIntent.GOODS_BEAN);
         if (meta != null) {
@@ -107,14 +120,18 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     }
 
     private void initView() {
-        findView(R.id.goods_create_add_pic).setOnClickListener(this);
-        findView(R.id.goods_create_del_pic).setOnClickListener(this);
+        addFirst = findView(R.id.goods_create_add_first);
+        addFirst.setOnClickListener(this);
+        addPic = findView(R.id.goods_create_add_pic);
+        addPic.setOnClickListener(this);
+        delPic = findView(R.id.goods_create_del_pic);
+        delPic.setOnClickListener(this);
         findView(R.id.back).setOnClickListener(this);
         llPrimay = findView(R.id.ll_primary_standard);
         llSecond = findView(R.id.ll_second_standard);
         findView(goods_create_next).setOnClickListener(this);
         banner.setOnPageChangeListener(this);
-        banner.setImageLoader(new FrescoImageLoader());
+        banner.setImageLoader(new GlideBannerLoader());
         banner.isAutoPlay(false);
         etTitleDetail.addTextChangedListener(new TextWatcher() {
             @Override
@@ -189,32 +206,12 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.goods_create_next:
-                if (etSale.length() == 0 || etStock.length() == 0 ) {
-                    ToastUtils.ToastMessage(getCtx(), getString(R.string.goods_info_not_complete));
-                    return;
-                }
-                meta.name = etTitle.getText().toString().trim();
-                meta.title = etTitleDetail.getText().toString().trim();
-                meta.pictures = picList;
-                if (picList != null && picList.size() != 0) meta.mainPicture = picList.get(0);
-                meta.brand = etBrand.getText().toString().trim();
-                meta.originCountry = etSource.getText().toString().trim();
-                meta.note = etDesc.getText().toString().trim();
-                if (descriptions != null) {
-                    meta.standardKeys = new ArrayList<>();
-                    meta.standardKeys.add(tvValue1.getText().toString().trim());
-                    meta.standardKeys.add(tvValue2.getText().toString().trim());
-                }
-                meta.priceAndRepertory = new GoodsPriceAndRepertory();
-                meta.priceAndRepertory.originPrice = Float.parseFloat(etOrigin.getText().toString().trim());
-                meta.priceAndRepertory.salePrice = Float.parseFloat(etSale.getText().toString().trim());
-                meta.priceAndRepertory.repertory = Integer.parseInt(etStock.getText().toString().trim());
-
-                Intent intent = new Intent(this, CreateGoodsFinalActivity.class);
-                intent.putExtra(Constant.ForIntent.META, meta);
-                startActivity(intent);
+                continueCreate();
                 break;
             case R.id.goods_create_add_pic:
+                showChoosePhoto();
+                break;
+            case R.id.goods_create_add_first:
                 showChoosePhoto();
                 break;
             case R.id.goods_create_del_pic:
@@ -223,6 +220,9 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
                     picList.remove(0);
                     banner.update(picList);
                     banner.setVisibility(View.GONE);
+                    addFirst.setVisibility(View.VISIBLE);
+                    addPic.setVisibility(View.GONE);
+                    delPic.setVisibility(View.GONE);
                     return;
                 }
                 picList.remove(pos-1);
@@ -235,6 +235,33 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         }
     }
 
+    private void continueCreate() {
+        if (etSale.length() == 0 || etStock.length() == 0 ) {
+            ToastUtils.ToastMessage(getCtx(), getString(R.string.goods_info_not_complete));
+            return;
+        }
+        meta.name = etTitle.getText().toString().trim();
+        meta.title = etTitleDetail.getText().toString().trim();
+        meta.pictures = picList;
+        if (picList != null && picList.size() != 0) meta.mainPicture = picList.get(0);
+        meta.brand = etBrand.getText().toString().trim();
+        meta.originCountry = etSource.getText().toString().trim();
+        meta.note = etDesc.getText().toString().trim();
+        if (descriptions != null) {
+            meta.standardKeys = new ArrayList<>();
+            meta.standardKeys.add(tvValue1.getText().toString().trim());
+            meta.standardKeys.add(tvValue2.getText().toString().trim());
+        }
+        meta.priceAndRepertory = new GoodsPriceAndRepertory();
+        meta.priceAndRepertory.originPrice = Float.parseFloat(etOrigin.getText().toString().trim());
+        meta.priceAndRepertory.salePrice = Float.parseFloat(etSale.getText().toString().trim());
+        meta.priceAndRepertory.repertory = Integer.parseInt(etStock.getText().toString().trim());
+
+        Intent intent = new Intent(this, CreateGoodsFinalActivity.class);
+        intent.putExtra(Constant.ForIntent.META, meta);
+        startActivity(intent);
+    }
+
     private void uploadPic(String path) {
         TribeUploader.getInstance().uploadFile("goods", "", new File(path), new TribeUploader.UploadCallback() {
             @Override
@@ -244,6 +271,11 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
                 Collections.reverse(picList);
                 banner.setImages(picList);
                 banner.start();
+                if (picList.size()==1){
+                    addFirst.setVisibility(View.GONE);
+                    addPic.setVisibility(View.VISIBLE);
+                    delPic.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override

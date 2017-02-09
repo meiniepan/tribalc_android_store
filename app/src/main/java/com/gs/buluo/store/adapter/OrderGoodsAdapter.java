@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import com.gs.buluo.store.bean.ListGoods;
 import com.gs.buluo.store.bean.CartItem;
 import com.gs.buluo.store.holder.OrderGoodsItemHolder;
-import com.gs.buluo.store.utils.FresoUtils;
+import com.gs.buluo.store.utils.GlideUtils;
 
 import java.util.List;
 
@@ -51,7 +51,7 @@ public class OrderGoodsAdapter extends BaseAdapter {
         }
         holder.name.setText(goods.name);
         holder.brand.setText(goods.brand);
-        FresoUtils.loadImage(goods.mainPicture, holder.picture);
+        GlideUtils.loadImage(mCtx,goods.mainPicture, holder.picture);
 
         convertView.setTag(holder);
         return convertView;

@@ -6,13 +6,11 @@
     android:layout_height="@dimen/pager_height"
     android:background="#b5b5b5">
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/rl_head_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        fresco:actualImageScaleType="focusCrop"
-        fresco:placeholderImage="@mipmap/mine_bg"
-        fresco:placeholderImageScaleType="focusCrop" />
+        android:scaleType="centerCrop"/>
 
     <RelativeLayout
         android:layout_alignParentEnd="true"

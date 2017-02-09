@@ -1,7 +1,6 @@
 package com.gs.buluo.store.view.activity;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,7 +11,7 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.AuthenticationData;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
 import com.gs.buluo.store.network.TribeUploader;
-import com.gs.buluo.store.utils.FresoUtils;
+import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 
@@ -88,13 +87,13 @@ public class IdentificationActivity extends BaseActivity {
                 if (isFront){
                     frontImg.setVisibility(View.VISIBLE);
                     front = data.objectKey;
-                    Glide.with(IdentificationActivity.this).load(FresoUtils.formatImageUrl(data.objectKey)).centerCrop().into(frontImg);
+                    Glide.with(IdentificationActivity.this).load(GlideUtils.formatImageUrl(data.objectKey)).centerCrop().into(frontImg);
                     findViewById(R.id.identify_front).setVisibility(View.GONE);
                 }else {
                     backImg.setVisibility(View.VISIBLE);
                     back=data.objectKey;
                     findViewById(R.id.identify_back).setVisibility(View.GONE);
-                    Glide.with(IdentificationActivity.this).load(FresoUtils.formatImageUrl(data.objectKey)).centerCrop().into(backImg);
+                    Glide.with(IdentificationActivity.this).load(GlideUtils.formatImageUrl(data.objectKey)).centerCrop().into(backImg);
                 }
             }
 

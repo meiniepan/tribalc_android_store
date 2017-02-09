@@ -4,9 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.buluo.store.R;
 
 /**
@@ -21,7 +21,7 @@ public class OrderGoodsItemHolder {
 
     public TextView name;
     public TextView brand;
-    public SimpleDraweeView picture;
+    public ImageView picture;
     public TextView account;
     public TextView people;
     public View view;
@@ -32,7 +32,7 @@ public class OrderGoodsItemHolder {
         brand = (TextView) view.findViewById(R.id.order_item_goods_brand);
         account = (TextView) view.findViewById(R.id.order_item_goods_account);
         people = (TextView) view.findViewById(R.id.order_item_people);
-        picture = (SimpleDraweeView) view.findViewById(R.id.order_item_goods_head);
+        picture = (ImageView) view.findViewById(R.id.order_item_goods_head);
         return view;
     }
 }

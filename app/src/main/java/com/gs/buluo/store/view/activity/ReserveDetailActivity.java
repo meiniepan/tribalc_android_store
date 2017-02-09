@@ -6,14 +6,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.DetailReservation;
 import com.gs.buluo.store.bean.ListReservation;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.DetailReservationPresenter;
-import com.gs.buluo.store.utils.FresoUtils;
+import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.utils.TribeDateUtils;
 import com.gs.buluo.store.view.impl.IDetailReserveView;
@@ -53,7 +52,7 @@ public class ReserveDetailActivity extends BaseActivity implements IDetailReserv
     @Bind(R.id.reserve_detail_sign)
     ImageView sign;
     @Bind(R.id.reserve_detail_item_picture)
-    SimpleDraweeView picture;
+    ImageView picture;
 
     @Bind(R.id.reserve_detail_cancel)
     TextView tvFinish;
@@ -75,7 +74,7 @@ public class ReserveDetailActivity extends BaseActivity implements IDetailReserv
         tvItemCount.setText(reservation.personNum);
         tvItemTime.setText(TribeDateUtils.dateFormat9(new Date(reservation.appointTime)));
         setDescription(reservation.status);
-        FresoUtils.loadImage(reservation.mainPicture, picture);
+        GlideUtils.loadImage(getCtx(),reservation.mainPicture, picture);
 
         ((DetailReservationPresenter) mPresenter).getReserveDetail(reservation.id);
 

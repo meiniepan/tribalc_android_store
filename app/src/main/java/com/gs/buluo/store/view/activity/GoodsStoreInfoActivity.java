@@ -3,6 +3,7 @@ package com.gs.buluo.store.view.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -71,7 +72,7 @@ public class GoodsStoreInfoActivity extends BaseActivity implements Callback<Bas
     }
 
     private void initData(StoreMeta data) {
-        if (data.authenticationStatus == "PROCESSING"){
+        if (TextUtils.equals(data.authenticationStatus,"NOT_START")){
             auth.setVisibility(View.VISIBLE);
         }
         storeBean = data;
@@ -133,8 +134,9 @@ public class GoodsStoreInfoActivity extends BaseActivity implements Callback<Bas
     private void saveStore(StoreMeta data) {
         StoreInfoDao storeInfoDao = new StoreInfoDao();
         StoreInfo first = storeInfoDao.findFirst();
-        data.setToken(first.token);
-        storeInfoDao.update(data);
+        first.setName(data.getName());
+        first.setLogo(data.getLogo());
+        storeInfoDao.update(first);
         TribeApplication.getInstance().setUserInfo(data);
         EventBus.getDefault().post(new SelfEvent());
         finish();

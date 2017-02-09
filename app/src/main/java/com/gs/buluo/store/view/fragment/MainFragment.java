@@ -11,7 +11,7 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.MainPresenter;
 import com.gs.buluo.store.utils.DensityUtils;
-import com.gs.buluo.store.utils.FrescoImageLoader;
+import com.gs.buluo.store.utils.GlideBannerLoader;
 import com.gs.buluo.store.view.activity.ServeActivity;
 import com.gs.buluo.store.view.impl.IMainView;
 import com.gs.buluo.store.view.activity.GoodsListActivity;
@@ -47,7 +47,7 @@ public class MainFragment extends BaseFragment implements IMainView, View.OnClic
     @Override
     protected void bindView(Bundle savedInstanceState) {
         List list = new ArrayList();
-        mBanner.setImageLoader(new FrescoImageLoader(true));
+        mBanner.setImageLoader(new GlideBannerLoader(true));
         mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         list.add(R.mipmap.main_p0);
         list.add(R.mipmap.main_p1);

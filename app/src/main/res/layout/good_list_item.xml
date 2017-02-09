@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#fff"
     android:layout_width="match_parent"
@@ -8,16 +7,14 @@
     android:layout_marginEnd="5dp"
     android:layout_height="wrap_content">
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/goods_list_picture"
         android:layout_width="170dp"
         android:layout_height="190dp"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
-        fresco:actualImageScaleType="centerInside"
-        fresco:placeholderImage="@mipmap/default_pic"
-        fresco:placeholderImageScaleType="centerInside" />
+        android:scaleType="centerInside" />
 
     <TextView
         android:id="@+id/goods_list_name"

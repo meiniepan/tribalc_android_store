@@ -4,21 +4,21 @@ import android.content.Context;
 import android.net.Uri;
 import android.widget.ImageView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
 import com.gs.buluo.store.Constant;
 import com.youth.banner.loader.ImageLoader;
 
 /**
  * Created by hjn on 2016/11/2.
  */
-public class FrescoImageLoader extends ImageLoader {
+public class GlideBannerLoader extends ImageLoader {
     private boolean isLocal = false;
 
-    public FrescoImageLoader(boolean isLocal) {
+    public GlideBannerLoader(boolean isLocal) {
         this.isLocal = isLocal;
     }
 
-    public FrescoImageLoader() {
+    public GlideBannerLoader() {
     }
 
     @Override
@@ -34,15 +34,7 @@ public class FrescoImageLoader extends ImageLoader {
         } else {
             url = transformUrl(url);
         }
-
-        Uri uri = Uri.parse(url);
-        imageView.setImageURI(uri);
-    }
-
-    @Override
-    public ImageView createImageView(Context context) {
-        SimpleDraweeView simpleDraweeView = new SimpleDraweeView(context);
-        return simpleDraweeView;
+        Glide.with(context).load(url).into(imageView);
     }
 
     public String transformUrl(String url) {

@@ -319,7 +319,7 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         storeBean.isReservable = sReserve.isChecked();
         storeBean.desc = etDesc.getText().toString().trim();
         setFacility();
-        String key = "name,subbranchName,desc,otherPhone,province,city,district,address" +
+        String key = "name,subbranchName,logo,desc,otherPhone,province,city,district,address" +
                 ",pictures,facilities";
         if (storeBean.category == StoreMeta.StoreCategory.REPAST){
             setCookingStyle();
@@ -372,9 +372,10 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
     private void saveStore(StoreMeta data) {
         StoreInfoDao storeInfoDao = new StoreInfoDao();
         StoreInfo first = storeInfoDao.findFirst();
-        data.setToken(first.token);
-        storeInfoDao.update(data);
-        TribeApplication.getInstance().setUserInfo(data);
+        first.setLogo(data.getLogo());
+        first.setName(data.getName());
+
+        storeInfoDao.update(first);
         EventBus.getDefault().post(new SelfEvent());
         finish();
     }

@@ -100,16 +100,13 @@
                 android:layout_toEndOf="@+id/textView2" />
         </RelativeLayout>
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <ImageView
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginTop="20dp"
             android:id="@+id/goods_choose_icon"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            fresco:roundedCornerRadius="3dp"
-            fresco:actualImageScaleType="centerInside"
-            fresco:placeholderImage="@mipmap/head_icon"
-            fresco:placeholderImageScaleType="focusCrop" />
+            android:scaleType="centerInside"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -180,6 +177,7 @@
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:visibility="gone"
         android:gravity="center_vertical"
         android:paddingStart="@dimen/board_margin_horizontal"
         android:paddingEnd="@dimen/board_margin_horizontal">

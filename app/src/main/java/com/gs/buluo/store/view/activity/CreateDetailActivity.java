@@ -51,7 +51,6 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
     TextView tvLogo;
     TextView tvEnvi;
     TextView tvTime;
-    EditText recommendReason;
     EditText etDesc;
     @Bind(R.id.store_create_next)
     TextView button;
@@ -165,7 +164,7 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
                 storeBean.phone = tvPhone.getText().toString().trim();
                 storeBean.otherPhone = tvOtherPhone.getText().toString().trim();
 
-                Intent intent = new Intent(CreateDetailActivity.this, CreateDetailActivitySecond.class);
+                Intent intent = new Intent(getCtx(), CreateDetailActivitySecond.class);
                 intent.putExtra(Constant.ForIntent.STORE_BEAN, storeBean);
                 startActivity(intent);
             }
@@ -179,7 +178,7 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
                     public void onSuccess(Response<BaseResponse<StoreMeta>> response) {
                         saveStore(response.body().data);
                         Intent intent = new Intent();
-                        intent.setClass(CreateDetailActivity.this, CreateStoreFinishActivity.class);
+                        intent.setClass(getCtx(), CreateStoreFinishActivity.class);
                         AppManager.getAppManager().finishActivity(CreateStoreVarietyActivity.class);
                         startActivity(intent);
                         finish();
@@ -192,11 +191,14 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
                 });
     }
 
-    private void saveStore(StoreInfo data) {
+    private void saveStore(StoreMeta data) {
         StoreInfoDao storeInfoDao = new StoreInfoDao();
         StoreInfo first = storeInfoDao.findFirst();
-        data.setToken(first.token);
-        storeInfoDao.update(data);
+        first.setLogo(data.getLogo());
+        first.setName(data.getName());
+        first.setStoreType(data.getStoreType());
+        first.setAuthenticationStatus(data.getAuthenticationStatus());
+        storeInfoDao.update(first);
         TribeApplication.getInstance().setUserInfo(data);
         EventBus.getDefault().post(new SelfEvent());
     }

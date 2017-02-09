@@ -125,7 +125,10 @@
     <include layout="@layout/split_area" />
 
     <include layout="@layout/split_area" />
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/white"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp">
@@ -149,6 +152,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/mine_bank_card"
                 android:layout_centerInParent="true"
+                android:layout_marginTop="4dp"
                 android:textSize="@dimen/dimens_14sp"
                 android:gravity="center" />
         </RelativeLayout>
@@ -176,6 +180,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/pay_bill"
+                android:layout_marginTop="4dp"
                 android:layout_centerInParent="true"
                 android:textSize="@dimen/dimens_14sp"
                 android:gravity="center" />
@@ -212,6 +217,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/wallet_financial"
                 android:layout_centerInParent="true"
+                android:layout_marginTop="4dp"
                 android:textSize="@dimen/dimens_14sp"
                 android:gravity="center" />
         </RelativeLayout>
@@ -239,6 +245,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/pay_pwd"
+                android:layout_marginTop="4dp"
                 android:layout_centerInParent="true"
                 android:textSize="@dimen/dimens_14sp"
                 android:gravity="center" />

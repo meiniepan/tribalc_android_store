@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -17,12 +16,10 @@ import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.network.GoodsService;
 import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.network.TribeRetrofit;
-import com.gs.buluo.store.presenter.StoreGoodsPresenter;
-import com.gs.buluo.store.utils.FresoUtils;
+import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.utils.TribeDateUtils;
 import com.gs.buluo.store.view.activity.AddGoodsWithStandardActivity;
-import com.gs.buluo.store.view.activity.NewGoodsActivity;
 import com.gs.buluo.store.view.widget.SwipeMenuLayout;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.BaseViewHolder;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RecyclerAdapter;
@@ -73,7 +70,7 @@ public class StoreGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
         public void setData(final GoodsMeta entity) {
             super.setData(entity);
             picture.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-            Glide.with(getContext()).load(FresoUtils.formatImageUrl(entity.mainPicture)).placeholder(R.mipmap.default_pic).into(picture);
+            Glide.with(getContext()).load(GlideUtils.formatImageUrl(entity.mainPicture)).placeholder(R.mipmap.default_pic).into(picture);
             name.setText(entity.name);
             repertory.setText(entity.priceAndRepertory.repertory + "");
             price.setText(entity.priceAndRepertory.salePrice + "");

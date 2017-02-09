@@ -3,13 +3,13 @@ package com.gs.buluo.store.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.ListGoods;
-import com.gs.buluo.store.utils.FresoUtils;
+import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.view.activity.GoodsDetailActivity;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.BaseViewHolder;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RecyclerAdapter;
@@ -34,7 +34,7 @@ public class GoodsListAdapter extends RecyclerAdapter<ListGoods> {
     }
 
     class GoodsHolder extends BaseViewHolder<ListGoods> {
-        SimpleDraweeView picture;
+        ImageView picture;
         TextView name;
         TextView price;
         TextView brand;
@@ -58,7 +58,7 @@ public class GoodsListAdapter extends RecyclerAdapter<ListGoods> {
             name.setText(entity.name);
             price.setText("￥" + entity.salePrice);
             brand.setText(entity.brand);
-            FresoUtils.loadImage(entity.mainPicture, picture);
+            GlideUtils.loadImage(getContext(),entity.mainPicture, picture);
         }
 
         @Override

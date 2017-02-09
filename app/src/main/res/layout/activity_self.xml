@@ -65,7 +65,7 @@
                 <!--android:gravity="center_vertical"-->
                 <!--android:text="@string/head" />-->
 
-            <!--<com.facebook.drawee.view.SimpleDraweeView-->
+            <!--<ImageView-->
                 <!--android:id="@+id/self_iv_head"-->
                 <!--android:layout_width="60dp"-->
                 <!--android:layout_height="60dp"-->

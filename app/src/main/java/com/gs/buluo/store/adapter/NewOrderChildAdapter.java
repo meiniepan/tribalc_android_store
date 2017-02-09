@@ -4,12 +4,12 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.CartItem;
-import com.gs.buluo.store.utils.FresoUtils;
+import com.gs.buluo.store.utils.GlideUtils;
 
 import java.util.List;
 
@@ -54,7 +54,7 @@ public class NewOrderChildAdapter extends BaseAdapter {
         holder.name.setText(item.goods.name);
         holder.count.setText(item.amount + "");
         holder.price.setText(Float.parseFloat(item.goods.salePrice) + "");
-        FresoUtils.loadImage(item.goods.mainPicture, holder.picture);
+        GlideUtils.loadImage(context,item.goods.mainPicture, holder.picture);
 
         if (item.goods.standardSnapshot != null) {
             String[] arr1 = item.goods.standardSnapshot.split("\\|");
@@ -63,7 +63,7 @@ public class NewOrderChildAdapter extends BaseAdapter {
                 holder.value1.setText(arr1[0].split(":")[1]);
                 holder.key2.setText(arr1[1].split(":")[0]);
                 holder.value2.setText(arr1[1].split(":")[1]);
-                FresoUtils.loadImage(item.goods.mainPicture, holder.picture);
+                GlideUtils.loadImage(context,item.goods.mainPicture, holder.picture);
             } else {
                 holder.key1.setText(item.goods.standardSnapshot.split(":")[0]);
                 holder.value1.setText(item.goods.standardSnapshot.split(":")[1]);
@@ -83,7 +83,7 @@ public class NewOrderChildAdapter extends BaseAdapter {
         public TextView value2;
         public TextView price;
         public TextView count;
-        public SimpleDraweeView picture;
+        public ImageView picture;
 
         public View getConvertView() {
             View view = View.inflate(context, R.layout.new_order_item_goods_item, null);
@@ -94,7 +94,7 @@ public class NewOrderChildAdapter extends BaseAdapter {
             value2 = (TextView) view.findViewById(R.id.new_order_item_value2);
             price = (TextView) view.findViewById(R.id.new_order_item_price);
             count = (TextView) view.findViewById(R.id.new_order_item_good_count);
-            picture = (SimpleDraweeView) view.findViewById(R.id.new_order_goods_picture);
+            picture = (ImageView) view.findViewById(R.id.new_order_goods_picture);
             return view;
         }
     }

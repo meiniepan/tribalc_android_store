@@ -9,14 +9,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.StoreDetail;
 import com.gs.buluo.store.model.CommunityModel;
-import com.gs.buluo.store.utils.FrescoImageLoader;
-import com.gs.buluo.store.utils.FresoUtils;
+import com.gs.buluo.store.utils.GlideBannerLoader;
+import com.gs.buluo.store.utils.GlideUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -45,7 +44,7 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
     private TextView tvTopic;
     private Banner banner;
     private String id;
-    private SimpleDraweeView logo;
+    private ImageView logo;
     private LinearLayout facilitiesGroup;
     private HashMap<String, Integer> map = new HashMap<>();
 
@@ -96,7 +95,7 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
         tvBrand = (TextView) findViewById(R.id.server_detail_category);
         tvTime = (TextView) findViewById(R.id.server_detail_work_time);
         tvTopic = (TextView) findViewById(R.id.server_detail_topic);
-        logo = (SimpleDraweeView) findViewById(R.id.server_detail_logo);
+        logo = (ImageView) findViewById(R.id.server_detail_logo);
         facilitiesGroup = (LinearLayout) findViewById(R.id.server_detail_facilities);
 
         findViewById(R.id.service_phone_call).setOnClickListener(this);
@@ -159,7 +158,7 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
     private void setData(StoreDetail data) {
         banner.setBannerStyle(BannerConfig.NUM_INDICATOR);
         banner.setIndicatorGravity(BannerConfig.RIGHT);
-        banner.setImageLoader(new FrescoImageLoader());
+        banner.setImageLoader(new GlideBannerLoader());
         banner.isAutoPlay(false);
         banner.setImages(data.pictures);
         banner.start();
@@ -174,7 +173,7 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
         tvTime.setText("每天 " + data.businessHours);
 //        tvTopic.setText(data.topics);
         setFacilities(data.faclities);
-        FresoUtils.loadImage(data.mainPicture, logo); //TODO  LOGO
+        GlideUtils.loadImage(mCtx,data.mainPicture, logo,true);
     }
 
     public void setFacilities(List<String> faclities) {

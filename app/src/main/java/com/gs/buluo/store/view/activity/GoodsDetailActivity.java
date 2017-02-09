@@ -1,20 +1,19 @@
 package com.gs.buluo.store.view.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.ListGoodsDetail;
 import com.gs.buluo.store.bean.GoodsStandard;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.GoodsDetailPresenter;
-import com.gs.buluo.store.utils.FrescoImageLoader;
-import com.gs.buluo.store.utils.FresoUtils;
+import com.gs.buluo.store.utils.GlideBannerLoader;
+import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.IGoodDetialView;
 import com.gs.buluo.store.view.widget.panel.GoodsChoosePanel;
@@ -44,7 +43,7 @@ public class GoodsDetailActivity extends BaseActivity implements View.OnClickLis
     @Bind(R.id.goods_detail_count)
     TextView tvCount;
     @Bind(R.id.good_brand_img)
-    SimpleDraweeView brandImg;
+    ImageView brandImg;
     @Bind(R.id.goods_detail_standard)
     TextView tvStandard;
 
@@ -129,7 +128,7 @@ public class GoodsDetailActivity extends BaseActivity implements View.OnClickLis
 
         list = new ArrayList<>();
         list = goodsEntity.pictures;
-        FresoUtils.loadImage(goodsEntity.tMarkStore.logo, brandImg);
+        GlideUtils.loadImage(getCtx(),goodsEntity.tMarkStore.logo, brandImg);
         tvName.setText(goodsEntity.title);
         setGoodsPrice(goodsEntity.salePrice);
         tvBrand.setText(goodsEntity.tMarkStore.name);
@@ -143,7 +142,7 @@ public class GoodsDetailActivity extends BaseActivity implements View.OnClickLis
             if (tag.length()>1)tvTip.setText(tag.toString().substring(0, tag.length() - 1));
         }
 
-        mBanner.setImageLoader(new FrescoImageLoader());
+        mBanner.setImageLoader(new GlideBannerLoader());
         mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         mBanner.isAutoPlay(false);
         mBanner.setImages(list);

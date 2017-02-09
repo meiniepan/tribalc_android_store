@@ -5,12 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.ListStore;
-import com.gs.buluo.store.utils.FresoUtils;
+import com.gs.buluo.store.utils.GlideUtils;
 
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class CommunityDetailStoreAdapter extends BaseAdapter {
 //        holder.money.setText(store.);
         holder.name.setText(store.name);
         holder.category.setText(store.brand);
-        FresoUtils.loadImage(store.mainPicture, holder.picture);
+        GlideUtils.loadImage(mCtx,store.mainPicture, holder.picture);
 
         convertView.setTag(holder);
         return convertView;
@@ -66,14 +66,14 @@ public class CommunityDetailStoreAdapter extends BaseAdapter {
         public TextView category;
         public TextView money;
         public TextView distance;
-        public SimpleDraweeView picture;
+        public ImageView picture;
 
         public View getHolderView() {
             View view = LayoutInflater.from(mCtx).inflate(R.layout.community_detail_store_item, null);
             category = (TextView) view.findViewById(R.id.community_detail_store_category);
 //            money = (TextView) view.findViewById(R.id.community_detail_store_price);
             distance = (TextView) view.findViewById(R.id.community_detail_store_distance);
-            picture = (SimpleDraweeView) view.findViewById(R.id.community_detail_store_picture);
+            picture = (ImageView) view.findViewById(R.id.community_detail_store_picture);
             name = (TextView) view.findViewById(R.id.community_detail_store_name);
             return view;
         }

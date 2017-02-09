@@ -3,7 +3,6 @@ package com.gs.buluo.store;
 import android.app.Application;
 
 import com.baidu.mapapi.SDKInitializer;
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.utils.TribeCrashCollector;
 
@@ -26,7 +25,6 @@ public class TribeApplication extends Application {
         initCrashCollect();
         instance = this;
         x.Ext.init(this);//X utils初始化
-        Fresco.initialize(this);
 //        x.Ext.setDebug(BuildConfig.DEBUG);
         initDb();
 

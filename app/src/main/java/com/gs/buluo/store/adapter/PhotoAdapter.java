@@ -1,15 +1,13 @@
 package com.gs.buluo.store.adapter;
 
 import android.content.Context;
-import android.media.Image;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.utils.FresoUtils;
+import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.BaseViewHolder;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RecyclerAdapter;
 
@@ -45,7 +43,7 @@ public class PhotoAdapter extends RecyclerAdapter<String> {
 
         @Override
         public void setData(final String entity) {
-            Glide.with(getContext()).load(FresoUtils.formatImageUrl(entity)).centerCrop().into(content);
+            Glide.with(getContext()).load(GlideUtils.formatImageUrl(entity)).centerCrop().into(content);
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

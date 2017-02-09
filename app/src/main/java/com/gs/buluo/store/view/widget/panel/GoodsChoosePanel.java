@@ -12,16 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.adapter.GoodsLevel1Adapter1;
 import com.gs.buluo.store.adapter.GoodsLevel1Adapter2;
 import com.gs.buluo.store.bean.ListGoodsDetail;
 import com.gs.buluo.store.bean.GoodsStandard;
 import com.gs.buluo.store.bean.StandardLevel;
-import com.gs.buluo.store.utils.FresoUtils;
+import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 
 import java.util.List;
@@ -49,7 +49,7 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
     @Bind(R.id.goods_board_choose_remain)
     TextView mRemainNumber;
     @Bind(R.id.goods_choose_icon)
-    SimpleDraweeView mIcon;
+    ImageView mIcon;
 
     @Bind(R.id.goods_standard_type2)
     TextView type2;
@@ -85,7 +85,7 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
         if (defaultEntity == null) return;
         mPrice.setText(defaultEntity.salePrice);
         mRemainNumber.setText(defaultEntity.repertory + "");
-        FresoUtils.loadImage(defaultEntity.mainPicture, mIcon);
+        GlideUtils.loadImage(getContext(),defaultEntity.mainPicture, mIcon);
     }
 
     private void initData(final GoodsStandard entity) {
@@ -120,7 +120,7 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
                 leve11Key = s;
                 defaultEntity = goodsMap.get(leve11Key);
                 if (TextUtils.isEmpty(s)) return;
-                FresoUtils.loadImage(defaultEntity.mainPicture, mIcon);
+                GlideUtils.loadImage(getContext(),defaultEntity.mainPicture, mIcon);
                 mPrice.setText(defaultEntity.salePrice);
                 mRemainNumber.setText(defaultEntity.repertory + "");
 
@@ -178,7 +178,7 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
         if (defaultEntity != null) {
             mRemainNumber.setText(defaultEntity.repertory + "");
             mPrice.setText(defaultEntity.salePrice);
-            FresoUtils.loadImage(defaultEntity.mainPicture, mIcon);
+            GlideUtils.loadImage(getContext(),defaultEntity.mainPicture, mIcon);
         }
     }
 
@@ -200,7 +200,7 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
         if (defaultEntity != null) {
             mRemainNumber.setText(defaultEntity.repertory + "");
             mPrice.setText(defaultEntity.salePrice);
-            FresoUtils.loadImage(defaultEntity.mainPicture, mIcon);
+            GlideUtils.loadImage(getContext(),defaultEntity.mainPicture, mIcon);
         }
     }
 

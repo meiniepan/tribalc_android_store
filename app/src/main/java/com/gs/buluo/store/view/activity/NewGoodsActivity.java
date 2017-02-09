@@ -18,7 +18,7 @@ import com.gs.buluo.store.bean.GoodsStandardMeta;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
 import com.gs.buluo.store.bean.SerializableHashMap;
 import com.gs.buluo.store.network.TribeUploader;
-import com.gs.buluo.store.utils.FrescoImageLoader;
+import com.gs.buluo.store.utils.GlideBannerLoader;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 import com.youth.banner.Banner;
@@ -68,6 +68,9 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
     GoodsMeta meta;
     private GoodsStandardMeta standardMeta;
     private Bundle bundle;
+    private View firstAddPic;
+    private View delPic;
+    private View addPic;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -79,14 +82,18 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void initView() {
-        banner.setImageLoader(new FrescoImageLoader());
+        banner.setImageLoader(new GlideBannerLoader());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         banner.setOnPageChangeListener(this);
         banner.isAutoPlay(false);
 
-        findViewById(R.id.goods_create_del_pic).setOnClickListener(this);
-        findViewById(R.id.goods_create_add_pic).setOnClickListener(this);
+        delPic = findViewById(R.id.goods_create_del_pic);
+        delPic.setOnClickListener(this);
+        addPic = findViewById(R.id.goods_create_add_pic);
+        addPic.setOnClickListener(this);
         findViewById(R.id.goods_create_next).setOnClickListener(this);
+        firstAddPic = findViewById(R.id.goods_create_add_first);
+        firstAddPic.setOnClickListener(this);
         findViewById(R.id.ll_goods_create_standard).setOnClickListener(this);
         findViewById(R.id.back).setOnClickListener(this);
         etTitleDetail.addTextChangedListener(new TextWatcher() {
@@ -142,12 +149,18 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
             case R.id.goods_create_add_pic:
                 showChoosePhoto();
                 break;
+            case R.id.goods_create_add_first:
+                showChoosePhoto();
+                break;
             case R.id.goods_create_del_pic:
                 if (picList.size() == 0 || pos > picList.size()) return;
                 if (picList.size()==1){
                     picList.remove(0);
                     banner.update(picList);
                     banner.setVisibility(View.GONE);
+                    firstAddPic.setVisibility(View.VISIBLE);
+                    addPic.setVisibility(View.GONE);
+                    delPic.setVisibility(View.GONE);
                     return;
                 }
                 picList.remove(pos-1);
@@ -233,6 +246,11 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
                 Collections.reverse(picList);
                 banner.setImages(picList);
                 banner.start();
+                if (picList.size()==1){
+                    firstAddPic.setVisibility(View.GONE);
+                    addPic.setVisibility(View.VISIBLE);
+                    delPic.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
