@@ -36,7 +36,6 @@ public interface ReserveService {
     Call<BaseResponse<DetailReservation>> getReserveDetail(@Path("id") String reserveId, @Query("me") String myId);
 
     @PUT("reservations/{id}/status?type=store")
-    Call<BaseResponse> updateReserve(@Path("id") String id, @Query("me") String myId,
-                                     @Query("store")String storeId, @Body ValueRequestBody body);
+    Call<BaseResponse> updateReserve(@Path("id") String id, @Query("me") String myId, @Body ValueRequestBody body);
 }
 

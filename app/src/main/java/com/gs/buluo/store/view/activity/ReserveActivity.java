@@ -1,5 +1,6 @@
 package com.gs.buluo.store.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -46,6 +47,13 @@ public class ReserveActivity extends BaseActivity implements IReserveView {
 
         ((ReservePresenter) mPresenter).getReserveListFirst("");
         showLoadingDialog();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        adapter.clear();
+        ((ReservePresenter) mPresenter).getReserveListFirst("");
     }
 
     @Override

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.StoreMeta;
@@ -37,7 +38,7 @@ import com.gs.buluo.store.view.activity.LoginActivity;
 import com.gs.buluo.store.view.activity.MealStoreInfoActivity;
 import com.gs.buluo.store.view.activity.SelfActivity;
 import com.gs.buluo.store.view.activity.SettingActivity;
-import com.gs.buluo.store.view.activity.VerifyProcessingActivity;
+import com.gs.buluo.store.view.activity.AuthProcessingActivity;
 import com.gs.buluo.store.view.activity.WalletActivity;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 import com.gs.buluo.store.view.widget.pulltozoom.PullToZoomScrollViewEx;
@@ -254,6 +255,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             llUnLogin.setVisibility(View.VISIBLE);
             mHead.setImageResource(R.mipmap.default_pic);
             mCover.setImageResource(R.mipmap.mine_bg);
+
+            tvSign.setText(R.string.create_store);
+            Drawable drawable= getResources().getDrawable(R.mipmap.store_icon);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            tvSign.setCompoundDrawables(drawable,null,null,null);
         }
     }
 
@@ -274,7 +280,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     intent.setClass(getActivity(), Authentication1Activity.class);
                     startActivity(intent);
                 } else if (TextUtils.equals(storeAuthenticationStatus, "PROCESSING")) {
-                    intent.setClass(getActivity(), VerifyProcessingActivity.class);
+                    intent.setClass(getActivity(), AuthProcessingActivity.class);
+                    intent.putExtra(Constant.ForIntent.STATUS,storeAuthenticationStatus);
                     startActivity(intent);
                 }
             }

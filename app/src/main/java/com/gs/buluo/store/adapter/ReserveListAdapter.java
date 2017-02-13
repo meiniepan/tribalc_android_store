@@ -38,7 +38,7 @@ public class ReserveListAdapter extends RecyclerAdapter<ListReservation> {
     }
 
     class ReserveItemHolder extends BaseViewHolder<ListReservation> {
-        TextView tags;
+        TextView phone;
         TextView status;
         TextView name;
         TextView time;
@@ -56,7 +56,7 @@ public class ReserveListAdapter extends RecyclerAdapter<ListReservation> {
             status = findViewById(R.id.reserve_item_status);
             name = findViewById(R.id.reserve_item_name);
             picture = findViewById(R.id.reserve_item_picture);
-            tags = findViewById(R.id.reserve_item_tags);
+            phone = findViewById(R.id.reserve_item_tags);
             time = findViewById(R.id.receive_item_time);
             count = findViewById(R.id.reserve_item_people_count);
         }
@@ -65,13 +65,10 @@ public class ReserveListAdapter extends RecyclerAdapter<ListReservation> {
         public void setData(ListReservation entity) {
             super.setData(entity);
             if (entity == null) return;
-            name.setText(entity.storeName);
+            name.setText(entity.linkman);
             setStatus(entity);
-            tags.setText(entity.markPlace);
+            phone.setText(entity.phone);
 
-            if (entity.tags != null && entity.tags.size() > 0) {
-                tags.setText(entity.tags.get(0) + "  |  " + entity.markPlace);
-            }
             time.setText(TribeDateUtils.dateFormat9(new Date(entity.appointTime)));
             count.setText(entity.personNum);
             GlideUtils.loadImage(getContext(),entity.mainPicture, picture);
@@ -80,10 +77,13 @@ public class ReserveListAdapter extends RecyclerAdapter<ListReservation> {
         private void setStatus(ListReservation entity) {
             if (entity.status == ListReservation.ReserveStatus.PROCESSING) {
                 status.setText(R.string.reserve_processing);
+                status.setTextColor(0xfff34447);
             } else if (entity.status == ListReservation.ReserveStatus.SUCCEED) {
                 status.setText(R.string.reserve_success);
-            } else {
+                status.setTextColor(0xff51c7d1);
+            }  else {
                 status.setText(R.string.reserve_fail);
+                status.setTextColor(0xff9a9a9a);
             }
         }
 

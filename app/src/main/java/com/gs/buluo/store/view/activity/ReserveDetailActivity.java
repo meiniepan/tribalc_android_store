@@ -58,7 +58,6 @@ public class ReserveDetailActivity extends BaseActivity implements IDetailReserv
     TextView tvFinish;
     @Bind(R.id.reserve_detail_confirm)
     TextView tvConfirm;
-
     @Override
     protected void bindView(Bundle savedInstanceState) {
         final ListReservation reservation = getIntent().getParcelableExtra(Constant.SERVE_ID);
@@ -73,6 +72,8 @@ public class ReserveDetailActivity extends BaseActivity implements IDetailReserv
         tvCount.setText(reservation.personNum);
         tvItemCount.setText(reservation.personNum);
         tvItemTime.setText(TribeDateUtils.dateFormat9(new Date(reservation.appointTime)));
+        tvPhone.setText(reservation.phone);
+        tvContact.setText(reservation.linkman);
         setDescription(reservation.status);
         GlideUtils.loadImage(getCtx(),reservation.mainPicture, picture);
 
@@ -81,7 +82,7 @@ public class ReserveDetailActivity extends BaseActivity implements IDetailReserv
         tvFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((DetailReservationPresenter) mPresenter).updateReserve(reservation.id, ListReservation.ReserveStatus.CANCEL.toString());
+                ((DetailReservationPresenter) mPresenter).updateReserve(reservation.id, ListReservation.ReserveStatus.FAILURE.toString());
             }
         });
         tvConfirm.setOnClickListener(new View.OnClickListener() {
@@ -104,12 +105,10 @@ public class ReserveDetailActivity extends BaseActivity implements IDetailReserv
             tvFinish.setText(R.string.cancel_order);
         } else if (entity.status == ListReservation.ReserveStatus.SUCCEED) {
             tvTitle.setText(R.string.reserve_success);
-            tvFinish.setText(R.string.cancel_order);
-            tvConfirm.setVisibility(View.GONE);
+            findView(R.id.order_detail_bottom).setVisibility(View.GONE);
         } else {
             tvTitle.setText(R.string.reserve_fail);
-            tvFinish.setVisibility(View.GONE);
-            tvConfirm.setVisibility(View.GONE);
+            findView(R.id.order_detail_bottom).setVisibility(View.GONE);
         }
     }
 
@@ -138,21 +137,19 @@ public class ReserveDetailActivity extends BaseActivity implements IDetailReserv
 
     @Override
     public void getDetailSuccess(DetailReservation reservation) {
-        tvPhone.setText(reservation.phone);
-        tvContact.setText(reservation.linkman);
         tvAddress.setText(reservation.address);
     }
 
     @Override
-    public void cancelSuccess() {
-        ToastUtils.ToastMessage(this, "取消订单成功");
+    public void updateSuccess() {
+        ToastUtils.ToastMessage(this, "修改订单成功");
         startActivity(new Intent(this, ReserveActivity.class));
         //TODO add intent  ListDetailReservation
     }
 
     @Override
-    public void cancelFailure() {
-        ToastUtils.ToastMessage(this, "取消订单失败");
+    public void updateFailure() {
+        ToastUtils.ToastMessage(this, "修改订单失败");
     }
 
     @Override

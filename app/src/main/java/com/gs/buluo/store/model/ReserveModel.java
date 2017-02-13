@@ -33,6 +33,6 @@ public class ReserveModel {
 
     public void updateReserve(String id, String myId, ValueRequestBody body, Callback<BaseResponse> callback) {
         TribeRetrofit.getInstance().createApi(ReserveService.class).
-                updateReserve(id, myId, TribeApplication.getInstance().getUserInfo().getId(), body).enqueue(callback);
+                updateReserve(id, myId, body).enqueue(callback);
     }
 }

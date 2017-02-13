@@ -99,13 +99,16 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
             findViewById(R.id.ll_pay_time).setVisibility(View.VISIBLE);
             tvPayTime.setText(TribeDateUtils.dateFormat7(new Date(bean.settleTime)));
             findViewById(R.id.order_bottom).setVisibility(View.VISIBLE);
+            findView(R.id.ll_order_detail_counter).setVisibility(View.GONE);
         } else if (bean.status == OrderBean.OrderStatus.DELIVERY) { //待收货
             findViewById(R.id.ll_send_time).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_logistic).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_pay_time).setVisibility(View.VISIBLE);
+            findView(R.id.ll_order_detail_counter).setVisibility(View.GONE);
             tvPayTime.setText(TribeDateUtils.dateFormat7(new Date(bean.settleTime)));
             tvSendTime.setText(TribeDateUtils.dateFormat7(new Date(bean.deliveryTime)));
         } else if (bean.status == OrderBean.OrderStatus.RECEIVED) {  //完成
+            findView(R.id.ll_order_detail_counter).setVisibility(View.GONE);
             findViewById(R.id.ll_send_time).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_pay_time).setVisibility(View.VISIBLE);
             findViewById(R.id.ll_logistic).setVisibility(View.VISIBLE);
@@ -114,7 +117,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
             tvSendTime.setText(TribeDateUtils.dateFormat7(new Date(bean.deliveryTime)));
             tvReceiveTime.setText(TribeDateUtils.dateFormat7(new Date(bean.receivedTime)));
         } else {
-
+            findView(R.id.ll_order_detail_counter).setVisibility(View.GONE);
         }
     }
 
@@ -219,7 +222,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     public void setCounter(long createTime) {
-        time = createTime + 48 * 3600 * 1000 - System.currentTimeMillis();
+        time = createTime + 24 * 3600 * 1000 - System.currentTimeMillis();
         if (time <= 0) {
             tvCounter.setText("已超时");
             return;
@@ -242,5 +245,4 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
             handler.postDelayed(this, 1000);
         }
     };
-
 }

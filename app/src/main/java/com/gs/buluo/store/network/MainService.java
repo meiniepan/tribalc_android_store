@@ -67,4 +67,7 @@ public interface MainService {
 
     @PUT("store_set_meals/{id}")
     Call<BaseResponse<CodeResponse>> updateMeal(@Path("id")String mealId,@Body StoreSetMealCreation mealCreation);
+
+    @GET("stores/{id}")
+    Call<BaseResponse<AuthenticationData>> getAuth(@Path("id")String uid);
 }

@@ -214,7 +214,7 @@
             android:name=".view.activity.GoodsStoreInfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.activity.VerifyProcessingActivity"
+            android:name=".view.activity.AuthProcessingActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.ServeTimeActivity"

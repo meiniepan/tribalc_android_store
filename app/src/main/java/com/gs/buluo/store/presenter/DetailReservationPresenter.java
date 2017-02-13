@@ -48,9 +48,9 @@ public class DetailReservationPresenter extends BasePresenter<IDetailReserveView
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.body() != null && response.body().code == 200) {
-                    mView.cancelSuccess();
+                    mView.updateSuccess();
                 } else {
-                    mView.cancelFailure();
+                    mView.updateFailure();
                 }
             }
 

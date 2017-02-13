@@ -189,7 +189,7 @@
     <string name="property_fix">物业报修</string>
     <string name="repast">餐饮</string>
     <string name="entertainment">娱乐</string>
-    <string name="my_reserve">座位预定</string>
+    <string name="my_reserve">座位预订</string>
     <string name="time">时间</string>
     <string name="people_count">人数</string>
     <string name="restaurant">餐厅</string>
@@ -211,10 +211,10 @@
     <string name="food">餐饮</string>
     <string name="sort">智能排序</string>
     <string name="filter">筛选</string>
-    <string name="reserve_processing_comment">预计在5分钟内通过短信告知您的订单结果</string>
-    <string name="reserve_success_comment">恭喜您的订座已完成,请您按时间到达</string>
-    <string name="reserve_fail_comment">餐厅未能按指定要求安排座位</string>
-    <string name="reserve_processing">订座处理中</string>
+    <string name="reserve_processing_comment">订单结果会通过推送的方式告知预约人</string>
+    <string name="reserve_success_comment">已按预约人的要求保留座位</string>
+    <string name="reserve_fail_comment">未能按照指定要求保留座位</string>
+    <string name="reserve_processing">预订申请</string>
     <string name="reserve_success">订座成功</string>
     <string name="reserve_fail">订座失败</string>
     <string name="add_reserve">在线订座</string>
@@ -296,8 +296,6 @@
     <string name="phone_exist">手机号已存在</string>
     <string name="logistic_num">物流单号</string>
     <string name="cancel_reserve">预定取消</string>
-
-    <!--餐厅类型-->
-
-
+    <string name="auth_again">重新提交审核</string>
+    <string name="auth_fail">审核失败!</string>
 </resources>

@@ -8,7 +8,7 @@ import com.gs.buluo.store.bean.DetailReservation;
 public interface IDetailReserveView extends IBaseView {
     void getDetailSuccess(DetailReservation reservation);
 
-    void cancelSuccess();
+    void updateSuccess();
 
-    void cancelFailure();
+    void updateFailure();
 }

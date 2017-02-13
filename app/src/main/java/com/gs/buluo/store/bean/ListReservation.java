@@ -21,6 +21,8 @@ public class ListReservation implements Parcelable, IBaseResponse {
     public String personNum;
     public List<String> tags;
     public ReserveStatus status;
+    public String linkman;
+    public String phone;
 
     public enum ReserveStatus {
         PROCESSING("PROCESSING"), FAILURE("FAILURE"), SUCCEED("SUCCEED"), CANCEL("CANCEL");
@@ -29,6 +31,9 @@ public class ListReservation implements Parcelable, IBaseResponse {
         ReserveStatus(String processing) {
             status = processing;
         }
+    }
+
+    public ListReservation() {
     }
 
     @Override
@@ -48,9 +53,8 @@ public class ListReservation implements Parcelable, IBaseResponse {
         dest.writeString(this.personNum);
         dest.writeStringList(this.tags);
         dest.writeInt(this.status == null ? -1 : this.status.ordinal());
-    }
-
-    public ListReservation() {
+        dest.writeString(this.linkman);
+        dest.writeString(this.phone);
     }
 
     protected ListReservation(Parcel in) {
@@ -65,9 +69,11 @@ public class ListReservation implements Parcelable, IBaseResponse {
         this.tags = in.createStringArrayList();
         int tmpStatus = in.readInt();
         this.status = tmpStatus == -1 ? null : ReserveStatus.values()[tmpStatus];
+        this.linkman = in.readString();
+        this.phone = in.readString();
     }
 
-    public static final Parcelable.Creator<ListReservation> CREATOR = new Parcelable.Creator<ListReservation>() {
+    public static final Creator<ListReservation> CREATOR = new Creator<ListReservation>() {
         @Override
         public ListReservation createFromParcel(Parcel source) {
             return new ListReservation(source);

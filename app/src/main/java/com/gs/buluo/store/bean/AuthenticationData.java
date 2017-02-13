@@ -3,13 +3,15 @@ package com.gs.buluo.store.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.gs.buluo.store.bean.ResponseBody.IBaseResponse;
+
 import java.util.List;
 
 /**
  * Created by hjn on 2017/1/20.
  */
 
-public class AuthenticationData implements Parcelable {
+public class AuthenticationData implements Parcelable, IBaseResponse {
     public List<String> idCardPicture;
     public String businessLicence;
     public String tradeLicence;
