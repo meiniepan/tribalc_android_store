@@ -28,7 +28,7 @@ import retrofit2.http.Query;
 public interface GoodsService {
     @GET("goods")
     Call<BaseResponse<GoodList>> getGoodsList(
-            @Query("category") String category, @Query("limitSize") int limitSize
+             @Query("limitSize") int limitSize
             , @Query("sortSkip") String sortSkip
 //            ,@Query("sort") String sort
     );
@@ -64,5 +64,5 @@ public interface GoodsService {
     Call<BaseResponse<CodeResponse>> pullOffGoods(@Path("goodsId")String goodsId, @Query("me")String uid, @Body ValueBooleanRequest body);
 
     @DELETE("goods/{goodsId}")
-    Call<BaseResponse<CodeResponse>> deleteGoods(@Path("goodsId")String goodsId);
+    Call<BaseResponse<CodeResponse>> deleteGoods(@Path("goodsId")String goodsId,@Query("me")String uid);
 }

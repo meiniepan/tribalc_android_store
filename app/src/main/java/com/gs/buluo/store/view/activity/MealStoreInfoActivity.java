@@ -14,40 +14,26 @@ import android.widget.TextView;
 
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.FacilityAdapter;
 import com.gs.buluo.store.adapter.RepastBeanAdapter;
 import com.gs.buluo.store.bean.CategoryBean;
 import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.FacilityBean;
-import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
-import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
-import com.gs.buluo.store.bean.ResponseBody.StoreSetMealResponse;
-import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.bean.StoreSetMealCreation;
-import com.gs.buluo.store.dao.StoreInfoDao;
-import com.gs.buluo.store.eventbus.SelfEvent;
-import com.gs.buluo.store.model.MainModel;
-import com.gs.buluo.store.network.MainService;
-import com.gs.buluo.store.network.TribeCallback;
-import com.gs.buluo.store.network.TribeRetrofit;
+import com.gs.buluo.store.presenter.BasePresenter;
+import com.gs.buluo.store.presenter.StoreInfoPresenter;
 import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.store.view.impl.IInfoView;
 import com.gs.buluo.store.view.widget.CustomAlertDialog;
-
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by hjn on 2017/1/19.
  */
-public class MealStoreInfoActivity extends BaseActivity implements View.OnClickListener {
+public class MealStoreInfoActivity extends BaseActivity implements View.OnClickListener,IInfoView {
     @Bind(R.id.info_store_name)
     TextView tvName;
     @Bind(R.id.info_sub_store_name)
@@ -83,7 +69,6 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
     @Bind(R.id.info_environment)
     TextView tvEnvi;
 
-    private boolean isEdit;
     private ArrayList<FacilityBean> facilityList = new ArrayList<>();
     private ArrayList<CategoryBean> cookingList =new ArrayList<>();
     private Context mCtx;
@@ -107,7 +92,9 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         initData();
     }
 
+    @Override
     public void setData(StoreMeta data) {
+        dismissDialog();
         storeBean = data;
         if (data.category == StoreMeta.StoreCategory.REPAST) {
             initCookingStyle();
@@ -115,13 +102,14 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         if ("NOT_START".equals(data.authenticationStatus)) {
             mAuth.setVisibility(View.VISIBLE);
         }
+        tvEnvi.setText(data.pictures == null? "":data.pictures.size()+"张");
         etDesc.setText(data.desc);
         tvName.setText(data.name);
         tvSubName.setText(data.subbranchName);
         tvCategory.setText(data.category.toString());
         tvPhone.setText(data.phone);
         tvOrPhone.setText(data.otherPhone);
-        tvAddress.setText(data.province + data.city + data.district + data.address);
+        tvAddress.setText(data.address==null? "":data.province + data.city + data.district + data.address);
         List<String> list = data.facilities;
         if (list!=null){
             for (FacilityBean bean : facilityList) {
@@ -171,7 +159,9 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         cookRecyclerView.setLayoutManager(layout);
     }
 
+    @Override
     public void setMealData(StoreSetMealCreation mealData) {
+        dismissDialog();
         mealCreation = mealData;
         tvFee.setText(mealData.personExpense);
         tvRecommend.setText(mealData.recommendedReason);
@@ -208,38 +198,8 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
 
     private void initData() {
         showLoadingDialog();
-        new MainModel().getDetailStoreInfo(TribeApplication.getInstance().getUserInfo().getId(),new TribeCallback<StoreMeta>() {
-            @Override
-            public void onSuccess(Response<BaseResponse<StoreMeta>> response) {
-                setData(response.body().data);
-            }
-
-            @Override
-            public void onFail(int responseCode, BaseResponse<StoreMeta> body) {
-                dismissDialog();
-                ToastUtils.ToastMessage(mCtx, R.string.connect_fail);
-            }
-        });
-
-        new MainModel().getSetMeal(new Callback<StoreSetMealResponse>() {
-            @Override
-            public void onResponse(Call<StoreSetMealResponse> call, Response<StoreSetMealResponse> response) {
-                dismissDialog();
-                if (response != null && response.body() != null && response.body().code == 200) {
-                    if (response.body().data.size()==0){
-                        mealCreation = new StoreSetMealCreation();
-                    }
-                    setMealData(response.body().data.get(0));
-                } else {
-                    ToastUtils.ToastMessage(mCtx, R.string.connect_fail);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<StoreSetMealResponse> call, Throwable t) {
-                ToastUtils.ToastMessage(mCtx, R.string.connect_fail);
-            }
-        });
+        ((StoreInfoPresenter)mPresenter).getDetailStoreInfo();
+        ((StoreInfoPresenter)mPresenter).getSetMeal();
     }
 
     @Override
@@ -252,7 +212,7 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.info_store_auth:
-                intent.setClass(mCtx, BusinessVerifyActivity.class);
+                intent.setClass(mCtx, Authentication1Activity.class);
                 startActivity(intent);
                 break;
             case R.id.info_store_logo:
@@ -273,9 +233,8 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
                 updateStoreInfo();
                 break;
             case R.id.back:
-                finish();
+                back();
                 break;
-
         }
     }
 
@@ -297,6 +256,9 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
             storeBean.city = arrs[1];
             storeBean.district = arrs[2];
             storeBean.address = address;
+            double lan = data.getDoubleExtra(Constant.LATITUDE, 0);
+            double lon = data.getDoubleExtra(Constant.LONGITUDE,0);
+            storeBean.coordinate = new double[]{lon,lan};
             tvAddress.setText(area + storeBean.address);
         }
     }
@@ -316,48 +278,19 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         storeBean.name = tvName.getText().toString().trim();
         storeBean.subbranchName = tvSubName.getText().toString().trim();
         storeBean.otherPhone = tvOrPhone.getText().toString().trim();
-        storeBean.isReservable = sReserve.isChecked();
         storeBean.desc = etDesc.getText().toString().trim();
         setFacility();
-        String key = "name,subbranchName,logo,desc,otherPhone,province,city,district,address" +
-                ",pictures,facilities";
-        if (storeBean.category == StoreMeta.StoreCategory.REPAST){
-            setCookingStyle();
-            key+=",cookingStyle";
-        }
-        new MainModel().updateStore(TribeApplication.getInstance().getUserInfo().getId(),key , "", storeBean, new TribeCallback<CodeResponse>() {
-            @Override
-            public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
-                saveStore(storeBean);
-                ToastUtils.ToastMessage(mCtx, R.string.update_success);
-            }
-
-            @Override
-            public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
-                ToastUtils.ToastMessage(mCtx, R.string.connect_fail);
-            }
-        });
+        setCookingStyle();
+        ((StoreInfoPresenter)mPresenter).updateStore(storeBean);
 
         mealCreation.personExpense = tvFee.getText().toString().trim();
         mealCreation.topics = tvTopic.getText().toString().trim();
         mealCreation.reservable = sReserve.isChecked();
         mealCreation.pictures = storeBean.pictures;
         mealCreation.name = storeBean.name;
+        mealCreation.category = storeBean.category;
         mealCreation.recommendedReason = tvRecommend.getText().toString().trim();
-        TribeRetrofit.getInstance().createApi(MainService.class).updateMeal(mealCreation.id, "name,pictures,topics,recommendedReason,personExpense,reservable", mealCreation)
-                .enqueue(new TribeCallback<CodeResponse>() {
-                    @Override
-                    public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
-                        dismissDialog();
-                        finish();
-                    }
-
-                    @Override
-                    public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
-                        dismissDialog();
-                        ToastUtils.ToastMessage(mCtx, R.string.connect_fail);
-                    }
-                });
+        ((StoreInfoPresenter)mPresenter).updateMeal(mealCreation);
     }
 
     private void setCookingStyle() {
@@ -369,29 +302,41 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         }
     }
 
-    private void saveStore(StoreMeta data) {
-        StoreInfoDao storeInfoDao = new StoreInfoDao();
-        StoreInfo first = storeInfoDao.findFirst();
-        first.setLogo(data.getLogo());
-        first.setName(data.getName());
-
-        storeInfoDao.update(first);
-        EventBus.getDefault().post(new SelfEvent());
-        finish();
+    @Override
+    protected BasePresenter getPresenter() {
+        return new StoreInfoPresenter();
     }
 
     @Override
     public void onBackPressed() {
-        new CustomAlertDialog.Builder(mCtx).setTitle("提示").setMessage("确定保存更改么？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        back();
+    }
+
+    private void back() {
+        new CustomAlertDialog.Builder(mCtx).setTitle(getString(R.string.reminder)).setMessage(getString(R.string.save_update)).
+                setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 updateStoreInfo();
             }
-        }).setNegativeButton("不保存", new DialogInterface.OnClickListener() {
+        }).setNegativeButton(getString(R.string.not_save), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
             }
         }).create().show();
+    }
+
+    @Override
+    public void showError(int res) {
+        dismissDialog();
+        ToastUtils.ToastMessage(this,res);
+    }
+
+    @Override
+    public void updateSuccess() {
+        dismissDialog();
+        ToastUtils.ToastMessage(this,R.string.update_success);
+        finish();
     }
 }

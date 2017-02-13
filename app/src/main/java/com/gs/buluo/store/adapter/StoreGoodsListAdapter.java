@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
+import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.GoodsMeta;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
@@ -98,7 +99,8 @@ public class StoreGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
     }
 
     private void deleteGoods(final GoodsMeta entity) {
-        TribeRetrofit.getInstance().createApi(GoodsService.class).deleteGoods(entity.id).enqueue(new TribeCallback<CodeResponse>() {
+        TribeRetrofit.getInstance().createApi(GoodsService.class).deleteGoods(entity.id, TribeApplication.getInstance().getUserInfo().getId())
+                .enqueue(new TribeCallback<CodeResponse>() {
             @Override
             public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
                 remove(entity);

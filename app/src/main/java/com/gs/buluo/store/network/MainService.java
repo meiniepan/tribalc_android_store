@@ -34,11 +34,9 @@ public interface MainService {
     @POST("verifications/phone")
     Call<BaseResponse<CodeResponse>> doVerify(@Body ValueRequestBody phone);
 
-
     @GET("stores/{id}/addresses")
     Call<UserAddressListResponse> getDetailAddressList(
             @Path("id") String uid);
-
 
     @POST("oss_authorization/picture")
     Call<UploadAccessResponse> getUploadUrl(@Query("me") String id, @Body UploadAccessBody body);
@@ -46,7 +44,7 @@ public interface MainService {
     @PUT("stores/{id}/authentication")
     Call<BaseResponse<CodeResponse>> doAuthentication(@Path("id") String id, @Body AuthenticationData request);
 
-    @PUT("stores/{id}/sensitive_info")
+    @PUT("stores/{id}/phone")
     Call<BaseResponse<CodeResponse>> updatePhone(@Path("id") String id, @Body PhoneUpdateBody body);
 
     @GET("stores/{id}")
@@ -54,6 +52,9 @@ public interface MainService {
 
     @PUT("stores/{id}/{propNames}")
     Call<BaseResponse<CodeResponse>> updateUser(@Path("id") String id,@Path("propNames") String propNames,@Body StoreMeta bean);
+
+    @PUT("stores/{id}")
+    Call<BaseResponse<CodeResponse>> updateStore(@Path("id") String id,@Body StoreMeta bean);
 
     @POST("stores/{id}")
     Call<BaseResponse<StoreMeta>> createStore(@Path("id") String id,@Body StoreMeta bean);
@@ -64,6 +65,6 @@ public interface MainService {
     @POST("store_set_meals")
     Call<BaseResponse<CodeResponse>> createServe(@Query("me") String uid, @Body StoreSetMealCreation body);
 
-    @PUT("store_set_meals/{id}/{propNames}")
-    Call<BaseResponse<CodeResponse>> updateMeal(@Path("id")String mealId,@Path("propNames") String propNames,@Body StoreSetMealCreation mealCreation);
+    @PUT("store_set_meals/{id}")
+    Call<BaseResponse<CodeResponse>> updateMeal(@Path("id")String mealId,@Body StoreSetMealCreation mealCreation);
 }

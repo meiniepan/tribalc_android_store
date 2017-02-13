@@ -248,6 +248,9 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
             storeBean.district = arrs[2];
             storeBean.address = address;
             tvAddress.setText(area + address);
+            double lan = data.getDoubleExtra(Constant.LATITUDE, 0);
+            double lon = data.getDoubleExtra(Constant.LONGITUDE,0);
+            storeBean.coordinate = new double[]{lon,lan};
         } else if (data != null && requestCode == 200 && resultCode == 201) {  //logo
             storeBean.logo = data.getStringExtra(Constant.LOGO);
             tvLogo.setText("1 张");

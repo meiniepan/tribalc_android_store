@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 
 import com.gs.buluo.store.bean.ListGoods;
 import com.gs.buluo.store.bean.CartItem;
+import com.gs.buluo.store.bean.OrderBean;
 import com.gs.buluo.store.holder.OrderGoodsItemHolder;
 import com.gs.buluo.store.utils.GlideUtils;
 
@@ -17,11 +18,13 @@ import java.util.List;
  */
 public class OrderGoodsAdapter extends BaseAdapter {
     private final List<CartItem> itemList1;
+    private final OrderBean order;
     private Context mCtx;
 
-    public OrderGoodsAdapter(List<CartItem> itemList, Context context) {
+    public OrderGoodsAdapter(List<CartItem> itemList, Context context, OrderBean entity) {
         mCtx = context;
         itemList1 = itemList;
+        this.order = entity;
     }
 
     @Override
@@ -41,7 +44,8 @@ public class OrderGoodsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ListGoods goods = itemList1.get(position).goods;
+        CartItem cartItem = itemList1.get(position);
+        ListGoods goods = cartItem.goods;
         OrderGoodsItemHolder holder = null;
         if (convertView == null) {
             holder = new OrderGoodsItemHolder(mCtx);
@@ -51,6 +55,8 @@ public class OrderGoodsAdapter extends BaseAdapter {
         }
         holder.name.setText(goods.name);
         holder.brand.setText(goods.brand);
+        holder.people.setText(order.nickName);
+        holder.account.setText(order.user);
         GlideUtils.loadImage(mCtx,goods.mainPicture, holder.picture);
 
         convertView.setTag(holder);

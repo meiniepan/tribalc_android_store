@@ -172,8 +172,8 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
         tvBrand.setText(data.brand);
         tvTime.setText("每天 " + data.businessHours);
 //        tvTopic.setText(data.topics);
-        setFacilities(data.faclities);
-        GlideUtils.loadImage(mCtx,data.mainPicture, logo,true);
+        setFacilities(data.facilities);
+        GlideUtils.loadImage(mCtx,data.logo, logo,true);
     }
 
     public void setFacilities(List<String> faclities) {

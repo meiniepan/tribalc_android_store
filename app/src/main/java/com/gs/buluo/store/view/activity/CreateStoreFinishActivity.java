@@ -15,7 +15,7 @@ public class CreateStoreFinishActivity extends BaseActivity {
         findViewById(R.id.create_to_auth).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CreateStoreFinishActivity.this,BusinessVerifyActivity.class));
+                startActivity(new Intent(CreateStoreFinishActivity.this,Authentication1Activity.class));
             }
         });
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {

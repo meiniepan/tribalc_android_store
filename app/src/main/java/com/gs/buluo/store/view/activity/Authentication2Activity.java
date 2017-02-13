@@ -24,7 +24,7 @@ import butterknife.Bind;
 /**
  * Created by hjn on 2017/1/12.
  */
-public class IdentificationActivity extends BaseActivity {
+public class Authentication2Activity extends BaseActivity {
     private String front;
     private String back;
     @Bind(R.id.identify_back_image)
@@ -57,7 +57,7 @@ public class IdentificationActivity extends BaseActivity {
                 list.add(front);
                 list.add(back);
                 data.idCardPicture = list;
-                Intent intent = new Intent(IdentificationActivity.this,TradeLicenceActivity.class);
+                Intent intent = new Intent(getCtx(),Authentication3Activity.class);
                 intent.putExtra(Constant.AUTH,data);
                 startActivity(intent);
             }
@@ -81,25 +81,28 @@ public class IdentificationActivity extends BaseActivity {
     }
 
     private void uploadPic(String pic, final boolean isFront) {
+        showLoadingDialog();
         TribeUploader.getInstance().uploadFile("id", "", new File(pic), new TribeUploader.UploadCallback() {
             @Override
             public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
+                dismissDialog();
                 if (isFront){
                     frontImg.setVisibility(View.VISIBLE);
                     front = data.objectKey;
-                    Glide.with(IdentificationActivity.this).load(GlideUtils.formatImageUrl(data.objectKey)).centerCrop().into(frontImg);
+                    Glide.with(getCtx()).load(GlideUtils.formatImageUrl(data.objectKey)).centerCrop().into(frontImg);
                     findViewById(R.id.identify_front).setVisibility(View.GONE);
                 }else {
                     backImg.setVisibility(View.VISIBLE);
                     back=data.objectKey;
                     findViewById(R.id.identify_back).setVisibility(View.GONE);
-                    Glide.with(IdentificationActivity.this).load(GlideUtils.formatImageUrl(data.objectKey)).centerCrop().into(backImg);
+                    Glide.with(getCtx()).load(GlideUtils.formatImageUrl(data.objectKey)).centerCrop().into(backImg);
                 }
             }
 
             @Override
             public void uploadFail() {
-                ToastUtils.ToastMessage(IdentificationActivity.this,R.string.upload_fail);
+                dismissDialog();
+                ToastUtils.ToastMessage(getCtx(),R.string.upload_fail);
             }
         });
 

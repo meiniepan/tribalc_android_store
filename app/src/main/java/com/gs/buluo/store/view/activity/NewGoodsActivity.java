@@ -6,11 +6,14 @@ import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
+import com.gs.buluo.store.bean.BannerPicture;
 import com.gs.buluo.store.bean.GoodsCategory;
 import com.gs.buluo.store.bean.GoodsMeta;
 import com.gs.buluo.store.bean.GoodsPriceAndRepertory;
@@ -26,7 +29,6 @@ import com.youth.banner.BannerConfig;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import butterknife.Bind;
 
@@ -52,7 +54,6 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
     EditText etBrand;
     @Bind(R.id.goods_create_source)
     EditText etSource;
-
     @Bind(R.id.goods_create_category)
     TextView tvCategory;
     @Bind(R.id.goods_create_title_left)
@@ -61,8 +62,10 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
     TextView tvDescWords;
     @Bind(R.id.goods_create_standard)
     TextView tvStandard;
+    @Bind(R.id.goods_create_main)
+    CheckBox checkBox;
 
-    ArrayList<String> picList = new ArrayList<>();
+    ArrayList<BannerPicture> picList = new ArrayList<>();
     private int pos = 0;
 
     GoodsMeta meta;
@@ -107,11 +110,11 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length()>60){
-                    String res =s.subSequence(s.length(),s.length()-60).toString();
-                    etTitleDetail.setText(res);
-                    tvTitleWords.setText(60+"");
-                }else {
+                if (s.length() > 60) {
+                    etTitleDetail.setText(s.toString().substring(0, 60));
+                    etTitleDetail.setSelection(60);
+                    tvTitleWords.setText(60 + "");
+                } else {
                     tvTitleWords.setText(s.length() + "");
                 }
             }
@@ -127,12 +130,26 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length()>20){
-                    String res = s.subSequence(s.length(),s.length()-20).toString();
-                    etDesc.setText(res);
-                    tvDescWords.setText(20+"");
-                }else {
+                if (s.length() > 20) {
+                    etDesc.setText(s.toString().substring(0, 20));
+                    etDesc.setSelection(20);
+                    tvDescWords.setText(20 + "");
+                } else {
                     tvDescWords.setText(s.length() + "");
+                }
+            }
+        });
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    picList.get(pos).isChecked = true;
+                    for (BannerPicture picture : picList) {
+                        if (picList.indexOf(picture) != pos) {
+                            picture.isChecked = false;
+                        }
+                    }
                 }
             }
         });
@@ -154,7 +171,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.goods_create_del_pic:
                 if (picList.size() == 0 || pos > picList.size()) return;
-                if (picList.size()==1){
+                if (picList.size() == 1) {
                     picList.remove(0);
                     banner.update(picList);
                     banner.setVisibility(View.GONE);
@@ -163,19 +180,21 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
                     delPic.setVisibility(View.GONE);
                     return;
                 }
-                picList.remove(pos-1);
-                banner.update(picList);
-                pos = picList.size()-1;
+                picList.remove(pos);
+                banner.setImages(picList);
+                banner.start();
+                pos = picList.size() - 1;
                 break;
             case R.id.ll_goods_create_standard:
                 Intent intent = new Intent(getCtx(), CreateStandardActivity.class);
-                if (bundle!=null){
+                if (bundle != null) {
                     intent.putExtras(bundle);
                 }
                 startActivityForResult(intent, 201);
                 break;
             case R.id.back:
                 finish();
+                break;
             case R.id.goods_create_next:
                 goNext();
                 break;
@@ -188,13 +207,11 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
         if (data != null && requestCode == 201 && resultCode == RESULT_OK) {
             bundle = data.getExtras();
             SerializableHashMap<String, GoodsPriceAndRepertory> serMap = (SerializableHashMap<String, GoodsPriceAndRepertory>) bundle.getSerializable("map");
-            if (serMap!=null){
+            if (serMap != null) {
                 standardMeta = bundle.getParcelable("data");
                 standardMeta.priceAndRepertoryMap = serMap.getMap();
                 tvStandard.setText(standardMeta.title);
-                findView(R.id.ll_create_goods_orgin).setVisibility(View.GONE);
-                findView(R.id.ll_create_goods_sale).setVisibility(View.GONE);
-                findView(R.id.ll_create_goods_repertory).setVisibility(View.GONE);
+               findView(R.id.goods_price_area).setVisibility(View.GONE);
             }
         }
     }
@@ -202,8 +219,16 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
     private void goNext() {
         meta.name = etTitle.getText().toString().trim();
         meta.title = etTitleDetail.getText().toString().trim();
-        meta.pictures = picList;
-        if (picList != null && picList.size() != 0) meta.mainPicture = picList.get(0);
+        meta.pictures = new ArrayList<>();
+        for (BannerPicture pic : picList) {
+            if (pic.isChecked) {
+                meta.mainPicture = pic.url;
+            }
+            meta.pictures.add(pic.url);
+        }
+        if (meta.mainPicture == null && picList.size() > 0)
+            meta.mainPicture = picList.get(0).toString();
+
         meta.brand = etBrand.getText().toString().trim();
         meta.note = etDesc.getText().toString().trim();
         meta.originCountry = etSource.getText().toString().trim();
@@ -242,11 +267,11 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
                 banner.setVisibility(View.VISIBLE);
-                picList.add(data.objectKey);
-                Collections.reverse(picList);
+                picList.add(0, new BannerPicture(data.objectKey));
                 banner.setImages(picList);
                 banner.start();
-                if (picList.size()==1){
+                pos = 0;
+                if (picList.size() == 1) {
                     firstAddPic.setVisibility(View.GONE);
                     addPic.setVisibility(View.VISIBLE);
                     delPic.setVisibility(View.VISIBLE);
@@ -267,8 +292,9 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onPageSelected(int position) {
-        if (position>picList.size())return;
-        this.pos = position;
+        if (position > picList.size() || position == 0) return;
+        this.pos = position - 1;
+        checkBox.setChecked(picList.get(position - 1).isChecked);
     }
 
     @Override

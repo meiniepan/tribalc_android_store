@@ -69,6 +69,7 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
         findViewById(R.id.standard_group_set).setOnClickListener(this);
         findViewById(R.id.create_standard_finish).setOnClickListener(this);
         findViewById(R.id.goods_create_standard_delete).setOnClickListener(this);
+        findViewById(R.id.back).setOnClickListener(this);
         view = findViewById(R.id.rl_goods_create_standard_second);
         view.setOnClickListener(this);
         valueAdapter = new StandardValueAdapter(valueList);

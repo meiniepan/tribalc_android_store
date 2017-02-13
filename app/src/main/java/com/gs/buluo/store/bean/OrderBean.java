@@ -25,6 +25,10 @@ public class OrderBean implements Parcelable {
     public long receivedTime;
     public MarkStore store;
     public List<CartItem> itemList;
+    public String user;
+    public String nickName;
+    public String picture;
+    public String logisticsNum;
 
     public enum PayChannel {
         BALANCE("余额支付"), ALIPAY("支付宝"), WEICHAT("微信支付"), BANKCARD("银行卡");
@@ -80,6 +84,10 @@ public class OrderBean implements Parcelable {
         dest.writeLong(this.receivedTime);
         dest.writeParcelable(this.store, flags);
         dest.writeTypedList(this.itemList);
+        dest.writeString(this.user);
+        dest.writeString(this.nickName);
+        dest.writeString(this.picture);
+        dest.writeString(this.logisticsNum);
     }
 
     protected OrderBean(Parcel in) {
@@ -101,6 +109,10 @@ public class OrderBean implements Parcelable {
         this.receivedTime = in.readLong();
         this.store = in.readParcelable(MarkStore.class.getClassLoader());
         this.itemList = in.createTypedArrayList(CartItem.CREATOR);
+        this.user = in.readString();
+        this.nickName = in.readString();
+        this.picture = in.readString();
+        this.logisticsNum = in.readString();
     }
 
     public static final Creator<OrderBean> CREATOR = new Creator<OrderBean>() {

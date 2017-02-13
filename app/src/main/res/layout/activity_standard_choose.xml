@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:clipToPadding="true">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
@@ -27,6 +28,7 @@
             layout="@layout/back_img_white"
             android:id="@+id/back" />
     </RelativeLayout>
+
     <com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView
         android:id="@+id/good_standard_list"
         android:layout_width="match_parent"

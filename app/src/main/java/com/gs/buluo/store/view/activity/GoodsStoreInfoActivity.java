@@ -11,29 +11,20 @@ import android.widget.TextView;
 
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.StoreMeta;
-import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
-import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
-import com.gs.buluo.store.bean.StoreInfo;
-import com.gs.buluo.store.dao.StoreInfoDao;
-import com.gs.buluo.store.eventbus.SelfEvent;
-import com.gs.buluo.store.model.MainModel;
-import com.gs.buluo.store.network.TribeCallback;
+import com.gs.buluo.store.bean.StoreSetMealCreation;
+import com.gs.buluo.store.presenter.BasePresenter;
+import com.gs.buluo.store.presenter.StoreInfoPresenter;
 import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.store.view.impl.IInfoView;
 import com.gs.buluo.store.view.widget.CustomAlertDialog;
 
-import org.greenrobot.eventbus.EventBus;
-
 import butterknife.Bind;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by hjn on 2017/1/20.
  */
-public class GoodsStoreInfoActivity extends BaseActivity implements Callback<BaseResponse<StoreMeta>>, View.OnClickListener {
+public class GoodsStoreInfoActivity extends BaseActivity implements View.OnClickListener,IInfoView {
     @Bind(R.id.info_store_name)
     EditText tvName;
     @Bind(R.id.info_store_category)
@@ -56,7 +47,7 @@ public class GoodsStoreInfoActivity extends BaseActivity implements Callback<Bas
         findViewById(R.id.info_store_save).setOnClickListener(this);
         findViewById(R.id.ll_store_info_address).setOnClickListener(this);
         auth.setOnClickListener(this);
-        new MainModel().getDetailStoreInfo(TribeApplication.getInstance().getUserInfo().getId(),this);
+        ((StoreInfoPresenter)mPresenter).getDetailStoreInfo();
     }
 
     @Override
@@ -64,28 +55,6 @@ public class GoodsStoreInfoActivity extends BaseActivity implements Callback<Bas
         return R.layout.activity_store_activity;
     }
 
-    @Override
-    public void onResponse(Call<BaseResponse<StoreMeta>> call, Response<BaseResponse<StoreMeta>> response) {
-        if (response != null && response.body() != null && response.body().code == 200) {
-            initData(response.body().data);
-        }
-    }
-
-    private void initData(StoreMeta data) {
-        if (TextUtils.equals(data.authenticationStatus,"NOT_START")){
-            auth.setVisibility(View.VISIBLE);
-        }
-        storeBean = data;
-        tvName.setText(data.name);
-        tvCategory.setText(data.category.toString());
-        tvSend.setText(data.province + data.city + data.district + data.address);
-        etDesc.setText(data.desc);
-    }
-
-    @Override
-    public void onFailure(Call<BaseResponse<StoreMeta>> call, Throwable t) {
-        ToastUtils.ToastMessage(this, R.string.connect_fail);
-    }
 
     @Override
     public void onClick(View v) {
@@ -104,44 +73,21 @@ public class GoodsStoreInfoActivity extends BaseActivity implements Callback<Bas
                 startActivityForResult(intent, 202);
                 break;
             case R.id.info_store_auth:
-                intent.setClass(getCtx(), BusinessVerifyActivity.class);
+                intent.setClass(getCtx(), Authentication1Activity.class);
                 startActivity(intent);
                 break;
             case R.id.back:
-                finish();
+                back();
                 break;
         }
     }
+
     private void updateStoreInfo() {
         showLoadingDialog();
         storeBean.name = tvName.getText().toString().trim();
         storeBean.desc = etDesc.getText().toString().trim();
-        String key = "logo,name,subbranchName,desc,province,city,district,address";
-        new MainModel().updateStore(TribeApplication.getInstance().getUserInfo().getId(),key , "", storeBean, new TribeCallback<CodeResponse>() {
-            @Override
-            public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
-                saveStore(storeBean);
-                ToastUtils.ToastMessage(getCtx(), R.string.update_success);
-            }
-
-            @Override
-            public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
-                ToastUtils.ToastMessage(getCtx(), R.string.connect_fail);
-            }
-        });
+        ((StoreInfoPresenter)mPresenter).updateStore(storeBean);
     }
-
-    private void saveStore(StoreMeta data) {
-        StoreInfoDao storeInfoDao = new StoreInfoDao();
-        StoreInfo first = storeInfoDao.findFirst();
-        first.setName(data.getName());
-        first.setLogo(data.getLogo());
-        storeInfoDao.update(first);
-        TribeApplication.getInstance().setUserInfo(data);
-        EventBus.getDefault().post(new SelfEvent());
-        finish();
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -157,22 +103,62 @@ public class GoodsStoreInfoActivity extends BaseActivity implements Callback<Bas
             storeBean.city = arrs[1];
             storeBean.district = arrs[2];
             storeBean.address = address;
+            double lan = data.getDoubleExtra(Constant.LATITUDE, 0);
+            double lon = data.getDoubleExtra(Constant.LONGITUDE,0);
+            storeBean.coordinate = new double[]{lon,lan};
             tvSend.setText(storeBean.province + storeBean.city + storeBean.district + storeBean.address);
         }
     }
 
     @Override
     public void onBackPressed() {
-        new CustomAlertDialog.Builder(this).setTitle("提示").setMessage("确定保存更改么？").setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                updateStoreInfo();
-            }
-        }).setNegativeButton("不保存", new DialogInterface.OnClickListener() {
+        back();
+    }
+
+    private void back() {
+        new CustomAlertDialog.Builder(this).setTitle(getString(R.string.reminder)).setMessage(getString(R.string.save_update)).
+                setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        updateStoreInfo();
+                    }
+                }).setNegativeButton(getString(R.string.not_save), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
             }
         }).create().show();
+    }
+
+    @Override
+    public void updateSuccess() {
+        ToastUtils.ToastMessage(this,R.string.update_success);
+        finish();
+    }
+
+    @Override
+    public void setData(StoreMeta data) {
+        if (TextUtils.equals(data.authenticationStatus,"NOT_START")){
+            auth.setVisibility(View.VISIBLE);
+        }
+        storeBean = data;
+        tvName.setText(data.name);
+        tvCategory.setText(data.category.toString());
+        tvSend.setText(data.province + data.city + data.district + data.address);
+        etDesc.setText(data.desc);
+    }
+
+    @Override
+    public void setMealData(StoreSetMealCreation mealCreation) {
+    }
+
+    @Override
+    public void showError(int res) {
+        ToastUtils.ToastMessage(this,res);
+    }
+
+    @Override
+    protected BasePresenter getPresenter() {
+        return new StoreInfoPresenter();
     }
 }

@@ -30,7 +30,7 @@ public class StoreGoodsPresenter extends BasePresenter<IStoreGoodsView> {
                     public void onSuccess(Response<BaseResponse<StoreGoodsList>> response) {
                         StoreGoodsList data = response.body().data;
                         sortSkip = data.nextSkip;
-                        mView.getGoodsSuccess(data.content,published);
+                        mView.getGoodsSuccess(data,published);
                         if (!data.hasMore) {
                             mView.showNoMore(published);
                         }
@@ -49,7 +49,7 @@ public class StoreGoodsPresenter extends BasePresenter<IStoreGoodsView> {
                     @Override
                     public void onSuccess(Response<BaseResponse<StoreGoodsList>> response) {
                         StoreGoodsList data = response.body().data;
-                        mView.getGoodsSuccess(data.content,published);
+                        mView.getGoodsSuccess(data,published);
                         sortSkip = data.nextSkip;
                         if (!data.hasMore) {
                             mView.showNoMore(published);

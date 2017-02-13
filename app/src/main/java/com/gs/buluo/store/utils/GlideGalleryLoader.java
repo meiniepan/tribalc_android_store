@@ -16,8 +16,7 @@ import cn.finalteam.galleryfinal.widget.GFImageView;
  * Created by hjn on 2017/1/5.
  */
 
-public class GlideImageLoader implements cn.finalteam.galleryfinal.ImageLoader {
-
+public class GlideGalleryLoader implements cn.finalteam.galleryfinal.ImageLoader {
 
     @Override
     public void displayImage(Activity activity, String path, final GFImageView imageView, Drawable defaultDrawable, int width, int height) {

@@ -29,7 +29,7 @@ import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.MinePresenter;
 import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
-import com.gs.buluo.store.view.activity.BusinessVerifyActivity;
+import com.gs.buluo.store.view.activity.Authentication1Activity;
 import com.gs.buluo.store.view.activity.CaptureActivity;
 import com.gs.buluo.store.view.activity.CreateStoreVarietyActivity;
 import com.gs.buluo.store.view.activity.GoodsStoreInfoActivity;
@@ -76,7 +76,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             setLoginState(true);
         }
         getActivity().findViewById(R.id.mine_wallet).setOnClickListener(this);
-
         EventBus.getDefault().register(this);
     }
 
@@ -106,7 +105,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         llUnLogin = (LinearLayout) headView.findViewById(R.id.self_ll_un_login);
         mNick = (TextView) headView.findViewById(R.id.self_nickname);
         mCover = (ImageView) zoomView.findViewById(R.id.rl_head_bg);
-
 
         DisplayMetrics localDisplayMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(localDisplayMetrics);
@@ -208,7 +206,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         window.show();
     }
 
-
     private void updateUserCover(final UploadAccessResponse.UploadResponseBody body, final String path) {
         final String url = body.objectKey;
         StoreMeta bean = new StoreMeta();
@@ -255,8 +252,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         } else {
             llLogin.setVisibility(View.GONE);
             llUnLogin.setVisibility(View.VISIBLE);
-            mHead.setImageURI(null);
-            mCover.setImageURI(null);
+            mHead.setImageResource(R.mipmap.default_pic);
+            mCover.setImageResource(R.mipmap.mine_bg);
         }
     }
 
@@ -274,7 +271,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 Intent intent = new Intent();
                 storeAuthenticationStatus = response.body().data.authenticationStatus;
                 if (storeAuthenticationStatus == null || TextUtils.equals(storeAuthenticationStatus, "NOT_START")) {
-                    intent.setClass(getActivity(), BusinessVerifyActivity.class);
+                    intent.setClass(getActivity(), Authentication1Activity.class);
                     startActivity(intent);
                 } else if (TextUtils.equals(storeAuthenticationStatus, "PROCESSING")) {
                     intent.setClass(getActivity(), VerifyProcessingActivity.class);

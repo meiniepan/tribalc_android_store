@@ -3,6 +3,7 @@ package com.gs.buluo.store.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
@@ -65,6 +66,12 @@ public class StandardListAdapter extends RecyclerAdapter<GoodsStandardMeta> {
             radioButton = findViewById(R.id.goods_standard_select);
             title = findViewById(R.id.standard_item_title);
             recyclerView = findViewById(R.id.standard_detail_list);
+            radioButton.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return true;
+                }
+            });
         }
 
         @Override

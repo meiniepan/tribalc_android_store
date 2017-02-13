@@ -56,12 +56,20 @@ public class GoodsStandardActivity extends BaseActivity implements Callback<Base
                 }
             }
         });
+        findView(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         GoodsStandardMeta goodsStandardMeta= new GoodsStandardMeta();
         goodsStandardMeta.title = getString(R.string.create_goods_standard);
         standardMetas = new ArrayList<>();
         standardMetas.add(goodsStandardMeta);
         listAdapter=new StandardListAdapter(this, standardMetas);
         refreshRecyclerView.setAdapter(listAdapter);
+        showLoadingDialog();
         TribeRetrofit.getInstance().createApi(GoodsService.class).getStandardList(TribeApplication.getInstance().getUserInfo().getId(),category)
         .enqueue(this);
     }
@@ -73,6 +81,7 @@ public class GoodsStandardActivity extends BaseActivity implements Callback<Base
 
     @Override
     public void onResponse(Call<BaseResponse<GoodsStandardResponse>> call, Response<BaseResponse<GoodsStandardResponse>> response) {
+        dismissDialog();
         if (response!=null&&response.body()!=null&&response.body().code==200){
             List<GoodsStandardMeta> content = response.body().data.content;
             listAdapter.addAll(content);
@@ -84,6 +93,7 @@ public class GoodsStandardActivity extends BaseActivity implements Callback<Base
 
     @Override
     public void onFailure(Call<BaseResponse<GoodsStandardResponse>> call, Throwable t) {
+        dismissDialog();
         ToastUtils.ToastMessage(this,R.string.connect_fail);
     }
 

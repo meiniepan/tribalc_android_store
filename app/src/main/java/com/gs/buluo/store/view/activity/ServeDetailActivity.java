@@ -145,7 +145,7 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
         banner.start();
         tvName.setText(data.name);
         tvPhone.setText(data.detailStore.phone);
-        tvAddress.setText(data.detailStore.address);
+        tvAddress.setText(data.detailStore.address==null? "": data.detailStore.city+data.detailStore.district+data.detailStore.address);
         tvCollectNum.setText(data.detailStore.collectionNum + "");
         tvMarkplace.setText(data.detailStore.markPlace);
         tvPrice.setText(data.personExpense);
@@ -155,9 +155,9 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
         if (businessHours == null) tvTime.setVisibility(View.GONE);
         else tvTime.setText("每天 " + (businessHours == null ? 0 : businessHours));
         tvTopic.setText(data.topics);
-        setFacilities(data.detailStore.faclities);
+        setFacilities(data.detailStore.facilities);
 
-        GlideUtils.loadImage(getCtx(),data.mainPicture, logo,true);
+        GlideUtils.loadImage(getCtx(),data.detailStore.logo, logo,true);
     }
 
     @Override

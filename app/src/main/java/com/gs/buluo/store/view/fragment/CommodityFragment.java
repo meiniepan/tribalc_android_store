@@ -15,7 +15,7 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.SaleGoodsListAdapter;
 import com.gs.buluo.store.adapter.StoreGoodsListAdapter;
-import com.gs.buluo.store.bean.GoodsMeta;
+import com.gs.buluo.store.bean.StoreGoodsList;
 import com.gs.buluo.store.eventbus.GoodsChangedEvent;
 import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.presenter.BasePresenter;
@@ -32,8 +32,6 @@ import com.wyt.searchbox.custom.IOnSearchClickListener;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.List;
 
 import butterknife.Bind;
 
@@ -59,7 +57,6 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
     private SearchFragment searchFragment;
     private StoreGoodsListAdapter goodsListAdapter;
     private SaleGoodsListAdapter saleListAdapter;
-    private boolean published = true;
 
     @Override
     protected int getContentLayout() {
@@ -168,13 +165,15 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
     }
 
     @Override
-    public void getGoodsSuccess(List<GoodsMeta> list, boolean published) {
+    public void getGoodsSuccess(StoreGoodsList data, boolean published) {
         if (published) {
+            tvSaleNum.setText(data.publishedAmount);
             recyclerViewSale.dismissSwipeRefresh();
-            saleListAdapter.addAll(list);
+            saleListAdapter.addAll(data.content);
         } else {
+            tvStoreNum.setText(data.unpublishedAmount);
             recyclerViewStore.dismissSwipeRefresh();
-            goodsListAdapter.addAll(list);
+            goodsListAdapter.addAll(data.content);
         }
     }
 
@@ -203,7 +202,6 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
                 startActivity(new Intent(getActivity(), CreateGoodsVarietyActivity.class));
                 break;
             case R.id.ll_goods_store:
-                published = false;
                 tvStore.setTextColor(getResources().getColor(R.color.custom_yellow));
                 tvSale.setTextColor(0xff2a2a2a);
                 recyclerViewStore.setVisibility(View.VISIBLE);
@@ -212,7 +210,6 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
             case R.id.ll_goods_sale:
                 tvSale.setTextColor(getResources().getColor(R.color.custom_yellow));
                 tvStore.setTextColor(0xff2a2a2a);
-                published = true;
                 recyclerViewStore.setVisibility(View.GONE);
                 recyclerViewSale.setVisibility(View.VISIBLE);
                 break;

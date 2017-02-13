@@ -289,6 +289,13 @@
     <string name="confirm_order">确认通过</string>
     <string name="help_phone">110-120-119</string>
     <string name="tags_max">最多只能选择三个标签</string>
+    <string name="get_fail">获取失败</string>
+    <string name="reminder">提示</string>
+    <string name="save_update">确定保存更改么？</string>
+    <string name="not_save">不保存</string>
+    <string name="phone_exist">手机号已存在</string>
+    <string name="logistic_num">物流单号</string>
+    <string name="cancel_reserve">预定取消</string>
 
     <!--餐厅类型-->
 

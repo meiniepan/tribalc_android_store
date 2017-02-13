@@ -14,4 +14,5 @@ public class StoreSetMealCreation {
     public String recommendedReason;
     public String personExpense;
     public boolean reservable;
+    public StoreMeta.StoreCategory category;
 }

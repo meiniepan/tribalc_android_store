@@ -12,7 +12,8 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.utils.GlideImageLoader;
+import com.gs.buluo.store.utils.DensityUtils;
+import com.gs.buluo.store.utils.GlideGalleryLoader;
 import com.gs.buluo.store.utils.ToastUtils;
 
 import java.util.List;
@@ -52,7 +53,15 @@ public class ChoosePhotoPanel extends Dialog implements View.OnClickListener {
         this.onSelectedFinished = onSelectedFinished;
         mContext = context;
         this.isMuti = isMuti;
-        initGallery();
+        initGallery(null);
+        initView();
+    }
+
+    public ChoosePhotoPanel(Activity context, FunctionConfig functionConfig, OnSelectedFinished onSelectedFinished) {
+        super(context, R.style.my_dialog);
+        this.onSelectedFinished = onSelectedFinished;
+        mContext = context;
+        initGallery(functionConfig);
         initView();
     }
 
@@ -114,22 +123,23 @@ public class ChoosePhotoPanel extends Dialog implements View.OnClickListener {
         void onSelected(String string);
     }
 
-    private void initGallery() {
+    private void initGallery(FunctionConfig functionConfig) {
         ThemeConfig theme = new ThemeConfig.Builder()
                 .build();
         //配置功能
-        FunctionConfig functionConfig = new FunctionConfig.Builder()
-                .setEnableCamera(true)
-                .setEnableEdit(true)
-                .setEnableCrop(true)
-                .setEnableRotate(true)
-                .setCropSquare(true)
-                .setForceCropEdit(true)
-                .setEnablePreview(true)
-                .build();
-
+        if (functionConfig==null){
+            functionConfig = new FunctionConfig.Builder()
+                    .setEnableCamera(true)
+                    .setEnableEdit(true)
+                    .setEnableCrop(true)
+                    .setEnableRotate(true)
+                    .setForceCropEdit(true)
+                    .setForceCrop(true)
+                    .setEnablePreview(true)
+                    .build();
+        }
         //配置 imageloader
-        ImageLoader imageloader = new GlideImageLoader();
+        ImageLoader imageloader = new GlideGalleryLoader();
         CoreConfig coreConfig = new CoreConfig.Builder(mContext, imageloader, theme)
                 .setFunctionConfig(functionConfig)
                 .build();

@@ -32,7 +32,7 @@ public class OrderPresenter extends BasePresenter<IOrderView> {
             public void onResponse(Call<OrderResponse> call, Response<OrderResponse> response) {
                 if (response.body() != null && response.body().code == 200) {
                     nextSkip = response.body().data.nextSkip;
-                    mView.getOrderInfoSuccess(response.body().data);
+                    if (isAttach())mView.getOrderInfoSuccess(response.body().data);
                 } else {
                     mView.showError(R.string.connect_fail);
                 }

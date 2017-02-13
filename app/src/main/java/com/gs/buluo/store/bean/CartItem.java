@@ -10,8 +10,8 @@ import android.os.Parcelable;
 public class CartItem implements Parcelable {
     public String id;
     public String standardId;
-    public int amount;
     public ListGoods goods;
+    public int amount;
     public int repertory;
     public boolean isSelected;
     public boolean isEdit;
@@ -28,8 +28,8 @@ public class CartItem implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
         dest.writeString(this.standardId);
-        dest.writeInt(this.amount);
         dest.writeParcelable(this.goods, flags);
+        dest.writeInt(this.amount);
         dest.writeInt(this.repertory);
         dest.writeByte(this.isSelected ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isEdit ? (byte) 1 : (byte) 0);
@@ -38,8 +38,8 @@ public class CartItem implements Parcelable {
     protected CartItem(Parcel in) {
         this.id = in.readString();
         this.standardId = in.readString();
-        this.amount = in.readInt();
         this.goods = in.readParcelable(ListGoods.class.getClassLoader());
+        this.amount = in.readInt();
         this.repertory = in.readInt();
         this.isSelected = in.readByte() != 0;
         this.isEdit = in.readByte() != 0;

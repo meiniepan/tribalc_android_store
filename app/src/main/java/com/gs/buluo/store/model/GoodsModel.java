@@ -25,7 +25,7 @@ public class GoodsModel {
 
     public void getGoodsList(String category, String limitSize, String sortSkip, String sort, Callback<BaseResponse<GoodList>> callback) {
         TribeRetrofit.getInstance().createApi(GoodsService.class).
-                getGoodsList(category, 20, sortSkip).enqueue(callback);
+                getGoodsList(20, sortSkip).enqueue(callback);
     }
 
     public void getGoodsDetail(String id, Callback<BaseResponse<ListGoodsDetail>> callback) {

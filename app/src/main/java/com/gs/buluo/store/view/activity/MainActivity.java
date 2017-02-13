@@ -43,7 +43,7 @@ import java.util.List;
 import butterknife.Bind;
 
 
-public class MainActivity extends BaseActivity implements ILoginView, ViewPager.OnPageChangeListener, View.OnClickListener {
+public class MainActivity extends BaseActivity implements ILoginView, ViewPager.OnPageChangeListener{
     @Bind(R.id.main_pager)
     ViewPager mPager;
     @Bind(R.id.main_found_text)
@@ -131,7 +131,6 @@ public class MainActivity extends BaseActivity implements ILoginView, ViewPager.
         imageSelectedRids.add(R.mipmap.tabbar_profile_selected);
         tabIcons.add(mHomeImage);
         tabIcons.add(mFoundImage);
-//        tabIcons.add(mAroundImage);
         tabIcons.add(mUsualImage);
         tabIcons.add(mMineImage);
     }
@@ -175,18 +174,6 @@ public class MainActivity extends BaseActivity implements ILoginView, ViewPager.
 
     @Override
     public void dealWithIdentify(int res) {
-    }
-
-    @Override
-    public void onClick(View v) {
-        final AroundPanel panel = new AroundPanel(this);
-        panel.show();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                panel.showMenu();
-            }
-        }, 500);
     }
 
     private class MainOnClickListener implements View.OnClickListener {

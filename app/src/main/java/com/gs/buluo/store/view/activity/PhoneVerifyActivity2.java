@@ -135,6 +135,8 @@ public class PhoneVerifyActivity2 extends BaseActivity {
                 public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
                     if (responseCode == 401) {
                         ToastUtils.ToastMessage(PhoneVerifyActivity2.this, R.string.wrong_verify);
+                    } else if (responseCode == 409){
+                        ToastUtils.ToastMessage(PhoneVerifyActivity2.this, R.string.phone_exist);
                     } else {
                         ToastUtils.ToastMessage(PhoneVerifyActivity2.this, R.string.connect_fail);
                     }

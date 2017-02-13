@@ -14,6 +14,8 @@ public class Constant {
     public static final String SERVE_TIME = "serve_time";
     public static final String STANDARD_INFO="standard_info";
     public static final String PUBLISHED = "published";
+    public static final String LATITUDE = "latitude";
+    public static final String LONGITUDE = "longitude";
 
 
     public final static class Base {

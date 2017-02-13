@@ -27,7 +27,7 @@ import retrofit2.Response;
 /**
  * Created by hjn on 2017/1/20.
  */
-public class TradeLicenceActivity extends BaseActivity{
+public class Authentication3Activity extends BaseActivity{
     @Bind(R.id.identify_trade_image)
     ImageView tradeImage;
     String path;
@@ -60,16 +60,19 @@ public class TradeLicenceActivity extends BaseActivity{
     }
 
     private void doAuth() {
+        showLoadingDialog();
         new MainModel().doAuthentication(data, new TribeCallback<CodeResponse>() {
             @Override
             public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
-                ToastUtils.ToastMessage(TradeLicenceActivity.this,"认证提交成功");
-                startActivity(new Intent(TradeLicenceActivity.this,MainActivity.class));
+                dismissDialog();
+                ToastUtils.ToastMessage(getCtx(),"认证提交成功");
+                startActivity(new Intent(getCtx(),MainActivity.class));
             }
 
             @Override
             public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
-                ToastUtils.ToastMessage(TradeLicenceActivity.this,R.string.connect_fail);
+                dismissDialog();
+                ToastUtils.ToastMessage(getCtx(),R.string.connect_fail);
             }
         });
 
@@ -87,18 +90,21 @@ public class TradeLicenceActivity extends BaseActivity{
     }
 
     private void uploadPic(String pic) {
+        showLoadingDialog();
         TribeUploader.getInstance().uploadFile("trade", "", new File(pic), new TribeUploader.UploadCallback() {
             @Override
             public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
+                dismissDialog();
                 tradeImage.setVisibility(View.VISIBLE);
-                Glide.with(TradeLicenceActivity.this).load(GlideUtils.formatImageUrl(data.objectKey)).centerCrop().into(tradeImage);
+                Glide.with(Authentication3Activity.this).load(GlideUtils.formatImageUrl(data.objectKey)).centerCrop().into(tradeImage);
                 findViewById(R.id.identify_trade_sign).setVisibility(View.GONE);
                 path =data.objectKey;
             }
 
             @Override
             public void uploadFail() {
-                ToastUtils.ToastMessage(TradeLicenceActivity.this,R.string.upload_fail);
+                dismissDialog();
+                ToastUtils.ToastMessage(getCtx(),R.string.upload_fail);
             }
         });
 

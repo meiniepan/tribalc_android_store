@@ -57,6 +57,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 et_verify.requestFocus();
                 if (!CommonUtils.checkPhone("86", phone, this)) return;
                 ((LoginPresenter) mPresenter).doVerify(phone);
+                startCounter();
                 break;
             case R.id.login:
                 if (!CommonUtils.checkPhone("86", phone, this)) return;
@@ -72,25 +73,31 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void dealWithIdentify(int res) {
         switch (res) {
             case 202:
-                reg_send.setText("60s");
-                new CountDownTimer(60000, 1000) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                        reg_send.setClickable(false);
-                        reg_send.setText(millisUntilFinished / 1000 + "秒");
-                    }
 
-                    @Override
-                    public void onFinish() {
-                        reg_send.setText("获取验证码");
-                        reg_send.setClickable(true);
-                    }
-                }.start();
                 break;
             case 400:
                 ToastUtils.ToastMessage(this, getString(R.string.wrong_number));
+                reg_send.setText("获取验证码");
+                reg_send.setClickable(true);
                 break;
         }
+    }
+
+    private void startCounter() {
+        reg_send.setText("60s");
+        reg_send.setClickable(false);
+        new CountDownTimer(60000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                reg_send.setText(millisUntilFinished / 1000 + "秒");
+            }
+
+            @Override
+            public void onFinish() {
+                reg_send.setText("获取验证码");
+                reg_send.setClickable(true);
+            }
+        }.start();
     }
 
     @Override

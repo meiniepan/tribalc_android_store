@@ -16,7 +16,7 @@ public class StoreDetail implements IBaseResponse {
     public String category;
     public String mainPicture;
     public String thumbnail;
-    public List<String> faclities;
+    public List<String> facilities;
     public String discount;
     public String markPlace;
     public List<String> tags;

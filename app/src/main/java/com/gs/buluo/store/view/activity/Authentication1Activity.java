@@ -22,7 +22,7 @@ import butterknife.Bind;
 /**
  * Created by hjn on 2016/11/7.
  */
-public class BusinessVerifyActivity extends BaseActivity implements View.OnClickListener {
+public class Authentication1Activity extends BaseActivity implements View.OnClickListener {
     private AuthenticationData authenticationData;
     @Bind(R.id.identify_business_image)
     ImageView businessImg;
@@ -50,7 +50,7 @@ public class BusinessVerifyActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.identify_business_next:
                 if (authenticationData.businessLicence==null)return;
-                Intent intent=new Intent(BusinessVerifyActivity.this,IdentificationActivity.class);
+                Intent intent=new Intent(getCtx(),Authentication2Activity.class);
                 intent.putExtra(Constant.AUTH,authenticationData);
                 startActivity(intent);
                 break;
@@ -68,18 +68,21 @@ public class BusinessVerifyActivity extends BaseActivity implements View.OnClick
     }
 
     private void uploadPhoto(String path) {
+        showLoadingDialog();
         TribeUploader.getInstance().uploadFile("business", "", new File(path), new TribeUploader.UploadCallback() {
             @Override
             public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
+                dismissDialog();
                 authenticationData .businessLicence = data.objectKey;
                 businessImg.setVisibility(View.VISIBLE);
-                Glide.with(BusinessVerifyActivity.this).load(GlideUtils.formatImageUrl(data.objectKey)).into(businessImg);
+                Glide.with(Authentication1Activity.this).load(GlideUtils.formatImageUrl(data.objectKey)).into(businessImg);
                 findViewById(R.id.identify_business).setVisibility(View.GONE);
             }
 
             @Override
             public void uploadFail() {
-                ToastUtils.ToastMessage(BusinessVerifyActivity.this,R.string.update_fail);
+                dismissDialog();
+                ToastUtils.ToastMessage(Authentication1Activity.this,R.string.update_fail);
             }
         });
 

@@ -48,7 +48,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="31313212"
             android:textSize="@dimen/dimens_12sp" />
     </LinearLayout>
 
@@ -74,7 +73,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="佛祖"
             android:textSize="@dimen/dimens_12sp" />
     </LinearLayout>
 

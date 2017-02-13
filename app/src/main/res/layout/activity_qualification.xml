@@ -87,7 +87,7 @@
         <ImageView
             android:id="@+id/identify_front_image"
             android:visibility="gone"
-            android:scaleType="fitXY"
+            android:scaleType="fitCenter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
@@ -113,7 +113,7 @@
         <ImageView
             android:id="@+id/identify_back_image"
             android:visibility="gone"
-            android:scaleType="fitXY"
+            android:scaleType="fitCenter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />

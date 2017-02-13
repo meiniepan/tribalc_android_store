@@ -55,6 +55,9 @@ public class CreateStoreAddressActivity extends BaseActivity implements OnGetGeo
 
     Context mCtx;
     private String chooseCity;
+    private double latitude;
+    private double longitude;
+
     @Override
     protected void bindView(Bundle savedInstanceState) {
         mCtx = this;
@@ -66,6 +69,8 @@ public class CreateStoreAddressActivity extends BaseActivity implements OnGetGeo
                 Intent intent=new Intent();
                 intent.putExtra(Constant.AREA,tvAddress.getText().toString().trim());
                 intent.putExtra(Constant.ADDRESS,edAddress.getText().toString().trim());
+                intent.putExtra(Constant.LATITUDE,latitude);
+                intent.putExtra(Constant.LONGITUDE,longitude);
                 setResult(RESULT_OK,intent);
                 finish();
             }
@@ -145,7 +150,7 @@ public class CreateStoreAddressActivity extends BaseActivity implements OnGetGeo
     @Override
     public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
         if (geoCodeResult == null || geoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
-            Toast.makeText(CreateStoreAddressActivity.this, "抱歉，未能找到结果", Toast.LENGTH_LONG)
+            Toast.makeText(getCtx(), "抱歉，未能找到结果", Toast.LENGTH_LONG)
                     .show();
             return;
         }
@@ -155,10 +160,11 @@ public class CreateStoreAddressActivity extends BaseActivity implements OnGetGeo
                         .fromResource(R.mipmap.icon_marka)));
         mBaiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(geoCodeResult
                 .getLocation()));
+        latitude = geoCodeResult.getLocation().latitude;
+        longitude =  geoCodeResult.getLocation().longitude;
         String strInfo = String.format("纬度：%f 经度：%f",
-                geoCodeResult.getLocation().latitude, geoCodeResult.getLocation().longitude);
-        Toast.makeText(CreateStoreAddressActivity.this, strInfo, Toast.LENGTH_LONG).show();
-
+                latitude,longitude);
+        Toast.makeText(getCtx(), strInfo, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -169,11 +175,13 @@ public class CreateStoreAddressActivity extends BaseActivity implements OnGetGeo
             return;
         }
         mBaiduMap.clear();
-        mBaiduMap.addOverlay(new MarkerOptions().position(reverseGeoCodeResult.getLocation())
+        LatLng location = reverseGeoCodeResult.getLocation();
+        latitude = location.latitude;
+        longitude = location.longitude;
+        mBaiduMap.addOverlay(new MarkerOptions().position(location)
                 .icon(BitmapDescriptorFactory
                         .fromResource(R.mipmap.location)));
-        mBaiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(reverseGeoCodeResult
-                .getLocation()));
+        mBaiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(location));
         ReverseGeoCodeResult.AddressComponent addressDetail = reverseGeoCodeResult.getAddressDetail();
         chooseCity = addressDetail.city;
         tvAddress.setText(addressDetail.province+"-"+addressDetail.city+"-"+addressDetail.district);

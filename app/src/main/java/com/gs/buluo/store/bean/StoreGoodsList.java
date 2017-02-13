@@ -10,6 +10,8 @@ import java.util.List;
 public class StoreGoodsList implements IBaseResponse {
     public boolean published;
     public String sort;
+    public String publishedAmount;
+    public String unpublishedAmount;
     public String prevSkip;
     public String nextSkip;
     public boolean hasMore;

@@ -91,7 +91,7 @@ public class OrderListAdapter extends RecyclerAdapter<OrderBean> {
         }
 
         private void initGoodsList(ListView listView, List<CartItem> itemList, final OrderBean entity) {
-            OrderGoodsAdapter adapter = new OrderGoodsAdapter(itemList, mCtx);
+            OrderGoodsAdapter adapter = new OrderGoodsAdapter(itemList, mCtx,entity);
             listView.setAdapter(adapter);
             CommonUtils.setListViewHeightBasedOnChildren(listView);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -79,8 +79,9 @@ public class TribeCrashCollector implements Thread.UncaughtExceptionHandler {
     public void uncaughtException(Thread thread, Throwable ex) {
         ex.printStackTrace(System.err);
         saveErrorReportAsFile(ex);
-        android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(0);
+        AppManager.getAppManager().finishAllActivityAndExit();
+//        android.os.Process.killProcess(android.os.Process.myPid());
+//        System.exit(0);
     }
 
     private long getAvailableInternalMemorySize() {

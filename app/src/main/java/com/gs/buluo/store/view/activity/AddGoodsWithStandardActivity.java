@@ -90,7 +90,6 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         picList = new ArrayList<>();
         initView();
         initData();
-
         if (meta.pictures==null||meta.pictures.size()==0){
             addFirst.setVisibility(View.VISIBLE);
             addPic.setVisibility(View.GONE);
@@ -144,7 +143,13 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
 
             @Override
             public void afterTextChanged(Editable s) {
-                tvTitleWords.setText(s.length() + "");
+                if (s.length()>60){
+                    etTitleDetail.setText(s.toString().substring(0,60));
+                    etTitleDetail.setSelection(60);
+                    tvTitleWords.setText(60+"");
+                }else {
+                    tvTitleWords.setText(s.length() + "");
+                }
             }
         });
         etDesc.addTextChangedListener(new TextWatcher() {
@@ -158,7 +163,13 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
 
             @Override
             public void afterTextChanged(Editable s) {
-                tvDescWords.setText(s.length() + "");
+                if (s.length()>20){
+                    etDesc.setText(s.toString().substring(0,20));
+                    etDesc.setSelection(20);
+                    tvDescWords.setText(20+"");
+                }else {
+                    tvDescWords.setText(s.length() + "");
+                }
             }
         });
     }
@@ -166,6 +177,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     private void setData() {
         meta.isEdit = true;
         picList = meta.pictures;
+        if (picList.size()>0)pos=1;
         banner.setImages(meta.pictures);
         banner.start();
         etTitleDetail.setText(meta.title);
@@ -226,7 +238,8 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
                     return;
                 }
                 picList.remove(pos-1);
-                banner.update(picList);
+                banner.setImages(picList);
+                banner.start();
                 pos = picList.size()-1;
                 break;
             case R.id.back:

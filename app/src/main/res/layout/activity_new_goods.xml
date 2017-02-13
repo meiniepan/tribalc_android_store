@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true"
+    android:background="@color/white"
     android:clipToPadding="true"
-    android:background="@color/white">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
@@ -30,307 +31,368 @@
             android:id="@+id/back"
             layout="@layout/back_img_white" />
     </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="250dp">
+
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <com.youth.banner.Banner
                         android:id="@+id/goods_create_banner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:indicator_height="8dp"
                         app:indicator_margin="6dp"
-                        app:indicator_width="8dp">
-                    </com.youth.banner.Banner>
+                        app:indicator_width="8dp" />
                 </FrameLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <ImageView
-                        android:visibility="gone"
                         android:id="@+id/goods_create_del_pic"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@mipmap/delete_garbage"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        />
+                        android:layout_marginTop="8dp"
+                        android:src="@mipmap/delete_garbage"
+                        android:visibility="gone" />
+
                     <ImageView
                         android:id="@+id/goods_create_add_first"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@mipmap/add_goods_pic"
-                        android:layout_centerInParent="true"/>
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/add_goods_pic" />
+
+                    <CheckBox
+                        android:id="@+id/goods_create_main"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="15dp" />
+
                     <ImageView
-                        android:visibility="gone"
                         android:id="@+id/goods_create_add_pic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/add_goods_pic"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="15dp"
-                        android:layout_marginStart="15dp"/>
+                        android:layout_marginStart="15dp"
+                        android:src="@mipmap/add_goods_pic"
+                        android:visibility="gone" />
                 </RelativeLayout>
             </RelativeLayout>
+
             <LinearLayout
-                android:layout_marginTop="6dp"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:minHeight="40dp">
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="6dp"
+                android:minHeight="40dp"
+                android:orientation="horizontal">
+
                 <EditText
                     android:id="@+id/goods_create_title_detail"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
                     android:background="@null"
                     android:gravity="top"
-                    android:layout_marginBottom="10dp"
-                    android:hint="输入商品详情标题"/>
+                    android:hint="输入商品详情标题" />
+
                 <TextView
                     android:id="@+id/goods_create_title_left"
-                    android:layout_gravity="bottom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:text="0"
-                    android:textSize="@dimen/dimens_12sp"
-                    android:textColor="@color/common_gray"
-                    />
-                <TextView
-                    android:textColor="@color/common_gray"
-                    android:textSize="@dimen/dimens_12sp"
                     android:layout_gravity="bottom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="/60"/>
-            </LinearLayout>
-            <include layout="@layout/split_line_margin"/>
-            <LinearLayout
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/self_item_height">
+                    android:text="0"
+                    android:textColor="@color/common_gray"
+                    android:textSize="@dimen/dimens_12sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="列表标题"/>
+                    android:layout_gravity="bottom"
+                    android:text="/60"
+                    android:textColor="@color/common_gray"
+                    android:textSize="@dimen/dimens_12sp" />
+            </LinearLayout>
+
+            <include layout="@layout/split_line_margin" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/self_item_height"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="列表标题" />
+
                 <EditText
-                    android:background="@null"
                     android:id="@+id/goods_create_title"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="例:现货包邮MAC,GLAM限量版"/>
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:background="@null"
+                    android:hint="例:现货包邮MAC,GLAM限量版" />
             </LinearLayout>
-            <include layout="@layout/split_line_margin"/>
+
+            <include layout="@layout/split_line_margin" />
+
             <LinearLayout
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/self_item_height">
+                android:layout_height="@dimen/self_item_height"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="简单说明"/>
+                    android:text="简单说明" />
 
                 <EditText
                     android:id="@+id/goods_create_desc"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:layout_height="wrap_content"
-                    android:hint="请用一句话概括商品"/>
+                    android:hint="请用一句话概括商品" />
 
                 <TextView
                     android:id="@+id/goods_create_short_left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="@dimen/dimens_12sp"
                     android:textColor="@color/common_gray"
-                    />
+                    android:textSize="@dimen/dimens_12sp" />
+
                 <TextView
-                    android:textColor="@color/common_gray"
-                    android:textSize="@dimen/dimens_12sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="/20"/>
+                    android:text="/20"
+                    android:textColor="@color/common_gray"
+                    android:textSize="@dimen/dimens_12sp" />
             </LinearLayout>
-            <include layout="@layout/split_area"/>
+
+            <include layout="@layout/split_area" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin">
+                android:orientation="vertical">
+
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/self_item_height">
+                    android:layout_height="@dimen/self_item_height"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="类别"/>
+                        android:text="类别" />
+
                     <TextView
                         android:id="@+id/goods_create_category"
-                        android:layout_marginStart="50dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp" />
                 </LinearLayout>
-                <include layout="@layout/split_line_no_margin_common"/>
+
+                <include layout="@layout/split_line_no_margin_common" />
+
                 <LinearLayout
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/self_item_height">
+                    android:layout_height="@dimen/self_item_height"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="品牌"/>
+                        android:text="品牌" />
+
                     <EditText
                         android:id="@+id/create_goods_brand"
-                        android:layout_marginStart="50dp"
-                        android:background="@null"
-                        android:maxLines="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="请输入商品品牌"/>
+                        android:layout_marginStart="50dp"
+                        android:background="@null"
+                        android:hint="请输入商品品牌"
+                        android:maxLines="1" />
                 </LinearLayout>
-                <include layout="@layout/split_line_no_margin_common"/>
+
+                <include layout="@layout/split_line_no_margin_common" />
+
                 <LinearLayout
                     android:id="@+id/ll_goods_create_standard"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/self_item_height">
+                    android:layout_height="@dimen/self_item_height"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="规格"/>
+                        android:text="规格" />
+
                     <TextView
                         android:id="@+id/goods_create_standard"
-                        android:layout_marginStart="50dp"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:textColor="@color/common_gray"
                         android:layout_height="wrap_content"
-                        android:text="请选择商品规格"/>
+                        android:layout_marginStart="50dp"
+                        android:layout_weight="1"
+                        android:text="请选择商品规格"
+                        android:textColor="@color/common_gray" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/arrow_right"/>
+                        android:src="@mipmap/arrow_right" />
                 </LinearLayout>
-                <include layout="@layout/split_line_no_margin_common"/>
+
                 <LinearLayout
-                    android:id="@+id/ll_create_goods_sale"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
+                    android:id="@+id/goods_price_area"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/self_item_height">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="销售价格"/>
-                    <EditText
-                        android:id="@+id/goods_create_sale"
-                        android:layout_marginStart="20dp"
-                        android:background="@null"
-                        android:maxLines="1"
-                        android:inputType="numberDecimal"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/split_line_no_margin_common" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_create_goods_sale"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="请输入商品销售价格"/>
-                </LinearLayout>
-                <include layout="@layout/split_line_no_margin_common"/>
-                <LinearLayout
-                    android:id="@+id/ll_create_goods_orgin"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/self_item_height">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="原始价格"/>
-                    <EditText
-                        android:id="@+id/goods_create_origin"
-                        android:layout_marginStart="20dp"
-                        android:background="@null"
-                        android:maxLines="1"
-                        android:inputType="numberDecimal"
+                        android:layout_height="@dimen/self_item_height"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="销售价格" />
+
+                        <EditText
+                            android:id="@+id/goods_create_sale"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:background="@null"
+                            android:hint="请输入商品销售价格"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1" />
+                    </LinearLayout>
+
+                    <include layout="@layout/split_line_no_margin_common" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_create_goods_orgin"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="请输入商品原始价格"/>
-                </LinearLayout>
-                <include layout="@layout/split_line_no_margin_common"/>
-                <LinearLayout
-                    android:id="@+id/ll_create_goods_repertory"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/self_item_height">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="库存量"/>
-                    <EditText
-                        android:id="@+id/goods_create_stock"
-                        android:layout_marginStart="36dp"
-                        android:background="@null"
-                        android:inputType="numberDecimal"
-                        android:maxLines="1"
+                        android:layout_height="@dimen/self_item_height"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="原始价格" />
+
+                        <EditText
+                            android:id="@+id/goods_create_origin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:background="@null"
+                            android:hint="请输入商品原始价格"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1" />
+                    </LinearLayout>
+
+                    <include layout="@layout/split_line_no_margin_common" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_create_goods_repertory"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="请输入商品库存量"/>
+                        android:layout_height="@dimen/self_item_height"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="库存量" />
+
+                        <EditText
+                            android:id="@+id/goods_create_stock"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="36dp"
+                            android:background="@null"
+                            android:hint="请输入商品库存量"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-            <include layout="@layout/split_area"/>
+
+            <include layout="@layout/split_area" />
+
             <LinearLayout
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/self_item_height">
+                android:layout_height="@dimen/self_item_height"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="原产国"/>
+                    android:text="原产国" />
+
                 <EditText
                     android:id="@+id/goods_create_source"
-                    android:layout_marginStart="36dp"
                     android:layout_width="match_parent"
-                    android:background="@null"
-                    android:maxLines="1"
                     android:layout_height="wrap_content"
-                    android:hint="请输入商品原产地"/>
+                    android:layout_marginStart="36dp"
+                    android:background="@null"
+                    android:hint="请输入商品原产地"
+                    android:maxLines="1" />
             </LinearLayout>
-            <include layout="@layout/split_area"/>
+
+            <include layout="@layout/split_area" />
 
             <Button
                 android:id="@+id/goods_create_next"
-                android:text="@string/next"
                 style="@style/button_style"
-                />
+                android:text="@string/next" />
         </LinearLayout>
     </ScrollView>
 

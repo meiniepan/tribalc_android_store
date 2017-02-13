@@ -85,7 +85,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gs.buluo.store.view.activity.BusinessVerifyActivity"
+            android:name="com.gs.buluo.store.view.activity.Authentication1Activity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.SettingActivity"
@@ -197,7 +197,7 @@
             android:name=".view.activity.CreateGoodsVarietyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.activity.IdentificationActivity"
+            android:name=".view.activity.Authentication2Activity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.CreateStoreAddressActivity"
@@ -209,7 +209,7 @@
             android:name=".view.activity.MealStoreInfoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".view.activity.TradeLicenceActivity" />
+        <activity android:name=".view.activity.Authentication3Activity" />
         <activity
             android:name=".view.activity.GoodsStoreInfoActivity"
             android:screenOrientation="portrait" />
