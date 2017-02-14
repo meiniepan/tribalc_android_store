@@ -12,4 +12,5 @@ public class GoodsPriceAndRepertory implements Serializable {
     public float originPrice;
     public float salePrice;
     public int repertory;
+    public boolean checked;
 }

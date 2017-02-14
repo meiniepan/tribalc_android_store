@@ -39,7 +39,7 @@
         android:layout_height="28dp"
         android:gravity="center_vertical"
         android:textColor="@color/common_gray"
-        android:text="必须本人身份证正反面照片，且内容清晰可辨认"
+        android:text="请确保上传身份证与当前注册手机号持有人身份一致"
         android:drawablePadding="4dp"
         android:drawableStart="@drawable/circle_red"
         android:id="@+id/textView15" />
@@ -52,22 +52,12 @@
         android:layout_height="28dp"
         android:gravity="center_vertical"
         android:textColor="@color/common_gray"
-        android:text="请您确认拍照权限已开"
-        android:drawablePadding="4dp"
-        android:drawableStart="@drawable/circle_red"/>
-    <TextView
-        android:textSize="@dimen/dimens_12sp"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_width="match_parent"
-        android:layout_height="28dp"
-        android:gravity="center_vertical"
-        android:textColor="@color/common_gray"
-        android:text="本页位必填项"
+        android:text="请确保身份证照片拍摄清晰，且尽量匹配相框尺寸"
         android:drawablePadding="4dp"
         android:drawableStart="@drawable/circle_red"/>
 
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:id="@+id/ll_identify_front"
         android:layout_width="300dp"
         android:layout_height="181dp"
@@ -115,8 +105,7 @@
             android:visibility="gone"
             android:scaleType="fitCenter"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
     <RelativeLayout

@@ -13,6 +13,7 @@ public class GoodsMeta implements Parcelable {
     public String id;
     public String standardId; // //创建新商品时，如果存在值，则表示加入指定规格组，否则为不加入任何规格组或者新创建的规格组并加入；修改商品时，被忽略
     public GoodsCategory category;
+    public boolean primary;
     public boolean published;
     public String name;
     public String number;
@@ -48,6 +49,7 @@ public class GoodsMeta implements Parcelable {
         dest.writeString(this.id);
         dest.writeString(this.standardId);
         dest.writeInt(this.category == null ? -1 : this.category.ordinal());
+        dest.writeByte(this.primary ? (byte) 1 : (byte) 0);
         dest.writeByte(this.published ? (byte) 1 : (byte) 0);
         dest.writeString(this.name);
         dest.writeString(this.number);
@@ -75,6 +77,7 @@ public class GoodsMeta implements Parcelable {
         this.standardId = in.readString();
         int tmpCategory = in.readInt();
         this.category = tmpCategory == -1 ? null : GoodsCategory.values()[tmpCategory];
+        this.primary = in.readByte() != 0;
         this.published = in.readByte() != 0;
         this.name = in.readString();
         this.number = in.readString();

@@ -51,6 +51,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
     private ArrayList<CategoryBean> categoryBeanList;
     private RepastBeanAdapter beanAdapter;
     private GoodsModel model;
+    private String primaryStandardKey;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
         setCategoryData();
         Bundle bundle = intent.getExtras();
         standardMeta = bundle.getParcelable("data");
+        primaryStandardKey = bundle.getString(Constant.ForIntent.KEY);
         SerializableHashMap<String, GoodsPriceAndRepertory> serializableHashMap = (SerializableHashMap<String, GoodsPriceAndRepertory>) bundle.getSerializable("map");
         if (serializableHashMap != null)
             standardMeta.priceAndRepertoryMap = serializableHashMap.getMap();
@@ -259,6 +261,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
         if (standardMeta != null) {
             body.standardMeta = standardMeta;
         }
+        body.primaryStandardKey = primaryStandardKey;
         model.createGoods(body, new Callback<CreateGoodsResponse>() {
             @Override
             public void onResponse(Call<CreateGoodsResponse> call, Response<CreateGoodsResponse> response) {

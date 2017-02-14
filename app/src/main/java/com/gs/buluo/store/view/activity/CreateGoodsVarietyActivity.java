@@ -17,7 +17,6 @@ public class CreateGoodsVarietyActivity extends BaseActivity implements View.OnC
     @Override
     protected void bindView(Bundle savedInstanceState) {
         findViewById(R.id.back).setOnClickListener(this);
-        findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.store_food).setOnClickListener(this);
         findViewById(R.id.store_gift).setOnClickListener(this);
         findViewById(R.id.store_office).setOnClickListener(this);

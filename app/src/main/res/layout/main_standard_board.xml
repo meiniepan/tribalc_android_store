@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dip">
+        <TextView
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dip"
+            android:text="@string/cancel"
+            android:textColor="#000000"
+            android:textSize="@dimen/dimens_14sp" />
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请选择主商品"
+            android:textColor="#000000"
+            android:textSize="@dimen/dimens_14sp" />
+
+        <TextView
+            android:id="@+id/btn_confirm"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:text="@string/yes"
+            android:layout_alignParentEnd="true"
+            android:textSize="@dimen/dimens_14sp"
+            android:textColor="#770000ff"
+            android:gravity="center"
+            android:layout_marginEnd="10dp" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/standard_list"
+        android:divider="@color/tint_bg"
+        android:dividerHeight="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

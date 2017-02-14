@@ -2,6 +2,7 @@ package com.gs.buluo.store.model;
 
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.CartItemUpdateResponse;
+import com.gs.buluo.store.bean.OrderBean;
 import com.gs.buluo.store.bean.RequestBodyBean.LogisticsRequestBody;
 import com.gs.buluo.store.bean.RequestBodyBean.NewOrderBean;
 import com.gs.buluo.store.bean.RequestBodyBean.NewOrderRequestBody;
@@ -26,7 +27,7 @@ public class ShoppingModel {
                 getOrder(uid, limitSize, sortSkip, status).enqueue(callback);
     }
 
-    public void updateOrder(String uid, LogisticsRequestBody status, String orderId, Callback<BaseResponse> callback) {
+    public void updateOrder(String uid, LogisticsRequestBody status, String orderId, Callback<BaseResponse<OrderBean>> callback) {
         TribeRetrofit.getInstance().createApi(ShoppingService.class).
                 updateOrderToSend(orderId, uid, status).enqueue(callback);
     }

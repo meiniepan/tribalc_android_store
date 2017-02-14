@@ -1,5 +1,6 @@
 package com.gs.buluo.store.network;
 
+import com.gs.buluo.store.bean.OrderBean;
 import com.gs.buluo.store.bean.RequestBodyBean.LogisticsRequestBody;
 import com.gs.buluo.store.bean.RequestBodyBean.NewOrderBean;
 import com.gs.buluo.store.bean.ResponseBody.OrderResponse;
@@ -27,7 +28,7 @@ public interface ShoppingService {
             , @Query("sortSkip") String sortSkip, @Query("status") String status);
 
     @PUT("orders/{orderId}/status?type=store")
-    Call<BaseResponse> updateOrderToSend(@Path("orderId") String orderId, @Query("me") String uid,@Body LogisticsRequestBody status);
+    Call<BaseResponse<OrderBean>> updateOrderToSend(@Path("orderId") String orderId, @Query("me") String uid, @Body LogisticsRequestBody status);
 
 
     @POST("persons/{id}/shopping_cart")

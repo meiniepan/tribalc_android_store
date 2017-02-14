@@ -80,7 +80,7 @@ public class SaleGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
             repertory.setText(entity.priceAndRepertory.repertory+"");
             price.setText(entity.priceAndRepertory.salePrice+"");
             saleNum.setText(100+"");
-            time.setText(TribeDateUtils.dateFormat5(new Date()));
+            time.setText(TribeDateUtils.dateFormat5(new Date(entity.createTime)));
 
             TextView textView = findViewById(R.id.goods_item_delete);
             textView.setText("下架");

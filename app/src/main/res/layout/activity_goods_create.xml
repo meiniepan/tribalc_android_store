@@ -49,8 +49,8 @@
             android:gravity="center"
             android:background="@drawable/text_background_round">
             <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@mipmap/food"
                 />
             <TextView
@@ -73,8 +73,8 @@
             android:layout_marginStart="12dp">
 
             <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@mipmap/gift"
                 android:id="@+id/imageView4" />
 
@@ -95,11 +95,13 @@
             android:gravity="center"
             android:background="@drawable/text_background_round"
             android:layout_marginStart="12dp">
+
             <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@mipmap/office"
-                />
+                android:id="@+id/imageView5" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -116,11 +118,13 @@
             android:gravity="center"
             android:background="@drawable/text_background_round"
             android:layout_marginStart="12dp">
+
             <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@mipmap/living"
-                />
+                android:id="@+id/imageView6" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -148,8 +152,8 @@
             android:gravity="center"
             android:background="@drawable/text_background_round">
             <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@mipmap/furniture"
                 />
             <TextView
@@ -171,8 +175,8 @@
             android:background="@drawable/text_background_round"
             android:layout_marginStart="12dp">
             <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@mipmap/dress"
                 />
             <TextView
@@ -193,8 +197,8 @@
             android:background="@drawable/text_background_round"
             android:layout_marginStart="12dp">
             <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@mipmap/baby"
                 />
             <TextView

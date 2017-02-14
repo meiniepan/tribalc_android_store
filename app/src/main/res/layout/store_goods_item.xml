@@ -14,6 +14,7 @@
             android:layout_height="126dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:scaleType="centerCrop"
             android:src="@mipmap/default_pic"
             android:id="@+id/goods_item_picture" />
 
@@ -28,6 +29,7 @@
                 android:id="@+id/goods_item_name"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
                 android:maxLines="2"/>
 
             <LinearLayout

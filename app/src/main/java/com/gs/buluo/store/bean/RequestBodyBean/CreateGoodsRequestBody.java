@@ -9,4 +9,5 @@ import com.gs.buluo.store.bean.GoodsStandardMeta;
 public class CreateGoodsRequestBody {
     public GoodsMeta goodsMeta;
     public GoodsStandardMeta standardMeta;
+    public String primaryStandardKey;
 }

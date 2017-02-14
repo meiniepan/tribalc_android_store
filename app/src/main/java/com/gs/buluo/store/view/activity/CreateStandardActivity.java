@@ -9,6 +9,7 @@ import android.view.ViewStub;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.adapter.NewStandardAdapter;
 import com.gs.buluo.store.adapter.StandardValueAdapter;
@@ -20,6 +21,7 @@ import com.gs.buluo.store.bean.StandardLevel;
 import com.gs.buluo.store.eventbus.StandardRemoveEvent;
 import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.store.view.widget.panel.ChooseMainPanel;
 import com.gs.buluo.store.view.widget.panel.GroupSetStandardPanel;
 
 import org.greenrobot.eventbus.EventBus;
@@ -35,7 +37,7 @@ import butterknife.Bind;
 /**
  * Created by hjn on 2017/1/22.
  */
-public class CreateStandardActivity extends BaseActivity implements View.OnClickListener {
+public class CreateStandardActivity extends BaseActivity implements View.OnClickListener, ChooseMainPanel.OnChooseFinished {
     @Bind(R.id.standard_list)
     ListView listView;
     private NewStandardAdapter standardListAdapter;
@@ -143,7 +145,7 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
                     ToastUtils.ToastMessage(getCtx(), "商品规格标题不能为空");
                     return;
                 }
-                if (etName.length() == 0 || (etValue2 != null && etName2.length() == 0)) {
+                if (etName.length() == 0 || (value2List.size()!=0 && etName2.length() == 0)) {
                     ToastUtils.ToastMessage(getCtx(), "商品规格名称不能为空");
                     return;
                 }
@@ -157,7 +159,8 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
                         return;
                     }
                 }
-                setStandardResult();
+                showMainStandardPanel();
+//                setStandardResult();
                 break;
             case R.id.goods_create_standard_delete:
                 removeFirstLevel();
@@ -176,6 +179,11 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
                 finish();
                 break;
         }
+    }
+
+    private void showMainStandardPanel() {
+        ChooseMainPanel panel = new ChooseMainPanel(this,standardList,this);
+        panel.show();
     }
 
     private void removeFirstLevel() {
@@ -242,7 +250,7 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
         CommonUtils.setListViewHeightBasedOnChildren(listView);
     }
 
-    private void setStandardResult() {
+    private void setStandardResult(String result) {
         GoodsStandardMeta standardMeta = new GoodsStandardMeta();
         standardMeta.title = etTitle.getText().toString().trim();
         setMetaDescription(standardMeta);
@@ -263,6 +271,7 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
         Bundle bundle = new Bundle();
         bundle.putParcelable("data", standardMeta);
         bundle.putSerializable("map", serMap);
+        bundle.putString(Constant.ForIntent.KEY,result);
         Intent intent = new Intent();
         intent.putExtras(bundle);
         setResult(RESULT_OK, intent);
@@ -346,5 +355,10 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onFinished(String result) {
+        setStandardResult(result);
     }
 }

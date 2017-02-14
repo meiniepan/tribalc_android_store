@@ -74,6 +74,7 @@ public class Constant {
         public static final String GOODS_CATEGORY = "goods_category";
         public static final String GOODS_STANDARD = "goods_standard";
         public static final String STATUS = "status";
+        public static final String KEY = "key";
     }
 
 }

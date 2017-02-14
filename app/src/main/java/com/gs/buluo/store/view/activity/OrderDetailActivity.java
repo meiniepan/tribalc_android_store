@@ -29,7 +29,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.Collections;
 import java.util.Date;
 
 import butterknife.Bind;
@@ -192,10 +191,10 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void updateSuccess() {
-        EventBus.getDefault().post(new PaymentEvent());
-        ToastUtils.ToastMessage(this, R.string.update_success);
-        finish();
+    public void updateSuccess(OrderBean data) {
+        bean =data;
+        initView();
+        initData(data);
     }
 
     @Override

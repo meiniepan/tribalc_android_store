@@ -84,18 +84,18 @@ public class OrderPresenter extends BasePresenter<IOrderView> {
     }
 
     public void updateOrderStatus(String orderId, String num, String way, String status) {
-        model.updateOrder(TribeApplication.getInstance().getUserInfo().getId(), new LogisticsRequestBody(num, way, status), orderId, new Callback<BaseResponse>() {
+        model.updateOrder(TribeApplication.getInstance().getUserInfo().getId(), new LogisticsRequestBody(num, way, status), orderId, new Callback<BaseResponse<OrderBean>>() {
             @Override
-            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+            public void onResponse(Call<BaseResponse<OrderBean>> call, Response<BaseResponse<OrderBean>> response) {
                 if (response.body() != null && response.body().code == 200) {
-                    mView.updateSuccess();
+                    mView.updateSuccess(response.body().data);
                 } else {
                     mView.showError(R.string.update_fail);
                 }
             }
 
             @Override
-            public void onFailure(Call<BaseResponse> call, Throwable t) {
+            public void onFailure(Call<BaseResponse<OrderBean>> call, Throwable t) {
                 mView.showError(R.string.connect_fail);
             }
         });
