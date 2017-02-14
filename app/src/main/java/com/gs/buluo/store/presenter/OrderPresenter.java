@@ -34,13 +34,13 @@ public class OrderPresenter extends BasePresenter<IOrderView> {
                     nextSkip = response.body().data.nextSkip;
                     if (isAttach())mView.getOrderInfoSuccess(response.body().data);
                 } else {
-                    mView.showError(R.string.connect_fail);
+                    if (isAttach())mView.showError(R.string.connect_fail);
                 }
             }
 
             @Override
             public void onFailure(Call<OrderResponse> call, Throwable t) {
-                mView.showError(R.string.connect_fail);
+                if (isAttach())mView.showError(R.string.connect_fail);
             }
         });
     }
@@ -70,15 +70,15 @@ public class OrderPresenter extends BasePresenter<IOrderView> {
             @Override
             public void onResponse(Call<OrderResponse> call, Response<OrderResponse> response) {
                 if (response.body() != null && response.body().code == 200) {
-                    mView.getOrderInfoSuccess(response.body().data);
+                    if (isAttach()) mView.getOrderInfoSuccess(response.body().data);
                 } else {
-                    mView.showError(R.string.connect_fail);
+                    if (isAttach())mView.showError(R.string.connect_fail);
                 }
             }
 
             @Override
             public void onFailure(Call<OrderResponse> call, Throwable t) {
-                mView.showError(R.string.connect_fail);
+                if (isAttach())mView.showError(R.string.connect_fail);
             }
         });
     }
@@ -88,15 +88,15 @@ public class OrderPresenter extends BasePresenter<IOrderView> {
             @Override
             public void onResponse(Call<BaseResponse<OrderBean>> call, Response<BaseResponse<OrderBean>> response) {
                 if (response.body() != null && response.body().code == 200) {
-                    mView.updateSuccess(response.body().data);
+                    if (isAttach())mView.updateSuccess(response.body().data);
                 } else {
-                    mView.showError(R.string.update_fail);
+                    if (isAttach())mView.showError(R.string.update_fail);
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse<OrderBean>> call, Throwable t) {
-                mView.showError(R.string.connect_fail);
+                if (isAttach())mView.showError(R.string.connect_fail);
             }
         });
     }

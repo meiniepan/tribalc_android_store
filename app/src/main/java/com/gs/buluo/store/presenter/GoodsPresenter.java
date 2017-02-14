@@ -43,7 +43,7 @@ public class GoodsPresenter extends BasePresenter<IGoodsView> {
             @Override
             public void onResponse(Call<BaseResponse<GoodList>> call, Response<BaseResponse<GoodList>> response) {
                 if (response.code() == 200) {
-                    mView.getGoodsInfo(response.body().data);
+                    if (isAttach())mView.getGoodsInfo(response.body().data);
                 }
             }
 

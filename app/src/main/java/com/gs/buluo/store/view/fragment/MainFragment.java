@@ -8,8 +8,6 @@ import android.widget.TextView;
 
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.presenter.BasePresenter;
-import com.gs.buluo.store.presenter.MainPresenter;
 import com.gs.buluo.store.utils.DensityUtils;
 import com.gs.buluo.store.utils.GlideBannerLoader;
 import com.gs.buluo.store.view.activity.ServeActivity;
@@ -73,11 +71,6 @@ public class MainFragment extends BaseFragment implements IMainView, View.OnClic
     }
 
     @Override
-    protected BasePresenter getPresenter() {
-        return new MainPresenter();
-    }
-
-    @Override
     public void onStop() {
         super.onStop();
     }
@@ -111,12 +104,12 @@ public class MainFragment extends BaseFragment implements IMainView, View.OnClic
                 break;
             case R.id.fun:
                 intent.setClass(getActivity(), ServeActivity.class);
-                intent.putExtra(Constant.TYPE, Constant.ENTERTAINMENT);
+                intent.putExtra(Constant.TYPE, Constant.ENTERTAINMENT_ALL);
                 startActivity(intent);
                 break;
             case R.id.fun_area:
                 intent.setClass(getActivity(), ServeActivity.class);
-                intent.putExtra(Constant.TYPE, Constant.ENTERTAINMENT);
+                intent.putExtra(Constant.TYPE, Constant.ENTERTAINMENT_ALL);
                 startActivity(intent);
                 break;
         }

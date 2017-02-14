@@ -27,7 +27,6 @@ import com.gs.buluo.store.model.MainModel;
 import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.store.presenter.BasePresenter;
-import com.gs.buluo.store.presenter.MinePresenter;
 import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.activity.Authentication1Activity;
@@ -126,10 +125,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         setLoginState(true);
     }
 
-    @Override
-    protected BasePresenter getPresenter() {
-        return new MinePresenter();
-    }
 
     @Override
     public void onClick(View view) {

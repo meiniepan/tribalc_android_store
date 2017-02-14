@@ -43,13 +43,13 @@ public class AddressPresenter extends BasePresenter<IAddressView> {
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.body().code == 204) {
                     new AddressInfoDao().deleteAddress(entity);
-                    mView.deleteSuccessInfo(entity);
+                    if (isAttach())mView.deleteSuccessInfo(entity);
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
-                mView.showError(R.string.connect_fail);
+                if (isAttach())mView.showError(R.string.connect_fail);
             }
         });
     }
@@ -59,12 +59,12 @@ public class AddressPresenter extends BasePresenter<IAddressView> {
         addressModel.updateDefaultAddress(TribeApplication.getInstance().getUserInfo().getId(), entity.getId(), new TribeCallback<IBaseResponse>() {
             @Override
             public void onSuccess(Response<BaseResponse<IBaseResponse>> response) {
-                mView.updateDefaultAddressSuccess(entity);
+                if (isAttach())mView.updateDefaultAddressSuccess(entity);
             }
 
             @Override
             public void onFail(int responseCode, BaseResponse<IBaseResponse> body) {
-                mView.showError(R.string.connect_fail);
+                if (isAttach())mView.showError(R.string.connect_fail);
             }
         });
     }

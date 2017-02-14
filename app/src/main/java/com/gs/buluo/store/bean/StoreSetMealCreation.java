@@ -10,6 +10,7 @@ public class StoreSetMealCreation {
     public String id;
     public String name ;
     public List<String> pictures;
+    public String mainPicture;
     public String topics;
     public String recommendedReason;
     public String personExpense;

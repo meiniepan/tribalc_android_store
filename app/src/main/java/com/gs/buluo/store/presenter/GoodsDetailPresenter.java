@@ -29,13 +29,13 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodDetialView> {
             @Override
             public void onResponse(Call<BaseResponse<ListGoodsDetail>> call, Response<BaseResponse<ListGoodsDetail>> response) {
                 if (response.body() != null && response.body().code == 200) {
-                    mView.getDetailSuccess(response.body().data);
+                    if (isAttach()) mView.getDetailSuccess(response.body().data);
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse<ListGoodsDetail>> call, Throwable t) {
-                mView.showError(R.string.connect_fail);
+                if (isAttach())mView.showError(R.string.connect_fail);
             }
         });
     }
@@ -45,13 +45,13 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodDetialView> {
             @Override
             public void onResponse(Call<BaseResponse<GoodsStandard>> call, Response<BaseResponse<GoodsStandard>> response) {
                 if (response.body() != null && response.body().code == 200) {
-                    mView.getStandardSuccess(response.body().data);
+                    if (isAttach())mView.getStandardSuccess(response.body().data);
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse<GoodsStandard>> call, Throwable t) {
-                mView.showError(R.string.connect_fail);
+                if (isAttach())mView.showError(R.string.connect_fail);
             }
         });
     }
@@ -64,7 +64,7 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodDetialView> {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.body() != null && response.body().code == ResponseCode.UPDATE_SUCCESS) {
-                    mView.addSuccess();
+                    if (isAttach())mView.addSuccess();
                 } else {
                     mView.showError(R.string.connect_fail);
                 }

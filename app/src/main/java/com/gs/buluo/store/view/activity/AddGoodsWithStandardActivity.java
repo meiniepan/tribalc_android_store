@@ -79,7 +79,6 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     List<String> picList;
     private GoodsStandardDescriptions descriptions;
     private int pos = 0;
-    private View llPrimay;
     private View llSecond;
     private View addPic;
     private View delPic;
@@ -126,7 +125,6 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         delPic = findView(R.id.goods_create_del_pic);
         delPic.setOnClickListener(this);
         findView(R.id.back).setOnClickListener(this);
-        llPrimay = findView(R.id.ll_primary_standard);
         llSecond = findView(R.id.ll_second_standard);
         findView(goods_create_next).setOnClickListener(this);
         banner.setOnPageChangeListener(this);
@@ -197,8 +195,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
 
     private void setStandard(GoodsStandardDescriptions descriptions) {
         if (descriptions == null) {        //没规格
-            llPrimay.setVisibility(View.GONE);
-            llSecond.setVisibility(View.GONE);
+            findView(R.id.ll_standard).setVisibility(View.GONE);
         } else {
             this.descriptions = descriptions;
             tvKey1.setText(descriptions.primary.label);

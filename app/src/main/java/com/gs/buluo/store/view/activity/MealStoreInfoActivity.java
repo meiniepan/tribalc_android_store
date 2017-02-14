@@ -247,6 +247,9 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         } else if (data != null && requestCode == 201 && resultCode == 202) {   //environment
             ArrayList<String> enPictures = data.getStringArrayListExtra(Constant.ENVIRONMENT);
             storeBean.pictures = enPictures;
+            if (enPictures!=null&&enPictures.size()>0){
+                mealCreation.mainPicture = enPictures.get(0);
+            }
             tvEnvi.setText(enPictures.size() + "张");
         } else if (data != null &&requestCode == 202 && resultCode == RESULT_OK) {
             String area = data.getStringExtra(Constant.AREA);

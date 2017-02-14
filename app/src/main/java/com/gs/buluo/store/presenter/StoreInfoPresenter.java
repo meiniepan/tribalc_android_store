@@ -33,12 +33,12 @@ public class StoreInfoPresenter extends BasePresenter<IInfoView> {
                     @Override
                     public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
                         saveStore(storeBean);
-                        mView.updateSuccess();
+                        if (isAttach())mView.updateSuccess();
                     }
 
                     @Override
                     public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
-                        mView.showError(R.string.connect_fail);
+                        if (isAttach())mView.showError(R.string.connect_fail);
                     }
                 });
     }
@@ -61,7 +61,7 @@ public class StoreInfoPresenter extends BasePresenter<IInfoView> {
 
                     @Override
                     public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
-                        mView.showError(R.string.update_fail);
+                        if (isAttach())mView.showError(R.string.update_fail);
                     }
                 });
     }
@@ -70,12 +70,12 @@ public class StoreInfoPresenter extends BasePresenter<IInfoView> {
         new MainModel().getDetailStoreInfo(TribeApplication.getInstance().getUserInfo().getId(), new TribeCallback<StoreMeta>() {
             @Override
             public void onSuccess(Response<BaseResponse<StoreMeta>> response) {
-                mView.setData(response.body().data);
+                if (isAttach())mView.setData(response.body().data);
             }
 
             @Override
             public void onFail(int responseCode, BaseResponse<StoreMeta> body) {
-                mView.showError(R.string.connect_fail);
+                if (isAttach())mView.showError(R.string.connect_fail);
             }
         });
 

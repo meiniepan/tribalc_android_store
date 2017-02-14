@@ -35,7 +35,6 @@ import com.gs.buluo.store.view.fragment.MainFragment;
 import com.gs.buluo.store.view.fragment.MineFragment;
 import com.gs.buluo.store.view.fragment.ManagerFragment;
 import com.gs.buluo.store.view.impl.ILoginView;
-import com.gs.buluo.store.view.widget.panel.AroundPanel;
 
 import java.util.ArrayList;
 import java.util.List;

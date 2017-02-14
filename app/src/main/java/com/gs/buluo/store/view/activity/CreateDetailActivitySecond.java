@@ -56,10 +56,12 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
 
     private ArrayList<FacilityBean> facilityList;
     private StoreMeta storeBean;
+    private StoreSetMealCreation bean;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
         storeBean = getIntent().getParcelableExtra(Constant.ForIntent.STORE_BEAN);
+        bean = new StoreSetMealCreation();
         findViewById(R.id.create_finish).setOnClickListener(this);
         findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.create_logo_area).setOnClickListener(this);
@@ -155,8 +157,6 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
                         ToastUtils.ToastMessage(CreateDetailActivitySecond.this, R.string.connect_fail);
                     }
                 });
-
-        StoreSetMealCreation bean = new StoreSetMealCreation();
         bean.reservable = sReserve.isChecked();
         bean.personExpense = etFee.getText().toString().trim();
         bean.name = storeBean.name;
@@ -196,6 +196,7 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
         } else if (data != null && requestCode == 201 && resultCode == 202) {   //environment
             ArrayList<String> enPictures = data.getStringArrayListExtra(Constant.ENVIRONMENT);
             storeBean.pictures = enPictures;
+            if (enPictures!=null&&enPictures.size()>0) bean.mainPicture = enPictures.get(0);
             tvEnvi.setText(enPictures.size() + "张");
         }
     }

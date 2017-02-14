@@ -32,13 +32,13 @@ public class StoreGoodsPresenter extends BasePresenter<IStoreGoodsView> {
                         sortSkip = data.nextSkip;
                         mView.getGoodsSuccess(data,published);
                         if (!data.hasMore) {
-                            mView.showNoMore(published);
+                            if (isAttach()) mView.showNoMore(published);
                         }
                     }
 
                     @Override
                     public void onFail(int responseCode, BaseResponse<StoreGoodsList> body) {
-                        mView.showError(R.string.connect_fail);
+                        if (isAttach())mView.showError(R.string.connect_fail);
                     }
                 });
     }
@@ -52,13 +52,13 @@ public class StoreGoodsPresenter extends BasePresenter<IStoreGoodsView> {
                         mView.getGoodsSuccess(data,published);
                         sortSkip = data.nextSkip;
                         if (!data.hasMore) {
-                            mView.showNoMore(published);
+                            if (isAttach())mView.showNoMore(published);
                         }
                     }
 
                     @Override
                     public void onFail(int responseCode, BaseResponse<StoreGoodsList> body) {
-                        mView.showError(R.string.connect_fail);
+                        if (isAttach())mView.showError(R.string.connect_fail);
                     }
                 });
     }

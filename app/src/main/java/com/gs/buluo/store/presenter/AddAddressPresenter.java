@@ -32,13 +32,13 @@ public class AddAddressPresenter extends BasePresenter<IAddAddressView> {
                     addressEntity.setArea(addressEntity.getProvice(), addressEntity.getCity(), addressEntity.getDistrict());
                     addressEntity.setUid(TribeApplication.getInstance().getUserInfo().getId());
                     new AddressInfoDao().saveBindingId(addressEntity);
-                    mView.addAddressSuccess(addressEntity);
+                    if (isAttach())mView.addAddressSuccess(addressEntity);
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse<UserAddressEntity>> call, Throwable t) {
-                mView.showError(R.string.connect_fail);
+                if (isAttach())mView.showError(R.string.connect_fail);
             }
         });
     }
@@ -50,13 +50,13 @@ public class AddAddressPresenter extends BasePresenter<IAddAddressView> {
                 if (response.body().code == 200) {
                     entity.setArea(entity.getProvice(), entity.getCity(), entity.getDistrict());
                     new AddressInfoDao().update(entity);
-                    mView.updateAddressSuccess(entity);
+                    if (isAttach())mView.updateAddressSuccess(entity);
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable t) {
-                mView.showError(R.string.connect_fail);
+                if (isAttach())mView.showError(R.string.connect_fail);
             }
         });
     }

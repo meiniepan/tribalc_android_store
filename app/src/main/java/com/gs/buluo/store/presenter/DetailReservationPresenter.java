@@ -28,9 +28,9 @@ public class DetailReservationPresenter extends BasePresenter<IDetailReserveView
             public void onResponse(Call<BaseResponse<DetailReservation>> call, Response<BaseResponse<DetailReservation>> response) {
                 if (mView == null) return;
                 if (response.body() != null && response.body().code == 200) {
-                    mView.getDetailSuccess(response.body().data);
+                    if (isAttach())mView.getDetailSuccess(response.body().data);
                 } else {
-                    mView.showError(R.string.connect_fail);
+                    if (isAttach())mView.showError(R.string.connect_fail);
                 }
 
             }
@@ -48,9 +48,9 @@ public class DetailReservationPresenter extends BasePresenter<IDetailReserveView
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 if (response.body() != null && response.body().code == 200) {
-                    mView.updateSuccess();
+                    if (isAttach())mView.updateSuccess();
                 } else {
-                    mView.updateFailure();
+                    if (isAttach())mView.updateFailure();
                 }
             }
 
