@@ -79,7 +79,7 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
         map.put("valet_parking", R.mipmap.valet_parking);
         map.put("vip_rights", R.mipmap.vip_rights);
         map.put("weekend_brunch", R.mipmap.weekend_brunch);
-        map.put("wi-fi", R.mipmap.wi_fi);
+        map.put("Wi-Fi", R.mipmap.wi_fi);
     }
 
     private void initContentView() {
@@ -189,7 +189,7 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
 
     public int getFacilityText(String facility) {
         switch (facility) {
-            case "wi-fi":
+            case "Wi-Fi":
                 return R.string.wi_fi;
             case "baby_chair":
                 return R.string.baby_chair;

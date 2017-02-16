@@ -1,9 +1,11 @@
 package com.gs.buluo.store.view.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
@@ -11,10 +13,13 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
@@ -24,13 +29,17 @@ import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
+import com.gs.buluo.store.bean.CoordinateBean;
+import com.gs.buluo.store.bean.ListStore;
 import com.gs.buluo.store.presenter.BasePresenter;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 
@@ -42,18 +51,20 @@ public class MapActivity extends BaseActivity implements OnGetGeoCoderResultList
     BaiduMap mBaiduMap;
     LocationClient mLocClient;
     GeoCoder mSearch = null;
-    public MyLocationListenner myListener = new MyLocationListenner();
+    public MyLocationListener myListener = new MyLocationListener();
     boolean isFirstLoc = true; // 是否首次定位
 
     @Bind(R.id.food_map_latitude)
     EditText mLatitude;
     @Bind(R.id.food_map_longitude)
     EditText mLongitude;
+    private Marker mMarker;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
 //        MapView.setMapCustomEnable(true);
 //        setMapCustomFile(this);
+        ArrayList<CoordinateBean> posList = getIntent().getParcelableArrayListExtra(Constant.ForIntent.COORDINATE);
         mMapView = (MapView) findViewById(R.id.map_food);
         // 地图初始化
         mBaiduMap = mMapView.getMap();
@@ -70,6 +81,9 @@ public class MapActivity extends BaseActivity implements OnGetGeoCoderResultList
         mLocClient.start();
         mSearch = GeoCoder.newInstance();
         mSearch.setOnGetGeoCodeResultListener(this);
+        if (posList != null && posList.size() > 0) {
+            initOverlay(posList);
+        }
 
         findViewById(R.id.food_map_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +101,75 @@ public class MapActivity extends BaseActivity implements OnGetGeoCoderResultList
 //            mSearch.geocode(new GeoCodeOption().city(
 //                    editCity.getText().toString()).address(editGeoCodeKey.getText().toString()));
         });
+
+        mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
+            private InfoWindow mInfoWindow;
+
+            @Override
+            public boolean onMarkerClick(final Marker marker) {
+                View view = View.inflate(getCtx(), R.layout.map_popup, null);
+                TextView name = (TextView) view.findViewById(R.id.map_name);
+                TextView address = (TextView) view.findViewById(R.id.map_address);
+                InfoWindow.OnInfoWindowClickListener listener = null;
+                Bundle info = marker.getExtraInfo();
+                name.setText(info.getString("name"));
+                address.setText(info.getString("address"));
+                final String id = info.getString("sid");
+                if (id != null) {
+                    listener = new InfoWindow.OnInfoWindowClickListener() {
+                        public void onInfoWindowClick() {
+                            Intent intent = new Intent(getCtx(), ServeDetailActivity.class);
+                            intent.putExtra(Constant.SERVE_ID,id);
+                            startActivity(intent);
+                        }
+                    };
+                }
+                LatLng ll = marker.getPosition();
+                mInfoWindow = new InfoWindow(BitmapDescriptorFactory.fromView(view), ll, -47, listener);
+                mBaiduMap.showInfoWindow(mInfoWindow);
+                return false;
+            }
+        });
+    }
+
+    private void initOverlay(ArrayList<CoordinateBean> posList) {
+        LatLng llA;
+        for (CoordinateBean coordinateBean : posList) {
+            llA = new LatLng(coordinateBean.latitude, coordinateBean.longitude);
+//            switch (coordinateBean.store.)
+            ListStore store = coordinateBean.store;
+            if (store == null) continue;
+            BitmapDescriptor bdA;
+            switch (store.category) {
+                case ENTERTAINMENT:
+                    bdA = BitmapDescriptorFactory.fromResource(R.mipmap.map_fun);
+                    break;
+                case HAIRDRESSING:
+                    bdA = BitmapDescriptorFactory.fromResource(R.mipmap.map_dress);
+                    break;
+                case FITNESS:
+                    bdA = BitmapDescriptorFactory.fromResource(R.mipmap.map_fitness);
+                    break;
+                case KEEPHEALTHY:
+                    bdA = BitmapDescriptorFactory.fromResource(R.mipmap.map_health);
+                    break;
+                default:
+                    bdA = BitmapDescriptorFactory.fromResource(R.mipmap.map_fun);
+                    break;
+            }
+            MarkerOptions ooA = new MarkerOptions().position(llA).icon(bdA)
+                    .zIndex(9).draggable(true);
+            // 掉下动画
+            ooA.animateType(MarkerOptions.MarkerAnimateType.drop);
+            mMarker = (Marker) (mBaiduMap.addOverlay(ooA));
+
+            Bundle bundle = new Bundle();
+            bundle.putString("name", store.name);
+            bundle.putString("address", store.district + store.address);
+            bundle.putString("sid", coordinateBean.serveId);
+            mMarker.setExtraInfo(bundle);
+        }
+
     }
 
     @Override
@@ -195,7 +278,7 @@ public class MapActivity extends BaseActivity implements OnGetGeoCoderResultList
     /**
      * 定位SDK监听函数
      */
-    public class MyLocationListenner implements BDLocationListener {
+    public class MyLocationListener implements BDLocationListener {
 
         @Override
         public void onReceiveLocation(BDLocation location) {

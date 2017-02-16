@@ -98,7 +98,6 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
         firstAddPic = findViewById(R.id.goods_create_add_first);
         firstAddPic.setOnClickListener(this);
         findViewById(R.id.ll_goods_create_standard).setOnClickListener(this);
-        findViewById(R.id.back).setOnClickListener(this);
         etTitleDetail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -178,6 +177,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
                     firstAddPic.setVisibility(View.VISIBLE);
                     addPic.setVisibility(View.GONE);
                     delPic.setVisibility(View.GONE);
+                    checkBox.setVisibility(View.GONE);
                     return;
                 }
                 picList.remove(pos);
@@ -191,9 +191,6 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
                     intent.putExtras(bundle);
                 }
                 startActivityForResult(intent, 201);
-                break;
-            case R.id.back:
-                finish();
                 break;
             case R.id.goods_create_next:
                 goNext();
@@ -211,7 +208,8 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
                 standardMeta = bundle.getParcelable("data");
                 standardMeta.priceAndRepertoryMap = serMap.getMap();
                 tvStandard.setText(standardMeta.title);
-               findView(R.id.goods_price_area).setVisibility(View.GONE);
+
+                findView(R.id.goods_price_area).setVisibility(View.GONE);
             }
         }
     }
@@ -274,7 +272,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
                 if (picList.size() == 1) {
                     firstAddPic.setVisibility(View.GONE);
                     addPic.setVisibility(View.VISIBLE);
-                    delPic.setVisibility(View.VISIBLE);
+                    checkBox.setVisibility(View.VISIBLE);
                 }
             }
 

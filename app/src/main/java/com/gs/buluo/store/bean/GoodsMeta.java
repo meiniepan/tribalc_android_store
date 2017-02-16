@@ -29,6 +29,7 @@ public class GoodsMeta implements Parcelable {
     public String dispatchPlace;
     public String expressType;
     public float expressFee;
+    public String saleQuantity;
     public ArrayList<CategoryBean> cookingStyle;
     public List<String> standardKeys;           ////如果standardId指向谋个规格），这里描述了各级（依次）规格的Key信息 "红色", "S码"
     public GoodsPriceAndRepertory priceAndRepertory;  //创建新商品时，如果新建规格组则被忽略，而采用规格组信息中的数据填充商品价格和库存
@@ -65,6 +66,7 @@ public class GoodsMeta implements Parcelable {
         dest.writeString(this.dispatchPlace);
         dest.writeString(this.expressType);
         dest.writeFloat(this.expressFee);
+        dest.writeString(this.saleQuantity);
         dest.writeList(this.cookingStyle);
         dest.writeStringList(this.standardKeys);
         dest.writeSerializable(this.priceAndRepertory);
@@ -93,6 +95,7 @@ public class GoodsMeta implements Parcelable {
         this.dispatchPlace = in.readString();
         this.expressType = in.readString();
         this.expressFee = in.readFloat();
+        this.saleQuantity = in.readString();
         this.cookingStyle = new ArrayList<CategoryBean>();
         in.readList(this.cookingStyle, CategoryBean.class.getClassLoader());
         this.standardKeys = in.createStringArrayList();

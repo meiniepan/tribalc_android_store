@@ -69,7 +69,6 @@ public class RepastBeanAdapter extends RecyclerAdapter<CategoryBean> {
                 entity.isSelect=false;
             }else {
                 if (limit!=0&&count>=limit){
-                    ToastUtils.ToastMessage(getContext(),R.string.tags_max);
                     return;
                 }
                 count++;

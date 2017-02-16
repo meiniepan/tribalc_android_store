@@ -85,18 +85,18 @@ public class StoreInfoPresenter extends BasePresenter<IInfoView> {
             new MainModel().getSetMeal(new Callback<StoreSetMealResponse>() {
             @Override
             public void onResponse(Call<StoreSetMealResponse> call, Response<StoreSetMealResponse> response) {
-                if (response != null && response.body() != null && response.body().code == 200) {
+                if (response != null && response.body() != null && response.body().code == 200 &&isAttach()) {
                     mView.setMealData(response.body().data.get(0));
-                } else if (response != null && response.body() != null && response.body().code == 200 &&response.body().data.size() == 0){
+                } else if (response != null && response.body() != null && response.body().code == 200 &&response.body().data.size() == 0 &&isAttach()){
                     mView.showError(R.string.get_fail);
                 }else {
-                    mView.showError(R.string.connect_fail);
+                    if (isAttach())mView.showError(R.string.connect_fail);
                 }
             }
 
             @Override
             public void onFailure(Call<StoreSetMealResponse> call, Throwable t) {
-                mView.showError(R.string.connect_fail);
+                if (isAttach())mView.showError(R.string.connect_fail);
             }
         });
     }

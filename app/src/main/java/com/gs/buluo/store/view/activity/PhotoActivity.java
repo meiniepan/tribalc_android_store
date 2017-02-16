@@ -61,6 +61,7 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
                 Glide.with(this).load(GlideUtils.formatImageUrl(logo)).centerCrop().into(image);
         } else {
             oldPictures = getIntent().getStringArrayListExtra(Constant.ENVIRONMENT);
+            image.setImageResource(R.mipmap.default_env);
             if (oldPictures != null) {
                 image.setVisibility(View.GONE);
                 adapter.addAll(oldPictures);

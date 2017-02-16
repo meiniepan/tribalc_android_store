@@ -60,25 +60,44 @@
                         android:id="@+id/goods_create_del_pic"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@mipmap/delete_garbage"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"/>
-                    <ImageView
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
                         android:visibility="gone"
+                        android:layout_alignParentBottom="true"
+                        android:src="@mipmap/delete_garbage" />
+
+                    <ImageView
                         android:id="@+id/goods_create_add_first"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@mipmap/add_goods_pic"
-                        android:layout_centerInParent="true"/>
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/add_goods_pic" />
+
+                    <CheckBox
+                        android:id="@+id/goods_create_main"
+                        android:text="设为主图"
+                        android:textColor="@color/custom_yellow"
+                        android:visibility="gone"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginTop="8dp"
+                        android:drawableLeft="@drawable/check_selector"
+                        android:drawablePadding="4dp"
+                        android:button="@null"/>
+
                     <ImageView
                         android:id="@+id/goods_create_add_pic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/add_goods_pic"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="15dp"
-                        android:layout_marginStart="15dp"/>
+                        android:layout_marginStart="15dp"
+                        android:src="@mipmap/add_goods_pic"
+                        android:visibility="gone" />
                 </RelativeLayout>
             </RelativeLayout>
             <LinearLayout

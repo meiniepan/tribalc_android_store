@@ -4,13 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
+import com.gs.buluo.store.bean.BannerPicture;
 import com.gs.buluo.store.bean.GoodsCategory;
 import com.gs.buluo.store.bean.GoodsMeta;
 import com.gs.buluo.store.bean.GoodsPriceAndRepertory;
@@ -74,12 +78,16 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     EditText tvValue1;
     @Bind(R.id.goods_standard_value2)
     EditText tvValue2;
+    @Bind(R.id.goods_create_main)
+    CheckBox checkBox;
 
     GoodsMeta meta;
-    List<String> picList;
+    List<BannerPicture> picList;
     private GoodsStandardDescriptions descriptions;
     private int pos = 0;
     private View llSecond;
+
+    private View firstAddPic;
     private View addPic;
     private View delPic;
     private View addFirst;
@@ -124,9 +132,10 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         addPic.setOnClickListener(this);
         delPic = findView(R.id.goods_create_del_pic);
         delPic.setOnClickListener(this);
-        findView(R.id.back).setOnClickListener(this);
         llSecond = findView(R.id.ll_second_standard);
         findView(goods_create_next).setOnClickListener(this);
+        firstAddPic = findViewById(R.id.goods_create_add_first);
+        firstAddPic.setOnClickListener(this);
         banner.setOnPageChangeListener(this);
         banner.setImageLoader(new GlideBannerLoader());
         banner.isAutoPlay(false);
@@ -170,14 +179,28 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
                 }
             }
         });
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    picList.get(pos).isChecked = true;
+                    for (BannerPicture picture : picList) {
+                        if (picList.indexOf(picture) != pos) {
+                            picture.isChecked = false;
+                        }
+                    }
+                }
+            }
+        });
     }
 
     private void setData() {
         meta.isEdit = true;
-        picList = meta.pictures;
-        if (picList.size()>0)pos=1;
-        banner.setImages(meta.pictures);
-        banner.start();
+        if (meta.pictures!=null &&meta.pictures.size()>0){
+            setBannerStyle();
+        }
+
         etTitleDetail.setText(meta.title);
         etTitle.setText(meta.name);
         etDesc.setText(meta.note);
@@ -191,6 +214,23 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
             tvValue1.setText(meta.standardKeys.get(0));
             if (meta.standardKeys.size() > 1) tvValue2.setText(meta.standardKeys.get(1));
         }
+    }
+
+    private void setBannerStyle() {
+        for (String url :meta.pictures){
+            BannerPicture bannerPicture = new BannerPicture(url);
+            picList.add(bannerPicture);
+            if (TextUtils.equals(url,meta.mainPicture)){
+                bannerPicture.isChecked =true;
+            }
+        }
+        banner.setImages(meta.pictures);
+        banner.start();
+
+        firstAddPic.setVisibility(View.GONE);
+        addPic.setVisibility(View.VISIBLE);
+        delPic.setVisibility(View.VISIBLE);
+        checkBox.setVisibility(View.VISIBLE);
     }
 
     private void setStandard(GoodsStandardDescriptions descriptions) {
@@ -225,22 +265,20 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
                 break;
             case R.id.goods_create_del_pic:
                 if (picList.size() == 0 || pos > picList.size()) return;
-                if (picList.size()==1){
+                if (picList.size() == 1) {
                     picList.remove(0);
                     banner.update(picList);
                     banner.setVisibility(View.GONE);
-                    addFirst.setVisibility(View.VISIBLE);
+                    firstAddPic.setVisibility(View.VISIBLE);
                     addPic.setVisibility(View.GONE);
                     delPic.setVisibility(View.GONE);
+                    checkBox.setVisibility(View.GONE);
                     return;
                 }
-                picList.remove(pos-1);
+                picList.remove(pos);
                 banner.setImages(picList);
                 banner.start();
-                pos = picList.size()-1;
-                break;
-            case R.id.back:
-                finish();
+                pos = picList.size() - 1;
                 break;
         }
     }
@@ -252,8 +290,16 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         }
         meta.name = etTitle.getText().toString().trim();
         meta.title = etTitleDetail.getText().toString().trim();
-        meta.pictures = picList;
-        if (picList != null && picList.size() != 0) meta.mainPicture = picList.get(0);
+
+        for (BannerPicture pic : picList) {
+            if (pic.isChecked) {
+                meta.mainPicture = pic.url;
+            }
+            meta.pictures.add(pic.url);
+        }
+        if (meta.mainPicture == null && picList.size() > 0)
+            meta.mainPicture = picList.get(0).toString();
+
         meta.brand = etBrand.getText().toString().trim();
         meta.originCountry = etSource.getText().toString().trim();
         meta.note = etDesc.getText().toString().trim();
@@ -277,14 +323,14 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
             @Override
             public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
                 banner.setVisibility(View.VISIBLE);
-                picList.add(data.objectKey);
-                Collections.reverse(picList);
+                picList.add(0, new BannerPicture(data.objectKey));
                 banner.setImages(picList);
                 banner.start();
                 if (picList.size()==1){
                     addFirst.setVisibility(View.GONE);
                     addPic.setVisibility(View.VISIBLE);
                     delPic.setVisibility(View.VISIBLE);
+                    checkBox.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -313,7 +359,8 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     @Override
     public void onPageSelected(int position) {
         if (position>picList.size())return;
-        pos = position;
+        pos = position - 1;
+        checkBox.setChecked(picList.get(position - 1).isChecked);
     }
 
     @Override

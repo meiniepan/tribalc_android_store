@@ -8,11 +8,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.baidu.mapapi.model.LatLng;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
+import com.gs.buluo.store.TribeApplication;
+import com.gs.buluo.store.bean.DetailStore;
 import com.gs.buluo.store.bean.DetailStoreSetMeal;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.model.ServeModel;
+import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.GlideBannerLoader;
 import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
@@ -44,9 +49,10 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
     private TextView tvTopic;
     private Banner banner;
     private String id;
-    private ImageView logo;
     private LinearLayout facilitiesGroup;
-    private HashMap<String, Integer> map = new HashMap<>();
+    private HashMap<String,Integer> map=new HashMap<>();
+    private LatLng des;
+    ImageView logo;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -57,7 +63,6 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
         initMap();
         initContentView();
     }
-
     private void initContentView() {
         banner = (Banner) findViewById(R.id.server_detail_banner);
         tvName = (TextView) findViewById(R.id.server_detail_name);
@@ -77,8 +82,6 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
         findViewById(R.id.service_phone_call).setOnClickListener(this);
         findViewById(R.id.service_location).setOnClickListener(this);
         findViewById(R.id.service_call_server).setOnClickListener(this);
-//        findViewById(R.id.service_booking_food).setOnClickListener(this);
-//        findViewById(R.id.service_booking_seat).setOnClickListener(this);
         findViewById(R.id.server_detail_back).setOnClickListener(this);
     }
 
@@ -101,21 +104,12 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
                 intent.setClass(mCtx, MapActivity.class);
                 startActivity(intent);
                 break;
-//            case R.id.service_booking_food:
-//                ToastUtils.ToastMessage(mCtx,R.string.no_function);
-//                break;
-//            case R.id.service_booking_seat:
-//                if (!checkUser(mCtx))return;
-//                intent.setClass(mCtx, BookingServeActivity.class);
-//                intent.putExtra(Constant.SERVE_ID, id);
-//                startActivity(intent);
-//                break;
             case R.id.server_detail_back:
                 finish();
                 break;
             case R.id.service_call_server:
                 intent.setAction(Intent.ACTION_DIAL);
-                Uri data1 = Uri.parse("tel:" + "123456789");
+                Uri data1 = Uri.parse("tel:" + getString(R.string.help_phone));
                 intent.setData(data1);
                 startActivity(intent);
                 break;
@@ -144,20 +138,24 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
         banner.setImages(data.pictures);
         banner.start();
         tvName.setText(data.name);
-        tvPhone.setText(data.detailStore.phone);
-        tvAddress.setText(data.detailStore.address==null? "": data.detailStore.city+data.detailStore.district+data.detailStore.address);
-        tvCollectNum.setText(data.detailStore.collectionNum + "");
-        tvMarkplace.setText(data.detailStore.markPlace);
+        DetailStore detailStore = data.detailStore;
+        tvPhone.setText(detailStore.phone);
+        tvAddress.setText(detailStore.address==null? "": detailStore.city+ detailStore.district+ detailStore.address);
+        tvCollectNum.setText(detailStore.collectionNum + "");
+        tvMarkplace.setText(detailStore.markPlace);
         tvPrice.setText(data.personExpense);
         tvReason.setText(data.recommendedReason);
-        tvBrand.setText(data.detailStore.brand);
-        String businessHours = data.detailStore.businessHours;
+        tvBrand.setText((detailStore.cookingStyle!=null&&detailStore.cookingStyle.size()!=0) ? detailStore.cookingStyle.get(0)+" | " :"" );
+        String businessHours = detailStore.businessHours;
         if (businessHours == null) tvTime.setVisibility(View.GONE);
-        else tvTime.setText("每天 " + (businessHours == null ? 0 : businessHours));
+        else tvTime.setText("每天 " + businessHours);
         tvTopic.setText(data.topics);
-        setFacilities(data.detailStore.facilities);
+        if (data.detailStore.coordinate!=null){
+            setDistance(data.detailStore.coordinate);
+        }
 
-        GlideUtils.loadImage(getCtx(),data.detailStore.logo, logo,true);
+        setFacilities(detailStore.facilities);
+        GlideUtils.loadImage(this,detailStore.logo, logo,true);
     }
 
     @Override
@@ -168,74 +166,41 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
 
 
     private void initMap() {
-        map.put("baby_chair", R.mipmap.baby_chair);
-        map.put("bar", R.mipmap.bar);
-        map.put("business_circle", R.mipmap.business_circle);
-        map.put("business_dinner", R.mipmap.business_dinner);
-        map.put("facilities_for_disabled", R.mipmap.facilities_for_disabled);
-        map.put("organic_food", R.mipmap.organic_food);
-        map.put("parking", R.mipmap.parking);
-        map.put("pet_ok", R.mipmap.pet_ok);
-        map.put("restaurants_of_hotel", R.mipmap.restaurants_of_hotel);
-        map.put("room", R.mipmap.room);
-        map.put("scene_seat", R.mipmap.scene_seat);
-        map.put("small_party", R.mipmap.small_party);
-        map.put("subway", R.mipmap.subway);
-        map.put("valet_parking", R.mipmap.valet_parking);
-        map.put("vip_rights", R.mipmap.vip_rights);
-        map.put("weekend_brunch", R.mipmap.weekend_brunch);
-        map.put("wi-fi", R.mipmap.wi_fi);
+        map.put(getString(R.string.baby_chair),R.mipmap.baby_chair);
+        map.put(getString(R.string.bar),R.mipmap.bar);
+        map.put(getString(R.string.business_circle),R.mipmap.business_circle);
+        map.put(getString(R.string.business_dinner),R.mipmap.business_dinner);
+        map.put(getString(R.string.facilities_for_disabled),R.mipmap.facilities_for_disabled);
+        map.put(getString(R.string.organic_food),R.mipmap.organic_food);
+        map.put(getString(R.string.parking),R.mipmap.parking);
+        map.put(getString(R.string.pet_ok),R.mipmap.pet_ok);
+        map.put(getString(R.string.restaurants_of_hotel),R.mipmap.restaurants_of_hotel);
+        map.put(getString(R.string.room),R.mipmap.room);
+        map.put(getString(R.string.scene_seat),R.mipmap.scene_seat);
+        map.put(getString(R.string.small_party),R.mipmap.small_party);
+        map.put(getString(R.string.subway),R.mipmap.subway);
+        map.put(getString(R.string.valet_parking),R.mipmap.valet_parking);
+        map.put(getString(R.string.vip_rights),R.mipmap.vip_rights);
+        map.put(getString(R.string.weekend_brunch),R.mipmap.weekend_brunch);
+        map.put(getString(R.string.wi_fi),R.mipmap.wi_fi);
     }
 
-    public void setFacilities(List<String> faclities) {
-        if (faclities == null) return;
-        for (String facility : faclities) {
-            View facilityView = View.inflate(this, R.layout.serve_detail_facility, null);
-            ImageView iv = (ImageView) facilityView.findViewById(R.id.facility_image);
-            TextView tv = (TextView) facilityView.findViewById(R.id.facility_text);
-            tv.setText(getFacilityText(facility));
-            iv.setImageResource(map.get(facility));
+    public void setFacilities(List<String> facilities) {
+        if (facilities==null)return;
+        for (String facility:facilities){
+            View facilityView=View.inflate(this,R.layout.serve_detail_facility,null);
+            ImageView iv= (ImageView) facilityView.findViewById(R.id.facility_image);
+            TextView  tv= (TextView) facilityView.findViewById(R.id.facility_text);
+            tv.setText(facility);
+            Integer resId = map.get(facility);
+            iv.setImageResource(resId);
             facilitiesGroup.addView(facilityView);
         }
     }
 
-    public int getFacilityText(String facility) {
-        switch (facility) {
-            case "wi-fi":
-                return R.string.wi_fi;
-            case "baby_chair":
-                return R.string.baby_chair;
-            case "bar":
-                return R.string.bar;
-            case "business_circle":
-                return R.string.business_circle;
-            case "business_dinner":
-                return R.string.business_dinner;
-            case "facilities_for_disabled":
-                return R.string.facilities_for_disabled;
-            case "organic_food":
-                return R.string.organic_food;
-            case "parking":
-                return R.string.parking;
-            case "pet_ok":
-                return R.string.pet_ok;
-            case "room":
-                return R.string.room;
-            case "restaurants_of_hotel":
-                return R.string.restaurants_of_hotel;
-            case "scene_seat":
-                return R.string.scene_seat;
-            case "small_party":
-                return R.string.small_party;
-            case "subway":
-                return R.string.subway;
-            case "valet_parking":
-                return R.string.valet_parking;
-            case "vip_rights":
-                return R.string.vip_rights;
-            case "weekend_brunch":
-                return R.string.weekend_brunch;
-        }
-        return 0;
+    public void setDistance(List<Double> distance) {
+        des = new LatLng(distance.get(1),distance.get(0));
+        LatLng myPos = TribeApplication.getInstance().getPosition();
+        tvDistance.setText(" | " + CommonUtils.getDistance(des,myPos));
     }
 }

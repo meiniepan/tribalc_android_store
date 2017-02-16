@@ -102,7 +102,6 @@ public class ReserveDetailActivity extends BaseActivity implements IDetailReserv
     private void setStatus(ListReservation entity) {
         if (entity.status == ListReservation.ReserveStatus.PROCESSING) {
             tvTitle.setText(R.string.reserve_processing);
-            tvFinish.setText(R.string.cancel_order);
         } else if (entity.status == ListReservation.ReserveStatus.SUCCEED) {
             tvTitle.setText(R.string.reserve_success);
             findView(R.id.order_detail_bottom).setVisibility(View.GONE);

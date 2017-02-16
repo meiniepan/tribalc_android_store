@@ -68,9 +68,10 @@
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginTop="8dp"
-                        android:src="@mipmap/delete_garbage"
-                        android:visibility="gone" />
+                        android:layout_marginBottom="8dp"
+                        android:visibility="gone"
+                        android:layout_alignParentBottom="true"
+                        android:src="@mipmap/delete_garbage" />
 
                     <ImageView
                         android:id="@+id/goods_create_add_first"
@@ -81,10 +82,18 @@
 
                     <CheckBox
                         android:id="@+id/goods_create_main"
+                        android:text="设为主图"
+                        android:textColor="@color/custom_yellow"
+                        android:visibility="gone"
+                        android:layout_alignParentEnd="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
-                        android:layout_marginStart="15dp" />
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginTop="8dp"
+                        android:drawableLeft="@drawable/check_selector"
+                        android:drawablePadding="4dp"
+                        android:button="@null"/>
 
                     <ImageView
                         android:id="@+id/goods_create_add_pic"

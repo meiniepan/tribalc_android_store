@@ -26,7 +26,6 @@ import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.model.MainModel;
 import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.network.TribeUploader;
-import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.activity.Authentication1Activity;
@@ -84,27 +83,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.self_content_layout, null, false);
         View headView = LayoutInflater.from(getActivity()).inflate(R.layout.self_head_layout, null, false);
         scrollView = (PullToZoomScrollViewEx) getActivity().findViewById(R.id.self_scroll_view);
-        mHead = (ImageView) headView.findViewById(R.id.mine_head);
-        mHead.setOnClickListener(this);
-        headView.findViewById(R.id.mine_login).setOnClickListener(this);
-        headView.findViewById(R.id.mine_register).setOnClickListener(this);
-        headView.findViewById(R.id.mine_update).setOnClickListener(this);
-        headView.findViewById(R.id.mine_head).setOnClickListener(this);
 
+        initHeadView(headView);
         initContentView(contentView);
-        zoomView.findViewById(R.id.mine_setting).setOnClickListener(this);
-        zoomView.findViewById(R.id.mine_cover).setOnClickListener(this);
-        zoomView.findViewById(R.id.self_scan).setOnClickListener(this);
-        zoomView.findViewById(R.id.rl_head_bg);
-
-        contentView.findViewById(R.id.mine_store).setOnClickListener(this);
-        contentView.findViewById(R.id.mine_create).setOnClickListener(this);
-        tvSign = (TextView) contentView.findViewById(R.id.mine_store_sign);
-
-        llLogin = (LinearLayout) headView.findViewById(R.id.self_ll_login);
-        llUnLogin = (LinearLayout) headView.findViewById(R.id.self_ll_un_login);
-        mNick = (TextView) headView.findViewById(R.id.self_nickname);
-        mCover = (ImageView) zoomView.findViewById(R.id.rl_head_bg);
+        initZoomView(zoomView);
 
         DisplayMetrics localDisplayMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(localDisplayMetrics);
@@ -116,8 +98,30 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         scrollView.setScrollContentView(contentView);
     }
 
+    private void initZoomView(View zoomView) {
+        mCover = (ImageView) zoomView.findViewById(R.id.rl_head_bg);
+        zoomView.findViewById(R.id.mine_setting).setOnClickListener(this);
+        zoomView.findViewById(R.id.mine_cover).setOnClickListener(this);
+        zoomView.findViewById(R.id.self_scan).setOnClickListener(this);
+        zoomView.findViewById(R.id.rl_head_bg);
+    }
+
+    private void initHeadView(View headView) {
+        mHead = (ImageView) headView.findViewById(R.id.mine_head);
+        mHead.setOnClickListener(this);
+        headView.findViewById(R.id.mine_login).setOnClickListener(this);
+        headView.findViewById(R.id.mine_register).setOnClickListener(this);
+        headView.findViewById(R.id.mine_update).setOnClickListener(this);
+        headView.findViewById(R.id.mine_head).setOnClickListener(this);
+        llLogin = (LinearLayout) headView.findViewById(R.id.self_ll_login);
+        llUnLogin = (LinearLayout) headView.findViewById(R.id.self_ll_un_login);
+        mNick = (TextView) headView.findViewById(R.id.self_nickname);
+    }
+
     private void initContentView(View contentView) {
         contentView.findViewById(R.id.mine_verify).setOnClickListener(this);
+        contentView.findViewById(R.id.mine_create).setOnClickListener(this);
+        tvSign = (TextView) contentView.findViewById(R.id.mine_store_sign);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

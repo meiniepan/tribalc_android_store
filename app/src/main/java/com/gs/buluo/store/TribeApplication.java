@@ -3,12 +3,15 @@ package com.gs.buluo.store;
 import android.app.Application;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.model.LatLng;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.utils.TribeCrashCollector;
 
 import org.greenrobot.eventbus.EventBus;
 import org.xutils.DbManager;
 import org.xutils.x;
+
+import retrofit2.http.POST;
 
 /**
  * Created by hjn on 2016/11/1.
@@ -17,6 +20,7 @@ public class TribeApplication extends Application {
     private static TribeApplication instance;
     private DbManager.DaoConfig daoConfig;
     private StoreInfo user;
+    private LatLng positon;
 
     @Override
     public void onCreate() {
@@ -66,5 +70,13 @@ public class TribeApplication extends Application {
 
     public StoreInfo getUserInfo() {
         return user;
+    }
+
+    public LatLng getPosition() {
+        return positon;
+    }
+
+    public void setPosition(LatLng latLng){
+        positon =latLng;
     }
 }

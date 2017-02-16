@@ -299,7 +299,7 @@
                     android:orientation="horizontal"
                     android:layout_marginBottom="12dp"
                     android:layout_marginTop="12dp"
-                    android:gravity="center"></LinearLayout>
+                    android:gravity="center"/>
 
                 <TextView
                     android:id="@+id/server_detail_work_time"
@@ -342,7 +342,6 @@
                     android:rotation="90"
                     android:src="@mipmap/up_colored" />
             </LinearLayout>
-
             <include layout="@layout/split_area" />
         </LinearLayout>
     </ScrollView>

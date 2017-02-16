@@ -52,6 +52,16 @@ public abstract class BaseActivity<T extends BasePresenter<IBaseView>> extends A
         setContentView(mRoot);
         bindView(savedInstanceState);
         initSystemBar(this);
+
+        View view = mRoot.findViewById(R.id.back);
+        if (view!=null){
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

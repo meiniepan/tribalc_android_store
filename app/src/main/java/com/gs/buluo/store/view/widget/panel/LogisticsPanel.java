@@ -18,6 +18,8 @@ import com.gs.buluo.store.bean.OrderBean;
 import com.gs.buluo.store.presenter.OrderPresenter;
 import com.gs.buluo.store.utils.DensityUtils;
 import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.store.view.activity.OrderActivity;
+import com.gs.buluo.store.view.widget.LoadingDialog;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.util.ArrayList;
@@ -83,7 +85,9 @@ public class LogisticsPanel extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId()== R.id.logistics_send){
             String num = tvNum.getText().toString().trim();
+            LoadingDialog.getInstance().show(getContext(),R.string.loading,true);
             presenter.updateOrderStatus(id,num,name,OrderBean.OrderStatus.DELIVERY.name());
+            dismiss();
         }
     }
 

@@ -16,12 +16,14 @@
     <string name="first_open">社区开门</string>
     <string name="exit_login">退出登录</string>
     <string name="feedback">意见反馈</string>
+    <string name="help_phone">110-120-119</string>
 
     <!--常用提示-->
     <string name="yes">确定</string>
     <string name="cancel">取消</string>
     <string name="finish">完成</string>
     <string name="next">下一步</string>
+    <string name="phone_exist">手机号已存在</string>
     <string name="phone_not_empty">手机号不能为空</string>
     <string name="verify_not_empty">校验码不能为空</string>
     <string name="wrong_verify">验证码不正确</string>
@@ -116,6 +118,7 @@
     <string name="re_input_new_pwd">确认支付密码</string>
     <string name="re_input_wrong">密码输入不一致，请重新输入</string>
     <string name="pwd_not_6">密码不足6位</string>
+
 
     <!--账单相关-->
     <string name="bill_detail">账单详情</string>
@@ -285,17 +288,22 @@
     <string name="serve_time">营业时间</string>
     <string name="vip">会员卡</string>
     <string name="create_goods_standard">创建新规格商品</string>
-    <string name="goods_info_not_complete">商品信息填写不完全</string>
     <string name="confirm_order">确认通过</string>
-    <string name="help_phone">110-120-119</string>
-    <string name="tags_max">最多只能选择三个标签</string>
     <string name="get_fail">获取失败</string>
-    <string name="reminder">提示</string>
-    <string name="save_update">确定保存更改么？</string>
-    <string name="not_save">不保存</string>
-    <string name="phone_exist">手机号已存在</string>
     <string name="logistic_num">物流单号</string>
     <string name="cancel_reserve">预定取消</string>
     <string name="auth_again">重新提交审核</string>
     <string name="auth_fail">审核失败!</string>
+
+    <!--店铺提示-->
+    <string name="mark_place_not_null">店铺区域不能为空</string>
+    <string name="tags_max">最多只能选择三个标签</string>
+    <string name="reminder">提示</string>
+    <string name="save_update">确定保存更改么？</string>
+    <string name="not_save">不保存</string>
+    <string name="goods_info_not_complete">商品信息填写不完全</string>
+    <string name="store_area">区域</string>
+    <string name="edit_store_address">请选择店铺地址</string>
+    <string name="edit_store_name">请填写店铺名称</string>
+    <string name="empty">\"\"</string>
 </resources>

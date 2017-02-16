@@ -51,6 +51,7 @@ public class StoreGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
         public TextView saleNum;
         public TextView time;
         public SwipeMenuLayout swipeMenuLayout;
+        public ImageView flag;
 
         public StoreGoodsHolder(ViewGroup parent) {
             super(parent, R.layout.store_goods_item);
@@ -64,6 +65,7 @@ public class StoreGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
             price = findViewById(R.id.goods_item_price);
             saleNum = findViewById(R.id.goods_item_sale);
             time = findViewById(R.id.goods_item_create_time);
+            flag = findViewById(R.id.goods_item_flag);
             swipeMenuLayout = findViewById(R.id.goods_item_swipe);
         }
 
@@ -75,9 +77,13 @@ public class StoreGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
             name.setText(entity.name);
             repertory.setText(entity.priceAndRepertory.repertory + "");
             price.setText(entity.priceAndRepertory.salePrice + "");
-            saleNum.setText(100 + "");
+            saleNum.setText(entity.saleQuantity);
             time.setText(TribeDateUtils.dateFormat5(new Date(entity.createTime)));
-
+            if (entity.primary){
+                flag.setVisibility(View.VISIBLE);
+            }else {
+                flag.setVisibility(View.GONE);
+            }
             findViewById(R.id.goods_item_delete).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

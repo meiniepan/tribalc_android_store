@@ -106,6 +106,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
             findView(R.id.ll_order_detail_counter).setVisibility(View.GONE);
             tvPayTime.setText(TribeDateUtils.dateFormat7(new Date(bean.settleTime)));
             tvSendTime.setText(TribeDateUtils.dateFormat7(new Date(bean.deliveryTime)));
+            findViewById(R.id.order_bottom).setVisibility(View.GONE);
         } else if (bean.status == OrderBean.OrderStatus.RECEIVED) {  //完成
             findView(R.id.ll_order_detail_counter).setVisibility(View.GONE);
             findViewById(R.id.ll_send_time).setVisibility(View.VISIBLE);
@@ -115,6 +116,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
             tvPayTime.setText(TribeDateUtils.dateFormat7(new Date(bean.settleTime)));
             tvSendTime.setText(TribeDateUtils.dateFormat7(new Date(bean.deliveryTime)));
             tvReceiveTime.setText(TribeDateUtils.dateFormat7(new Date(bean.receivedTime)));
+            findViewById(R.id.order_bottom).setVisibility(View.GONE);
         } else {
             findView(R.id.ll_order_detail_counter).setVisibility(View.GONE);
         }
@@ -192,6 +194,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void updateSuccess(OrderBean data) {
+        dismissDialog();
         bean =data;
         initView();
         initData(data);

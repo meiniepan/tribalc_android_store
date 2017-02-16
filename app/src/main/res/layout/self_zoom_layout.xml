@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/self_head_view"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/pager_height"
-    android:background="#b5b5b5">
+    android:layout_height="@dimen/pager_height">
 
     <ImageView
         android:id="@+id/rl_head_bg"

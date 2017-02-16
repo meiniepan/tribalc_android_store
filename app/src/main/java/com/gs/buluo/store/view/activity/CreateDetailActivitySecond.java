@@ -72,22 +72,23 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
 
     private void initFacility() {
         facilityList = new ArrayList<>();
-        facilityList.add(new FacilityBean("subway", R.string.subway));
-        facilityList.add(new FacilityBean("bar", R.string.bar));
-        facilityList.add(new FacilityBean("business_circle", R.string.business_circle));
-        facilityList.add(new FacilityBean("business_dinner", R.string.business_dinner));
-        facilityList.add(new FacilityBean("facilities_for_disabled", R.string.facilities_for_disabled));
-        facilityList.add(new FacilityBean("organic_food", R.string.organic_food));
-        facilityList.add(new FacilityBean("parking", R.string.parking));
-        facilityList.add(new FacilityBean("pet_ok", R.string.pet_ok));
-        facilityList.add(new FacilityBean("room", R.string.room));
-        facilityList.add(new FacilityBean("restaurants_of_hotel", R.string.restaurants_of_hotel));
-        facilityList.add(new FacilityBean("scene_seat", R.string.scene_seat));
-        facilityList.add(new FacilityBean("small_party", R.string.small_party));
-        facilityList.add(new FacilityBean("weekend_brunch", R.string.weekend_brunch));
-        facilityList.add(new FacilityBean("valet_parking", R.string.valet_parking));
-        facilityList.add(new FacilityBean("vip_rights", R.string.vip_rights));
-        facilityList.add(new FacilityBean("wi-fi", R.string.wi_fi));
+        facilityList.add(new FacilityBean(getString(R.string.subway)));
+        facilityList.add(new FacilityBean(getString(R.string.bar)));
+        facilityList.add(new FacilityBean(getString(R.string.baby_chair)));
+        facilityList.add(new FacilityBean(getString(R.string.business_circle)));
+        facilityList.add(new FacilityBean(getString(R.string.business_dinner)));
+        facilityList.add(new FacilityBean(getString(R.string.facilities_for_disabled)));
+        facilityList.add(new FacilityBean(getString(R.string.organic_food)));
+        facilityList.add(new FacilityBean(getString(R.string.parking)));
+        facilityList.add(new FacilityBean(getString(R.string.pet_ok)));
+        facilityList.add(new FacilityBean(getString(R.string.room)));
+        facilityList.add(new FacilityBean(getString(R.string.restaurants_of_hotel)));
+        facilityList.add(new FacilityBean(getString(R.string.scene_seat)));
+        facilityList.add(new FacilityBean(getString(R.string.small_party)));
+        facilityList.add(new FacilityBean(getString(R.string.weekend_brunch)));
+        facilityList.add(new FacilityBean( getString(R.string.valet_parking)));
+        facilityList.add(new FacilityBean(getString( R.string.vip_rights)));
+        facilityList.add(new FacilityBean(getString(R.string.wi_fi)));
 
         StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL) {
             @Override
@@ -132,7 +133,7 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
         List<String> list = new ArrayList<>();
         for (FacilityBean bean : facilityList) {
             if (bean.isSelect) {
-                list.add(bean.key);
+                list.add(bean.value);
             }
         }
         storeBean.facilities = list;

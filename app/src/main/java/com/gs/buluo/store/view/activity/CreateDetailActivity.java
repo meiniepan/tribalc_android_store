@@ -52,6 +52,7 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
     TextView tvEnvi;
     TextView tvTime;
     EditText etDesc;
+    private TextView tvMark;
     @Bind(R.id.store_create_next)
     TextView button;
 
@@ -78,7 +79,7 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
         findViewById(R.id.store_create_address_area).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(CreateDetailActivity.this, CreateStoreAddressActivity.class), 202);
+                startActivityForResult(new Intent(getCtx(), CreateStoreAddressActivity.class), 202);
             }
         });
 
@@ -145,6 +146,7 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
         tvPhone = (TextView) serveView.findViewById(R.id.store_phone);
         tvOtherPhone = (TextView) serveView.findViewById(R.id.store_other_phone);
         tvAddress = (TextView) serveView.findViewById(R.id.store_address);
+        tvMark = (TextView) serveView.findViewById(R.id.store_mark_place);
         if (storeBean.category == StoreMeta.StoreCategory.REPAST) {
             findViewById(R.id.create_food_area).setVisibility(View.VISIBLE);
             initFoodCategory();
@@ -155,20 +157,31 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void onClick(View v) {
                 if (tvName.length() == 0) {
-                    ToastUtils.ToastMessage(getCtx(), "请填写店铺名称");
+                    ToastUtils.ToastMessage(getCtx(), getString(R.string.edit_store_name));
+                    return;
+                }else if (tvMark.length() == 0){
+                    ToastUtils.ToastMessage(getCtx(),getString(R.string.mark_place_not_null));
+                    return;
+                }else if (tvAddress .length()==0){
+                    ToastUtils.ToastMessage(getCtx(),getString(R.string.edit_store_address));
                     return;
                 }
-                if (storeBean.category == StoreMeta.StoreCategory.REPAST)setCookingStyle();
-                storeBean.name = tvName.getText().toString().trim();
-                storeBean.subbranchName = tvSubName.getText().toString().trim();
-                storeBean.phone = tvPhone.getText().toString().trim();
-                storeBean.otherPhone = tvOtherPhone.getText().toString().trim();
-
-                Intent intent = new Intent(getCtx(), CreateDetailActivitySecond.class);
-                intent.putExtra(Constant.ForIntent.STORE_BEAN, storeBean);
-                startActivity(intent);
+                goSecond();
             }
         });
+    }
+
+    private void goSecond() {
+        if (storeBean.category == StoreMeta.StoreCategory.REPAST)setCookingStyle();
+        storeBean.name = tvName.getText().toString().trim();
+        storeBean.subbranchName = tvSubName.getText().toString().trim();
+        storeBean.phone = tvPhone.getText().toString().trim();
+        storeBean.otherPhone = tvOtherPhone.getText().toString().trim();
+        storeBean.markPlace = tvMark.getText().toString().trim();
+
+        Intent intent = new Intent(getCtx(), CreateDetailActivitySecond.class);
+        intent.putExtra(Constant.ForIntent.STORE_BEAN, storeBean);
+        startActivity(intent);
     }
 
     private void createStore() {
@@ -221,7 +234,9 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
         categoryBeanList.add(new CategoryBean("台湾菜"));
         categoryBeanList.add(new CategoryBean("其他"));
         categoryBeanList.add(new CategoryBean("德国菜"));
-        recyclerView.setAdapter(new RepastBeanAdapter(CreateDetailActivity.this, categoryBeanList));
+        RepastBeanAdapter adapter = new RepastBeanAdapter(CreateDetailActivity.this, categoryBeanList);
+        adapter.setLimit(1);
+        recyclerView.setAdapter(adapter);
 
         StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL) {
             @Override

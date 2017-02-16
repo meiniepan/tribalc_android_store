@@ -54,6 +54,7 @@ public class SaleGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
         public TextView saleNum;
         public TextView time;
         public SwipeMenuLayout swipeMenuLayout;
+        public ImageView flag;
 
 
         public StoreGoodsHolder(ViewGroup parent) {
@@ -68,6 +69,7 @@ public class SaleGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
             price = findViewById(R.id.goods_item_price);
             saleNum = findViewById(R.id.goods_item_sale);
             time = findViewById(R.id.goods_item_create_time);
+            flag = findViewById(R.id.goods_item_flag);
             swipeMenuLayout = findViewById(R.id.goods_item_swipe);
         }
 
@@ -79,8 +81,13 @@ public class SaleGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
             name.setText(entity.name);
             repertory.setText(entity.priceAndRepertory.repertory+"");
             price.setText(entity.priceAndRepertory.salePrice+"");
-            saleNum.setText(100+"");
+            saleNum.setText(entity.saleQuantity);
             time.setText(TribeDateUtils.dateFormat5(new Date(entity.createTime)));
+            if (entity.primary){
+                flag.setVisibility(View.VISIBLE);
+            }else {
+                flag.setVisibility(View.GONE);
+            }
 
             TextView textView = findViewById(R.id.goods_item_delete);
             textView.setText("下架");

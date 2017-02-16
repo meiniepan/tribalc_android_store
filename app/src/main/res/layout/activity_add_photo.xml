@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
-            android:src="@mipmap/main_h2" />
+            android:src="@mipmap/default_logo" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/image_group"
