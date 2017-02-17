@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.adapter.RepastBeanAdapter;
+import com.gs.buluo.store.adapter.TagAdapter;
 import com.gs.buluo.store.bean.CategoryBean;
 import com.gs.buluo.store.bean.GoodsMeta;
 import com.gs.buluo.store.bean.GoodsPriceAndRepertory;
@@ -49,7 +49,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
 
     private boolean published;
     private ArrayList<CategoryBean> categoryBeanList;
-    private RepastBeanAdapter beanAdapter;
+    private TagAdapter beanAdapter;
     private GoodsModel model;
     private String primaryStandardKey;
 
@@ -109,7 +109,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
                 setFoodData();
                 break;
         }
-        beanAdapter = new RepastBeanAdapter(this, categoryBeanList);
+        beanAdapter = new TagAdapter(this, categoryBeanList);
         beanAdapter.setLimit(3);
         recyclerView.setAdapter(beanAdapter);
         StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL) {

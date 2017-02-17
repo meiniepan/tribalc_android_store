@@ -1,12 +1,14 @@
 package com.gs.buluo.store.view.activity;
 
 import android.content.Intent;
+import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewStub;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -32,6 +34,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import butterknife.Bind;
 
@@ -45,7 +48,7 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
     ArrayList<GoodsPriceAndRepertory> standardList = new ArrayList<>();
     ArrayList<String> valueList = new ArrayList<>();
     ArrayList<String> value2List = new ArrayList<>();
-    HashMap<String, GoodsPriceAndRepertory> cacheMap = new HashMap<>();
+    ConcurrentHashMap<String, GoodsPriceAndRepertory> cacheMap = new ConcurrentHashMap<>();
 
     @Bind(R.id.create_standard_name)
     EditText etTitle;
@@ -108,6 +111,7 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
         switch (v.getId()) {
             case R.id.goods_create_standard_add:
                 if (etValue.length() == 0) return;
+                CommonUtils.closeKeyboard(this,etValue);
                 String value1 = etValue.getText().toString().trim();
                 values1 = value1.split("、");
                 if (values1 != null && values1.length > 0) {
@@ -119,6 +123,7 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.rl_goods_create_standard_add:
                 if (etValue2.length() == 0) return;
+                CommonUtils.closeKeyboard(this,etValue2);
                 String value2 = etValue2.getText().toString().trim();
                 values2 = value2.split("、");
                 if (values2 != null && values2.length > 0) {

@@ -302,7 +302,7 @@
     <string name="save_update">确定保存更改么？</string>
     <string name="not_save">不保存</string>
     <string name="goods_info_not_complete">商品信息填写不完全</string>
-    <string name="store_area">区域</string>
+    <string name="store_area">所在区域</string>
     <string name="edit_store_address">请选择店铺地址</string>
     <string name="edit_store_name">请填写店铺名称</string>
     <string name="empty">\"\"</string>

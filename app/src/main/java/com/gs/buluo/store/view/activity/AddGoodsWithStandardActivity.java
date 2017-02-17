@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.gs.buluo.store.Constant;
@@ -33,7 +34,6 @@ import com.youth.banner.Banner;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
@@ -80,6 +80,8 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     EditText tvValue2;
     @Bind(R.id.goods_create_main)
     CheckBox checkBox;
+    @Bind(R.id.choose_item_check)
+    RadioButton mainButton;
 
     GoodsMeta meta;
     List<BannerPicture> picList;
@@ -91,6 +93,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     private View addPic;
     private View delPic;
     private View addFirst;
+    private boolean isMain;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -136,6 +139,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         findView(goods_create_next).setOnClickListener(this);
         firstAddPic = findViewById(R.id.goods_create_add_first);
         firstAddPic.setOnClickListener(this);
+        findView(R.id.rl_goods_main).setOnClickListener(this);
         banner.setOnPageChangeListener(this);
         banner.setImageLoader(new GlideBannerLoader());
         banner.isAutoPlay(false);
@@ -214,6 +218,9 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
             tvValue1.setText(meta.standardKeys.get(0));
             if (meta.standardKeys.size() > 1) tvValue2.setText(meta.standardKeys.get(1));
         }
+
+        mainButton.setChecked(meta.primary);
+        isMain =meta.primary;
     }
 
     private void setBannerStyle() {
@@ -255,13 +262,22 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.goods_create_next:
-                continueCreate();
+                continueToFinal();
                 break;
             case R.id.goods_create_add_pic:
                 showChoosePhoto();
                 break;
             case R.id.goods_create_add_first:
                 showChoosePhoto();
+                break;
+            case R.id.rl_goods_main:
+                if (isMain){
+                    mainButton.setChecked(false);
+                    isMain =false;
+                }else {
+                    mainButton.setChecked(true);
+                    isMain =true;
+                }
                 break;
             case R.id.goods_create_del_pic:
                 if (picList.size() == 0 || pos > picList.size()) return;
@@ -283,7 +299,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         }
     }
 
-    private void continueCreate() {
+    private void continueToFinal() {
         if (etSale.length() == 0 || etStock.length() == 0 ) {
             ToastUtils.ToastMessage(getCtx(), getString(R.string.goods_info_not_complete));
             return;
@@ -300,6 +316,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         if (meta.mainPicture == null && picList.size() > 0)
             meta.mainPicture = picList.get(0).toString();
 
+        meta.primary = isMain;
         meta.brand = etBrand.getText().toString().trim();
         meta.originCountry = etSource.getText().toString().trim();
         meta.note = etDesc.getText().toString().trim();
@@ -358,7 +375,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
 
     @Override
     public void onPageSelected(int position) {
-        if (position>picList.size())return;
+        if (position>picList.size()||position==0)return;
         pos = position - 1;
         checkBox.setChecked(picList.get(position - 1).isChecked);
     }

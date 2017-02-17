@@ -134,7 +134,31 @@
         </LinearLayout>
 
         <include layout="@layout/split_line_no_margin_common" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/verify_edit_height"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/store_area"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/store_mark_place"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:background="@null"
+                android:hint="请输入店铺所在区域，如三里屯"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@color/common_gray"
+                android:textSize="@dimen/dimens_14sp" />
+        </LinearLayout>
+        <include layout="@layout/split_line_no_margin_common" />
         <LinearLayout
             android:id="@+id/store_create_address_area"
             android:layout_width="match_parent"
@@ -166,28 +190,6 @@
 
         <include layout="@layout/split_line_no_margin_common" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/verify_edit_height"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/store_area"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/store_mark_place"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="40dp"
-                android:background="@null"
-                android:hint="请输入店铺所在区域，如三里屯"
-                android:textColor="@color/common_gray"
-                android:textSize="@dimen/dimens_14sp" />
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/store_create_time"

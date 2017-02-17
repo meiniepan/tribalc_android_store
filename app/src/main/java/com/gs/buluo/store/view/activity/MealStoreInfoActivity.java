@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.adapter.FacilityAdapter;
-import com.gs.buluo.store.adapter.RepastBeanAdapter;
+import com.gs.buluo.store.adapter.TagAdapter;
 import com.gs.buluo.store.bean.CategoryBean;
 import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.FacilityBean;
@@ -131,7 +131,7 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
                 }
             }
         }
-        RepastBeanAdapter adapter = new RepastBeanAdapter(getCtx(), cookingList);
+        TagAdapter adapter = new TagAdapter(getCtx(), cookingList);
         adapter.setLimit(1);
         cookRecyclerView.setAdapter(adapter);
     }

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
+import com.gs.buluo.store.bean.AuthenticationData;
 import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
@@ -24,7 +25,9 @@ import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.model.MainModel;
+import com.gs.buluo.store.network.MainService;
 import com.gs.buluo.store.network.TribeCallback;
+import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
@@ -148,7 +151,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.mine_verify:
-                getStoreStatus();
+                getAuthInfo();
                 break;
             case R.id.mine_update:
                 ToastUtils.ToastMessage(getActivity(), R.string.no_function);
@@ -268,21 +271,38 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         EventBus.getDefault().unregister(this);
     }
 
+    public void getAuthInfo() {
+        showLoadingDialog();
+        TribeRetrofit.getInstance().createApi(MainService.class).getAuth(TribeApplication.getInstance().getUserInfo().getId()).enqueue(new TribeCallback<AuthenticationData>() {
+            @Override
+            public void onSuccess(Response<BaseResponse<AuthenticationData>> response) {
+                dismissDialog();
+                AuthenticationData data = response.body().data;
+                Intent intent = new Intent();
+                if (data.authenticationStatus == null || TextUtils.equals(data.authenticationStatus, "NOT_START")) {
+                    intent.setClass(getActivity(), Authentication1Activity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(getActivity(), AuthProcessingActivity.class);
+                    intent.putExtra(Constant.ForIntent.STATUS,data);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onFail(int responseCode, BaseResponse<AuthenticationData> body) {
+                dismissDialog();
+                ToastUtils.ToastMessage(getContext(),R.string.connect_fail);
+            }
+        });
+    }
+
     public void getStoreStatus() {
         new MainModel().getDetailStoreInfo(TribeApplication.getInstance().getUserInfo().getId(),new TribeCallback<StoreMeta>() {
             @Override
             public void onSuccess(Response<BaseResponse<StoreMeta>> response) {
-                String storeAuthenticationStatus;
-                Intent intent = new Intent();
-                storeAuthenticationStatus = response.body().data.authenticationStatus;
-                if (storeAuthenticationStatus == null || TextUtils.equals(storeAuthenticationStatus, "NOT_START")) {
-                    intent.setClass(getActivity(), Authentication1Activity.class);
-                    startActivity(intent);
-                } else if (TextUtils.equals(storeAuthenticationStatus, "PROCESSING")) {
-                    intent.setClass(getActivity(), AuthProcessingActivity.class);
-                    intent.putExtra(Constant.ForIntent.STATUS,storeAuthenticationStatus);
-                    startActivity(intent);
-                }
+
+
             }
 
             @Override

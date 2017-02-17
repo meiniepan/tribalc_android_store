@@ -46,19 +46,18 @@ public class AuthProcessingActivity extends BaseActivity{
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        final String status = getIntent().getStringExtra(Constant.ForIntent.STATUS);
-        initView(status);
+        final AuthenticationData data = getIntent().getParcelableExtra(Constant.ForIntent.STATUS);
+        initView(data);
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
         tvButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.equals(status,"FAILURE")){
+                if (TextUtils.equals(data.authenticationStatus,"FAILURE")){
                     startActivity(new Intent(getCtx(),Authentication1Activity.class));
                 }else {
                     finish();
@@ -67,8 +66,8 @@ public class AuthProcessingActivity extends BaseActivity{
         });
     }
 
-    private void initView(String status) {
-        switch (status){
+    private void initView(AuthenticationData data) {
+        switch (data.authenticationStatus){
             case "FAILURE":
                 authPic.setImageResource(R.mipmap.auth_fail);
                 tvSign.setText(R.string.auth_fail);
@@ -78,19 +77,18 @@ public class AuthProcessingActivity extends BaseActivity{
             case "SUCCEED":
                 tvTitle.setText("审核成功");
                 inflateView();
+                setData(data);
                 break;
         }
 
     }
 
     private void inflateView() {
-        getAuthInfo();
         View view = mStub.inflate();
         licencePic = (ImageView) view.findViewById(R.id.auth_licence);
         frontPic = (ImageView) view.findViewById(R.id.auth_id_front);
         backPic = (ImageView) view.findViewById(R.id.auth_id_front_back);
         permitPic = (ImageView) view.findViewById(R.id.auth_permit);
-
     }
 
     @Override
@@ -98,22 +96,6 @@ public class AuthProcessingActivity extends BaseActivity{
         return R.layout.activity_verify_processing;
     }
 
-    public void getAuthInfo() {
-        showLoadingDialog();
-        TribeRetrofit.getInstance().createApi(MainService.class).getAuth(TribeApplication.getInstance().getUserInfo().getId()).enqueue(new TribeCallback<AuthenticationData>() {
-            @Override
-            public void onSuccess(Response<BaseResponse<AuthenticationData>> response) {
-                dismissDialog();
-                setData(response.body().data);
-            }
-
-            @Override
-            public void onFail(int responseCode, BaseResponse<AuthenticationData> body) {
-                dismissDialog();
-                ToastUtils.ToastMessage(getCtx(),R.string.connect_fail);
-            }
-        });
-    }
 
     public void setData(AuthenticationData data) {
         GlideUtils.loadImage(this,data.businessLicence,licencePic);

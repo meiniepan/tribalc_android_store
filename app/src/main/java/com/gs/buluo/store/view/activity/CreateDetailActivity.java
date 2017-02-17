@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.adapter.RepastBeanAdapter;
+import com.gs.buluo.store.adapter.TagAdapter;
 import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.CategoryBean;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
@@ -234,7 +234,7 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
         categoryBeanList.add(new CategoryBean("台湾菜"));
         categoryBeanList.add(new CategoryBean("其他"));
         categoryBeanList.add(new CategoryBean("德国菜"));
-        RepastBeanAdapter adapter = new RepastBeanAdapter(CreateDetailActivity.this, categoryBeanList);
+        TagAdapter adapter = new TagAdapter(CreateDetailActivity.this, categoryBeanList);
         adapter.setLimit(1);
         recyclerView.setAdapter(adapter);
 

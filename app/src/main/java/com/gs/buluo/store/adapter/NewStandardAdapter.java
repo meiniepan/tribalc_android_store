@@ -3,6 +3,7 @@ package com.gs.buluo.store.adapter;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,13 @@ import android.widget.TextView;
 
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.GoodsPriceAndRepertory;
+import com.gs.buluo.store.utils.ToastUtils;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+
+import retrofit2.http.GET;
 
 /**
  * Created by hjn on 2017/1/22.
@@ -26,8 +31,9 @@ public class NewStandardAdapter extends BaseAdapter {
     private EditText etSale;
     private EditText etRepo;
     private TextView tvName;
-    private HashMap<String, GoodsPriceAndRepertory> cache;
+    private ConcurrentHashMap<String, GoodsPriceAndRepertory> cache;
     private GoodsPriceAndRepertory listBean;
+    private Thread thread;
 
     public NewStandardAdapter(Context context, List<GoodsPriceAndRepertory> standardListBeen) {
         standardList = standardListBeen;
@@ -63,29 +69,59 @@ public class NewStandardAdapter extends BaseAdapter {
             tvName.setText(listBean.firstName + "-" + listBean.secondName);
             GoodsPriceAndRepertory repertory = cache.get(listBean.firstName + "^" + listBean.secondName);
             if (repertory != null){
+                Log.e("adapter", "getView: 没有"+position);
                 listBean = repertory;
             }
         } else {
             tvName.setText(listBean.firstName);
             GoodsPriceAndRepertory repertory = cache.get(listBean.firstName);
-            if (repertory != null) listBean = repertory;
+            if (repertory != null){
+                listBean = repertory;
+            }
         }
 
         if (listBean.originPrice != 0)
             etOrigin.setText(listBean.originPrice + "");
-        else
+        else{
             etOrigin.setText("");
+        }
 
         if (listBean.salePrice != 0)
             etSale.setText(listBean.salePrice + "");
-        else
+        else{
             etSale.setText("");
+        }
 
         if (listBean.repertory != 0)
             etRepo.setText(listBean.repertory + "");
-        else
+        else{
             etRepo.setText("");
+        }
 
+        etRepo.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() ==MotionEvent.ACTION_UP)
+                    etRepo.requestFocus();
+                return false;
+            }
+        });
+        etOrigin.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() ==MotionEvent.ACTION_UP)
+                    etOrigin.requestFocus();
+                return false;
+            }
+        });
+        etSale.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() ==MotionEvent.ACTION_UP)
+                    etSale.requestFocus();
+                return false;
+            }
+        });
 
         etOrigin.setTag(position);
         etSale.setTag(position);
@@ -104,13 +140,13 @@ public class NewStandardAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void setCache(HashMap<String, GoodsPriceAndRepertory> cache) {
+    public void setCache(ConcurrentHashMap<String, GoodsPriceAndRepertory> cache) {
         this.cache = cache;
     }
 
     private class MyTextWatcher implements TextWatcher {
         EditText editText;
-        int pos;
+        int pos;            //横向pos
 
         MyTextWatcher(int i, EditText editText) {
             pos = i;
@@ -123,26 +159,36 @@ public class NewStandardAdapter extends BaseAdapter {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            editText.requestFocus();
         }
 
         @Override
-        public void afterTextChanged(Editable s) {
+        public void afterTextChanged(final Editable s) {
             if (s != null && !"".equals(s.toString())) {
-                GoodsPriceAndRepertory gpa = standardList.get((Integer) editText.getTag());
-                if (gpa == null) return;
-                if (pos == 0)
-                    gpa.originPrice = Float.parseFloat(s.toString());
-                else if (pos == 1)
-                    gpa.salePrice = Float.parseFloat(s.toString());
-                else
-                    gpa.repertory = Integer.parseInt(s.toString());
+                Integer currentPos = (Integer) editText.getTag();  //竖直pos
+                final GoodsPriceAndRepertory gpa = standardList.get(currentPos);
+                if (gpa == null)  return;
+                thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (pos < standardList.size()) {
+                            if (pos == 0)
+                                gpa.originPrice = Float.parseFloat(s.toString());
+                            else if (pos == 1)
+                                gpa.salePrice = Float.parseFloat(s.toString());
+                            else
+                                gpa.repertory = Integer.parseInt(s.toString());
 
-                if (gpa.secondName != null) {
-                    cache.put(listBean.firstName + "^" + listBean.secondName, gpa);
-                } else {
-                    cache.put(listBean.firstName, gpa);
-                }
+                            if (gpa.secondName != null) {
+                                cache.put(gpa.firstName + "^" + gpa.secondName, gpa);
+                            } else {
+                                cache.put(gpa.firstName, gpa);
+                            }
+                        }else {
+                            thread.interrupt();
+                        }
+                    }
+                });
+                thread.start();
             }
         }
     }

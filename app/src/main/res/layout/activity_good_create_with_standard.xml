@@ -372,6 +372,32 @@
                     android:hint="请输入商品原产地"/>
             </LinearLayout>
             <include layout="@layout/split_area"/>
+            <RelativeLayout
+                android:id="@+id/rl_goods_main"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/self_item_height">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="设为主商品"/>
+                <RadioButton
+                    android:id="@+id/choose_item_check"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/choose_selector"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:button="@null" />
+            </RelativeLayout>
+            <include layout="@layout/split_area"/>
             <Button
                 android:id="@+id/goods_create_next"
                 android:text="@string/next"
