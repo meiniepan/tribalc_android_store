@@ -241,7 +241,7 @@
         <activity
             android:name=".view.activity.IntroductionActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysVisible" />
         <activity android:name=".view.activity.ProtocolActivity" />
     </application>
 

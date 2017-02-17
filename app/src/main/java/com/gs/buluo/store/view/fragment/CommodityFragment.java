@@ -161,7 +161,7 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
 
     @Override
     public void OnSearchClick(String keyword) {
-        ToastUtils.ToastMessage(getActivity(), keyword);
+//        ToastUtils.ToastMessage(getActivity(), keyword);
     }
 
     @Override

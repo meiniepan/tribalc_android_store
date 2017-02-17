@@ -131,7 +131,9 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
                 }
             }
         }
-        cookRecyclerView.setAdapter(new RepastBeanAdapter(getCtx(), cookingList));
+        RepastBeanAdapter adapter = new RepastBeanAdapter(getCtx(), cookingList);
+        adapter.setLimit(1);
+        cookRecyclerView.setAdapter(adapter);
     }
 
     private void initCookingStyle() {

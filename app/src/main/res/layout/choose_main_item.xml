@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical">
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:background="@color/white">
     <TextView
         android:id="@+id/choose_item_name"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:minHeight="30dp"
+        android:gravity="center"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="@drawable/text_background_round"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_height="50dp" />
+        android:layout_height="wrap_content" />
     <RadioButton
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
         android:id="@+id/choose_item_check"
         android:focusable="false"
         android:clickable="false"
         android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableRight="@drawable/check_selector"
+        android:drawableRight="@drawable/choose_selector"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:button="@null" />
-</LinearLayout>
+</RelativeLayout>

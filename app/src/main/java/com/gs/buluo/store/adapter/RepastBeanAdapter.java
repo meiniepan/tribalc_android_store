@@ -2,6 +2,7 @@ package com.gs.buluo.store.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -62,20 +63,32 @@ public class RepastBeanAdapter extends RecyclerAdapter<CategoryBean> {
 
         @Override
         public void onItemViewClick(CategoryBean entity) {
-            if (entity.isSelect){
-                count--;
-                textBg.setBackgroundResource(R.drawable.text_background_round);
-                text.setTextColor(0xff2a2a2a);
-                entity.isSelect=false;
-            }else {
-                if (limit!=0&&count>=limit){
-                    return;
+            if (limit!= 1){
+                if (entity.isSelect){
+                    count--;
+                    textBg.setBackgroundResource(R.drawable.text_background_round);
+                    text.setTextColor(0xff2a2a2a);
+                    entity.isSelect=false;
+                }else {
+                    if (limit!=0&&count>=limit){
+                        return;
+                    }
+                    count++;
+                    textBg.setBackgroundResource(R.drawable.facility_choosed);
+                    text.setTextColor(Color.WHITE);
+                    entity.isSelect=true;
                 }
-                count++;
-                textBg.setBackgroundResource(R.drawable.facility_choosed);
-                text.setTextColor(Color.WHITE);
-                entity.isSelect=true;
+            }else {
+                for (CategoryBean bean :getData()){
+                    if (TextUtils.equals(bean.value,entity.value)){
+                        bean.isSelect=true;
+                    }else {
+                        bean.isSelect =false;
+                    }
+                }
+                notifyDataSetChanged();
             }
+
         }
     }
 }

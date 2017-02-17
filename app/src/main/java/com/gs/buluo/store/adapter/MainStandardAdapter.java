@@ -1,6 +1,8 @@
 package com.gs.buluo.store.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -44,14 +46,21 @@ public class MainStandardAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = View.inflate(mCtx, R.layout.choose_main_item, null);
+            convertView = LayoutInflater.from(mCtx).inflate(R.layout.choose_main_item,parent,false);
         }
         final TextView text = (TextView) convertView.findViewById(R.id.choose_item_name);
         RadioButton checkBox = (RadioButton) convertView.findViewById(R.id.choose_item_check);
         repertory = standardList.get(position);
 
-        text.setText(repertory.firstName + " " + (repertory.secondName == null ? "  " : repertory.secondName));
+        text.setText(repertory.firstName + (repertory.secondName == null ? "  " : " - "+repertory.secondName));
         checkBox.setChecked(repertory.checked);
+        if (repertory.checked){
+            text.setBackgroundResource(R.drawable.facility_choosed);
+            text.setTextColor(0xfff2f2f2);
+        }else {
+            text.setBackgroundResource(R.drawable.text_background_round);
+            text.setTextColor(0xff2a2a2a);
+        }
 
         return convertView;
     }

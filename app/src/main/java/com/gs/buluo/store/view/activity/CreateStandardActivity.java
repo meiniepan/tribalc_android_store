@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.EditText;
@@ -75,7 +76,7 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
         view = findViewById(R.id.rl_goods_create_standard_second);
         view.setOnClickListener(this);
         valueAdapter = new StandardValueAdapter(valueList);
-        value1Group.setLayoutManager(new GridLayoutManager(this, 3));
+        value1Group.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
         value1Group.setAdapter(valueAdapter);
 
         standardListAdapter = new NewStandardAdapter(this, standardList);
@@ -332,7 +333,7 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
         etName2 = (EditText) secondView.findViewById(R.id.goods_create_standard_name2);
 
         valueAdapter2 = new StandardValueAdapter(value2List);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setAdapter(valueAdapter2);
 
         secondView.findViewById(R.id.goods_create_standard_delete2).setOnClickListener(this);

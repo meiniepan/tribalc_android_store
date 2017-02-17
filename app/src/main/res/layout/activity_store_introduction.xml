@@ -20,7 +20,7 @@
             android:textSize="@dimen/title_size" />
 
         <include
-            android:id="@+id/reserve_detail_back"
+            android:id="@+id/back"
             layout="@layout/back_img_white" />
     </RelativeLayout>
 

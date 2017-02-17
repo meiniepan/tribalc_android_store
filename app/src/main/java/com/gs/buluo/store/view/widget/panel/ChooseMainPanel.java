@@ -67,12 +67,6 @@ public class ChooseMainPanel extends Dialog{
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         params.gravity = Gravity.BOTTOM;
         window.setAttributes(params);
-        rootView.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
 
         rootView.findViewById(R.id.btn_confirm).setOnClickListener(new View.OnClickListener() {
             @Override

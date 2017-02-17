@@ -26,6 +26,7 @@ public class IntroductionActivity extends BaseActivity{
         String flag = getIntent().getStringExtra(Constant.ForIntent.FLAG);
         String intro = getIntent().getStringExtra(Constant.ForIntent.INTRODUCTION);
         etIntro.setText(intro);
+        etIntro.setSelection(etIntro.length());
         if (TextUtils.equals(flag,Constant.GOODS)){
             tvTitle.setText("商品描述");
             etIntro.setHint("请输入商品描述");

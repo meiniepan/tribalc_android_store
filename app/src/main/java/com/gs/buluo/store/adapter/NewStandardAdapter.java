@@ -3,6 +3,7 @@ package com.gs.buluo.store.adapter;
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -85,6 +86,7 @@ public class NewStandardAdapter extends BaseAdapter {
         else
             etRepo.setText("");
 
+
         etOrigin.setTag(position);
         etSale.setTag(position);
         etRepo.setTag(position);
@@ -102,12 +104,11 @@ public class NewStandardAdapter extends BaseAdapter {
         return convertView;
     }
 
-
     public void setCache(HashMap<String, GoodsPriceAndRepertory> cache) {
         this.cache = cache;
     }
 
-    class MyTextWatcher implements TextWatcher {
+    private class MyTextWatcher implements TextWatcher {
         EditText editText;
         int pos;
 
@@ -118,12 +119,11 @@ public class NewStandardAdapter extends BaseAdapter {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+            editText.requestFocus();
         }
 
         @Override
