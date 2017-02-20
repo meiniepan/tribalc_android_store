@@ -66,7 +66,7 @@ public class MainModel {             //登录数据同步,上传，验证码
                 getUploadUrl(TribeApplication.getInstance().getUserInfo().getId(), body).enqueue(callback);
     }
 
-    public void doAuthentication(AuthenticationData data, Callback<BaseResponse<CodeResponse>> callback) {
+    public void doAuthentication(AuthenticationData data, Callback<BaseResponse<AuthenticationData>> callback) {
         TribeRetrofit.getInstance().createApi(MainService.class).
                 doAuthentication(TribeApplication.getInstance().getUserInfo().getId(), data).enqueue(callback);
     }

@@ -16,4 +16,5 @@ public class StoreSetMealCreation {
     public String personExpense;
     public boolean reservable;
     public StoreMeta.StoreCategory category;
+    public double[] coordinate;
 }

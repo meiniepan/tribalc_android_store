@@ -17,7 +17,6 @@ public class Constant {
     public static final String LATITUDE = "latitude";
     public static final String LONGITUDE = "longitude";
 
-
     public final static class Base {
 //        public static final String BASE_URL = "https://app-services.buluo-gs.com:443/tribalc/v1.0/";
                 public static final String BASE_URL="https://dev-app-services.buluo-gs.com:443/tribalc/v1.0/";
@@ -50,11 +49,11 @@ public class Constant {
     public static final String COMMUNITY_NAME = "community_name";
 
     public static final String REPAST = "repast";
-    public static final String ENTERTAINMENT = "entertainment";
     public static final String ENTERTAINMENT_ALL = "HAIRDRESSING,FITNESS,ENTERTAINMENT,KEEPHEALTHY";
     public static final String SORT_POPULAR = "popularValue,desc";
     public static final String SORT_PERSON_EXPENSE_DESC = "personExpense,desc";
     public static final String SORT_PERSON_EXPENSE_ASC = "personExpense,asc";
+    public static final String SORT_COORDINATE_DESC = "coordinate,desc" ;
     public static final String SERVE_ID = "serve_id";
     public static final String STORE_ID = "store_id";
 
@@ -64,8 +63,6 @@ public class Constant {
         public static final String FLAG = "flag";
         public static final String INTRODUCTION = "introduction";
         public static final String FROM_ORDER = "fromOrder";
-        public static final String COMPANY_FLAG = "company_info";
-        public static final String PROPERTY_BEEN = "property_been";
         public static final String MODIFY = "self_modify";
         public static final String PHOTO_TYPE = "photo_type";
         public static final String STORE_BEAN = "store_bean";

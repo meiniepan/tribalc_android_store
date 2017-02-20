@@ -56,12 +56,12 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
 
     private ArrayList<FacilityBean> facilityList;
     private StoreMeta storeBean;
-    private StoreSetMealCreation bean;
+    private StoreSetMealCreation mealCreation;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
         storeBean = getIntent().getParcelableExtra(Constant.ForIntent.STORE_BEAN);
-        bean = new StoreSetMealCreation();
+        mealCreation = new StoreSetMealCreation();
         findViewById(R.id.create_finish).setOnClickListener(this);
         findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.create_logo_area).setOnClickListener(this);
@@ -158,13 +158,14 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
                         ToastUtils.ToastMessage(CreateDetailActivitySecond.this, R.string.connect_fail);
                     }
                 });
-        bean.reservable = sReserve.isChecked();
-        bean.personExpense = etFee.getText().toString().trim();
-        bean.name = storeBean.name;
-        bean.pictures = storeBean.pictures;
-        bean.recommendedReason = etRecommend.getText().toString().trim();
-        bean.topics = storeBean.topics;
-        TribeRetrofit.getInstance().createApi(MainService.class).createServe(TribeApplication.getInstance().getUserInfo().getId(), bean).enqueue(new TribeCallback<CodeResponse>() {
+        mealCreation.reservable = sReserve.isChecked();
+        mealCreation.coordinate = storeBean.coordinate;
+        mealCreation.personExpense = etFee.getText().toString().trim();
+        mealCreation.name = storeBean.name;
+        mealCreation.pictures = storeBean.pictures;
+        mealCreation.recommendedReason = etRecommend.getText().toString().trim();
+        mealCreation.topics = storeBean.topics;
+        TribeRetrofit.getInstance().createApi(MainService.class).createServe(TribeApplication.getInstance().getUserInfo().getId(), mealCreation).enqueue(new TribeCallback<CodeResponse>() {
             @Override
             public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
 
@@ -197,7 +198,7 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
         } else if (data != null && requestCode == 201 && resultCode == 202) {   //environment
             ArrayList<String> enPictures = data.getStringArrayListExtra(Constant.ENVIRONMENT);
             storeBean.pictures = enPictures;
-            if (enPictures!=null&&enPictures.size()>0) bean.mainPicture = enPictures.get(0);
+            if (enPictures!=null&&enPictures.size()>0) mealCreation.mainPicture = enPictures.get(0);
             tvEnvi.setText(enPictures.size() + "张");
         }
     }

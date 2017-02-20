@@ -42,7 +42,7 @@ public interface MainService {
     Call<UploadAccessResponse> getUploadUrl(@Query("me") String id, @Body UploadAccessBody body);
 
     @PUT("stores/{id}/authentication")
-    Call<BaseResponse<CodeResponse>> doAuthentication(@Path("id") String id, @Body AuthenticationData request);
+    Call<BaseResponse<AuthenticationData>> doAuthentication(@Path("id") String id, @Body AuthenticationData request);
 
     @PUT("stores/{id}/phone")
     Call<BaseResponse<CodeResponse>> updatePhone(@Path("id") String id, @Body PhoneUpdateBody body);

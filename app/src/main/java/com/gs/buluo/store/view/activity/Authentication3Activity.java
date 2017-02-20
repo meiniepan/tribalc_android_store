@@ -15,6 +15,7 @@ import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
 import com.gs.buluo.store.model.MainModel;
 import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.network.TribeUploader;
+import com.gs.buluo.store.utils.AppManager;
 import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
@@ -61,16 +62,17 @@ public class Authentication3Activity extends BaseActivity{
 
     private void doAuth() {
         showLoadingDialog();
-        new MainModel().doAuthentication(data, new TribeCallback<CodeResponse>() {
+        new MainModel().doAuthentication(data, new TribeCallback<AuthenticationData>() {
             @Override
-            public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
+            public void onSuccess(Response<BaseResponse<AuthenticationData>> response) {
                 dismissDialog();
-                ToastUtils.ToastMessage(getCtx(),"认证提交成功");
-                startActivity(new Intent(getCtx(),MainActivity.class));
+                Intent intent = new Intent(getCtx(), AuthProcessingActivity.class);
+                intent.putExtra(Constant.ForIntent.STATUS,response.body().data);
+                startActivity(intent);
             }
 
             @Override
-            public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
+            public void onFail(int responseCode, BaseResponse<AuthenticationData> body) {
                 dismissDialog();
                 ToastUtils.ToastMessage(getCtx(),R.string.connect_fail);
             }

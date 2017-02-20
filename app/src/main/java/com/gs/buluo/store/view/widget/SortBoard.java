@@ -81,13 +81,17 @@ public class SortBoard extends PopupWindow implements View.OnClickListener {
     }
 
     private String getPositionSort(int position) {
-        currentPos = position;
-        if (position == 0) {
+        currentPos=position;
+        if (position==0){
             return Constant.SORT_PERSON_EXPENSE_ASC;
-        } else if (position == 1) {
+        }else if (position==1){
             return Constant.SORT_PERSON_EXPENSE_DESC;
-        } else {
+        }else if ( position==2){
             return Constant.SORT_POPULAR;
+        } else if (position==3){
+            return Constant.SORT_COORDINATE_DESC;
+        }else {
+            return Constant.SORT_PERSON_EXPENSE_ASC;
         }
     }
 

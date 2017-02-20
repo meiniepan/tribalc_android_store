@@ -2,8 +2,10 @@ package com.gs.buluo.store.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,12 +23,14 @@ import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.GlideBannerLoader;
 import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.store.view.widget.pulltozoom.PullToZoomScrollViewEx;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
 import java.util.HashMap;
 import java.util.List;
 
+import butterknife.Bind;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,6 +58,9 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
     private LatLng des;
     ImageView logo;
 
+    @Bind(R.id.detail_scroll_view)
+    PullToZoomScrollViewEx scrollView;
+
     @Override
     protected void bindView(Bundle savedInstanceState) {
         id = getIntent().getStringExtra(Constant.SERVE_ID);
@@ -64,25 +71,35 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
         initContentView();
     }
     private void initContentView() {
-        banner = (Banner) findViewById(R.id.server_detail_banner);
-        tvName = (TextView) findViewById(R.id.server_detail_name);
-        tvPrice = (TextView) findViewById(R.id.server_detail_person_price);
-        tvCollectNum = (TextView) findViewById(R.id.server_detail_collect);
-        tvAddress = (TextView) findViewById(R.id.service_shop_address);
-        tvPhone = (TextView) findViewById(R.id.service_shop_number);
-        tvReason = (TextView) findViewById(R.id.server_detail_comment_reason);
-        tvMarkplace = (TextView) findViewById(R.id.server_detail_markPlace);
-        tvDistance = (TextView) findViewById(R.id.server_detail_distance);
-        tvBrand = (TextView) findViewById(R.id.server_detail_category);
-        tvTime = (TextView) findViewById(R.id.server_detail_work_time);
-        tvTopic = (TextView) findViewById(R.id.server_detail_topic);
-        logo = (ImageView) findViewById(R.id.server_detail_logo);
-        facilitiesGroup = (LinearLayout) findViewById(R.id.server_detail_facilities);
+        View zoomView = LayoutInflater.from(this).inflate(R.layout.detail_zoom_layout, null, false);
+        View contentView = LayoutInflater.from(this).inflate(R.layout.detail_content_layout, null, false);
+        View headView = LayoutInflater.from(this).inflate(R.layout.detail_head_layout, null, false);
+        banner = (Banner) zoomView.findViewById(R.id.server_detail_banner);
+        logo = (ImageView) zoomView.findViewById(R.id.server_detail_logo);
 
-        findViewById(R.id.service_phone_call).setOnClickListener(this);
-        findViewById(R.id.service_location).setOnClickListener(this);
-        findViewById(R.id.service_call_server).setOnClickListener(this);
-        findViewById(R.id.server_detail_back).setOnClickListener(this);
+        tvName = (TextView)contentView.findViewById(R.id.server_detail_name);
+        tvPrice = (TextView) contentView.findViewById(R.id.server_detail_person_price);
+        tvCollectNum = (TextView) contentView.findViewById(R.id.server_detail_collect);
+        tvAddress = (TextView) contentView.findViewById(R.id.service_shop_address);
+        tvPhone = (TextView) contentView.findViewById(R.id.service_shop_number);
+        tvReason = (TextView) contentView.findViewById(R.id.server_detail_comment_reason);
+        tvMarkplace = (TextView) contentView.findViewById(R.id.server_detail_markPlace);
+        tvDistance = (TextView) contentView.findViewById(R.id.server_detail_distance);
+        tvBrand = (TextView) contentView.findViewById(R.id.server_detail_category);
+        tvTime = (TextView) contentView.findViewById(R.id.server_detail_work_time);
+        tvTopic = (TextView) contentView.findViewById(R.id.server_detail_topic);
+        facilitiesGroup = (LinearLayout)contentView.findViewById(R.id.server_detail_facilities);
+
+        contentView.findViewById(R.id.service_phone_call).setOnClickListener(this);
+        contentView.findViewById(R.id.service_location).setOnClickListener(this);
+        contentView.findViewById(R.id.service_call_server).setOnClickListener(this);
+
+        int screenWidth = CommonUtils.getScreenWidth(this);
+        LinearLayout.LayoutParams localObject = new LinearLayout.LayoutParams(screenWidth, (int) (12.0F * (screenWidth / 16.0F)));
+        scrollView.setHeaderLayoutParams(localObject);
+        scrollView.setHeaderView(headView);
+        scrollView.setZoomView(zoomView);
+        scrollView.setScrollContentView(contentView);
     }
 
     @Override
@@ -104,7 +121,7 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
                 intent.setClass(mCtx, MapActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.server_detail_back:
+            case R.id.back:
                 finish();
                 break;
             case R.id.service_call_server:

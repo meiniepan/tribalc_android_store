@@ -60,7 +60,7 @@ public class AuthProcessingActivity extends BaseActivity{
                 if (TextUtils.equals(data.authenticationStatus,"FAILURE")){
                     startActivity(new Intent(getCtx(),Authentication1Activity.class));
                 }else {
-                    finish();
+                    startActivity(new Intent(getCtx(),MainActivity.class));
                 }
             }
         });

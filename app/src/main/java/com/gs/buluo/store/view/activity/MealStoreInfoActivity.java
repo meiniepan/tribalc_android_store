@@ -292,6 +292,7 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         setCookingStyle();
         ((StoreInfoPresenter)mPresenter).updateStore(storeBean);
 
+        mealCreation.coordinate =storeBean.coordinate;
         mealCreation.personExpense = tvFee.getText().toString().trim();
         mealCreation.topics = tvTopic.getText().toString().trim();
         mealCreation.reservable = sReserve.isChecked();
@@ -299,6 +300,7 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         mealCreation.name = storeBean.name;
         mealCreation.category = storeBean.category;
         mealCreation.recommendedReason = tvRecommend.getText().toString().trim();
+
         ((StoreInfoPresenter)mPresenter).updateMeal(mealCreation);
     }
 
