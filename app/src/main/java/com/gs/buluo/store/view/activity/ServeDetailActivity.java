@@ -27,6 +27,7 @@ import com.gs.buluo.store.view.widget.pulltozoom.PullToZoomScrollViewEx;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -57,6 +58,8 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
     private HashMap<String,Integer> map=new HashMap<>();
     private LatLng des;
     ImageView logo;
+    private TextView counts;
+    ArrayList<String> mFacilities;
 
     @Bind(R.id.detail_scroll_view)
     PullToZoomScrollViewEx scrollView;
@@ -89,10 +92,13 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
         tvTime = (TextView) contentView.findViewById(R.id.server_detail_work_time);
         tvTopic = (TextView) contentView.findViewById(R.id.server_detail_topic);
         facilitiesGroup = (LinearLayout)contentView.findViewById(R.id.server_detail_facilities);
+        counts = (TextView) contentView.findViewById(R.id.server_detail_facilities_counts);
 
         contentView.findViewById(R.id.service_phone_call).setOnClickListener(this);
         contentView.findViewById(R.id.service_location).setOnClickListener(this);
         contentView.findViewById(R.id.service_call_server).setOnClickListener(this);
+        contentView.findViewById(R.id.server_detail_facilities).setOnClickListener(this);
+
 
         int screenWidth = CommonUtils.getScreenWidth(this);
         LinearLayout.LayoutParams localObject = new LinearLayout.LayoutParams(screenWidth, (int) (12.0F * (screenWidth / 16.0F)));
@@ -121,14 +127,25 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
                 intent.setClass(mCtx, MapActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.back:
-                finish();
+            case R.id.service_booking_food:
+                ToastUtils.ToastMessage(mCtx,R.string.no_function);
+                break;
+            case R.id.service_booking_seat:
                 break;
             case R.id.service_call_server:
                 intent.setAction(Intent.ACTION_DIAL);
                 Uri data1 = Uri.parse("tel:" + getString(R.string.help_phone));
                 intent.setData(data1);
                 startActivity(intent);
+                break;
+            case R.id.server_detail_facilities:
+                if (mFacilities ==null)return;
+                intent.setClass(getCtx(), FacilityDetailActivity.class);
+                intent.putStringArrayListExtra(Constant.ForIntent.FANCILITY,mFacilities);
+                startActivity(intent);
+                break;
+            case R.id.back:
+                finish();
                 break;
         }
     }
@@ -170,8 +187,11 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
         if (data.detailStore.coordinate!=null){
             setDistance(data.detailStore.coordinate);
         }
-
-        setFacilities(detailStore.facilities);
+        ArrayList<String> facilities = detailStore.facilities;
+        setFacilities(facilities);
+        if (facilities !=null&& facilities.size()>4){
+            counts.setText("+".concat(facilities.size()-4+""));
+        }
         GlideUtils.loadImage(this,detailStore.logo, logo,true);
     }
 
@@ -203,7 +223,8 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     public void setFacilities(List<String> facilities) {
-        if (facilities==null)return;
+        if (facilities==null || facilities.size()==0)return;
+        mFacilities =new ArrayList<>();
         for (String facility:facilities){
             View facilityView=View.inflate(this,R.layout.serve_detail_facility,null);
             ImageView iv= (ImageView) facilityView.findViewById(R.id.facility_image);
@@ -211,6 +232,8 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
             tv.setText(facility);
             Integer resId = map.get(facility);
             iv.setImageResource(resId);
+            mFacilities.add(facility +","+resId);
+            if (facilitiesGroup.getChildCount() ==4)continue;
             facilitiesGroup.addView(facilityView);
         }
     }
@@ -218,6 +241,6 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
     public void setDistance(List<Double> distance) {
         des = new LatLng(distance.get(1),distance.get(0));
         LatLng myPos = TribeApplication.getInstance().getPosition();
-        tvDistance.setText(" | " + CommonUtils.getDistance(des,myPos));
+        tvDistance.setText(" | " +CommonUtils.getDistance(des,myPos));
     }
 }

@@ -62,7 +62,7 @@
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginBottom="12dp"
                         android:visibility="gone"
                         android:layout_alignParentBottom="true"
                         android:src="@mipmap/delete_garbage" />
@@ -94,7 +94,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="15dp"
+                        android:layout_marginBottom="12dp"
                         android:layout_marginStart="15dp"
                         android:src="@mipmap/add_goods_pic"
                         android:visibility="gone" />

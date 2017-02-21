@@ -74,6 +74,7 @@ public class Constant {
         public static final String STATUS = "status";
         public static final String KEY = "key";
         public static final String COORDINATE = "coordinate";
+        public static final String FANCILITY = "facility";
     }
 
 }

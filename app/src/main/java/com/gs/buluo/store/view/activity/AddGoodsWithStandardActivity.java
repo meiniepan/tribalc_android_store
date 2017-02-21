@@ -120,6 +120,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         } else {
             GoodsStandardMeta standardMeta = intent.getParcelableExtra(Constant.ForIntent.GOODS_STANDARD);
             meta = new GoodsMeta();
+            meta.pictures = new ArrayList<>();
             meta.standardId = standardMeta.id;
             String category = intent.getStringExtra(Constant.ForIntent.GOODS_CATEGORY);
             meta.category = GoodsCategory.valueOf(category);
@@ -203,6 +204,8 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         meta.isEdit = true;
         if (meta.pictures!=null &&meta.pictures.size()>0){
             setBannerStyle();
+        } else {
+            meta.pictures =new ArrayList<>();
         }
 
         etTitleDetail.setText(meta.title);
