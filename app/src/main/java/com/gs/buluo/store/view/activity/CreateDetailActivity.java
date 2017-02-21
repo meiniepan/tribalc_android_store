@@ -156,14 +156,18 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
         findViewById(R.id.store_create_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (storeBean.category == StoreMeta.StoreCategory.REPAST)setCookingStyle();
                 if (tvName.length() == 0) {
                     ToastUtils.ToastMessage(getCtx(), getString(R.string.edit_store_name));
                     return;
                 }else if (tvMark.length() == 0){
                     ToastUtils.ToastMessage(getCtx(),getString(R.string.mark_place_not_null));
                     return;
-                }else if (tvAddress .length()==0){
+                }else if (tvAddress .length()<4){
                     ToastUtils.ToastMessage(getCtx(),getString(R.string.edit_store_address));
+                    return;
+                }else if (StoreMeta.StoreCategory.REPAST==storeBean.category &&(storeBean.cookingStyle==null || storeBean.cookingStyle.size()==0)){
+                    ToastUtils.ToastMessage(getCtx(),getString(R.string.cook_not_null));
                     return;
                 }
                 goSecond();
@@ -172,7 +176,6 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void goSecond() {
-        if (storeBean.category == StoreMeta.StoreCategory.REPAST)setCookingStyle();
         storeBean.name = tvName.getText().toString().trim();
         storeBean.subbranchName = tvSubName.getText().toString().trim();
         storeBean.phone = tvPhone.getText().toString().trim();

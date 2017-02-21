@@ -306,4 +306,5 @@
     <string name="edit_store_address">请选择店铺地址</string>
     <string name="edit_store_name">请填写店铺名称</string>
     <string name="empty">\"\"</string>
+    <string name="cook_not_null">菜系不能为空</string>
 </resources>

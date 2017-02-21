@@ -191,7 +191,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="餐厅话题"
+                android:text="推荐话题"
                 android:textColor="@color/common_dark"
                 android:textSize="@dimen/dimens_19sp"
                 android:textStyle="bold" />

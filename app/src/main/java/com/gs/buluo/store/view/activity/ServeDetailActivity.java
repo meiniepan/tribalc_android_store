@@ -63,6 +63,7 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
 
     @Bind(R.id.detail_scroll_view)
     PullToZoomScrollViewEx scrollView;
+    private List<Double> coordinate;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -125,6 +126,8 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.service_location:
                 intent.setClass(mCtx, MapActivity.class);
+                double[] array = new double[]{coordinate.get(0),coordinate.get(1)};
+                intent.putExtra(Constant.ForIntent.SERVE_POSITION, array);
                 startActivity(intent);
                 break;
             case R.id.service_booking_food:
@@ -179,13 +182,15 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
         tvMarkplace.setText(detailStore.markPlace);
         tvPrice.setText(data.personExpense);
         tvReason.setText(data.recommendedReason);
-        tvBrand.setText((detailStore.cookingStyle!=null&&detailStore.cookingStyle.size()!=0) ? detailStore.cookingStyle.get(0)+" | " :"" );
+        tvBrand.setText((detailStore.cookingStyle!=null&&detailStore.cookingStyle.size()!=0) ? detailStore.cookingStyle.get(0)+" | " :detailStore.category.toString()+" | ");
         String businessHours = detailStore.businessHours;
         if (businessHours == null) tvTime.setVisibility(View.GONE);
         else tvTime.setText("每天 " + businessHours);
+
         tvTopic.setText(data.topics);
         if (data.detailStore.coordinate!=null){
-            setDistance(data.detailStore.coordinate);
+            coordinate = data.detailStore.coordinate;
+            setDistance(coordinate);
         }
         ArrayList<String> facilities = detailStore.facilities;
         setFacilities(facilities);
