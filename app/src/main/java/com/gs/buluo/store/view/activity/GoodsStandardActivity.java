@@ -8,13 +8,10 @@ import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.StandardListAdapter;
-import com.gs.buluo.store.bean.GoodsCategory;
-import com.gs.buluo.store.bean.GoodsMeta;
 import com.gs.buluo.store.bean.GoodsStandardMeta;
-import com.gs.buluo.store.bean.ListGoodsDetail;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.GoodsStandardResponse;
-import com.gs.buluo.store.network.GoodsService;
+import com.gs.buluo.store.network.GoodsApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView;
@@ -70,7 +67,7 @@ public class GoodsStandardActivity extends BaseActivity implements Callback<Base
         listAdapter=new StandardListAdapter(this, standardMetas);
         refreshRecyclerView.setAdapter(listAdapter);
         showLoadingDialog();
-        TribeRetrofit.getInstance().createApi(GoodsService.class).getStandardList(TribeApplication.getInstance().getUserInfo().getId(),category)
+        TribeRetrofit.getInstance().createApi(GoodsApis.class).getStandardList(TribeApplication.getInstance().getUserInfo().getId(),category)
         .enqueue(this);
     }
 

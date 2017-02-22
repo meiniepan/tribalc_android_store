@@ -21,6 +21,7 @@ public class CreateStoreFinishActivity extends BaseActivity {
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(getCtx(),MainActivity.class));
                 finish();
             }
         });
@@ -29,5 +30,11 @@ public class CreateStoreFinishActivity extends BaseActivity {
     @Override
     protected int getContentLayout() {
         return R.layout.activity_create_finish;
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this,MainActivity.class));
+        finish();
     }
 }

@@ -66,8 +66,9 @@ public class Authentication3Activity extends BaseActivity{
             @Override
             public void onSuccess(Response<BaseResponse<AuthenticationData>> response) {
                 dismissDialog();
+                data.authenticationStatus ="PROCESSING";
                 Intent intent = new Intent(getCtx(), AuthProcessingActivity.class);
-                intent.putExtra(Constant.ForIntent.STATUS,response.body().data);
+                intent.putExtra(Constant.ForIntent.STATUS,data);
                 startActivity(intent);
             }
 

@@ -24,7 +24,7 @@ import retrofit2.http.Query;
 /**
  * Created by hjn on 2016/11/11.
  */
-public interface MoneyService {
+public interface MoneyApis {
     @GET("wallets/{id}/wallet")
     Call<BaseResponse<WalletAccount>> getWallet(
             @Path("id") String uid);

@@ -71,6 +71,7 @@ public class StoreMeta extends StoreInfo implements Parcelable, IBaseResponse {
         dest.writeStringList(this.cookingStyle);
         dest.writeString(this.businessHours);
         dest.writeDoubleArray(this.coordinate);
+        dest.writeString(this.markPlace);
     }
 
     protected StoreMeta(Parcel in) {
@@ -91,6 +92,7 @@ public class StoreMeta extends StoreInfo implements Parcelable, IBaseResponse {
         this.cookingStyle = in.createStringArrayList();
         this.businessHours = in.readString();
         this.coordinate = in.createDoubleArray();
+        this.markPlace = in.readString();
     }
 
     public static final Creator<StoreMeta> CREATOR = new Creator<StoreMeta>() {

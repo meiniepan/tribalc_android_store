@@ -80,6 +80,7 @@ public class TribeCrashCollector implements Thread.UncaughtExceptionHandler {
         ex.printStackTrace(System.err);
         saveErrorReportAsFile(ex);
         AppManager.getAppManager().finishAllActivityAndExit();
+        System.exit(0);
 //        android.os.Process.killProcess(android.os.Process.myPid());
 //        System.exit(0);
     }

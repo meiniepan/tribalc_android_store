@@ -5,7 +5,7 @@ import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.StoreGoodsList;
 import com.gs.buluo.store.model.GoodsModel;
-import com.gs.buluo.store.network.GoodsService;
+import com.gs.buluo.store.network.GoodsApis;
 import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.view.impl.IStoreGoodsView;
@@ -24,7 +24,7 @@ public class StoreGoodsPresenter extends BasePresenter<IStoreGoodsView> {
     }
 
     public void getGoodsListFirst(final boolean published) {
-        TribeRetrofit.getInstance().createApi(GoodsService.class).getStoreGoodsListFirst(TribeApplication.getInstance().getUserInfo().getId(), published).
+        TribeRetrofit.getInstance().createApi(GoodsApis.class).getStoreGoodsListFirst(TribeApplication.getInstance().getUserInfo().getId(), published).
                 enqueue(new TribeCallback<StoreGoodsList>() {
                     @Override
                     public void onSuccess(Response<BaseResponse<StoreGoodsList>> response) {
@@ -44,7 +44,7 @@ public class StoreGoodsPresenter extends BasePresenter<IStoreGoodsView> {
     }
 
     public void getMore(final boolean published) {
-        TribeRetrofit.getInstance().createApi(GoodsService.class).getStoreGoodsListMore(TribeApplication.getInstance().getUserInfo().getId(), published, sortSkip)
+        TribeRetrofit.getInstance().createApi(GoodsApis.class).getStoreGoodsListMore(TribeApplication.getInstance().getUserInfo().getId(), published, sortSkip)
                 .enqueue(new TribeCallback<StoreGoodsList>() {
                     @Override
                     public void onSuccess(Response<BaseResponse<StoreGoodsList>> response) {

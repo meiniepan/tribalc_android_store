@@ -19,7 +19,7 @@ import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.eventbus.SelfEvent;
-import com.gs.buluo.store.network.MainService;
+import com.gs.buluo.store.network.MainApis;
 import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.AppManager;
@@ -188,7 +188,7 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void createStore() {
-        TribeRetrofit.getInstance().createApi(MainService.class).createStore(TribeApplication.getInstance().getUserInfo().getId(), storeBean)
+        TribeRetrofit.getInstance().createApi(MainApis.class).createStore(TribeApplication.getInstance().getUserInfo().getId(), storeBean)
                 .enqueue(new TribeCallback<StoreMeta>() {
                     @Override
                     public void onSuccess(Response<BaseResponse<StoreMeta>> response) {

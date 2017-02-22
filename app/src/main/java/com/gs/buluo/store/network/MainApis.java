@@ -26,7 +26,7 @@ import retrofit2.http.Query;
 /**
  * Created by hjn on 2016/11/3.
  */
-public interface MainService {
+public interface MainApis {
 
     @POST("stores/login")
     Call<UserBeanResponse> doLogin(@Body LoginBody params);

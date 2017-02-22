@@ -2,7 +2,6 @@ package com.gs.buluo.store.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,7 +15,7 @@ import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
-import com.gs.buluo.store.bean.StoreDetail;
+import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.model.CommunityModel;
 import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.GlideBannerLoader;
@@ -37,7 +36,7 @@ import retrofit2.Response;
 /**
  * Created by hjn on 2016/12/20.
  */
-public class StoreDetailActivity extends BaseActivity implements Callback<BaseResponse<StoreDetail>>, View.OnClickListener {
+public class StoreDetailActivity extends BaseActivity implements Callback<BaseResponse<StoreMeta>>, View.OnClickListener {
     Context mCtx;
     TextView tvName;
     private TextView tvPrice;
@@ -146,15 +145,15 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
     }
 
     @Override
-    public void onResponse(Call<BaseResponse<StoreDetail>> call, Response<BaseResponse<StoreDetail>> response) {
+    public void onResponse(Call<BaseResponse<StoreMeta>> call, Response<BaseResponse<StoreMeta>> response) {
         dismissDialog();
         if (response.body() != null && response.body().code == 200 && response.body().data != null) {
-            StoreDetail data = response.body().data;
+            StoreMeta data = response.body().data;
             setData(data);
         }
     }
 
-    private void setData(StoreDetail data) {
+    private void setData(StoreMeta data) {
         banner.setBannerStyle(BannerConfig.NUM_INDICATOR);
         banner.setIndicatorGravity(BannerConfig.RIGHT);
         banner.setImageLoader(new GlideBannerLoader());
@@ -168,15 +167,15 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
         String businessHours = data.businessHours;
         if (businessHours == null) tvTime.setVisibility(View.GONE);
         else tvTime.setText("每天 " + businessHours);
-        if (data.coordinate!=null){
+        if (data.coordinate!=null&&data.coordinate.length>0){
             setDistance(data.coordinate);
         }
-//        setFacilities(data.facilities);
+        setFacilities(data.facilities);
         GlideUtils.loadImage(this,data.logo, logo,true);
     }
 
     @Override
-    public void onFailure(Call<BaseResponse<StoreDetail>> call, Throwable t) {
+    public void onFailure(Call<BaseResponse<StoreMeta>> call, Throwable t) {
         dismissDialog();
         ToastUtils.ToastMessage(this, R.string.connect_fail);
     }
@@ -215,8 +214,8 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
         }
     }
 
-    public void setDistance(List<Double> distance) {
-        des = new LatLng(distance.get(1),distance.get(0));
+    public void setDistance(double[]  distance) {
+        des = new LatLng(distance[1],distance[0]);
         LatLng myPos = TribeApplication.getInstance().getPosition();
         tvDistance.setText(" | " + CommonUtils.getDistance(des,myPos));
     }

@@ -1,7 +1,6 @@
 package com.gs.buluo.store.view.activity;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -10,20 +9,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.AuthenticationData;
-import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
-import com.gs.buluo.store.network.MainService;
-import com.gs.buluo.store.network.TribeCallback;
-import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.GlideUtils;
-import com.gs.buluo.store.utils.ToastUtils;
 
 import butterknife.Bind;
-import retrofit2.Response;
 
 /**
  * Created by hjn on 2017/1/20.
@@ -61,6 +52,7 @@ public class AuthProcessingActivity extends BaseActivity{
                     startActivity(new Intent(getCtx(),Authentication1Activity.class));
                 }else {
                     startActivity(new Intent(getCtx(),MainActivity.class));
+                    finish();
                 }
             }
         });

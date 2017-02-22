@@ -303,7 +303,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     }
 
     private void continueToFinal() {
-        if (etSale.length() == 0 || etStock.length() == 0 ) {
+        if (etSale.length() == 0 || etStock.length() == 0 || tvValue1.length()== 0 ||tvValue2.length() ==0  ) {
             ToastUtils.ToastMessage(getCtx(), getString(R.string.goods_info_not_complete));
             return;
         }

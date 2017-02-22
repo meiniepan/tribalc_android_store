@@ -14,7 +14,7 @@ import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.GoodsMeta;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
-import com.gs.buluo.store.network.GoodsService;
+import com.gs.buluo.store.network.GoodsApis;
 import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.GlideUtils;
@@ -105,7 +105,7 @@ public class StoreGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
     }
 
     private void deleteGoods(final GoodsMeta entity) {
-        TribeRetrofit.getInstance().createApi(GoodsService.class).deleteGoods(entity.id, TribeApplication.getInstance().getUserInfo().getId())
+        TribeRetrofit.getInstance().createApi(GoodsApis.class).deleteGoods(entity.id, TribeApplication.getInstance().getUserInfo().getId())
                 .enqueue(new TribeCallback<CodeResponse>() {
             @Override
             public void onSuccess(Response<BaseResponse<CodeResponse>> response) {

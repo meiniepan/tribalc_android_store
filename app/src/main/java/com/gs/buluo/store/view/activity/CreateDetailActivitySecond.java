@@ -21,7 +21,7 @@ import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.bean.StoreSetMealCreation;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.eventbus.SelfEvent;
-import com.gs.buluo.store.network.MainService;
+import com.gs.buluo.store.network.MainApis;
 import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.AppManager;
@@ -140,7 +140,7 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
     }
 
     private void createStore() {
-        TribeRetrofit.getInstance().createApi(MainService.class).createStore(TribeApplication.getInstance().getUserInfo().getId(), storeBean).
+        TribeRetrofit.getInstance().createApi(MainApis.class).createStore(TribeApplication.getInstance().getUserInfo().getId(), storeBean).
                 enqueue(new TribeCallback<StoreMeta>() {
                     @Override
                     public void onSuccess(Response<BaseResponse<StoreMeta>> response) {
@@ -158,6 +158,7 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
                         ToastUtils.ToastMessage(CreateDetailActivitySecond.this, R.string.connect_fail);
                     }
                 });
+        mealCreation.category =storeBean.category;
         mealCreation.reservable = sReserve.isChecked();
         mealCreation.coordinate = storeBean.coordinate;
         mealCreation.personExpense = etFee.getText().toString().trim();
@@ -165,7 +166,7 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
         mealCreation.pictures = storeBean.pictures;
         mealCreation.recommendedReason = etRecommend.getText().toString().trim();
         mealCreation.topics = storeBean.topics;
-        TribeRetrofit.getInstance().createApi(MainService.class).createServe(TribeApplication.getInstance().getUserInfo().getId(), mealCreation).enqueue(new TribeCallback<CodeResponse>() {
+        TribeRetrofit.getInstance().createApi(MainApis.class).createServe(TribeApplication.getInstance().getUserInfo().getId(), mealCreation).enqueue(new TribeCallback<CodeResponse>() {
             @Override
             public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
 

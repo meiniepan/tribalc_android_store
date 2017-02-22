@@ -256,6 +256,7 @@
                         android:layout_marginStart="50dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
+                        android:hint="必填"
                         android:background="@null"
                         android:maxLines="1"
                         android:textColor="@color/common_gray"
@@ -282,6 +283,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:maxLines="1"
+                        android:hint="必填"
                         android:textColor="@color/common_gray"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.gs.buluo.store.view.activity;
 
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
@@ -29,6 +30,7 @@ import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 
 import butterknife.Bind;
@@ -246,6 +248,7 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
     public void setDistance(List<Double> distance) {
         des = new LatLng(distance.get(1),distance.get(0));
         LatLng myPos = TribeApplication.getInstance().getPosition();
-        tvDistance.setText(" | " +CommonUtils.getDistance(des,myPos));
+        if (myPos!=null)
+            tvDistance.setText(" | " +CommonUtils.getDistance(des,myPos));
     }
 }

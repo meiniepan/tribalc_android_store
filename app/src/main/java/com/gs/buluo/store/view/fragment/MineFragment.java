@@ -25,7 +25,7 @@ import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.model.MainModel;
-import com.gs.buluo.store.network.MainService;
+import com.gs.buluo.store.network.MainApis;
 import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.network.TribeUploader;
@@ -273,7 +273,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     public void getAuthInfo() {
         showLoadingDialog();
-        TribeRetrofit.getInstance().createApi(MainService.class).getAuth(TribeApplication.getInstance().getUserInfo().getId()).enqueue(new TribeCallback<AuthenticationData>() {
+        TribeRetrofit.getInstance().createApi(MainApis.class).getAuth(TribeApplication.getInstance().getUserInfo().getId()).enqueue(new TribeCallback<AuthenticationData>() {
             @Override
             public void onSuccess(Response<BaseResponse<AuthenticationData>> response) {
                 dismissDialog();
