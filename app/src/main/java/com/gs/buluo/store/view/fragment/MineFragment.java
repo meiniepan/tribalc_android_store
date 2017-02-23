@@ -296,19 +296,4 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             }
         });
     }
-
-    public void getStoreStatus() {
-        new MainModel().getDetailStoreInfo(TribeApplication.getInstance().getUserInfo().getId(),new TribeCallback<StoreMeta>() {
-            @Override
-            public void onSuccess(Response<BaseResponse<StoreMeta>> response) {
-
-
-            }
-
-            @Override
-            public void onFail(int responseCode, BaseResponse<StoreMeta> body) {
-                ToastUtils.ToastMessage(getActivity(), R.string.connect_fail);
-            }
-        });
-    }
 }

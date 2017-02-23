@@ -13,8 +13,8 @@ import java.util.List;
 
 public class AuthenticationData implements Parcelable, IBaseResponse {
     public List<String> idCardPicture;
-    public String businessLicence;
-    public String tradeLicence;
+    public String businessLicense;
+    public String tradeLicense;
     public String authenticationStatus;
 
     public AuthenticationData() {
@@ -28,15 +28,15 @@ public class AuthenticationData implements Parcelable, IBaseResponse {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeStringList(this.idCardPicture);
-        dest.writeString(this.businessLicence);
-        dest.writeString(this.tradeLicence);
+        dest.writeString(this.businessLicense);
+        dest.writeString(this.tradeLicense);
         dest.writeString(this.authenticationStatus);
     }
 
     protected AuthenticationData(Parcel in) {
         this.idCardPicture = in.createStringArrayList();
-        this.businessLicence = in.readString();
-        this.tradeLicence = in.readString();
+        this.businessLicense = in.readString();
+        this.tradeLicense = in.readString();
         this.authenticationStatus = in.readString();
     }
 

@@ -109,9 +109,11 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
                 setFoodData();
                 break;
         }
-        beanAdapter = new TagAdapter(this, categoryBeanList);
-        beanAdapter.setLimit(3);
-        recyclerView.setAdapter(beanAdapter);
+        if (categoryBeanList!=null){
+            beanAdapter = new TagAdapter(this, categoryBeanList);
+            beanAdapter.setLimit(3);
+            recyclerView.setAdapter(beanAdapter);
+        }
         StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL) {
             @Override
             public boolean canScrollHorizontally() {

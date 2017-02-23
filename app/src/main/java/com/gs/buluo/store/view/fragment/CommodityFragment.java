@@ -72,8 +72,8 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.order_find)
-                    searchFragment.show(getActivity().getSupportFragmentManager(), SearchFragment.TAG);
+//                if (item.getItemId() == R.id.order_find)
+//                    searchFragment.show(getActivity().getSupportFragmentManager(), SearchFragment.TAG);
                 return true;
             }
         });

@@ -90,9 +90,9 @@ public class AuthProcessingActivity extends BaseActivity{
 
 
     public void setData(AuthenticationData data) {
-        GlideUtils.loadImage(this,data.businessLicence,licencePic);
+        GlideUtils.loadImage(this,data.businessLicense,licencePic);
         GlideUtils.loadImage(this,data.idCardPicture.get(0),frontPic);
         GlideUtils.loadImage(this,data.idCardPicture.get(1),backPic);
-        GlideUtils.loadImage(this,data.tradeLicence,permitPic);
+        GlideUtils.loadImage(this,data.tradeLicense,permitPic);
     }
 }

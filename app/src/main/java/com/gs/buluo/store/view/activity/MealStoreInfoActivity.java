@@ -101,9 +101,9 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         if (data.category == StoreMeta.StoreCategory.REPAST) {
             initCookingStyle();
         }
-//        if ("NOT_START".equals(data.authenticationStatus)) {
+        if ("NOT_START".equals(data.authenticationStatus)) {
             mAuth.setVisibility(View.VISIBLE);
-//        }
+        }
         tvEnvi.setText(data.pictures == null? "":data.pictures.size()+"张");
         etDesc.setText(data.desc);
         tvName.setText(data.name);
@@ -254,8 +254,9 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
             tvLogo.setText("1张");
         } else if (data != null && requestCode == 201 && resultCode == 202) {   //environment
             ArrayList<String> enPictures = data.getStringArrayListExtra(Constant.ENVIRONMENT);
+            if (enPictures==null)return;
             storeBean.pictures = enPictures;
-            if (enPictures!=null&&enPictures.size()>0){
+            if (enPictures.size()>0){
                 mealCreation.mainPicture = enPictures.get(0);
             }
             tvEnvi.setText(enPictures.size() + "张");

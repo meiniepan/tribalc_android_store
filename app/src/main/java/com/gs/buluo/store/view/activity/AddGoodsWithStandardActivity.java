@@ -94,6 +94,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     private View delPic;
     private View addFirst;
     private boolean isMain;
+    private GoodsStandardMeta standardMeta;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -110,15 +111,15 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     private void initData() {
         Intent intent = getIntent();
         meta = intent.getParcelableExtra(Constant.ForIntent.GOODS_BEAN);
-        if (meta != null) {
+        if (meta != null) {                 //编辑商品
             if (meta.standardId != null)
                 getStandard();
             else
                 setStandard(null);
 
             setData();
-        } else {
-            GoodsStandardMeta standardMeta = intent.getParcelableExtra(Constant.ForIntent.GOODS_STANDARD);
+        } else {            //添加有规格商品
+            standardMeta = intent.getParcelableExtra(Constant.ForIntent.GOODS_STANDARD);
             meta = new GoodsMeta();
             meta.pictures = new ArrayList<>();
             meta.standardId = standardMeta.id;
@@ -303,8 +304,12 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     }
 
     private void continueToFinal() {
-        if (etSale.length() == 0 || etStock.length() == 0 || tvValue1.length()== 0 ||tvValue2.length() ==0  ) {
+        if (etSale.getText().length() == 0 || etStock.getText().length() == 0) {         //编辑商品
             ToastUtils.ToastMessage(getCtx(), getString(R.string.goods_info_not_complete));
+            return;
+        }
+        if (findView(R.id.ll_standard).getVisibility()==View.VISIBLE&&(tvValue1.getText().length()== 0 ||tvValue2.getText().length() ==0)){
+            ToastUtils.ToastMessage(getCtx(),getString(R.string.standard_not_empty));
             return;
         }
         meta.name = etTitle.getText().toString().trim();

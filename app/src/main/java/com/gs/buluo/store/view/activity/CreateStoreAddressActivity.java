@@ -164,7 +164,6 @@ public class CreateStoreAddressActivity extends BaseActivity implements OnGetGeo
         longitude =  geoCodeResult.getLocation().longitude;
         String strInfo = String.format("纬度：%f 经度：%f",
                 latitude,longitude);
-        Toast.makeText(getCtx(), strInfo, Toast.LENGTH_LONG).show();
     }
 
     @Override

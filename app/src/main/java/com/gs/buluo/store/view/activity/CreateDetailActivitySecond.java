@@ -74,21 +74,21 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
         facilityList = new ArrayList<>();
         facilityList.add(new FacilityBean(getString(R.string.subway)));
         facilityList.add(new FacilityBean(getString(R.string.bar)));
-        facilityList.add(new FacilityBean(getString(R.string.baby_chair)));
         facilityList.add(new FacilityBean(getString(R.string.business_circle)));
         facilityList.add(new FacilityBean(getString(R.string.business_dinner)));
         facilityList.add(new FacilityBean(getString(R.string.facilities_for_disabled)));
-        facilityList.add(new FacilityBean(getString(R.string.organic_food)));
-        facilityList.add(new FacilityBean(getString(R.string.parking)));
+        facilityList.add(new FacilityBean( getString(R.string.organic_food)));
+        facilityList.add(new FacilityBean(getString( R.string.parking)));
         facilityList.add(new FacilityBean(getString(R.string.pet_ok)));
         facilityList.add(new FacilityBean(getString(R.string.room)));
         facilityList.add(new FacilityBean(getString(R.string.restaurants_of_hotel)));
-        facilityList.add(new FacilityBean(getString(R.string.scene_seat)));
-        facilityList.add(new FacilityBean(getString(R.string.small_party)));
+        facilityList.add(new FacilityBean( getString(R.string.scene_seat)));
+        facilityList.add(new FacilityBean( getString(R.string.small_party)));
         facilityList.add(new FacilityBean(getString(R.string.weekend_brunch)));
-        facilityList.add(new FacilityBean( getString(R.string.valet_parking)));
-        facilityList.add(new FacilityBean(getString( R.string.vip_rights)));
+        facilityList.add(new FacilityBean(getString( R.string.valet_parking)));
+        facilityList.add(new FacilityBean( getString(R.string.vip_rights)));
         facilityList.add(new FacilityBean(getString(R.string.wi_fi)));
+
 
         StaggeredGridLayoutManager layout = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.HORIZONTAL) {
             @Override
@@ -187,7 +187,7 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
         first.setStoreType(data.getStoreType());
         first.setAuthenticationStatus(data.getAuthenticationStatus());
         storeInfoDao.update(first);
-        TribeApplication.getInstance().setUserInfo(data);
+        TribeApplication.getInstance().setUserInfo(first);
         EventBus.getDefault().post(new SelfEvent());
     }
 

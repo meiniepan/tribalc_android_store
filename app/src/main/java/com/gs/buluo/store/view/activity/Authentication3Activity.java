@@ -10,12 +10,10 @@ import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.AuthenticationData;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
-import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
 import com.gs.buluo.store.model.MainModel;
 import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.network.TribeUploader;
-import com.gs.buluo.store.utils.AppManager;
 import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
@@ -54,7 +52,7 @@ public class Authentication3Activity extends BaseActivity{
             @Override
             public void onClick(View v) {
                 if (path==null)return;
-                data.tradeLicence =path;
+                data.tradeLicense =path;
                 doAuth();
             }
         });

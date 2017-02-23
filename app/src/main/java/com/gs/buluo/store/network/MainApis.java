@@ -68,6 +68,6 @@ public interface MainApis {
     @PUT("store_set_meals/{id}")
     Call<BaseResponse<CodeResponse>> updateMeal(@Path("id")String mealId,@Body StoreSetMealCreation mealCreation);
 
-    @GET("stores/{id}")
+    @GET("stores/{id}/authentication")
     Call<BaseResponse<AuthenticationData>> getAuth(@Path("id")String uid);
 }

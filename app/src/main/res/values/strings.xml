@@ -239,7 +239,7 @@
     <string name="parking">停车</string>
     <string name="pet_ok">可带宠物</string>
     <string name="room">有包间</string>
-    <string name="restaurants_of_hotel">酒店内有餐厅</string>
+    <string name="restaurants_of_hotel">酒店内餐厅</string>
     <string name="scene_seat">有观景位</string>
     <string name="small_party">适合小聚</string>
     <string name="subway">地铁</string>
@@ -307,4 +307,5 @@
     <string name="edit_store_name">请填写店铺名称</string>
     <string name="empty">\"\"</string>
     <string name="cook_not_null">菜系不能为空</string>
+    <string name="standard_not_empty">规格信息不能为空</string>
 </resources>

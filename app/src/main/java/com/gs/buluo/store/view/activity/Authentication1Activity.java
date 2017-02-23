@@ -49,7 +49,7 @@ public class Authentication1Activity extends BaseActivity implements View.OnClic
                 finish();
                 break;
             case R.id.identify_business_next:
-                if (authenticationData.businessLicence==null)return;
+                if (authenticationData.businessLicense ==null)return;
                 Intent intent=new Intent(getCtx(),Authentication2Activity.class);
                 intent.putExtra(Constant.AUTH,authenticationData);
                 startActivity(intent);
@@ -73,7 +73,7 @@ public class Authentication1Activity extends BaseActivity implements View.OnClic
             @Override
             public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
                 dismissDialog();
-                authenticationData .businessLicence = data.objectKey;
+                authenticationData .businessLicense = data.objectKey;
                 businessImg.setVisibility(View.VISIBLE);
                 Glide.with(Authentication1Activity.this).load(GlideUtils.formatImageUrl(data.objectKey)).into(businessImg);
                 findViewById(R.id.identify_business).setVisibility(View.GONE);

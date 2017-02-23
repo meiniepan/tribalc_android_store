@@ -100,7 +100,7 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
         contentView.findViewById(R.id.service_phone_call).setOnClickListener(this);
         contentView.findViewById(R.id.service_location).setOnClickListener(this);
         contentView.findViewById(R.id.service_call_server).setOnClickListener(this);
-        contentView.findViewById(R.id.server_detail_facilities).setOnClickListener(this);
+        contentView.findViewById(R.id.rl_server_detail_facilities).setOnClickListener(this);
 
 
         int screenWidth = CommonUtils.getScreenWidth(this);
@@ -143,7 +143,7 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
                 intent.setData(data1);
                 startActivity(intent);
                 break;
-            case R.id.server_detail_facilities:
+            case R.id.rl_server_detail_facilities:
                 if (mFacilities ==null)return;
                 intent.setClass(getCtx(), FacilityDetailActivity.class);
                 intent.putStringArrayListExtra(Constant.ForIntent.FANCILITY,mFacilities);

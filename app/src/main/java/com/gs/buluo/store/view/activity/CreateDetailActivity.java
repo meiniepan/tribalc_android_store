@@ -215,7 +215,7 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
         first.setStoreType(data.getStoreType());
         first.setAuthenticationStatus(data.getAuthenticationStatus());
         storeInfoDao.update(first);
-        TribeApplication.getInstance().setUserInfo(data);
+        TribeApplication.getInstance().setUserInfo(first);
         EventBus.getDefault().post(new SelfEvent());
     }
 

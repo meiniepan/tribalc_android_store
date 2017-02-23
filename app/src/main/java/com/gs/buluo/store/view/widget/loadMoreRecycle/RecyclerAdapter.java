@@ -190,7 +190,7 @@ public abstract class RecyclerAdapter<T> extends RecyclerView.Adapter<BaseViewHo
     }
 
     public void addAll(List<T> data) {
-        if (!isShowNoMore && data.size() > 0) {
+        if (data.size() > 0) {
             isLoadingMore = false;
             if (data.size() == 0) {
                 return;
