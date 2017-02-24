@@ -69,6 +69,8 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
     private OnSelectFinish selectFinish;
     private AddCartListener addCartListener;
 
+    private String originId;
+
     public GoodsChoosePanel(Context context, OnShowInDetail onShowInDetail) {
         super(context, R.style.my_dialog);
         this.onShowInDetail = onShowInDetail;
@@ -83,6 +85,7 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
     public void setRepertory(ListGoodsDetail goodsDetail) {
         defaultEntity = goodsDetail;
         if (defaultEntity == null) return;
+        originId =goodsDetail.id;
         mPrice.setText(defaultEntity.salePrice);
         mRemainNumber.setText(defaultEntity.repertory + "");
         GlideUtils.loadImage(getContext(),defaultEntity.mainPicture, mIcon);
@@ -258,7 +261,7 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
 
     @Override
     public void onDismiss(DialogInterface dialog) {
-        if (onShowInDetail == null || defaultEntity == null) return;
+        if (onShowInDetail == null || defaultEntity == null ||TextUtils.equals(defaultEntity.id,originId)) return;
         onShowInDetail.onShow(defaultEntity.standardSnapshot, nowNum);
     }
 

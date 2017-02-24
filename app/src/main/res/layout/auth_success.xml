@@ -15,7 +15,6 @@
             android:text="营业执照"/>
         <include layout="@layout/split_line_margin"/>
         <ImageView
-            android:visibility="invisible"
             android:id="@+id/auth_licence"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
@@ -35,7 +34,6 @@
 
         <include layout="@layout/split_line_margin"/>
         <ImageView
-            android:visibility="invisible"
             android:id="@+id/auth_id_front"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
@@ -45,7 +43,6 @@
             android:layout_marginBottom="16dp"/>
         <include layout="@layout/split_line_margin"/>
         <ImageView
-            android:visibility="invisible"
             android:id="@+id/auth_id_front_back"
             android:layout_marginTop="16dp"
             android:layout_width="match_parent"
@@ -63,7 +60,6 @@
             android:text="行业许可证"/>
         <include layout="@layout/split_line_margin"/>
         <ImageView
-            android:visibility="invisible"
             android:id="@+id/auth_permit"
             android:layout_width="match_parent"
             android:layout_height="240dp"

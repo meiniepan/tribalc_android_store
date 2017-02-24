@@ -26,6 +26,7 @@ import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.StoreGoodsPresenter;
 import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.store.utils.zxing.view.ViewfinderView;
 import com.gs.buluo.store.view.activity.Authentication1Activity;
 import com.gs.buluo.store.view.activity.CreateGoodsVarietyActivity;
 import com.gs.buluo.store.view.activity.LoginActivity;
@@ -60,10 +61,10 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
     TextView tvStoreNum;
     @Bind(R.id.no_auth_view)
     View authView;
+    @Bind(R.id.no_login_view)
+    View loginView;
     @Bind(R.id.store_floating)
     View floatButton;
-    @Bind(R.id.commodity_login_button)
-    Button mButton;
 
     private Toolbar mToolbar;
     private SearchFragment searchFragment;
@@ -91,28 +92,26 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
         });
         searchFragment = SearchFragment.newInstance();
         searchFragment.setOnSearchClickListener(this);
-        mButton.setOnClickListener(this);
         EventBus.getDefault().register(this);
         getActivity().findViewById(R.id.ll_goods_sale).setOnClickListener(this);
         getActivity().findViewById(R.id.ll_goods_store).setOnClickListener(this);
         getActivity().findViewById(R.id.commodity_auth).setOnClickListener(this);
+        getActivity().findViewById(R.id.commodity_login_button).setOnClickListener(this);
 
         floatButton.setOnClickListener(this);
         if (TribeApplication.getInstance().getUserInfo() != null) {
             String authenticationStatus = TribeApplication.getInstance().getUserInfo().getAuthenticationStatus();
             if (!TextUtils.equals(authenticationStatus, Constant.SUCCEED)) {
                 authView.setVisibility(View.VISIBLE);
-                mButton.setVisibility(View.GONE);
+                loginView.setVisibility(View.GONE);
                 floatButton.setVisibility(View.GONE);
             } else {
                 initSaleList();
                 initStoreList();
             }
         } else {
-            recyclerViewSale.showNoData(R.string.to_login);
-            recyclerViewStore.showNoData(R.string.to_login);
             floatButton.setVisibility(View.GONE);
-            mButton.setVisibility(View.VISIBLE);
+            loginView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -250,11 +249,11 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
             goodsListAdapter.clear();
         }
 
-        recyclerViewSale.showNoData(R.string.to_login);
-        recyclerViewStore.showNoData(R.string.to_login);
-        mButton.setVisibility(View.VISIBLE);
+        loginView.setVisibility(View.VISIBLE);
         floatButton.setVisibility(View.GONE);
         authView.setVisibility(View.GONE);
+        recyclerViewSale.setVisibility(View.GONE);
+        recyclerViewStore.setVisibility(View.GONE);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -267,16 +266,18 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLoginSuccess(SelfEvent event) {
+        recyclerViewSale.setVisibility(View.VISIBLE);
+        recyclerViewStore.setVisibility(View.VISIBLE);
+        recyclerViewSale.dismissSwipeRefresh();
+        recyclerViewStore.dismissSwipeRefresh();
+        loginView.setVisibility(View.GONE);
         if (!TextUtils.equals(TribeApplication.getInstance().getUserInfo().authenticationStatus, Constant.SUCCEED)) {
             authView.setVisibility(View.VISIBLE);
-            mButton.setVisibility(View.GONE);
-            recyclerViewSale.dismissSwipeRefresh();
-            recyclerViewStore.dismissSwipeRefresh();
             return;
         } else {
             floatButton.setVisibility(View.VISIBLE);
+            authView.setVisibility(View.GONE);
         }
-        mButton.setVisibility(View.GONE);
         initSaleList();
         initStoreList();
     }

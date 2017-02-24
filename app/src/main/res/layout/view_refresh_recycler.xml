@@ -24,7 +24,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@color/common_gray"
-            android:text="@string/no_goods_add"
             android:layout_centerHorizontal="true"/>
     </RelativeLayout>
 
