@@ -133,6 +133,7 @@ public class GoodsDetailActivity extends BaseActivity implements View.OnClickLis
         setGoodsPrice(goodsEntity.salePrice);
         tvBrand.setText(goodsEntity.tMarkStore.name);
         tvCount.setText(goodsEntity.saleQuantity);
+        tvPhone.setText(goodsEntity.tMarkStore.phone);
         tvPriceOld.setText("¥" + (goodsEntity.originPrice==null?0:goodsEntity.originPrice));
         if (goodsEntity.tags!=null){
             StringBuffer tag = new StringBuffer();
@@ -152,6 +153,8 @@ public class GoodsDetailActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void getStandardSuccess(GoodsStandard standard) {
         panel.setData(standard);
+        if (standard==null||standard.descriptions==null||standard.descriptions.primary==null)return;
+        tvStandard.setText("请选择 "+standard.descriptions.primary.label+"  " +(standard.descriptions.secondary==null?"":standard.descriptions.secondary.label));
     }
 
     @Override
@@ -172,7 +175,12 @@ public class GoodsDetailActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onShow(String standard, int num) {
         if (standard != null) {
-            tvStandard.setText(standard + "        " + num + "件");
+            String[] split = standard.split("\\|");
+            if (split.length>1){
+                tvStandard.setText("已选："+split[0].split(":")[1] +" " +split[1].split(":")[1] + "        " + num + "件");
+            }else {
+                tvStandard.setText(split[0].split(":")[1]+"        "+num+"件");
+            }
         } else {
             tvStandard.setText(num + "件");
         }

@@ -1,9 +1,14 @@
 package com.gs.buluo.store.network;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Handler;
 
+import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
 import com.gs.buluo.store.model.MainModel;
+import com.gs.buluo.store.utils.CommonUtils;
+import com.gs.buluo.store.view.widget.LoadingDialog;
 
 
 import java.io.DataOutputStream;
@@ -25,6 +30,8 @@ public class TribeUploader {
     private static TribeUploader uploader;
     private UploadCallback callback;
     private Handler handler = new Handler();
+    private String name;
+    private String file;
 
     private TribeUploader() {
     }
@@ -35,34 +42,45 @@ public class TribeUploader {
         }
         return uploader;
     }
+    Runnable uploadRunnable=new Runnable() {
+        @Override
+        public void run() {
+            String fileType = "image/jpeg";
+            Bitmap bitmap = BitmapFactory.decodeFile(file);
+            Bitmap newB = CommonUtils.compressBitmap(bitmap);
+            final File picture = CommonUtils.saveBitmap2file(newB, "picture");
+            new MainModel().uploadFile(picture, name, fileType, new Callback<UploadAccessResponse>() {
+                @Override
+                public void onResponse(Call<UploadAccessResponse> call, final Response<UploadAccessResponse> response) {
+                    if (response.body() != null && response.body().code == 201) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                response.body().data.objectKey = "oss://" + response.body().data.objectKey;
+                                putFile(response.body().data, picture, callback);
+                            }
+                        }).start();
+                    }
+                }
 
-    public void uploadFile(String name, String fileType, final File file, final UploadCallback callback) {
-        fileType = "image/jpeg";
-        new MainModel().uploadFile(file, name, fileType, new Callback<UploadAccessResponse>() {
-            @Override
-            public void onResponse(Call<UploadAccessResponse> call, final Response<UploadAccessResponse> response) {
-                if (response.body() != null && response.body().code == 201) {
-                    new Thread(new Runnable() {
+                @Override
+                public void onFailure(Call<UploadAccessResponse> call, Throwable t) {
+                    handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            response.body().data.objectKey = "oss://" + response.body().data.objectKey;
-                            putFile(response.body().data, file, callback);
+                            callback.uploadFail();
                         }
-                    }).start();
+                    });
                 }
-            }
+            });
+        }
+    };
 
-            @Override
-            public void onFailure(Call<UploadAccessResponse> call, Throwable t) {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.uploadFail();
-                    }
-                });
-            }
-        });
-
+    public void uploadFile(String name, String fileType, final String file, final UploadCallback callback) {
+        this.callback =callback;
+        this.name =name;
+        this.file =file;
+        handler.postDelayed(uploadRunnable,100);//不等待 finish gallery 会卡顿
     }
 
     private void putFile(final UploadAccessResponse.UploadResponseBody data, File file, final UploadCallback callback) {
@@ -71,10 +89,10 @@ public class TribeUploader {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(3000);
             conn.setConnectTimeout(5000);
-            conn.setDoInput(true);  //允许输入流
-            conn.setDoOutput(true); //允许输出流
-            conn.setUseCaches(false);  //不允许使用缓存
-            conn.setRequestMethod("PUT");  //请求方式
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            conn.setUseCaches(false);
+            conn.setRequestMethod("PUT");
             conn.setRequestProperty("Content-Type", "image/jpeg");
 //            conn.setRequestProperty("Content-MD5", MD5.md5(file));
             conn.connect();
@@ -110,6 +128,7 @@ public class TribeUploader {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        handler.removeCallbacks(uploadRunnable);
     }
 
     public interface UploadCallback {

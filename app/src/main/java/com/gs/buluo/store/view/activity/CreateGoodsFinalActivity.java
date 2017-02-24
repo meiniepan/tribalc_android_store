@@ -251,6 +251,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
             ToastUtils.ToastMessage(this,R.string.tags_max);
             return;
         }
+        showLoadingDialog();
         if (goodsMeta.isEdit) {
             updateGoods();
         } else {
@@ -268,6 +269,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
         model.createGoods(body, new Callback<CreateGoodsResponse>() {
             @Override
             public void onResponse(Call<CreateGoodsResponse> call, Response<CreateGoodsResponse> response) {
+                dismissDialog();
                 ToastUtils.ToastMessage(getCtx(), R.string.add_success);
                 Intent intent = new Intent(getCtx(), MainActivity.class);
                 intent.putExtra(Constant.ForIntent.FLAG, Constant.GOODS);
@@ -277,6 +279,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
 
             @Override
             public void onFailure(Call<CreateGoodsResponse> call, Throwable t) {
+                dismissDialog();
                 ToastUtils.ToastMessage(getCtx(), R.string.connect_fail);
             }
         });
@@ -287,6 +290,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
         model.updateGoods(goodsMeta.id, goodsMeta, new TribeCallback<CodeResponse>() {
             @Override
             public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
+                dismissDialog();
                 ToastUtils.ToastMessage(getCtx(), R.string.update_success);
                 Intent intent = new Intent(getCtx(), MainActivity.class);
                 intent.putExtra(Constant.ForIntent.FLAG, Constant.GOODS);
@@ -297,6 +301,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
 
             @Override
             public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
+                dismissDialog();
                 ToastUtils.ToastMessage(getCtx(), R.string.connect_fail);
             }
         });

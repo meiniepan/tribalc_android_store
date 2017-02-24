@@ -2,6 +2,8 @@ package com.gs.buluo.store.view.widget.panel;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -11,11 +13,18 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.utils.DensityUtils;
+import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
+import com.gs.buluo.store.network.TribeUploader;
+import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.GlideGalleryLoader;
+import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.store.view.activity.Authentication3Activity;
+import com.gs.buluo.store.view.widget.LoadingDialog;
 
+import java.io.File;
 import java.util.List;
 
 import butterknife.Bind;
@@ -127,7 +136,7 @@ public class ChoosePhotoPanel extends Dialog implements View.OnClickListener {
         ThemeConfig theme = new ThemeConfig.Builder()
                 .build();
         //配置功能
-        if (functionConfig==null){
+        if (functionConfig == null) {
             functionConfig = new FunctionConfig.Builder()
                     .setEnableCamera(true)
                     .setEnableEdit(true)

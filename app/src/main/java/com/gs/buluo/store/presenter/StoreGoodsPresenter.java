@@ -34,6 +34,9 @@ public class StoreGoodsPresenter extends BasePresenter<IStoreGoodsView> {
                         if (!data.hasMore) {
                             if (isAttach()) mView.showNoMore(published);
                         }
+                        if (data.content.size()==0&& isAttach()){
+                            mView.showNoData(published);
+                        }
                     }
 
                     @Override

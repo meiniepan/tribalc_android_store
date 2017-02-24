@@ -119,11 +119,10 @@ public class GoodsChoosePanel extends Dialog implements View.OnClickListener, Di
                 mKind.setText(s);
                 leve11Key = s;
                 defaultEntity = goodsMap.get(leve11Key);
-                if (TextUtils.isEmpty(s)) return;
+                if (TextUtils.isEmpty(s) ||defaultEntity==null) return;
                 GlideUtils.loadImage(getContext(),defaultEntity.mainPicture, mIcon);
                 mPrice.setText(defaultEntity.salePrice);
                 mRemainNumber.setText(defaultEntity.repertory + "");
-
             }
         });
     }

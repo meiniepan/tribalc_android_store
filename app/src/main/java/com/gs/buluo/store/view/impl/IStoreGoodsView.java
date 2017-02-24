@@ -11,4 +11,6 @@ import java.util.List;
 public interface IStoreGoodsView extends IBaseView {
     void getGoodsSuccess(StoreGoodsList data, boolean published);
     void showNoMore(boolean published);
+
+    void showNoData(boolean published);
 }

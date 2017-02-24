@@ -21,16 +21,15 @@ public class ManagerFragment extends BaseFragment implements View.OnClickListene
     @Override
     protected void bindView(Bundle savedInstanceState) {
         getActivity().findViewById(R.id.usual_order_manager).setOnClickListener(this);
-        getActivity().findViewById(R.id.usual_property).setOnClickListener(this);
+        getActivity().findViewById(R.id.usual_reserve).setOnClickListener(this);
     }
-
 
     @Override
     public void onClick(View view) {
         if (!checkUser(getActivity())) return;
         Intent intent = new Intent();
         switch (view.getId()) {
-            case R.id.usual_property:
+            case R.id.usual_reserve:
                 intent.setClass(getActivity(), ReserveActivity.class);
                 startActivity(intent);
                 break;

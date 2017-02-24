@@ -23,6 +23,7 @@ import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
+import com.gs.buluo.store.eventbus.AuthSuccessEvent;
 import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.model.MainModel;
 import com.gs.buluo.store.network.MainApis;
@@ -192,7 +193,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         ChoosePhotoPanel window = new ChoosePhotoPanel(getActivity(), false, new ChoosePhotoPanel.OnSelectedFinished() {
             @Override
             public void onSelected(final String path) {
-                TribeUploader.getInstance().uploadFile("cover.jpeg", "", new File(path), new TribeUploader.UploadCallback() {
+                TribeUploader.getInstance().uploadFile("cover.jpeg", "", path, new TribeUploader.UploadCallback() {
                     @Override
                     public void uploadSuccess(UploadAccessResponse.UploadResponseBody body) {
                         ToastUtils.ToastMessage(mContext, mContext.getString(R.string.upload_success));
@@ -273,13 +274,22 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     public void getAuthInfo() {
         showLoadingDialog();
-        TribeRetrofit.getInstance().createApi(MainApis.class).getAuth(TribeApplication.getInstance().getUserInfo().getId()).enqueue(new TribeCallback<AuthenticationData>() {
+        TribeRetrofit.getInstance().createApi(MainApis.class).getAuth(TribeApplication.getInstance().getUserInfo().getId())
+                .enqueue(new TribeCallback<AuthenticationData>() {
             @Override
             public void onSuccess(Response<BaseResponse<AuthenticationData>> response) {
                 dismissDialog();
                 AuthenticationData data = response.body().data;
+                StoreInfoDao dao=new StoreInfoDao();
+                StoreInfo storeInfo = dao.findFirst();
+                storeInfo.setAuthenticationStatus(data.authenticationStatus);
+                dao.update(storeInfo);
+
+                if (TextUtils.equals(data.authenticationStatus,Constant.SUCCEED)){
+                    EventBus.getDefault().post(new AuthSuccessEvent());
+                }
                 Intent intent = new Intent();
-                if (data.authenticationStatus == null || TextUtils.equals(data.authenticationStatus, "NOT_START")) {
+                if (data.authenticationStatus == null || TextUtils.equals(data.authenticationStatus, Constant.NOT_START)) {
                     intent.setClass(getActivity(), Authentication1Activity.class);
                     startActivity(intent);
                 } else {
@@ -287,6 +297,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     intent.putExtra(Constant.ForIntent.STATUS,data);
                     startActivity(intent);
                 }
+
             }
 
             @Override

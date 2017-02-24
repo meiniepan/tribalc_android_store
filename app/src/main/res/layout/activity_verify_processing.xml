@@ -27,10 +27,11 @@
             android:background="#000" />
 
         <include
-            android:id="@+id/back"
+            android:id="@+id/id_back"
             layout="@layout/back_img_white" />
     </RelativeLayout>
     <LinearLayout
+        android:id="@+id/processing_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -49,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:gravity="center"
-            android:text="审核中"/>
+            android:text="审核中,请耐心等待"/>
 
         <Button
             android:id="@+id/verify_button"

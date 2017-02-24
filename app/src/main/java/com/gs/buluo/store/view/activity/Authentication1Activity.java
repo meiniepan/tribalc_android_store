@@ -1,7 +1,10 @@
 package com.gs.buluo.store.view.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -11,6 +14,7 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.AuthenticationData;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
 import com.gs.buluo.store.network.TribeUploader;
+import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
@@ -18,6 +22,7 @@ import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 import java.io.File;
 
 import butterknife.Bind;
+import cn.finalteam.galleryfinal.FunctionConfig;
 
 /**
  * Created by hjn on 2016/11/7.
@@ -58,9 +63,16 @@ public class Authentication1Activity extends BaseActivity implements View.OnClic
     }
 
     private void choosePhoto() {
-        ChoosePhotoPanel panel = new ChoosePhotoPanel(this, false, new ChoosePhotoPanel.OnSelectedFinished() {
+        FunctionConfig functionConfig = new FunctionConfig.Builder()
+                .setEnableEdit(true)
+                .setEnableCamera(true)
+                .setEnableRotate(true)
+                .setEnablePreview(true)
+                .build();
+        ChoosePhotoPanel panel = new ChoosePhotoPanel(this, functionConfig, new ChoosePhotoPanel.OnSelectedFinished() {
             @Override
             public void onSelected(String string) {
+                Log.e("aaaaaaaaaaaaaaaa", "onSelected: "+string);
                 uploadPhoto(string);
             }
         });
@@ -69,13 +81,13 @@ public class Authentication1Activity extends BaseActivity implements View.OnClic
 
     private void uploadPhoto(String path) {
         showLoadingDialog();
-        TribeUploader.getInstance().uploadFile("business", "", new File(path), new TribeUploader.UploadCallback() {
+        TribeUploader.getInstance().uploadFile("business", "", path, new TribeUploader.UploadCallback() {
             @Override
             public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
                 dismissDialog();
                 authenticationData .businessLicense = data.objectKey;
                 businessImg.setVisibility(View.VISIBLE);
-                Glide.with(Authentication1Activity.this).load(GlideUtils.formatImageUrl(data.objectKey)).into(businessImg);
+                Glide.with(Authentication1Activity.this).load(GlideUtils.formatImageUrl(data.objectKey)).override(600,300).into(businessImg);
                 findViewById(R.id.identify_business).setVisibility(View.GONE);
             }
 

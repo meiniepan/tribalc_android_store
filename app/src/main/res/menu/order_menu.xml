@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <!--<item android:id="@+id/order_find"-->
-       <!--android:title="@string/account"-->
-        <!--android:icon="@drawable/ic_search_24dp"-->
-        <!--app:showAsAction="always"-->
-        <!--tools:context=".view.activity.OrderActivity"/>-->
+    <item android:id="@+id/order_find"
+       android:title="@string/account"
+        android:icon="@drawable/ic_search_24dp"
+        app:showAsAction="always"
+        tools:context=".view.activity.OrderActivity"/>
 </menu>

@@ -16,6 +16,9 @@ public class Constant {
     public static final String PUBLISHED = "published";
     public static final String LATITUDE = "latitude";
     public static final String LONGITUDE = "longitude";
+    public static final String NOT_START = "NOT_START";
+    public static final String SUCCEED = "SUCCESS";
+    public static final String FAILURE = "FAILURE";
 
     public final static class Base {
 //        public static final String BASE_URL = "https://app-services.buluo-gs.com:443/tribalc/v1.0/";

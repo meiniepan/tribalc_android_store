@@ -1,10 +1,16 @@
 package com.gs.buluo.store.view.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewStub;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,16 +45,16 @@ public class AuthProcessingActivity extends BaseActivity{
     protected void bindView(Bundle savedInstanceState) {
         final AuthenticationData data = getIntent().getParcelableExtra(Constant.ForIntent.STATUS);
         initView(data);
-        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.id_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                back();
             }
         });
         tvButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.equals(data.authenticationStatus,"FAILURE")){
+                if (!TextUtils.equals(data.authenticationStatus,Constant.SUCCEED)){
                     startActivity(new Intent(getCtx(),Authentication1Activity.class));
                 }else {
                     startActivity(new Intent(getCtx(),MainActivity.class));
@@ -59,23 +65,20 @@ public class AuthProcessingActivity extends BaseActivity{
     }
 
     private void initView(AuthenticationData data) {
-        switch (data.authenticationStatus){
-            case "FAILURE":
-                authPic.setImageResource(R.mipmap.auth_fail);
-                tvSign.setText(R.string.auth_fail);
-                tvButton.setText(R.string.auth_again);
-                tvTitle.setText("审核失败");
-                break;
-            case "SUCCEED":
-                tvTitle.setText("审核成功");
-                inflateView();
-                setData(data);
-                break;
+        if (TextUtils.equals(Constant.SUCCEED,data.authenticationStatus)){
+            tvTitle.setText("审核成功");
+            inflateView();
+            setData(data);
+        }else {
+            authPic.setImageResource(R.mipmap.auth_fail);
+            tvSign.setText(R.string.auth_fail);
+            tvButton.setText(R.string.auth_again);
+            tvTitle.setText("审核失败");
         }
-
     }
 
     private void inflateView() {
+        findView(R.id.processing_view).setVisibility(View.GONE);
         View view = mStub.inflate();
         licencePic = (ImageView) view.findViewById(R.id.auth_licence);
         frontPic = (ImageView) view.findViewById(R.id.auth_id_front);
@@ -94,5 +97,14 @@ public class AuthProcessingActivity extends BaseActivity{
         GlideUtils.loadImage(this,data.idCardPicture.get(0),frontPic);
         GlideUtils.loadImage(this,data.idCardPicture.get(1),backPic);
         GlideUtils.loadImage(this,data.tradeLicense,permitPic);
+    }
+
+    @Override
+    public void onBackPressed() {
+        back();
+    }
+
+    private void back(){
+        startActivity(new Intent(this,MainActivity.class));
     }
 }

@@ -62,11 +62,13 @@ public class RefreshRecyclerView extends FrameLayout {
     public void showNoData(int message) {
         empty.setVisibility(VISIBLE);
         msg.setText(message);
+        if (mAdapter!=null)mAdapter.dismissNoMore();
     }
 
     public void showNoData(String message) {
         empty.setVisibility(VISIBLE);
         msg.setText(message);
+        if (mAdapter!=null)mAdapter.dismissNoMore();
     }
 
     public void setAdapter(RecyclerAdapter adapter) {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 
@@ -34,7 +35,7 @@ public class GlideUtils {
         return ret;
     }
 
-    public static void loadImage(Context context,String url, ImageView imageView) {
+    public static void loadImage(Context context, String url, final ImageView imageView) {
         if (url == null) return;
         if (!url.contains("://")) {
             url = Constant.Base.BASE_IMG_URL + url;

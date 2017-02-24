@@ -261,7 +261,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void uploadPic(String path) {
-        TribeUploader.getInstance().uploadFile("goods", "", new File(path), new TribeUploader.UploadCallback() {
+        TribeUploader.getInstance().uploadFile("goods", "",path, new TribeUploader.UploadCallback() {
             @Override
             public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
                 banner.setVisibility(View.VISIBLE);

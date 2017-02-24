@@ -63,7 +63,7 @@ public class OrderActivity extends BaseActivity implements IOnSearchClickListene
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.order_menu,menu);
+//        getMenuInflater().inflate(R.menu.order_menu,menu);
         return true;
     }
 

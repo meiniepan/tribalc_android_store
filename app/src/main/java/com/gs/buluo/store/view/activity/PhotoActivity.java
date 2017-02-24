@@ -92,7 +92,7 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
     }
 
     private void updatePic(String file) {
-        TribeUploader.getInstance().uploadFile("photo", "", new File(file), new TribeUploader.UploadCallback() {
+        TribeUploader.getInstance().uploadFile("photo", "", file, new TribeUploader.UploadCallback() {
             @Override
             public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
                 dismissDialog();

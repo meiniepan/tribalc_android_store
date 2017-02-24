@@ -151,6 +151,16 @@ public abstract class RecyclerAdapter<T> extends RecyclerView.Adapter<BaseViewHo
             }
         });
     }
+    public void dismissNoMore() {
+        isShowNoMore = false;
+        mLoadMoreView.post(new Runnable() {
+            @Override
+            public void run() {
+                mLoadMoreView.setVisibility(View.GONE);
+                mNoMoreView.setVisibility(View.GONE);
+            }
+        });
+    }
 
     public void openLoadMore() {
         isShowNoMore = false;

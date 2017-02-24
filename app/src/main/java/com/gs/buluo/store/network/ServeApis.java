@@ -17,8 +17,19 @@ public interface ServeApis {
     Call<ServeResponse> getServiceList(
             @Query("category") String category,
             @Query("limitSize") int limitSize,
+            @Query("sortSkip") String sortSkip,@Query("sort") String sort);
+
+    @GET("store_set_meals")
+    Call<ServeResponse> getServiceList(
+            @Query("category") String category,
+            @Query("limitSize") int limitSize,
             @Query("sortSkip") String sortSkip,@Query("sort") String sort,
             @Query("coordinate") String coordinate);
+
+    @GET("store_set_meals")
+    Call<ServeResponse> getServiceListFirst(
+            @Query("category") String category,
+            @Query("limitSize") int limitSize, @Query("sort") String sort);
 
     @GET("store_set_meals")
     Call<ServeResponse> getServiceListFirst(

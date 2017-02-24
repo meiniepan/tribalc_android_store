@@ -5,23 +5,30 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.SaleGoodsListAdapter;
 import com.gs.buluo.store.adapter.StoreGoodsListAdapter;
 import com.gs.buluo.store.bean.StoreGoodsList;
+import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.eventbus.AuthSuccessEvent;
 import com.gs.buluo.store.eventbus.GoodsChangedEvent;
 import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.StoreGoodsPresenter;
 import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.store.view.activity.Authentication1Activity;
 import com.gs.buluo.store.view.activity.CreateGoodsVarietyActivity;
+import com.gs.buluo.store.view.activity.LoginActivity;
 import com.gs.buluo.store.view.impl.IStoreGoodsView;
 import com.gs.buluo.store.view.widget.RecycleViewDivider;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.Action;
@@ -43,7 +50,6 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
     RefreshRecyclerView recyclerViewSale;
     @Bind(R.id.store_list_store)
     RefreshRecyclerView recyclerViewStore;
-
     @Bind(R.id.goods_sale)
     TextView tvSale;
     @Bind(R.id.goods_store)
@@ -52,6 +58,12 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
     TextView tvSaleNum;
     @Bind(R.id.goods_store_number)
     TextView tvStoreNum;
+    @Bind(R.id.no_auth_view)
+    View authView;
+    @Bind(R.id.store_floating)
+    View floatButton;
+    @Bind(R.id.commodity_login_button)
+    Button mButton;
 
     private Toolbar mToolbar;
     private SearchFragment searchFragment;
@@ -65,38 +77,43 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(false);
         mToolbar = (Toolbar) getActivity().findViewById(R.id.goods_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         mToolbar.setTitle("");
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-//                if (item.getItemId() == R.id.order_find)
-//                    searchFragment.show(getActivity().getSupportFragmentManager(), SearchFragment.TAG);
+                if (item.getItemId() == R.id.order_find)
+                    searchFragment.show(getActivity().getSupportFragmentManager(), SearchFragment.TAG);
                 return true;
             }
         });
         searchFragment = SearchFragment.newInstance();
         searchFragment.setOnSearchClickListener(this);
-
+        mButton.setOnClickListener(this);
         EventBus.getDefault().register(this);
         getActivity().findViewById(R.id.ll_goods_sale).setOnClickListener(this);
         getActivity().findViewById(R.id.ll_goods_store).setOnClickListener(this);
-        getActivity().findViewById(R.id.store_floating).setOnClickListener(this);
-        if (TribeApplication.getInstance().getUserInfo() != null) {
-            initSaleList();
-            initStoreList();
-        } else {
-            recyclerViewSale.showNoData("请先登录和创建店铺");
-            recyclerViewStore.showNoData("请先登录和创建店铺");
-        }
-    }
+        getActivity().findViewById(R.id.commodity_auth).setOnClickListener(this);
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onLoginSuccess(SelfEvent event) {
-        initSaleList();
-        initStoreList();
+        floatButton.setOnClickListener(this);
+        if (TribeApplication.getInstance().getUserInfo() != null) {
+            String authenticationStatus = TribeApplication.getInstance().getUserInfo().getAuthenticationStatus();
+            if (!TextUtils.equals(authenticationStatus, Constant.SUCCEED)) {
+                authView.setVisibility(View.VISIBLE);
+                mButton.setVisibility(View.GONE);
+                floatButton.setVisibility(View.GONE);
+            } else {
+                initSaleList();
+                initStoreList();
+            }
+        } else {
+            recyclerViewSale.showNoData(R.string.to_login);
+            recyclerViewStore.showNoData(R.string.to_login);
+            floatButton.setVisibility(View.GONE);
+            mButton.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initStoreList() {
@@ -119,12 +136,6 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
                 ((StoreGoodsPresenter) mPresenter).getMore(false);
             }
         });
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onGoodsChanged(GoodsChangedEvent event) {
-        goodsListAdapter.clear();
-        ((StoreGoodsPresenter) mPresenter).getGoodsListFirst(false);
     }
 
     private void initSaleList() {
@@ -161,7 +172,6 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
 
     @Override
     public void OnSearchClick(String keyword) {
-//        ToastUtils.ToastMessage(getActivity(), keyword);
     }
 
     @Override
@@ -186,6 +196,15 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
     }
 
     @Override
+    public void showNoData(boolean published) {
+        if (published) {
+            recyclerViewSale.showNoData(R.string.no_goods_add);
+        } else {
+            recyclerViewStore.showNoData(R.string.no_goods_add);
+        }
+    }
+
+    @Override
     public void showError(int res) {
         recyclerViewSale.dismissSwipeRefresh();
         ToastUtils.ToastMessage(getActivity(), res);
@@ -195,10 +214,6 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.store_floating:
-                if (TribeApplication.getInstance().getUserInfo() == null){
-                    ToastUtils.ToastMessage(getContext(),"请先登录才能创建商品");
-                    return;
-                }
                 startActivity(new Intent(getActivity(), CreateGoodsVarietyActivity.class));
                 break;
             case R.id.ll_goods_store:
@@ -213,6 +228,12 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
                 recyclerViewStore.setVisibility(View.GONE);
                 recyclerViewSale.setVisibility(View.VISIBLE);
                 break;
+            case R.id.commodity_login_button:
+                startActivity(new Intent(getContext(), LoginActivity.class));
+                break;
+            case R.id.commodity_auth:
+                startActivity(new Intent(getContext(),Authentication1Activity.class));
+                break;
         }
     }
 
@@ -223,16 +244,52 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
         ((StoreGoodsPresenter) mPresenter).getGoodsListFirst(false);
     }
 
+    public void showLogin() {
+        if (saleListAdapter!=null&&goodsListAdapter!=null){
+            saleListAdapter.clear();
+            goodsListAdapter.clear();
+        }
+
+        recyclerViewSale.showNoData(R.string.to_login);
+        recyclerViewStore.showNoData(R.string.to_login);
+        mButton.setVisibility(View.VISIBLE);
+        floatButton.setVisibility(View.GONE);
+        authView.setVisibility(View.GONE);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAuthSuccess(AuthSuccessEvent event) {
+        floatButton.setVisibility(View.VISIBLE);
+        authView.setVisibility(View.GONE);
+        initSaleList();
+        initStoreList();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLoginSuccess(SelfEvent event) {
+        if (!TextUtils.equals(TribeApplication.getInstance().getUserInfo().authenticationStatus, Constant.SUCCEED)) {
+            authView.setVisibility(View.VISIBLE);
+            mButton.setVisibility(View.GONE);
+            recyclerViewSale.dismissSwipeRefresh();
+            recyclerViewStore.dismissSwipeRefresh();
+            return;
+        } else {
+            floatButton.setVisibility(View.VISIBLE);
+        }
+        mButton.setVisibility(View.GONE);
+        initSaleList();
+        initStoreList();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onGoodsChanged(GoodsChangedEvent event) {
+        goodsListAdapter.clear();
+        ((StoreGoodsPresenter) mPresenter).getGoodsListFirst(false);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-    }
-
-    public void showLogin() {
-        saleListAdapter.clear();
-        goodsListAdapter.clear();
-        recyclerViewSale.showNoData("请先登录和创建店铺");
-        recyclerViewStore.showNoData("请先登录和创建店铺");
     }
 }

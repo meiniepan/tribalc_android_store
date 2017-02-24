@@ -1,6 +1,8 @@
 package com.gs.buluo.store.view.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,6 +13,7 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.AuthenticationData;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
 import com.gs.buluo.store.network.TribeUploader;
+import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import cn.finalteam.galleryfinal.FunctionConfig;
 
 /**
  * Created by hjn on 2017/1/12.
@@ -71,18 +75,24 @@ public class Authentication2Activity extends BaseActivity {
     }
 
     private void showChoosePhoto(final boolean isFront) {
-        ChoosePhotoPanel panel=new ChoosePhotoPanel(this, false, new ChoosePhotoPanel.OnSelectedFinished() {
+        FunctionConfig functionConfig = new FunctionConfig.Builder()
+                .setEnableEdit(true)
+                .setEnableCamera(true)
+                .setEnableRotate(true)
+                .setEnablePreview(true)
+                .build();
+        ChoosePhotoPanel panel=new ChoosePhotoPanel(this, functionConfig, new ChoosePhotoPanel.OnSelectedFinished() {
             @Override
             public void onSelected(String string) {
-                    uploadPic(string,isFront);
+                showLoadingDialog();
+                uploadPic(string,isFront);
             }
         });
         panel.show();
     }
 
     private void uploadPic(String pic, final boolean isFront) {
-        showLoadingDialog();
-        TribeUploader.getInstance().uploadFile("id", "", new File(pic), new TribeUploader.UploadCallback() {
+        TribeUploader.getInstance().uploadFile("id", "", pic, new TribeUploader.UploadCallback() {
             @Override
             public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
                 dismissDialog();

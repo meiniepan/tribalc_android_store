@@ -69,7 +69,7 @@ public class NewStandardAdapter extends BaseAdapter {
             tvName.setText(listBean.firstName + "-" + listBean.secondName);
             GoodsPriceAndRepertory repertory = cache.get(listBean.firstName + "^" + listBean.secondName);
             if (repertory != null){
-                Log.e("adapter", "getView: 没有"+position);
+                Log.e("NewStandardAdapter", "getView: 没有"+position);
                 listBean = repertory;
             }
         } else {
@@ -102,7 +102,7 @@ public class NewStandardAdapter extends BaseAdapter {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() ==MotionEvent.ACTION_UP)
-                    etRepo.requestFocus();
+                    etRepo.setCursorVisible(true);
                 return false;
             }
         });
@@ -110,7 +110,7 @@ public class NewStandardAdapter extends BaseAdapter {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() ==MotionEvent.ACTION_UP)
-                    etOrigin.requestFocus();
+                    etOrigin.setCursorVisible(true);
                 return false;
             }
         });
@@ -118,7 +118,7 @@ public class NewStandardAdapter extends BaseAdapter {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() ==MotionEvent.ACTION_UP)
-                    etSale.requestFocus();
+                    etSale.setCursorVisible(true);
                 return false;
             }
         });

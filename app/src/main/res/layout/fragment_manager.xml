@@ -1,121 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/tint_bg"
-    android:orientation="vertical">
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:background="@color/common_dark" />
-
+    android:orientation="vertical"
+    android:background="@mipmap/order_bg">
     <LinearLayout
-        android:id="@+id/usual_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/title_height"
-            android:background="#2A2A2A">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/main_manager"
-                android:textColor="@color/white"
-                android:textSize="@dimen/title_size" />
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="0.5dp"
-                android:layout_alignParentBottom="true"
-                android:background="#000" />
-        </RelativeLayout>
-
-        <com.youth.banner.Banner
-            android:id="@+id/fragment_main_head"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/pager_height"
-            android:background="@mipmap/page2"
-            app:image_scale_type="fit_xy"
-            app:indicator_drawable_selected="@drawable/selected_radius"
-            app:indicator_drawable_unselected="@drawable/unselected_radius"
-            app:indicator_height="8dp"
-            app:indicator_margin="6dp"
-            app:indicator_width="8dp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@mipmap/usual_bg"
-            android:orientation="horizontal">
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <LinearLayout
-                    android:id="@+id/usual_order_manager"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/usual_open1" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="订单管理"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/dimens_16sp" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <View
-                android:layout_width="0.5dp"
-                android:layout_height="185dp"
-                android:layout_gravity="center_vertical"
-                android:background="@color/white" />
-
-            <RelativeLayout
-                android:id="@+id/usual_fix_textView"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <LinearLayout
-                    android:id="@+id/usual_property"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/usual_repair1" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="预定管理"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/dimens_16sp" />
-                </LinearLayout>
-            </RelativeLayout>
-        </LinearLayout>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerInParent="true">
+        <TextView
+            android:id="@+id/usual_order_manager"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:drawableTop="@mipmap/order_manager"
+            android:text="@string/order_manager"/>
+        <TextView
+            android:id="@+id/usual_reserve"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:drawableTop="@mipmap/reserve_manager"
+            android:text="@string/reserve_manager"/>
     </LinearLayout>
-</LinearLayout>
+    
+</RelativeLayout>

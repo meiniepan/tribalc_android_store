@@ -61,6 +61,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 break;
             case R.id.login:
                 if (!CommonUtils.checkPhone("86", phone, this)) return;
+                showLoadingDialog();
                 params = new HashMap<>();
                 params.put(Constant.PHONE, phone);
                 params.put(Constant.VERIFICATION, et_verify.getText().toString().trim());
@@ -102,11 +103,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void showError(int res) {
+        dismissDialog();
         ToastUtils.ToastMessage(this, res);
     }
 
     @Override
     public void loginSuccess() {
+        dismissDialog();
         finish();
     }
 }
