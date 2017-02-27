@@ -1,14 +1,18 @@
 package com.gs.buluo.store.view.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.gs.buluo.store.Constant;
@@ -23,6 +27,7 @@ import com.gs.buluo.store.bean.SerializableHashMap;
 import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.store.utils.GlideBannerLoader;
 import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.store.view.widget.ObservableScrollView;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -36,6 +41,8 @@ import butterknife.Bind;
  * Created by hjn on 2017/1/20.
  */
 public class NewGoodsActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
+    @Bind(R.id.goods_root)
+    ObservableScrollView rootView;
     @Bind(R.id.goods_create_banner)
     Banner banner;
     @Bind(R.id.goods_create_title_detail)
@@ -75,13 +82,38 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
     private View delPic;
     private View addPic;
 
+    private boolean isScrolling;
     @Override
     protected void bindView(Bundle savedInstanceState) {
         initView();
+        rootView.setScrollViewListener(new ObservableScrollView.ScrollViewListener() {
+            @Override
+            public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
+                hideSoftWhenScroll(y, oldy);
+            }
+        });
         String category = getIntent().getStringExtra(Constant.ForIntent.GOODS_CATEGORY);
         meta = new GoodsMeta();
         meta.category = GoodsCategory.valueOf(category);
         tvCategory.setText(meta.category.toString());
+    }
+
+    private void hideSoftWhenScroll(int y, int oldy) {
+        if (y-oldy>20|| oldy-y>20){
+            if (!isScrolling){
+                isScrolling=true;
+                View currentFocus = NewGoodsActivity.this.getCurrentFocus();
+                if (currentFocus!=null){
+                    ((InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE)).
+                            hideSoftInputFromWindow(currentFocus.getWindowToken(),0);
+                }
+
+            }
+        }else {
+            if (isScrolling){
+                isScrolling=false;
+            }
+        }
     }
 
     private void initView() {

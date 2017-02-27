@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.gs.buluo.store.view.widget.ObservableScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/info_root"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -423,4 +424,4 @@
             style="@style/button_style"
             android:text="店铺认证"/>
     </LinearLayout>
-</ScrollView>
+</com.gs.buluo.store.view.widget.ObservableScrollView>

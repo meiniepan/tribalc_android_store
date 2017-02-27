@@ -6,9 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
+import android.view.DragEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -22,9 +26,13 @@ import com.gs.buluo.store.bean.FacilityBean;
 import com.gs.buluo.store.bean.StoreSetMealCreation;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.StoreInfoPresenter;
+import com.gs.buluo.store.utils.CommonUtils;
+import com.gs.buluo.store.utils.DensityUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.IInfoView;
 import com.gs.buluo.store.view.widget.CustomAlertDialog;
+import com.gs.buluo.store.view.widget.ObservableScrollView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +42,8 @@ import butterknife.Bind;
  * Created by hjn on 2017/1/19.
  */
 public class MealStoreInfoActivity extends BaseActivity implements View.OnClickListener,IInfoView {
+    @Bind(R.id.info_root)
+    ObservableScrollView rootView;
     @Bind(R.id.info_store_name)
     TextView tvName;
     @Bind(R.id.info_sub_store_name)
@@ -80,9 +90,16 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
     private StoreMeta storeBean;
     private StoreSetMealCreation mealCreation;
 
+    private boolean isScrolling;
     @Override
     protected void bindView(Bundle savedInstanceState) {
         mCtx = this;
+        rootView.setScrollViewListener(new ObservableScrollView.ScrollViewListener() {
+            @Override
+            public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
+                hideSoftWhenScroll(y, oldy);
+            }
+        });
         findViewById(R.id.info_store_logo).setOnClickListener(this);
         findViewById(R.id.info_store_environment).setOnClickListener(this);
         findViewById(R.id.info_store_edit).setOnClickListener(this);
@@ -92,6 +109,23 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         mAuth.setOnClickListener(this);
         initFacility();
         initData();
+    }
+
+    private void hideSoftWhenScroll(int y, int oldy) {
+        if (y-oldy>20|| oldy-y>20){
+            if (!isScrolling){
+                isScrolling=true;
+                View currentFocus = MealStoreInfoActivity.this.getCurrentFocus();
+                if (currentFocus!=null){
+                    ((InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE)).
+                            hideSoftInputFromWindow(currentFocus.getWindowToken(),0);
+                }
+            }
+        }else {
+            if (isScrolling){
+                isScrolling=false;
+            }
+        }
     }
 
     @Override

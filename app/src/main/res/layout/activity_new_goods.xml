@@ -32,7 +32,8 @@
             layout="@layout/back_img_white" />
     </RelativeLayout>
 
-    <ScrollView
+    <com.gs.buluo.store.view.widget.ObservableScrollView
+        android:id="@+id/goods_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -403,6 +404,6 @@
                 style="@style/button_style"
                 android:text="@string/next" />
         </LinearLayout>
-    </ScrollView>
+    </com.gs.buluo.store.view.widget.ObservableScrollView>
 
 </LinearLayout>

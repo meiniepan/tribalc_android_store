@@ -16,7 +16,8 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.StoreMeta;
-import com.gs.buluo.store.model.CommunityModel;
+import com.gs.buluo.store.network.CommunityApis;
+import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.GlideBannerLoader;
 import com.gs.buluo.store.utils.GlideUtils;
@@ -141,7 +142,7 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
 
     private void getDetailInfo(String id) {
         showLoadingDialog();
-        new CommunityModel().getStoreDetail(id, this);
+        TribeRetrofit.getInstance().createApi(CommunityApis.class).getStoreDetail(id).enqueue(this);
     }
 
     @Override

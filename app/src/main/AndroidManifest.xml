@@ -147,13 +147,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.gs.buluo.store.view.activity.CommunityDetailActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.gs.buluo.store.view.activity.StoreDetailActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.gs.buluo.store.view.activity.CommunityVisitActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.ReserveActivity"
@@ -165,9 +159,9 @@
 
         <activity
             android:name="com.gs.buluo.store.view.activity.ModifyInfoActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity android:name="com.gs.buluo.store.view.activity.CaptureActivity" />
-        <activity android:name="com.gs.buluo.store.view.activity.BankPickActivity"></activity>
+        <activity android:name="com.gs.buluo.store.view.activity.BankPickActivity"/>
         <activity
             android:name="com.gs.buluo.store.view.activity.FeedbackActivity"
             android:windowSoftInputMode="stateVisible" />

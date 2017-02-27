@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.gs.buluo.store.Constant;
@@ -19,14 +18,12 @@ import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.SaleGoodsListAdapter;
 import com.gs.buluo.store.adapter.StoreGoodsListAdapter;
 import com.gs.buluo.store.bean.StoreGoodsList;
-import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.eventbus.AuthSuccessEvent;
 import com.gs.buluo.store.eventbus.GoodsChangedEvent;
 import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.StoreGoodsPresenter;
 import com.gs.buluo.store.utils.ToastUtils;
-import com.gs.buluo.store.utils.zxing.view.ViewfinderView;
 import com.gs.buluo.store.view.activity.Authentication1Activity;
 import com.gs.buluo.store.view.activity.CreateGoodsVarietyActivity;
 import com.gs.buluo.store.view.activity.LoginActivity;
@@ -101,14 +98,14 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
         floatButton.setOnClickListener(this);
         if (TribeApplication.getInstance().getUserInfo() != null) {
             String authenticationStatus = TribeApplication.getInstance().getUserInfo().getAuthenticationStatus();
-            if (!TextUtils.equals(authenticationStatus, Constant.SUCCEED)) {
-                authView.setVisibility(View.VISIBLE);
-                loginView.setVisibility(View.GONE);
-                floatButton.setVisibility(View.GONE);
-            } else {
+//            if (!TextUtils.equals(authenticationStatus, Constant.SUCCEED)) {
+//                authView.setVisibility(View.VISIBLE);
+//                loginView.setVisibility(View.GONE);
+//                floatButton.setVisibility(View.GONE);
+//            } else {
                 initSaleList();
                 initStoreList();
-            }
+//            }
         } else {
             floatButton.setVisibility(View.GONE);
             loginView.setVisibility(View.VISIBLE);
