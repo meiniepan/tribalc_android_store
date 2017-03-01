@@ -8,7 +8,6 @@
     android:paddingEnd="@dimen/activity_horizontal_margin">
 
     <TextView
-        android:id="@+id/modify_male"
         android:layout_width="match_parent"
         android:layout_height="@dimen/self_item_height"
         android:textColor="@color/common_gray"
@@ -20,7 +19,6 @@
     <include layout="@layout/split_line_no_margin_common" />
 
     <TextView
-        android:id="@+id/modify_female"
         android:layout_width="match_parent"
         android:layout_height="@dimen/self_item_height"
         android:text="@string/female"

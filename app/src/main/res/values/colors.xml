@@ -7,7 +7,6 @@
     <color name="black">#000000</color>
     <color name="mask">#60000000</color>
     <color name="white">#ffffff</color>
-    <color name="red">#ff0000</color>
 
     <color name="divide_gray">#dddddd</color>
     <color name="tint_bg">#f2f2f2</color>
@@ -25,6 +24,5 @@
     <color name="custom_yellow_shallow">#f9a042</color>
 
     <color name="translucent_background">#90000000</color>
-    <color name="blue">#0000ff</color>
 
 </resources>

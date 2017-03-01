@@ -32,7 +32,6 @@
             android:text="@string/send_method" />
 
         <TextView
-            android:id="@+id/new_order_send_method"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="@color/common_dark"
@@ -55,7 +54,6 @@
             android:text="@string/send_money" />
 
         <TextView
-            android:id="@+id/new_order_send_price"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end|center_vertical"
@@ -89,7 +87,6 @@
     <include layout="@layout/split_line" />
 
     <EditText
-        android:id="@+id/new_order_more"
         android:layout_width="match_parent"
         android:layout_height="31dp"
         android:layout_marginBottom="17dp"

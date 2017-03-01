@@ -41,8 +41,7 @@
         android:textColor="@color/common_gray"
         android:text="请确保上传身份证与当前注册手机号持有人身份一致"
         android:drawablePadding="4dp"
-        android:drawableStart="@drawable/circle_red"
-        android:id="@+id/textView15" />
+        android:drawableStart="@drawable/circle_red" />
 
     <TextView
         android:textSize="@dimen/dimens_12sp"

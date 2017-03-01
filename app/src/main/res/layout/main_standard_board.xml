@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:gravity="center"
         android:layout_height="@dimen/self_item_height"
-        android:layout_centerInParent="true"
         android:text="设置主商品"
         android:textSize="@dimen/dimens_16sp" />
 

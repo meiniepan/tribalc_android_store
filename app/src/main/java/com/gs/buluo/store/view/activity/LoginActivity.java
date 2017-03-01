@@ -1,5 +1,6 @@
 package com.gs.buluo.store.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -34,6 +35,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         findViewById(R.id.login_back).setOnClickListener(this);
         findViewById(R.id.login).setOnClickListener(this);
         findViewById(R.id.login_send_verify).setOnClickListener(this);
+        findView(R.id.login_protocol).setOnClickListener(this);
     }
 
     @Override
@@ -66,6 +68,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 params.put(Constant.PHONE, phone);
                 params.put(Constant.VERIFICATION, et_verify.getText().toString().trim());
                 ((LoginPresenter) mPresenter).doLogin(params);
+                break;
+            case R.id.login_protocol:
+                startActivity(new Intent(getCtx(),ProtocolActivity.class));
                 break;
         }
     }

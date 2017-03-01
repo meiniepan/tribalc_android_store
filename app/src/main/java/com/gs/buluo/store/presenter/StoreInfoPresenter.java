@@ -55,7 +55,7 @@ public class StoreInfoPresenter extends BasePresenter<IInfoView> {
     }
 
     public void updateMeal(StoreSetMealCreation mealCreation) {
-        TribeRetrofit.getInstance().createApi(MainApis.class).updateMeal(mealCreation.id, mealCreation)
+        TribeRetrofit.getInstance().createApi(MainApis.class).updateMeal(mealCreation.id,TribeApplication.getInstance().getUserInfo().getId(), mealCreation)
                 .enqueue(new TribeCallback<CodeResponse>() {
                     @Override
                     public void onSuccess(Response<BaseResponse<CodeResponse>> response) {

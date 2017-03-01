@@ -11,7 +11,7 @@ import android.provider.MediaStore;
 
 public class Utils {
 
-    public static final boolean isChineseCharacter(String chineseStr) {
+    public static  boolean isChineseCharacter(String chineseStr) {
         char[] charArray = chineseStr.toCharArray();
         for (int i = 0; i < charArray.length; i++) {
             // 是否是Unicode编码,除了"�"这个字符.这个字符要另外处理

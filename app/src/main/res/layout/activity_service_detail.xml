@@ -12,7 +12,6 @@
         android:layout_weight="1"/>
 
     <LinearLayout
-        android:id="@+id/service_bottom"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_height"
         android:orientation="horizontal"

@@ -92,7 +92,6 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:text="￥"
-                android:id="@+id/textView5"
                 android:layout_alignParentTop="true"
                 android:layout_toStartOf="@+id/pay_money" />
 

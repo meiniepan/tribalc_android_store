@@ -25,7 +25,6 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/phone_input"
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:text="请输入您需要绑定的新手机号"
@@ -38,7 +37,6 @@
 
 
     <LinearLayout
-        android:id="@+id/phone_area_choose"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
         android:orientation="horizontal"

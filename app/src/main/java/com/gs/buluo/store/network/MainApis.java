@@ -66,7 +66,7 @@ public interface MainApis {
     Call<BaseResponse<CodeResponse>> createServe(@Query("me") String uid, @Body StoreSetMealCreation body);
 
     @PUT("store_set_meals/{id}")
-    Call<BaseResponse<CodeResponse>> updateMeal(@Path("id")String mealId,@Body StoreSetMealCreation mealCreation);
+    Call<BaseResponse<CodeResponse>> updateMeal(@Path("id")String mealId,@Query("me")String uid,@Body StoreSetMealCreation mealCreation);
 
     @GET("stores/{id}/authentication")
     Call<BaseResponse<AuthenticationData>> getAuth(@Path("id")String uid);

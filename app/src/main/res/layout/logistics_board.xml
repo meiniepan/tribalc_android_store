@@ -35,7 +35,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_logistics_choose"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:gravity="center_vertical"

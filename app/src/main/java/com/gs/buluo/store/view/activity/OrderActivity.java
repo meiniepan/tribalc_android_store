@@ -55,7 +55,7 @@ public class OrderActivity extends BaseActivity implements IOnSearchClickListene
                 new OrderFragmentAdapter(getSupportFragmentManager(), Arrays.asList(titles));
         pager.setAdapter(adapter);
         tabLayout.setupWithViewPager(pager);
-        tabLayout.setTabsFromPagerAdapter(adapter);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
         searchFragment = SearchFragment.newInstance();
         searchFragment.setOnSearchClickListener(this);
         pager.setCurrentItem(getIntent().getIntExtra(Constant.TYPE, 0), false);

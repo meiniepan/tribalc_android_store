@@ -63,7 +63,7 @@ public class CommonUtils {
                 p = Pattern.compile("09[0-9]{8}||9[0-9]{8}");  //台湾
                 break;
             case "852":
-                p = Pattern.compile("[5|6|9|][0-9]{7}");  //香港  目前8位
+                p = Pattern.compile("[5|6|9][0-9]{7}");  //香港  目前8位
                 break;
             case "81":
                 p = Pattern.compile("0[8|9|]0[0-9]{8}");  //日本

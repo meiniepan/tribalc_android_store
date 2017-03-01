@@ -131,7 +131,6 @@
                     android:id="@+id/goods_create_title_left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_gravity="bottom"
                     android:text="0"
                     android:textColor="@color/common_gray"
@@ -298,7 +297,6 @@
                     <include layout="@layout/split_line_no_margin_common" />
 
                     <LinearLayout
-                        android:id="@+id/ll_create_goods_sale"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/self_item_height"
                         android:gravity="center_vertical"
@@ -323,7 +321,6 @@
                     <include layout="@layout/split_line_no_margin_common" />
 
                     <LinearLayout
-                        android:id="@+id/ll_create_goods_orgin"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/self_item_height"
                         android:gravity="center_vertical"
@@ -348,7 +345,6 @@
                     <include layout="@layout/split_line_no_margin_common" />
 
                     <LinearLayout
-                        android:id="@+id/ll_create_goods_repertory"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/self_item_height"
                         android:gravity="center_vertical"

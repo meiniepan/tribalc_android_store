@@ -21,6 +21,7 @@ public class Constant {
     public static final String FAILURE = "FAILURE";
 
     public final static class Base {
+                    public static final String BASE="https://app-services.buluo-gs.com/";
 //        public static final String BASE_URL = "https://app-services.buluo-gs.com:443/tribalc/v1.0/";
                 public static final String BASE_URL="https://dev-app-services.buluo-gs.com:443/tribalc/v1.0/";
 //        public static final String BASE_URL="http://dev-app-services.buluo-gs.com:10086/tribalc/v1.0/";

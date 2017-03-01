@@ -94,8 +94,7 @@
                     android:layout_height="wrap_content"
                     android:text="入住过程如有问题请拨打"
                     android:textColor="@color/common_gray"
-                    android:textSize="@dimen/dimens_12sp"
-                    android:id="@+id/textView13" />
+                    android:textSize="@dimen/dimens_12sp" />
 
                 <TextView
                     android:layout_width="wrap_content"

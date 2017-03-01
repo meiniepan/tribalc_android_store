@@ -96,6 +96,7 @@
                 android:textSize="@dimen/dimens_16sp" />
 
             <TextView
+                android:id="@+id/login_protocol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="部落公社注册协议"
@@ -121,7 +122,6 @@
         android:layout_height="wrap_content"
         android:src="@mipmap/login_wechat_icon"
         android:layout_marginBottom="10dp"
-        android:id="@+id/imageView"
         android:layout_above="@+id/textView"
         android:layout_centerHorizontal="true"
         android:paddingStart="90dp" />

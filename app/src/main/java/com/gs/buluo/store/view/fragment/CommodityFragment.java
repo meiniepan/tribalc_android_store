@@ -98,14 +98,14 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
         floatButton.setOnClickListener(this);
         if (TribeApplication.getInstance().getUserInfo() != null) {
             String authenticationStatus = TribeApplication.getInstance().getUserInfo().getAuthenticationStatus();
-//            if (!TextUtils.equals(authenticationStatus, Constant.SUCCEED)) {
-//                authView.setVisibility(View.VISIBLE);
-//                loginView.setVisibility(View.GONE);
-//                floatButton.setVisibility(View.GONE);
-//            } else {
+            if (!TextUtils.equals(authenticationStatus, Constant.SUCCEED)) {
+                authView.setVisibility(View.VISIBLE);
+                loginView.setVisibility(View.GONE);
+                floatButton.setVisibility(View.GONE);
+            } else {
                 initSaleList();
                 initStoreList();
-//            }
+            }
         } else {
             floatButton.setVisibility(View.GONE);
             loginView.setVisibility(View.VISIBLE);
@@ -194,9 +194,11 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
     @Override
     public void showNoData(boolean published) {
         if (published) {
-            recyclerViewSale.showNoData(R.string.no_goods_add);
+            if (saleListAdapter.getData() != null && saleListAdapter.getData().size() == 0)
+                recyclerViewSale.showNoData(R.string.no_goods_add);
         } else {
-            recyclerViewStore.showNoData(R.string.no_goods_add);
+            if (saleListAdapter.getData() != null && saleListAdapter.getData().size() == 0)
+                recyclerViewStore.showNoData(R.string.no_goods_add);
         }
     }
 
@@ -205,6 +207,7 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
         recyclerViewSale.dismissSwipeRefresh();
         ToastUtils.ToastMessage(getActivity(), res);
     }
+
 
     @Override
     public void onClick(View v) {
@@ -228,7 +231,7 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
                 startActivity(new Intent(getContext(), LoginActivity.class));
                 break;
             case R.id.commodity_auth:
-                startActivity(new Intent(getContext(),Authentication1Activity.class));
+                startActivity(new Intent(getContext(), Authentication1Activity.class));
                 break;
         }
     }
@@ -241,7 +244,7 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
     }
 
     public void showLogin() {
-        if (saleListAdapter!=null&&goodsListAdapter!=null){
+        if (saleListAdapter != null && goodsListAdapter != null) {
             saleListAdapter.clear();
             goodsListAdapter.clear();
         }
@@ -280,7 +283,7 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onGoodsChanged(GoodsChangedEvent event) {
+    public void onGoodsChanged(GoodsChangedEvent event) {       //商品下架
         goodsListAdapter.clear();
         ((StoreGoodsPresenter) mPresenter).getGoodsListFirst(false);
     }

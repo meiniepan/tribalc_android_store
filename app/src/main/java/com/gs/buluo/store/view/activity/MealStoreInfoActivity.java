@@ -135,7 +135,7 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         if (data.category == StoreMeta.StoreCategory.REPAST) {
             initCookingStyle();
         }
-        if ("NOT_START".equals(data.authenticationStatus)) {
+        if (Constant.NOT_START.equals(data.authenticationStatus)) {
             mAuth.setVisibility(View.VISIBLE);
         }
         tvEnvi.setText(data.pictures == null? "":data.pictures.size()+"张");
@@ -146,9 +146,7 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         tvPhone.setText(data.phone);
         tvOrPhone.setText(data.otherPhone);
         etArea.setText(data.markPlace);
-        if (data.logo!=null){
-            tvLogo.setText("1张");
-        }
+        tvLogo.setText(data.logo==null?"" : "1张");
         tvAddress.setText(data.address==null? "":data.province + data.city + data.district + data.address);
         List<String> list = data.facilities;
         if (list!=null){

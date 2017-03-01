@@ -45,7 +45,6 @@
         android:layout_height="wrap_content" />
 
     <ViewStub
-        android:id="@+id/modify_sex"
         android:layout="@layout/modify_sex_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -58,7 +57,6 @@
 
     <ViewStub
         android:layout="@layout/modify_motion_layout"
-        android:id="@+id/modify_motion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

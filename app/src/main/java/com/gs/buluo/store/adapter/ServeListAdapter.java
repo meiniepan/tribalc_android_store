@@ -67,7 +67,7 @@ public class ServeListAdapter extends RecyclerAdapter<ListStoreSetMeal> {
         public void setData(ListStoreSetMeal entity) {
             super.setData(entity);
             ListStore store = entity.store;
-            if (entity==null|| store ==null)return;
+            if (store ==null)return;
             name.setText(entity.name);
             money.setText(entity.personExpense);
             if (store.coordinate!=null){
