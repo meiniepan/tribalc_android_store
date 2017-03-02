@@ -7,7 +7,6 @@ import java.util.Date;
 
 public class TribeDateUtils {
     private final static Object mLock = new Object();
-
     public static SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     public static SimpleDateFormat SDF2 = new SimpleDateFormat("MM月dd日"); // 精编时间格式
     public static SimpleDateFormat SDF3 = new SimpleDateFormat("MM-dd HH:mm");// 非精编时间格式

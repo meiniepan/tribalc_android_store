@@ -3,22 +3,31 @@ package com.gs.buluo.store.view.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
+import com.gs.buluo.store.bean.ResponseBody.AppUpdateResponse;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.utils.DataCleanManager;
 import com.gs.buluo.store.utils.SharePreferenceManager;
 import com.gs.buluo.store.view.widget.CustomAlertDialog;
+import com.gs.buluo.store.view.widget.panel.UpdatePanel;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import butterknife.Bind;
 
@@ -54,6 +63,7 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
         findViewById(R.id.exit).setOnClickListener(this);
         findViewById(R.id.setting_clear_cache).setOnClickListener(this);
         findViewById(R.id.setting_recall).setOnClickListener(this);
+        findViewById(R.id.setting_update).setOnClickListener(this);
 
         String cacheSize = null;
         try {
@@ -117,6 +127,9 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
                     }
                 }).setNegativeButton(mCtx.getString(R.string.cancel), null).create().show();
                 break;
+            case R.id.setting_update:
+                checkUpdate();
+                break;
             case R.id.exit:
                 SharePreferenceManager.getInstance(getApplicationContext()).clearValue(Constant.WALLET_PWD);
                 new StoreInfoDao().clear();
@@ -128,5 +141,42 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
         }
     }
 
+    private void checkUpdate() {
+        RequestParams entity = new RequestParams(Constant.Base.BASE + "tribalc/versions/android.json");
+        entity.addParameter("t", System.currentTimeMillis());
+        x.http().get(entity, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                AppUpdateResponse response = JSON.parseObject(result, AppUpdateResponse.class);
+                if (checkNeedUpdate(response.v)) {
+                    new UpdatePanel(getCtx()).show();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+            }
+
+            @Override
+            public void onFinished() {
+            }
+        });
+    }
+
+    private boolean checkNeedUpdate(String v) {
+        try {
+            String version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            if (!TextUtils.equals(v, version)) {
+                return true;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
 }

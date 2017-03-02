@@ -51,7 +51,7 @@ public class ServeActivity extends BaseActivity implements View.OnClickListener,
     private ServeListAdapter adapter;
     private String type;
 
-    private String sort = Constant.SORT_PERSON_EXPENSE_ASC;
+    private String sort = Constant.SORT_POPULAR;
     private List<ListStoreSetMeal> data;
 
     @Override
@@ -61,7 +61,6 @@ public class ServeActivity extends BaseActivity implements View.OnClickListener,
         showLoadingDialog();
         ((ServePresenter) mPresenter).getServeListFirst(type.toUpperCase(), sort);
 
-        refreshView.setNeedLoadMore(true);
         refreshView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ServeListAdapter(this);
         refreshView.setAdapter(adapter);
@@ -134,7 +133,6 @@ public class ServeActivity extends BaseActivity implements View.OnClickListener,
         sortBoard.showAsDropDown(findViewById(R.id.serve_parent), 0, 0);
         sortMark.setImageResource(R.mipmap.up_colored);
         tvSort.setTextColor(getResources().getColor(R.color.custom_color));
-
         hideTopFilter();
     }
 
@@ -143,7 +141,6 @@ public class ServeActivity extends BaseActivity implements View.OnClickListener,
         sortBoard.setFilterVisible();
         filterMark.setImageResource(R.mipmap.up_colored);
         tvFilter.setTextColor(getResources().getColor(R.color.custom_color));
-
         hideTopSort();
     }
 

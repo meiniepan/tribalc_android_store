@@ -1,18 +1,18 @@
 package com.gs.buluo.store;
 
+import android.os.Environment;
+
 /**
  * Created by admin on 2016/11/1.
  */
 public class Constant {
-
-
     public static final String VCODE = "vcode";
     public static final String ENVIRONMENT = "environment";
     public static final String GOODS = "GOODS";
     public static final String SET_MEAL = "SET_MEAL";
     public static final String AUTH = "auth";
     public static final String SERVE_TIME = "serve_time";
-    public static final String STANDARD_INFO="standard_info";
+    public static final String STANDARD_INFO = "standard_info";
     public static final String PUBLISHED = "published";
     public static final String LATITUDE = "latitude";
     public static final String LONGITUDE = "longitude";
@@ -20,11 +20,15 @@ public class Constant {
     public static final String SUCCEED = "SUCCESS";
     public static final String FAILURE = "FAILURE";
 
+    public static final String UPDATE_TIME = "UPDATE_TIME";
+    public static final String APK_URL = "http://www.buluo-gs.com/app-store.apk";
+    public static final String DIR_PATH = Environment.getExternalStorageDirectory().toString() + "/tribe/";
+
     public final static class Base {
-                    public static final String BASE="https://app-services.buluo-gs.com/";
-//        public static final String BASE_URL = "https://app-services.buluo-gs.com:443/tribalc/v1.0/";
-                public static final String BASE_URL="https://dev-app-services.buluo-gs.com:443/tribalc/v1.0/";
-//        public static final String BASE_URL="http://dev-app-services.buluo-gs.com:10086/tribalc/v1.0/";
+        public static final String BASE = "https://app-services.buluo-gs.com/";
+        //        public static final String BASE_URL = "https://app-services.buluo-gs.com:443/tribalc/v1.0/";
+        public static final String BASE_URL = "https://dev-app-services.buluo-gs.com:443/tribalc/v1.0/";
+        //        public static final String BASE_URL="http://dev-app-services.buluo-gs.com:10086/tribalc/v1.0/";
         public static final String BASE_IMG_URL = "http://dev-app-services.buluo-gs.com/resources/";   //图片地址要加此前缀
         public static final String BASE_ONLINE_URL = "http://pictures.buluo-gs.com/";   //阿里云图片地址base
         public static final String WX_ID = "wx1906c6844a4273e2";
@@ -57,7 +61,7 @@ public class Constant {
     public static final String SORT_POPULAR = "popularValue,desc";
     public static final String SORT_PERSON_EXPENSE_DESC = "personExpense,desc";
     public static final String SORT_PERSON_EXPENSE_ASC = "personExpense,asc";
-    public static final String SORT_COORDINATE_DESC = "coordinate,desc" ;
+    public static final String SORT_COORDINATE_DESC = "coordinate,desc";
     public static final String SERVE_ID = "serve_id";
     public static final String STORE_ID = "store_id";
 

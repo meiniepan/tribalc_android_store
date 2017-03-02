@@ -314,7 +314,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         }
         meta.name = etTitle.getText().toString().trim();
         meta.title = etTitleDetail.getText().toString().trim();
-
+        meta.pictures =new ArrayList<>();
         for (BannerPicture pic : picList) {
             if (pic.isChecked) {
                 meta.mainPicture = pic.url;

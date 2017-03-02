@@ -70,7 +70,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 ((LoginPresenter) mPresenter).doLogin(params);
                 break;
             case R.id.login_protocol:
-                startActivity(new Intent(getCtx(),ProtocolActivity.class));
+                startActivity(new Intent(getCtx(),WebActivity.class));
                 break;
         }
     }

@@ -39,6 +39,12 @@ public class SharePreferenceManager {
         edit.commit();
     }
 
+    public void setValue(String name, long value){
+        edit = sharePreference.edit();
+        edit.putLong(name, value);
+        edit.commit();
+    }
+
     public void clearValue(String name) {
         edit = sharePreference.edit();
         edit.remove(name);
@@ -49,6 +55,9 @@ public class SharePreferenceManager {
         edit = sharePreference.edit();
         edit.putFloat(name, value);
         edit.commit();
+    }
+    public Long getLongValue(String name){
+        return sharePreference.getLong(name, 0);
     }
 
     public boolean getBooeanValue(String name) {

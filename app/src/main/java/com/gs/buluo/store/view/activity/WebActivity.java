@@ -12,7 +12,7 @@ import butterknife.Bind;
  * Created by hjn on 2016/12/28.
  */
 
-public class ProtocolActivity extends BaseActivity {
+public class WebActivity extends BaseActivity {
     @Bind(R.id.web_view)
     WebView webView;
     @Override

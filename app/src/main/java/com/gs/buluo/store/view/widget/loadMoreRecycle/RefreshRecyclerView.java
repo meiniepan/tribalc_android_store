@@ -142,8 +142,4 @@ public class RefreshRecyclerView extends FrameLayout {
         mSwipeRefreshLayout.setRefreshing(false);
         empty.setVisibility(GONE);
     }
-
-    public void setNeedLoadMore(boolean loadMore) {
-        loadMoreAble = loadMore;
-    }
 }
