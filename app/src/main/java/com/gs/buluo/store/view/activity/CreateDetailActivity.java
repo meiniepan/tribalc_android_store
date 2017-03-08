@@ -188,10 +188,12 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void createStore() {
+        showLoadingDialog();
         TribeRetrofit.getInstance().createApi(MainApis.class).createStore(TribeApplication.getInstance().getUserInfo().getId(), storeBean)
                 .enqueue(new TribeCallback<StoreMeta>() {
                     @Override
                     public void onSuccess(Response<BaseResponse<StoreMeta>> response) {
+                        dismissDialog();
                         saveStore(response.body().data);
                         Intent intent = new Intent();
                         intent.setClass(getCtx(), CreateStoreFinishActivity.class);
@@ -202,6 +204,7 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
 
                     @Override
                     public void onFail(int responseCode, BaseResponse<StoreMeta> body) {
+                        dismissDialog();
                         ToastUtils.ToastMessage(getCtx(), R.string.connect_fail);
                     }
                 });

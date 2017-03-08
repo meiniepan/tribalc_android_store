@@ -97,15 +97,7 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
 
         floatButton.setOnClickListener(this);
         if (TribeApplication.getInstance().getUserInfo() != null) {
-            String authenticationStatus = TribeApplication.getInstance().getUserInfo().getAuthenticationStatus();
-            if (!TextUtils.equals(authenticationStatus, Constant.SUCCEED)) {
-                authView.setVisibility(View.VISIBLE);
-                loginView.setVisibility(View.GONE);
-                floatButton.setVisibility(View.GONE);
-            } else {
-                initSaleList();
-                initStoreList();
-            }
+            setStatusView();
         } else {
             floatButton.setVisibility(View.GONE);
             loginView.setVisibility(View.VISIBLE);
@@ -241,6 +233,7 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
         goodsListAdapter.clear();
         ((StoreGoodsPresenter) mPresenter).getGoodsListFirst(true);
         ((StoreGoodsPresenter) mPresenter).getGoodsListFirst(false);
+        recyclerViewStore.setVisibility(View.GONE);
     }
 
     public void showLogin() {
@@ -266,20 +259,23 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLoginSuccess(SelfEvent event) {
+        setStatusView();
         recyclerViewSale.setVisibility(View.VISIBLE);
         recyclerViewStore.setVisibility(View.VISIBLE);
         recyclerViewSale.dismissSwipeRefresh();
         recyclerViewStore.dismissSwipeRefresh();
         loginView.setVisibility(View.GONE);
-        if (!TextUtils.equals(TribeApplication.getInstance().getUserInfo().authenticationStatus, Constant.SUCCEED)) {
+    }
+    private void setStatusView() {
+        String authenticationStatus = TribeApplication.getInstance().getUserInfo().getAuthenticationStatus();
+        if (!TextUtils.equals(authenticationStatus, Constant.SUCCEED)) {
             authView.setVisibility(View.VISIBLE);
-            return;
+            loginView.setVisibility(View.GONE);
+            floatButton.setVisibility(View.GONE);
         } else {
-            floatButton.setVisibility(View.VISIBLE);
-            authView.setVisibility(View.GONE);
+            initSaleList();
+            initStoreList();
         }
-        initSaleList();
-        initStoreList();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

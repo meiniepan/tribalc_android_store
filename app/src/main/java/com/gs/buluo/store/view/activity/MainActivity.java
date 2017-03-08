@@ -102,7 +102,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         mPager.setCurrentItem(0);
         mPager.setOffscreenPageLimit(3);
         setCurrentTab(0);
-        checkUpdate();
+//        checkUpdate();
         initUser();
     }
 

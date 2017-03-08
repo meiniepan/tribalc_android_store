@@ -3,6 +3,8 @@ package com.gs.buluo.store.utils;
 import android.content.Context;
 import android.os.Environment;
 
+import com.gs.buluo.store.Constant;
+
 import java.io.File;
 import java.math.BigDecimal;
 
@@ -22,6 +24,7 @@ public class DataCleanManager {
 
     public static void clearAllCache(Context context) {
         deleteDir(context.getCacheDir());
+        deleteDir(new File(Constant.DIR_PATH));
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             deleteDir(context.getExternalCacheDir());
         }

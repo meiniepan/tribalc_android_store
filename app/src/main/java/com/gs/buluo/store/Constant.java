@@ -26,9 +26,8 @@ public class Constant {
 
     public final static class Base {
         public static final String BASE = "https://app-services.buluo-gs.com/";
-        //        public static final String BASE_URL = "https://app-services.buluo-gs.com:443/tribalc/v1.0/";
-        public static final String BASE_URL = "https://dev-app-services.buluo-gs.com:443/tribalc/v1.0/";
-        //        public static final String BASE_URL="http://dev-app-services.buluo-gs.com:10086/tribalc/v1.0/";
+        public static final String BASE_URL = "https://app-services.buluo-gs.com:443/tribalc/v1.0/";
+//        public static final String BASE_URL = "https://dev-app-services.buluo-gs.com:443/tribalc/v1.0/";
         public static final String BASE_IMG_URL = "http://dev-app-services.buluo-gs.com/resources/";   //图片地址要加此前缀
         public static final String BASE_ONLINE_URL = "http://pictures.buluo-gs.com/";   //阿里云图片地址base
         public static final String WX_ID = "wx1906c6844a4273e2";

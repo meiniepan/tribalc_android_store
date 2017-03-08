@@ -140,10 +140,12 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
     }
 
     private void createStore() {
+        showLoadingDialog();
         TribeRetrofit.getInstance().createApi(MainApis.class).createStore(TribeApplication.getInstance().getUserInfo().getId(), storeBean).
                 enqueue(new TribeCallback<StoreMeta>() {
                     @Override
                     public void onSuccess(Response<BaseResponse<StoreMeta>> response) {
+                        dismissDialog();
                         saveStore(response.body().data);
                         Intent intent = new Intent();
                         intent.setClass(CreateDetailActivitySecond.this, CreateStoreFinishActivity.class);
@@ -155,6 +157,7 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
 
                     @Override
                     public void onFail(int responseCode, BaseResponse<StoreMeta> body) {
+                        dismissDialog();
                         ToastUtils.ToastMessage(CreateDetailActivitySecond.this, R.string.connect_fail);
                     }
                 });

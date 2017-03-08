@@ -44,6 +44,10 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                     Log.e("Login Result: userId ", "Retrofit Response: " + response.body().getData().getAssigned());
                     String uid = user.getData().getAssigned();
                     token = response.body().getData().getToken();
+                    StoreInfo entity =new StoreInfo();
+                    entity.setId(uid);
+                    entity.setToken(token);
+                    TribeApplication.getInstance().setUserInfo(entity);
                     getStoreInfo(uid);
                 } else if (user != null && user.getCode() == 401) {
                     if (isAttach()) mView.showError(R.string.wrong_verify);
@@ -56,7 +60,6 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
             }
         });
     }
-
 
     public void doVerify(String phone) {
         mainModel.doVerify(phone, new Callback<BaseResponse<CodeResponse>>() {
@@ -73,7 +76,6 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                     if (null == mView) return;
                     mView.showError(R.string.connect_fail);
                 }
-
             }
 
             @Override
@@ -97,7 +99,6 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
             }
         });
     }
-
 
     private void setStoreInfo(StoreMeta storeInfo) {
         StoreInfo entity = new StoreInfo();

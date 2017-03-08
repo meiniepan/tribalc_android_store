@@ -40,7 +40,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingMultiplier="1.3"
-                        android:text="新增日志：啥也没有，哈哈哈哈"
+                        android:text="新增日志：please 点取消"
                         android:textColor="@color/common_dark"
                         android:textSize="@dimen/dimens_16sp" />
                 </LinearLayout>

@@ -95,6 +95,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
                 setBeautyData();
                 break;
             case VIP:
+                setLivingData();
                 break;
             case HOUSE:
                 setHouseData();
@@ -107,6 +108,9 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
                 break;
             case FOOD:
                 setFoodData();
+                break;
+            default:
+                setLivingData();
                 break;
         }
         if (categoryBeanList!=null){

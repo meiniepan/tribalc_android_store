@@ -11,9 +11,12 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.mapapi.model.LatLng;
+import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.utils.SharePreferenceManager;
+
+import java.io.File;
 
 import butterknife.Bind;
 
@@ -39,6 +42,8 @@ public class AppStartActivity extends BaseActivity {
         mLocClient = new LocationClient(this);
         mLocClient.registerLocationListener(myListener);
         mLocClient.start();
+        File file =new File(Constant.DIR_PATH);
+        if (!file.exists())file.mkdirs();
         beginActivity();
     }
 

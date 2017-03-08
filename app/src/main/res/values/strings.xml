@@ -240,4 +240,5 @@
     <string name="to_login">您还没有登录哦！请您点击下地方按钮进行登录</string>
     <string name="order_manager">订单管理</string>
     <string name="reserve_manager">预定管理</string>
+    <string name="current_newest">您当前是最新版本</string>
 </resources>

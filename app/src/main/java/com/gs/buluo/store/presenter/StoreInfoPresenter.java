@@ -87,7 +87,7 @@ public class StoreInfoPresenter extends BasePresenter<IInfoView> {
         new MainModel().getSetMeal(new Callback<StoreSetMealResponse>() {
             @Override
             public void onResponse(Call<StoreSetMealResponse> call, Response<StoreSetMealResponse> response) {
-                if (response==null){
+                if (response==null || response.body()==null){
                     mView.showError(R.string.get_fail);
                     return;
                 }
