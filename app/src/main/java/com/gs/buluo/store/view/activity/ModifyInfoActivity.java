@@ -212,7 +212,6 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
                 DatePickerPopWin pickerPopWin = new DatePickerPopWin.Builder(ModifyInfoActivity.this, new DatePickerPopWin.OnDatePickedListener() {
                     @Override
                     public void onDatePickCompleted(int year, int month, int day, String dateDesc) {
-                        showLoadingDialog();
                         StringBuilder sb = new StringBuilder();
                         month = month - 1;
                         sb.append(year).append("年").append(month + 1).append("月").append(day).append("日");
