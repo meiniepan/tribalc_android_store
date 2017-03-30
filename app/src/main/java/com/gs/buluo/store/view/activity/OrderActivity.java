@@ -10,10 +10,7 @@ import android.view.View;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.adapter.OrderFragmentAdapter;
-import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.UnScrollViewPager;
-import com.wyt.searchbox.SearchFragment;
-import com.wyt.searchbox.custom.IOnSearchClickListener;
 
 import java.util.Arrays;
 
@@ -22,13 +19,12 @@ import butterknife.Bind;
 /**
  * Created by hjn on 2016/11/24.
  */
-public class OrderActivity extends BaseActivity implements IOnSearchClickListener {
+public class OrderActivity extends BaseActivity  {
     @Bind(R.id.order_pager)
     UnScrollViewPager pager;
     @Bind(R.id.order_tab)
     TabLayout tabLayout;
     private Toolbar mToolbar;
-    private SearchFragment searchFragment;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -36,13 +32,6 @@ public class OrderActivity extends BaseActivity implements IOnSearchClickListene
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationIcon(R.mipmap.back_white);
         mToolbar.setTitle("");
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                searchFragment.show(getSupportFragmentManager(), SearchFragment.TAG);
-                return true;
-            }
-        });
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,8 +45,6 @@ public class OrderActivity extends BaseActivity implements IOnSearchClickListene
         pager.setAdapter(adapter);
         tabLayout.setupWithViewPager(pager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
-        searchFragment = SearchFragment.newInstance();
-        searchFragment.setOnSearchClickListener(this);
         pager.setCurrentItem(getIntent().getIntExtra(Constant.TYPE, 0), false);
     }
 
@@ -75,10 +62,5 @@ public class OrderActivity extends BaseActivity implements IOnSearchClickListene
     @Override
     protected void onDestroy() {
         super.onDestroy();
-    }
-
-    @Override
-    public void OnSearchClick(String keyword) {
-//        ToastUtils.ToastMessage(this, keyword);
     }
 }

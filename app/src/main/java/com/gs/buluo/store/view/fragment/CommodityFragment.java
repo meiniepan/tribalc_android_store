@@ -31,8 +31,6 @@ import com.gs.buluo.store.view.impl.IStoreGoodsView;
 import com.gs.buluo.store.view.widget.RecycleViewDivider;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.Action;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView;
-import com.wyt.searchbox.SearchFragment;
-import com.wyt.searchbox.custom.IOnSearchClickListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -43,7 +41,7 @@ import butterknife.Bind;
 /**
  * Created by admin on 2016/11/1.
  */
-public class CommodityFragment extends BaseFragment implements IOnSearchClickListener, IStoreGoodsView, View.OnClickListener {
+public class CommodityFragment extends BaseFragment implements IStoreGoodsView, View.OnClickListener {
     @Bind(R.id.store_list_sale)
     RefreshRecyclerView recyclerViewSale;
     @Bind(R.id.store_list_store)
@@ -64,7 +62,6 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
     View floatButton;
 
     private Toolbar mToolbar;
-    private SearchFragment searchFragment;
     private StoreGoodsListAdapter goodsListAdapter;
     private SaleGoodsListAdapter saleListAdapter;
 
@@ -79,16 +76,6 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
         mToolbar = (Toolbar) getActivity().findViewById(R.id.goods_bar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         mToolbar.setTitle("");
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.order_find)
-                    searchFragment.show(getActivity().getSupportFragmentManager(), SearchFragment.TAG);
-                return true;
-            }
-        });
-        searchFragment = SearchFragment.newInstance();
-        searchFragment.setOnSearchClickListener(this);
         EventBus.getDefault().register(this);
         getActivity().findViewById(R.id.ll_goods_sale).setOnClickListener(this);
         getActivity().findViewById(R.id.ll_goods_store).setOnClickListener(this);
@@ -158,9 +145,6 @@ public class CommodityFragment extends BaseFragment implements IOnSearchClickLis
         inflater.inflate(R.menu.order_menu, menu);
     }
 
-    @Override
-    public void OnSearchClick(String keyword) {
-    }
 
     @Override
     public void getGoodsSuccess(StoreGoodsList data, boolean published) {
