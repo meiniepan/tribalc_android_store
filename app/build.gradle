@@ -80,5 +80,5 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.google.zxing:core:3.2.1'
     compile 'com.jaredrummler:material-spinner:1.1.0'
-    compile 'com.github.ngreedy:tribe_lib:2.0'
+    compile 'com.github.ngreedy:tribe_lib:2.1'
 }
