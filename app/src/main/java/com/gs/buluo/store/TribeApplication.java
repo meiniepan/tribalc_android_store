@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.model.LatLng;
+import com.gs.buluo.common.BaseApplication;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.utils.TribeCrashCollector;
 
@@ -16,7 +17,7 @@ import retrofit2.http.POST;
 /**
  * Created by hjn on 2016/11/1.
  */
-public class TribeApplication extends Application {
+public class TribeApplication extends BaseApplication {
     private static TribeApplication instance;
     private DbManager.DaoConfig daoConfig;
     private StoreInfo user;
@@ -58,6 +59,16 @@ public class TribeApplication extends Application {
 
     public static synchronized TribeApplication getInstance() {
         return instance;
+    }
+
+    @Override
+    public void onInitialize() {
+
+    }
+
+    @Override
+    public String getFilePath() {
+        return Constant.DIR_PATH;
     }
 
     public DbManager.DaoConfig getDaoConfig() {

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import com.gs.buluo.common.widget.RecycleViewDivider;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.adapter.BillListAdapter;
 import com.gs.buluo.store.bean.BillEntity;
@@ -12,7 +13,6 @@ import com.gs.buluo.store.bean.ResponseBody.BillResponse;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.BillPresenter;
 import com.gs.buluo.store.view.impl.IBillView;
-import com.gs.buluo.store.view.widget.RecycleViewDivider;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.Action;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView;
 

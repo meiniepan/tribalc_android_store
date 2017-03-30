@@ -1,14 +1,13 @@
 package com.gs.buluo.store.network;
 
-import android.os.Environment;
 
+import com.gs.buluo.common.network.LogInterceptor;
 import com.gs.buluo.store.Constant;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
