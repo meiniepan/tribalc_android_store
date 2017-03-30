@@ -143,7 +143,7 @@ public class GoodsStoreInfoActivity extends BaseActivity implements View.OnClick
         }
         storeBean = data;
         tvName.setText(data.name);
-        tvCategory.setText(data.category.toString());
+        if (data.category!=null)tvCategory.setText(data.category.toString());
         tvSend.setText(data.province + data.city + data.district + data.address);
         etDesc.setText(data.desc);
     }

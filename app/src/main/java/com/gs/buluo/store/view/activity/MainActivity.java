@@ -2,6 +2,7 @@ package com.gs.buluo.store.view.activity;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.support.annotation.IntDef;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -31,6 +32,8 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 

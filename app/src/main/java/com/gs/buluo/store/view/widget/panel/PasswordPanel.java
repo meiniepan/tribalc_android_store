@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.gs.buluo.common.widget.PwdEditText;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.ResponseCode;
 import com.gs.buluo.store.bean.OrderBean;
@@ -21,7 +22,6 @@ import com.gs.buluo.store.model.MoneyModel;
 import com.gs.buluo.store.utils.DensityUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.LoadingDialog;
-import com.gs.buluo.store.view.widget.PwdEditText;
 
 import org.greenrobot.eventbus.EventBus;
 import org.xutils.common.util.MD5;

@@ -1,12 +1,11 @@
 package com.gs.buluo.store.view.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 
+import com.gs.buluo.common.widget.RecycleViewDivider;
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.GoodsListAdapter;
 import com.gs.buluo.store.bean.ListGoods;
 import com.gs.buluo.store.bean.GoodList;
@@ -14,7 +13,6 @@ import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.GoodsPresenter;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.IGoodsView;
-import com.gs.buluo.store.view.widget.RecycleViewDivider;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.Action;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView;
 

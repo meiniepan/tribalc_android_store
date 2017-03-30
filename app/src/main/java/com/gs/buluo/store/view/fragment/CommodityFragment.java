@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gs.buluo.common.widget.RecycleViewDivider;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
@@ -28,7 +29,6 @@ import com.gs.buluo.store.view.activity.Authentication1Activity;
 import com.gs.buluo.store.view.activity.CreateGoodsVarietyActivity;
 import com.gs.buluo.store.view.activity.LoginActivity;
 import com.gs.buluo.store.view.impl.IStoreGoodsView;
-import com.gs.buluo.store.view.widget.RecycleViewDivider;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.Action;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView;
 
