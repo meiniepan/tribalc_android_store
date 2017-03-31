@@ -2,6 +2,7 @@ package com.gs.buluo.store.view.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -59,7 +60,7 @@ public class CommodityFragment extends BaseFragment implements IStoreGoodsView, 
     @Bind(R.id.no_login_view)
     View loginView;
     @Bind(R.id.store_floating)
-    View floatButton;
+    FloatingActionButton floatButton;
 
     private Toolbar mToolbar;
     private StoreGoodsListAdapter goodsListAdapter;
