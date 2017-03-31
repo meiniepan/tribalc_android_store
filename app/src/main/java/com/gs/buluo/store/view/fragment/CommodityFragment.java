@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -260,6 +259,8 @@ public class CommodityFragment extends BaseFragment implements IStoreGoodsView, 
         } else {
             initSaleList();
             initStoreList();
+            floatButton.setVisibility(View.VISIBLE);
+            recyclerViewStore.setVisibility(View.GONE);
         }
     }
 
