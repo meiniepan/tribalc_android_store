@@ -22,7 +22,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0.0-alpha-3"
+        versionName VERSION_NAME
     }
     signingConfigs {
         release {
