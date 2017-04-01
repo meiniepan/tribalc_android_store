@@ -9,6 +9,7 @@ android {
         if("true".equals(IS_TEST)){
             API_URL = 'https://dev-app-services.buluo-gs.com:443/tribalc/v1.0/'
         }
+
         variant.outputs.each { output ->
             def outPath  = output.outputFile.parent
             if ("true" == IS_JENKINS){
