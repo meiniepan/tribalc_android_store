@@ -4,9 +4,9 @@ apply plugin: 'com.antfortune.freeline'
 android {
     compileSdkVersion 25
     buildToolsVersion '25.0.0'
-    def API_URL;
+    def API_URL =API_SERVER_URL
     applicationVariants.all { variant ->
-        if("true".equals(IS_TEST)){
+        if("true" == IS_TEST){
             API_URL = 'https://dev-app-services.buluo-gs.com:443/tribalc/v1.0/'
         }
 
@@ -40,12 +40,12 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            buildConfigField 'String', 'API_SERVER_URL', API_SERVER_URL
+            buildConfigField 'String', 'API_SERVER_URL', API_URL
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable true
         }
         debug {
-            buildConfigField 'String', 'API_SERVER_URL', API_SERVER_URL
+            buildConfigField 'String', 'API_SERVER_URL', API_URL
             signingConfig signingConfigs.release
             debuggable true
         }
