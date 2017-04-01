@@ -4,12 +4,8 @@ apply plugin: 'com.antfortune.freeline'
 android {
     compileSdkVersion 25
     buildToolsVersion '25.0.0'
-    def API_URL =API_SERVER_URL
+    def API_URL ;
     applicationVariants.all { variant ->
-        if("true" == IS_TEST){
-            API_URL = 'https://dev-app-services.buluo-gs.com:443/tribalc/v1.0/'
-        }
-
         variant.outputs.each { output ->
             def outPath  = output.outputFile.parent
             if ("true" == IS_JENKINS){
@@ -38,6 +34,12 @@ android {
     }
 
     buildTypes {
+        if("true" == IS_TEST){
+            API_URL = 'https://dev-app-services.buluo-gs.com:443/tribalc/v1.0/'
+        }else {
+            API_URL = 'https://app-services.buluo-gs.com:443/tribalc/v1.0/'
+        }
+
         release {
             minifyEnabled false
             buildConfigField 'String', 'API_SERVER_URL', API_URL
