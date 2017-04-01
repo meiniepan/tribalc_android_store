@@ -35,9 +35,9 @@ android {
 
     buildTypes {
         if("true" == IS_TEST){
-            API_URL = 'https://dev-app-services.buluo-gs.com:443/tribalc/v1.0/'
+            API_URL = 'https://dev-app-services.buluo-gs.com:443/tribalc/v1.0/;'
         }else {
-            API_URL = 'https://app-services.buluo-gs.com:443/tribalc/v1.0/'
+            API_URL = 'https://app-services.buluo-gs.com:443/tribalc/v1.0/;'
         }
 
         release {
