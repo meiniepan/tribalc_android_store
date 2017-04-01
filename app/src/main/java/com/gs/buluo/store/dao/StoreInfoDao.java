@@ -28,6 +28,7 @@ public class StoreInfoDao {
 
     public void saveBindingId(StoreInfo userInfo) {
         try {
+            TribeApplication.getInstance().setUserInfo(userInfo);
             db.saveBindingId(userInfo);
         } catch (DbException e) {
             e.printStackTrace();
