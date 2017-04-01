@@ -4,11 +4,14 @@ apply plugin: 'com.antfortune.freeline'
 android {
     compileSdkVersion 25
     buildToolsVersion '25.0.0'
-
+    def API_URL;
     applicationVariants.all { variant ->
+        if("true".equals(IS_TEST)){
+            API_URL = 'https://dev-app-services.buluo-gs.com:443/tribalc/v1.0/'
+        }
         variant.outputs.each { output ->
             def outPath  = output.outputFile.parent
-            if ("true" .equals(IS_JENKINS)){
+            if ("true" == IS_JENKINS){
                 outPath = 'apk/'     //自动构建目录
             }
             output.outputFile = new File(
@@ -32,6 +35,7 @@ android {
             keyPassword "555555"
         }
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -64,10 +68,10 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.0.0'
-    compile 'com.android.support:recyclerview-v7:24.0.0'
-    compile 'com.android.support:support-v4:24.0.0'
-    compile 'com.android.support:design:24.0.0'
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:recyclerview-v7:25.0.0'
+    compile 'com.android.support:support-v4:25.0.0'
+    compile 'com.android.support:design:25.0.0'
     compile 'com.jakewharton:butterknife:7.0.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
