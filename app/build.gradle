@@ -35,10 +35,12 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            buildConfigField 'String', 'API_SERVER_URL', RELEASE_API_SERVER_URL
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable true
         }
         debug {
+            buildConfigField 'String', 'API_SERVER_URL', DEBUG_API_SERVER_URL
             signingConfig signingConfigs.release
             debuggable true
         }
