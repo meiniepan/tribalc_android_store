@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.gs.buluo.store.Constant;
@@ -19,8 +18,12 @@ import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -134,12 +137,21 @@ public class Authentication2Activity extends BaseActivity {
                 Bundle extras = data.getExtras();
                 String path=extras.getString("path");
                 String type=extras.getString("type");
-                Toast.makeText(getApplicationContext(),"path:"+ path + " type:" + type, Toast.LENGTH_LONG).show();
-                front =path;
                 File file = new File(path);
+                File fileFront = new File(getApplicationContext().getFilesDir(),"front.jpg");
+                front = fileFront.getAbsolutePath();
+                if (!fileFront.exists()){
+                    try {
+                        fileFront.createNewFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                copyFile(file,fileFront);
+               // Toast.makeText(getApplicationContext(),fileFront.getAbsolutePath(), Toast.LENGTH_LONG).show();
                 FileInputStream inStream = null;
                 try {
-                    inStream = new FileInputStream(file);
+                    inStream = new FileInputStream(fileFront);
                     Bitmap bitmap = BitmapFactory.decodeStream(inStream);
                     frontImg.setVisibility(View.VISIBLE);
                     frontImg.setImageBitmap(bitmap);
@@ -155,12 +167,21 @@ public class Authentication2Activity extends BaseActivity {
                 Bundle extras = data.getExtras();
                 String path=extras.getString("path");
                 String type=extras.getString("type");
-                Toast.makeText(getApplicationContext(),"path:"+ path + " type:" + type, Toast.LENGTH_LONG).show();
-                back =path;
                 File file = new File(path);
+                File fileBack = new File(getApplicationContext().getFilesDir(),"back.jpg");
+                back = fileBack.getAbsolutePath();
+                if (!fileBack.exists()){
+                    try {
+                        fileBack.createNewFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                copyFile(file,fileBack);
+               // Toast.makeText(getApplicationContext(),fileBack.getAbsolutePath(), Toast.LENGTH_LONG).show();
                 FileInputStream inStream = null;
                 try {
-                    inStream = new FileInputStream(file);
+                    inStream = new FileInputStream(fileBack);
                     Bitmap bitmap = BitmapFactory.decodeStream(inStream);
                     backImg.setVisibility(View.VISIBLE);
                     backImg.setImageBitmap(bitmap);
@@ -178,5 +199,45 @@ public class Authentication2Activity extends BaseActivity {
     @Override
     protected int getContentLayout() {
         return R.layout.activity_qualification;
+    }
+
+    public void copyFile(File sourcefile, File targetFile) {
+        FileInputStream input = null;
+        BufferedInputStream inbuff = null;
+        FileOutputStream out = null;
+        BufferedOutputStream outbuff = null;
+
+        try {
+
+            input = new FileInputStream(sourcefile);
+            inbuff = new BufferedInputStream(input);
+
+            out = new FileOutputStream(targetFile);
+            outbuff = new BufferedOutputStream(out);
+
+            byte[] b = new byte[1024 * 5];
+            int len = 0;
+            while ((len = inbuff.read(b)) != -1) {
+                outbuff.write(b, 0, len);
+            }
+
+            outbuff.flush();
+        } catch (Exception ex) {
+
+        } finally {
+            try {
+
+                if (inbuff != null)
+                    inbuff.close();
+                if (outbuff != null)
+                    outbuff.close();
+                if (out != null)
+                    out.close();
+                if (input != null)
+                    input.close();
+            } catch (Exception ex) {
+
+            }
+        }
     }
 }
