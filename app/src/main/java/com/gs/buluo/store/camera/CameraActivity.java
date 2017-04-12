@@ -85,6 +85,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                 } else {
                     toggleLight = false;
                     cameraManager.offLight();
+
                 }
             }
         });
