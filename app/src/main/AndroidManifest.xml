@@ -239,6 +239,9 @@
         <activity android:name=".view.activity.WebActivity" />
         <activity android:name=".view.activity.FacilityDetailActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".camera.CameraActivity"
+                  android:screenOrientation="landscape"
+            />
     </application>
 
 </manifest>

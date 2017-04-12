@@ -75,6 +75,11 @@
         <attr name="strokejoinsd" />
         <attr name="strokemitersd" format="dimension" />
     </declare-styleable>
-
+    <!--自定义拍照-->
+    <declare-styleable name="PreviewBorderView">
+        <attr name="tipText" format="string"/>
+        <attr name="tipTextColor" format="color|reference"/>
+        <attr name="tipTextSize" format="dimension"/>
+    </declare-styleable>
 
 </resources>
