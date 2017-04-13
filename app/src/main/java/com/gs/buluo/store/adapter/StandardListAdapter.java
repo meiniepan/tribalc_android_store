@@ -9,15 +9,15 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.GoodsStandard;
 import com.gs.buluo.store.bean.GoodsStandardDescriptions;
 import com.gs.buluo.store.bean.GoodsStandardMeta;
 import com.gs.buluo.store.bean.ListGoodsDetail;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
-import com.gs.buluo.store.model.GoodsModel;
-import com.gs.buluo.store.network.TribeCallback;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.store.network.GoodsApis;
+import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.BaseViewHolder;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RecyclerAdapter;
 
@@ -25,7 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import retrofit2.Response;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by hjn on 2017/1/23.
@@ -97,18 +98,15 @@ public class StandardListAdapter extends RecyclerAdapter<GoodsStandardMeta> {
         }
 
         private void getGoodsList(GoodsStandardMeta entity) {
-            new GoodsModel().getGoodsStandard(entity.id, new TribeCallback<GoodsStandard>() {
-                @Override
-                public void onSuccess(Response<BaseResponse<GoodsStandard>> response) {
-                    setGoodList(response.body().data);
-                }
-
-                @Override
-                public void onFail(int responseCode, BaseResponse<GoodsStandard> body) {
-                    ToastUtils.ToastMessage(getContext(),"获取规格商品信息失败");
-                }
-            });
-
+            TribeRetrofit.getInstance().createApi(GoodsApis.class).getGoodsStandard(entity.id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new BaseSubscriber<BaseResponse<GoodsStandard>>() {
+                        @Override
+                        public void onNext(BaseResponse<GoodsStandard> goodListBaseResponse) {
+                            setGoodList(goodListBaseResponse.data);
+                        }
+                    });
         }
 
         private void setGoodList(GoodsStandard data) {

@@ -68,7 +68,7 @@ public class GoodsDetailActivity extends BaseActivity implements View.OnClickLis
         mBanner.isAutoPlay(false);
         id = getIntent().getStringExtra(Constant.GOODS_ID);
 
-        ((GoodsDetailPresenter) mPresenter).getGoodsDetaii(id);
+        ((GoodsDetailPresenter) mPresenter).getGoodsDetail(id);
         showLoadingDialog();
 
         findViewById(R.id.goods_detail_back).setOnClickListener(this);

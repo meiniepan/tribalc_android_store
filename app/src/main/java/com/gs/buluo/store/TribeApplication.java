@@ -1,6 +1,5 @@
 package com.gs.buluo.store;
 
-import android.app.Application;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.model.LatLng;
@@ -12,7 +11,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.xutils.DbManager;
 import org.xutils.x;
 
-import retrofit2.http.POST;
 
 /**
  * Created by hjn on 2016/11/1.
@@ -22,7 +20,6 @@ public class TribeApplication extends BaseApplication {
     private DbManager.DaoConfig daoConfig;
     private StoreInfo user;
     private LatLng positon;
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -32,7 +29,6 @@ public class TribeApplication extends BaseApplication {
         x.Ext.init(this);//X utils初始化
 //        x.Ext.setDebug(BuildConfig.DEBUG);
         initDb();
-
         EventBus.getDefault();
     }
 

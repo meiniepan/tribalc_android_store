@@ -8,19 +8,25 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.gs.buluo.common.network.ApiException;
+import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
+import com.gs.buluo.store.TribeApplication;
+import com.gs.buluo.store.bean.RequestBodyBean.PhoneUpdateBody;
+import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
-import com.gs.buluo.store.model.MainModel;
-import com.gs.buluo.store.network.TribeCallback;
+import com.gs.buluo.store.network.MainApis;
+import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.AppManager;
 import com.gs.buluo.store.utils.ToastUtils;
 
 import butterknife.Bind;
-import retrofit2.Response;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 
 /**
@@ -69,19 +75,22 @@ public class PhoneVerifyActivity2 extends BaseActivity {
     }
 
     private void doVerify() {
-        new MainModel().doVerify(phone, new TribeCallback<CodeResponse>() {
-            @Override
-            public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
-                dealWithIdentify();
-            }
+        TribeRetrofit.getInstance().createApi(MainApis.class).doVerify(new ValueRequestBody(phone))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<CodeResponse>>() {
+                    @Override
+                    public void onNext(BaseResponse<CodeResponse> response) {
+                        dealWithIdentify();
+                    }
 
-            @Override
-            public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
-                reg_send.setText("获取验证码");
-                findViewById(R.id.text_behind).setVisibility(View.GONE);
-                ToastUtils.ToastMessage(PhoneVerifyActivity2.this, R.string.connect_fail);
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        reg_send.setText("获取验证码");
+                        findViewById(R.id.text_behind).setVisibility(View.GONE);
+                    }
+                });
     }
 
     private void dealWithIdentify() {
@@ -120,30 +129,43 @@ public class PhoneVerifyActivity2 extends BaseActivity {
             AppManager.getAppManager().finishActivity(ConfirmActivity.class);
             finish();
         } else {
-            new MainModel().updatePhone(phone, verify, new TribeCallback<CodeResponse>() {
-                @Override
-                public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
-                    StoreInfoDao dao = new StoreInfoDao();
-                    StoreInfo entity = dao.findFirst();
-                    entity.setPhone(phone);
-                    dao.update(entity);
-                    finish();
-                    AppManager.getAppManager().finishActivity(PhoneVerifyActivity.class);
-                }
-
-                @Override
-                public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
-                    if (responseCode == 401) {
-                        ToastUtils.ToastMessage(PhoneVerifyActivity2.this, R.string.wrong_verify);
-                    } else if (responseCode == 409){
-                        ToastUtils.ToastMessage(PhoneVerifyActivity2.this, R.string.phone_exist);
-                    } else {
-                        ToastUtils.ToastMessage(PhoneVerifyActivity2.this, R.string.connect_fail);
-                    }
-                }
-            });
-
+            updatePhone(verify);
         }
+    }
+
+    private void updatePhone(String verify) {
+        PhoneUpdateBody body = new PhoneUpdateBody();
+        body.phone = phone;
+        body.verificationCode = verify;
+        TribeRetrofit.getInstance().createApi(MainApis.class).updatePhone(TribeApplication.getInstance().getUserInfo().getId(), body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<CodeResponse>>() {
+                    @Override
+                    public void onNext(BaseResponse<CodeResponse> response) {
+                        StoreInfoDao dao = new StoreInfoDao();
+                        StoreInfo entity = dao.findFirst();
+                        entity.setPhone(phone);
+                        dao.update(entity);
+                        finish();
+                        AppManager.getAppManager().finishActivity(PhoneVerifyActivity.class);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (e instanceof ApiException) {
+                            ApiException exception = (ApiException) e;
+                            int responseCode = exception.getResponseCode();
+                            if (responseCode == 401) {
+                                ToastUtils.ToastMessage(PhoneVerifyActivity2.this, R.string.wrong_verify);
+                            } else if (responseCode == 409) {
+                                ToastUtils.ToastMessage(PhoneVerifyActivity2.this, R.string.phone_exist);
+                            } else {
+                                ToastUtils.ToastMessage(PhoneVerifyActivity2.this, R.string.connect_fail);
+                            }
+                        }
+                    }
+                });
     }
 
     @Override

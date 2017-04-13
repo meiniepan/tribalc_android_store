@@ -9,18 +9,18 @@ import android.view.ViewStub;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.TagAdapter;
-import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.CategoryBean;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.network.MainApis;
-import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.AppManager;
 import com.gs.buluo.store.utils.ToastUtils;
@@ -31,7 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import retrofit2.Response;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by hjn on 2017/1/10.
@@ -112,7 +113,7 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
         findViewById(R.id.store_create_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (tvName.length() == 0 ) {
+                if (tvName.length() == 0) {
                     ToastUtils.ToastMessage(getCtx(), "请填写商铺名称");
                     return;
                 }
@@ -128,8 +129,8 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
     private void setCookingStyle() {
         if (Constant.SET_MEAL.equals(storeBean.storeType)) {
             List<String> list = new ArrayList<>();
-            for (CategoryBean bean :categoryBeanList) {
-                if (bean.isSelect){
+            for (CategoryBean bean : categoryBeanList) {
+                if (bean.isSelect) {
                     list.add(bean.value);
                 }
             }
@@ -156,18 +157,18 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
         findViewById(R.id.store_create_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (storeBean.category == StoreMeta.StoreCategory.REPAST)setCookingStyle();
+                if (storeBean.category == StoreMeta.StoreCategory.REPAST) setCookingStyle();
                 if (tvName.length() == 0) {
                     ToastUtils.ToastMessage(getCtx(), getString(R.string.edit_store_name));
                     return;
-                }else if (tvMark.length() == 0){
-                    ToastUtils.ToastMessage(getCtx(),getString(R.string.mark_place_not_null));
+                } else if (tvMark.length() == 0) {
+                    ToastUtils.ToastMessage(getCtx(), getString(R.string.mark_place_not_null));
                     return;
-                }else if (tvAddress .length()<4){
-                    ToastUtils.ToastMessage(getCtx(),getString(R.string.edit_store_address));
+                } else if (tvAddress.length() < 4) {
+                    ToastUtils.ToastMessage(getCtx(), getString(R.string.edit_store_address));
                     return;
-                }else if (StoreMeta.StoreCategory.REPAST==storeBean.category &&(storeBean.cookingStyle==null || storeBean.cookingStyle.size()==0)){
-                    ToastUtils.ToastMessage(getCtx(),getString(R.string.cook_not_null));
+                } else if (StoreMeta.StoreCategory.REPAST == storeBean.category && (storeBean.cookingStyle == null || storeBean.cookingStyle.size() == 0)) {
+                    ToastUtils.ToastMessage(getCtx(), getString(R.string.cook_not_null));
                     return;
                 }
                 goSecond();
@@ -190,22 +191,17 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
     private void createStore() {
         showLoadingDialog();
         TribeRetrofit.getInstance().createApi(MainApis.class).createStore(TribeApplication.getInstance().getUserInfo().getId(), storeBean)
-                .enqueue(new TribeCallback<StoreMeta>() {
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<StoreMeta>>() {
                     @Override
-                    public void onSuccess(Response<BaseResponse<StoreMeta>> response) {
-                        dismissDialog();
-                        saveStore(response.body().data);
+                    public void onNext(BaseResponse<StoreMeta> response) {
+                        saveStore(response.data);
                         Intent intent = new Intent();
                         intent.setClass(getCtx(), CreateStoreFinishActivity.class);
                         AppManager.getAppManager().finishActivity(CreateStoreVarietyActivity.class);
                         startActivity(intent);
                         finish();
-                    }
-
-                    @Override
-                    public void onFail(int responseCode, BaseResponse<StoreMeta> body) {
-                        dismissDialog();
-                        ToastUtils.ToastMessage(getCtx(), R.string.connect_fail);
                     }
                 });
     }
@@ -270,8 +266,8 @@ public class CreateDetailActivity extends BaseActivity implements View.OnClickLi
             storeBean.address = address;
             tvAddress.setText(area + address);
             double lan = data.getDoubleExtra(Constant.LATITUDE, 0);
-            double lon = data.getDoubleExtra(Constant.LONGITUDE,0);
-            storeBean.coordinate = new double[]{lon,lan};
+            double lon = data.getDoubleExtra(Constant.LONGITUDE, 0);
+            storeBean.coordinate = new double[]{lon, lan};
         } else if (data != null && requestCode == 200 && resultCode == 201) {  //logo
             storeBean.logo = data.getStringExtra(Constant.LOGO);
             tvLogo.setText("1 张");

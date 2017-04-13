@@ -86,7 +86,7 @@ public final class Intents {
          * onActivityResult() of the app which requested the scan via
          * startSubActivity(). The barcodes contents can be retrieved with
          * intent.getStringExtra(RESULT). If the user presses Back, the result
-         * code will be RESULT_CANCELED.
+         * responseCode will be RESULT_CANCELED.
          */
         public static final String RESULT = "SCAN_RESULT";
 
@@ -107,7 +107,7 @@ public final class Intents {
 
     public static final class Encode {
         /**
-         * Send this intent to encode a piece of data as a QR code and display
+         * Send this intent to encode a piece of data as a QR responseCode and display
          * it full screen, so that another person can scan the barcode from your
          * screen.
          */

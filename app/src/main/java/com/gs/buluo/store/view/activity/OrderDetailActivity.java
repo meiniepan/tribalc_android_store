@@ -14,7 +14,7 @@ import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.adapter.OrderDetailGoodsAdapter;
 import com.gs.buluo.store.bean.OrderBean;
-import com.gs.buluo.store.bean.ResponseBody.OrderResponse;
+import com.gs.buluo.store.bean.ResponseBody.OrderResponseBean;
 import com.gs.buluo.store.eventbus.PaymentEvent;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.OrderPresenter;
@@ -206,7 +206,7 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void getOrderInfoSuccess(OrderResponse.OrderResponseBean data) {
+    public void getOrderInfoSuccess(OrderResponseBean data) {
     }
 
     //待付款订单页面 付款成功的通知

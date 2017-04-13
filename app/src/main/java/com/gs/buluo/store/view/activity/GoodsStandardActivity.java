@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.StandardListAdapter;
+import com.gs.buluo.store.bean.GoodsStandard;
 import com.gs.buluo.store.bean.GoodsStandardMeta;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.GoodsStandardResponse;
@@ -23,11 +25,13 @@ import butterknife.Bind;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by hjn on 2017/1/20.
  */
-public class GoodsStandardActivity extends BaseActivity implements Callback<BaseResponse<GoodsStandardResponse>> {
+public class GoodsStandardActivity extends BaseActivity {
     @Bind(R.id.good_standard_list)
     RefreshRecyclerView refreshRecyclerView;
 
@@ -68,31 +72,20 @@ public class GoodsStandardActivity extends BaseActivity implements Callback<Base
         refreshRecyclerView.setAdapter(listAdapter);
         showLoadingDialog();
         TribeRetrofit.getInstance().createApi(GoodsApis.class).getStandardList(TribeApplication.getInstance().getUserInfo().getId(),category)
-        .enqueue(this);
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<GoodsStandardResponse>>() {
+                    @Override
+                    public void onNext(BaseResponse<GoodsStandardResponse> goodListBaseResponse) {
+                        List<GoodsStandardMeta> content = goodListBaseResponse.data.content;
+                        listAdapter.addAll(content);
+                        refreshRecyclerView.setAdapter(listAdapter);
+                    }
+                });
     }
 
     @Override
     protected int getContentLayout() {
         return R.layout.activity_standard_choose;
     }
-
-    @Override
-    public void onResponse(Call<BaseResponse<GoodsStandardResponse>> call, Response<BaseResponse<GoodsStandardResponse>> response) {
-        dismissDialog();
-        if (response!=null&&response.body()!=null&&response.body().code==200){
-            List<GoodsStandardMeta> content = response.body().data.content;
-            listAdapter.addAll(content);
-            refreshRecyclerView.setAdapter(listAdapter);
-        }else {
-            ToastUtils.ToastMessage(this,R.string.connect_fail);
-        }
-    }
-
-    @Override
-    public void onFailure(Call<BaseResponse<GoodsStandardResponse>> call, Throwable t) {
-        dismissDialog();
-        ToastUtils.ToastMessage(this,R.string.connect_fail);
-    }
-
-
 }

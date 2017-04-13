@@ -245,7 +245,7 @@ public class CommodityFragment extends BaseFragment implements IStoreGoodsView, 
     public void onLoginSuccess(SelfEvent event) {
         setStatusView();
         recyclerViewSale.setVisibility(View.VISIBLE);
-        recyclerViewStore.setVisibility(View.VISIBLE);
+        recyclerViewStore.setVisibility(View.GONE);
         recyclerViewSale.dismissSwipeRefresh();
         recyclerViewStore.dismissSwipeRefresh();
         loginView.setVisibility(View.GONE);

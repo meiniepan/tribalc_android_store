@@ -11,13 +11,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baidu.mapapi.model.LatLng;
+import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.DetailStore;
 import com.gs.buluo.store.bean.DetailStoreSetMeal;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
-import com.gs.buluo.store.model.ServeModel;
+import com.gs.buluo.store.network.ServeApis;
+import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.GlideBannerLoader;
 import com.gs.buluo.store.utils.GlideUtils;
@@ -31,14 +33,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by hjn on 2016/11/24.
  */
-public class ServeDetailActivity extends BaseActivity implements View.OnClickListener, Callback<BaseResponse<DetailStoreSetMeal>> {
+public class ServeDetailActivity extends BaseActivity implements View.OnClickListener{
     Context mCtx;
     TextView tvName;
     private TextView tvPrice;
@@ -154,18 +155,18 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void getDetailInfo(String id) {
-        showLoadingDialog();
-        new ServeModel().getServeDetail(id, this);
+        TribeRetrofit.getInstance().createApi(ServeApis.class).getServeDetail(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<DetailStoreSetMeal>>() {
+                    @Override
+                    public void onNext(BaseResponse<DetailStoreSetMeal> goodListBaseResponse) {
+                        DetailStoreSetMeal data = goodListBaseResponse.data;
+                        if (mRoot != null) setData(data);
+                    }
+                });
     }
 
-    @Override
-    public void onResponse(Call<BaseResponse<DetailStoreSetMeal>> call, Response<BaseResponse<DetailStoreSetMeal>> response) {
-        dismissDialog();
-        if (response.body() != null && response.body().code == 200 && response.body().data != null) {
-            DetailStoreSetMeal data = response.body().data;
-            if (mRoot != null) setData(data);
-        }
-    }
 
     private void setData(DetailStoreSetMeal data) {
         banner.setBannerStyle(BannerConfig.NUM_INDICATOR);
@@ -199,14 +200,6 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
         }
         GlideUtils.loadImage(this, detailStore.logo, logo, true);
     }
-
-    @Override
-    public void onFailure(Call<BaseResponse<DetailStoreSetMeal>> call, Throwable t) {
-        if (mRoot == null) return;
-        dismissDialog();
-        ToastUtils.ToastMessage(this, R.string.connect_fail);
-    }
-
 
     private void initMap() {
         map.put(getString(R.string.baby_chair), R.mipmap.baby_chair);

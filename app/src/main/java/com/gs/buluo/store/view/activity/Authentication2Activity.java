@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.AuthenticationData;
-import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
+import com.gs.buluo.store.bean.ResponseBody.UploadResponseBody;
 import com.gs.buluo.store.camera.CameraActivity;
 import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.store.utils.GlideUtils;
@@ -105,7 +105,7 @@ public class Authentication2Activity extends BaseActivity {
     private void uploadPic(String pic, final boolean isFront) {
         TribeUploader.getInstance().uploadFile("id", "", pic, new TribeUploader.UploadCallback() {
             @Override
-            public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
+            public void uploadSuccess(UploadResponseBody data) {
                 dismissDialog();
                 if (isFront){
                     frontImg.setVisibility(View.VISIBLE);

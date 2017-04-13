@@ -14,7 +14,7 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.adapter.ServeListAdapter;
 import com.gs.buluo.store.bean.CoordinateBean;
 import com.gs.buluo.store.bean.ListStoreSetMeal;
-import com.gs.buluo.store.bean.ResponseBody.ServeResponse;
+import com.gs.buluo.store.bean.ResponseBody.ServeResponseBody;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.ServePresenter;
 import com.gs.buluo.store.utils.ToastUtils;
@@ -58,7 +58,6 @@ public class ServeActivity extends BaseActivity implements View.OnClickListener,
     protected void bindView(Bundle savedInstanceState) {
         type = getIntent().getStringExtra(Constant.TYPE);
         initView(type);
-        showLoadingDialog();
         ((ServePresenter) mPresenter).getServeListFirst(type.toUpperCase(), sort);
 
         refreshView.setLayoutManager(new LinearLayoutManager(this));
@@ -156,13 +155,11 @@ public class ServeActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void showError(int res) {
-        dismissDialog();
         ToastUtils.ToastMessage(this, getString(res));
     }
 
     @Override
-    public void getServerSuccess(ServeResponse.ServeResponseBody body) {
-        dismissDialog();
+    public void getServerSuccess(ServeResponseBody body) {
         data = body.content;
         adapter.addAll(data);
         if (!body.hasMore) {

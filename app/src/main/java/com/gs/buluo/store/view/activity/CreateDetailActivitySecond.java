@@ -9,23 +9,22 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.FacilityAdapter;
-import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.FacilityBean;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.StoreSetMealCreation;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.network.MainApis;
-import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.AppManager;
-import com.gs.buluo.store.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -33,7 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import retrofit2.Response;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by hjn on 2017/1/12.
@@ -77,16 +77,16 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
         facilityList.add(new FacilityBean(getString(R.string.business_circle)));
         facilityList.add(new FacilityBean(getString(R.string.business_dinner)));
         facilityList.add(new FacilityBean(getString(R.string.facilities_for_disabled)));
-        facilityList.add(new FacilityBean( getString(R.string.organic_food)));
-        facilityList.add(new FacilityBean(getString( R.string.parking)));
+        facilityList.add(new FacilityBean(getString(R.string.organic_food)));
+        facilityList.add(new FacilityBean(getString(R.string.parking)));
         facilityList.add(new FacilityBean(getString(R.string.pet_ok)));
         facilityList.add(new FacilityBean(getString(R.string.room)));
         facilityList.add(new FacilityBean(getString(R.string.restaurants_of_hotel)));
-        facilityList.add(new FacilityBean( getString(R.string.scene_seat)));
-        facilityList.add(new FacilityBean( getString(R.string.small_party)));
+        facilityList.add(new FacilityBean(getString(R.string.scene_seat)));
+        facilityList.add(new FacilityBean(getString(R.string.small_party)));
         facilityList.add(new FacilityBean(getString(R.string.weekend_brunch)));
-        facilityList.add(new FacilityBean(getString( R.string.valet_parking)));
-        facilityList.add(new FacilityBean( getString(R.string.vip_rights)));
+        facilityList.add(new FacilityBean(getString(R.string.valet_parking)));
+        facilityList.add(new FacilityBean(getString(R.string.vip_rights)));
         facilityList.add(new FacilityBean(getString(R.string.wi_fi)));
 
 
@@ -140,13 +140,13 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
     }
 
     private void createStore() {
-        showLoadingDialog();
-        TribeRetrofit.getInstance().createApi(MainApis.class).createStore(TribeApplication.getInstance().getUserInfo().getId(), storeBean).
-                enqueue(new TribeCallback<StoreMeta>() {
+        TribeRetrofit.getInstance().createApi(MainApis.class).createStore(TribeApplication.getInstance().getUserInfo().getId(), storeBean)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<StoreMeta>>() {
                     @Override
-                    public void onSuccess(Response<BaseResponse<StoreMeta>> response) {
-                        dismissDialog();
-                        saveStore(response.body().data);
+                    public void onNext(BaseResponse<StoreMeta> response) {
+                        saveStore(response.data);
                         Intent intent = new Intent();
                         intent.setClass(CreateDetailActivitySecond.this, CreateStoreFinishActivity.class);
                         AppManager.getAppManager().finishActivity(CreateDetailActivity.class);
@@ -154,14 +154,8 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
                         startActivity(intent);
                         finish();
                     }
-
-                    @Override
-                    public void onFail(int responseCode, BaseResponse<StoreMeta> body) {
-                        dismissDialog();
-                        ToastUtils.ToastMessage(CreateDetailActivitySecond.this, R.string.connect_fail);
-                    }
                 });
-        mealCreation.category =storeBean.category;
+        mealCreation.category = storeBean.category;
         mealCreation.reservable = sReserve.isChecked();
         mealCreation.coordinate = storeBean.coordinate;
         mealCreation.personExpense = etFee.getText().toString().trim();
@@ -169,17 +163,11 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
         mealCreation.pictures = storeBean.pictures;
         mealCreation.recommendedReason = etRecommend.getText().toString().trim();
         mealCreation.topics = storeBean.topics;
-        TribeRetrofit.getInstance().createApi(MainApis.class).createServe(TribeApplication.getInstance().getUserInfo().getId(), mealCreation).enqueue(new TribeCallback<CodeResponse>() {
-            @Override
-            public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
-
-            }
-
-            @Override
-            public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
-                ToastUtils.ToastMessage(CreateDetailActivitySecond.this, R.string.connect_fail);
-            }
-        });
+        TribeRetrofit.getInstance().createApi(MainApis.class).createServe(TribeApplication.getInstance().getUserInfo().getId(), mealCreation)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<CodeResponse>>() {
+                });
     }
 
     private void saveStore(StoreMeta data) {
@@ -202,7 +190,8 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
         } else if (data != null && requestCode == 201 && resultCode == 202) {   //environment
             ArrayList<String> enPictures = data.getStringArrayListExtra(Constant.ENVIRONMENT);
             storeBean.pictures = enPictures;
-            if (enPictures!=null&&enPictures.size()>0) mealCreation.mainPicture = enPictures.get(0);
+            if (enPictures != null && enPictures.size() > 0)
+                mealCreation.mainPicture = enPictures.get(0);
             tvEnvi.setText(enPictures.size() + "张");
         }
     }

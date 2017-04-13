@@ -7,21 +7,20 @@ import com.gs.buluo.store.bean.RequestBodyBean.PhoneUpdateBody;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
-import com.gs.buluo.store.bean.ResponseBody.StoreSetMealResponse;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessBody;
-import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
-import com.gs.buluo.store.bean.ResponseBody.UserAddressListResponse;
-import com.gs.buluo.store.bean.ResponseBody.UserBeanResponse;
-import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.bean.ResponseBody.UploadResponseBody;
+import com.gs.buluo.store.bean.ResponseBody.UserBeanEntity;
 import com.gs.buluo.store.bean.StoreSetMealCreation;
 
-import retrofit2.Call;
+import java.util.List;
+
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import rx.Observable;
 
 /**
  * Created by hjn on 2016/11/3.
@@ -29,45 +28,41 @@ import retrofit2.http.Query;
 public interface MainApis {
 
     @POST("stores/login")
-    Call<UserBeanResponse> doLogin(@Body LoginBody params);
+    Observable<BaseResponse<UserBeanEntity>> doLogin(@Body LoginBody params);
 
     @POST("verifications/phone")
-    Call<BaseResponse<CodeResponse>> doVerify(@Body ValueRequestBody phone);
-
-    @GET("stores/{id}/addresses")
-    Call<UserAddressListResponse> getDetailAddressList(
-            @Path("id") String uid);
+    Observable<BaseResponse<CodeResponse>> doVerify(@Body ValueRequestBody phone);
 
     @POST("oss_authorization/picture")
-    Call<UploadAccessResponse> getUploadUrl(@Query("me") String id, @Body UploadAccessBody body);
+    Observable<BaseResponse<UploadResponseBody>> getUploadUrl(@Query("me") String id, @Body UploadAccessBody body);
 
     @PUT("stores/{id}/authentication")
-    Call<BaseResponse<AuthenticationData>> doAuthentication(@Path("id") String id, @Body AuthenticationData request);
+    Observable<BaseResponse<AuthenticationData>> doAuthentication(@Path("id") String id, @Body AuthenticationData request);
 
     @PUT("stores/{id}/phone")
-    Call<BaseResponse<CodeResponse>> updatePhone(@Path("id") String id, @Body PhoneUpdateBody body);
+    Observable<BaseResponse<CodeResponse>> updatePhone(@Path("id") String id, @Body PhoneUpdateBody body);
 
     @GET("stores/{id}")
-    Call<BaseResponse<StoreMeta>> getStoreMeta(@Path("id")String uid);
+    Observable<BaseResponse<StoreMeta>> getStoreMeta(@Path("id")String uid);
 
     @PUT("stores/{id}/{propNames}")
-    Call<BaseResponse<CodeResponse>> updateUser(@Path("id") String id,@Path("propNames") String propNames,@Body StoreMeta bean);
+    Observable<BaseResponse<CodeResponse>> updateStoreProp(@Path("id") String id, @Path("propNames") String propNames, @Body StoreMeta bean);
 
     @PUT("stores/{id}")
-    Call<BaseResponse<CodeResponse>> updateStore(@Path("id") String id,@Body StoreMeta bean);
+    Observable<BaseResponse<CodeResponse>> updateStore(@Path("id") String id,@Body StoreMeta bean);
 
     @POST("stores/{id}")
-    Call<BaseResponse<StoreMeta>> createStore(@Path("id") String id,@Body StoreMeta bean);
+    Observable<BaseResponse<StoreMeta>> createStore(@Path("id") String id,@Body StoreMeta bean);
 
     @GET("store_set_meals")
-    Call<StoreSetMealResponse> getCreateSetMeal(@Query("me")String uid);
+    Observable<BaseResponse<List<StoreSetMealCreation>>> getCreateSetMeal(@Query("me")String uid);
 
     @POST("store_set_meals")
-    Call<BaseResponse<CodeResponse>> createServe(@Query("me") String uid, @Body StoreSetMealCreation body);
+    Observable<BaseResponse<CodeResponse>> createServe(@Query("me") String uid, @Body StoreSetMealCreation body);
 
     @PUT("store_set_meals/{id}")
-    Call<BaseResponse<CodeResponse>> updateMeal(@Path("id")String mealId,@Query("me")String uid,@Body StoreSetMealCreation mealCreation);
+    Observable<BaseResponse<CodeResponse>> updateMeal(@Path("id")String mealId,@Query("me")String uid,@Body StoreSetMealCreation mealCreation);
 
     @GET("stores/{id}/authentication")
-    Call<BaseResponse<AuthenticationData>> getAuth(@Path("id")String uid);
+    Observable<BaseResponse<AuthenticationData>> getAuth(@Path("id")String uid);
 }

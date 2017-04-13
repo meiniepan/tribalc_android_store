@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.adapter.ReserveListAdapter;
-import com.gs.buluo.store.bean.ResponseBody.ReserveResponse;
+import com.gs.buluo.store.bean.ResponseBody.ReserveResponseBody;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.ReservePresenter;
 import com.gs.buluo.store.utils.ToastUtils;
@@ -45,7 +45,6 @@ public class ReserveActivity extends BaseActivity implements IReserveView {
         });
 
         ((ReservePresenter) mPresenter).getReserveListFirst("");
-        showLoadingDialog();
     }
 
     @Override
@@ -66,8 +65,7 @@ public class ReserveActivity extends BaseActivity implements IReserveView {
     }
 
     @Override
-    public void getReserveSuccess(ReserveResponse.ReserveResponseBody data) {
-        dismissDialog();
+    public void getReserveSuccess(ReserveResponseBody data) {
         adapter.addAll(data.content);
         if (data.content.size() == 0) {
             recyclerView.showNoData(R.string.no_order);
@@ -81,6 +79,5 @@ public class ReserveActivity extends BaseActivity implements IReserveView {
     @Override
     public void showError(int res) {
         ToastUtils.ToastMessage(this, getString(res));
-        dismissDialog();
     }
 }

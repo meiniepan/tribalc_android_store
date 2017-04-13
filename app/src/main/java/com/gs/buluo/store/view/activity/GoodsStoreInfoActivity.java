@@ -2,6 +2,7 @@ package com.gs.buluo.store.view.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,10 +10,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
+import com.gs.buluo.store.TribeApplication;
+import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
+import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.StoreSetMealCreation;
+import com.gs.buluo.store.dao.StoreInfoDao;
+import com.gs.buluo.store.network.MainApis;
+import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.StoreInfoPresenter;
 import com.gs.buluo.store.utils.ToastUtils;
@@ -20,6 +29,8 @@ import com.gs.buluo.store.view.impl.IInfoView;
 import com.gs.buluo.store.view.widget.CustomAlertDialog;
 
 import butterknife.Bind;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by hjn on 2017/1/20.

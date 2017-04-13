@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.adapter.OrderListAdapter;
 import com.gs.buluo.store.bean.OrderBean;
-import com.gs.buluo.store.bean.ResponseBody.OrderResponse;
+import com.gs.buluo.store.bean.ResponseBody.OrderResponseBean;
 import com.gs.buluo.store.eventbus.PaymentEvent;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.OrderPresenter;
@@ -99,7 +99,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
     }
 
     @Override
-    public void getOrderInfoSuccess(OrderResponse.OrderResponseBean data) {
+    public void getOrderInfoSuccess(OrderResponseBean data) {
         dismissDialog();
         list = data.content;
         if (list.size() == 0) {

@@ -44,13 +44,11 @@ public class GoodsListActivity extends BaseActivity implements IGoodsView {
                 this, GridLayoutManager.VERTICAL, 12, getResources().getColor(R.color.tint_bg)));
 
         ((GoodsPresenter) mPresenter).getGoodsList();
-        showLoadingDialog();
 
         recyclerView.setLoadMoreAction(new Action() {
             @Override
             public void onAction() {
                 ((GoodsPresenter) mPresenter).loadMore();
-                showLoadingDialog();
             }
         });
 
@@ -69,7 +67,6 @@ public class GoodsListActivity extends BaseActivity implements IGoodsView {
 
     @Override
     public void getGoodsInfo(GoodList responseList) {
-        dismissDialog();
         list = responseList.content;
         adapter.addAll(list);
         hasMore = responseList.hasMore;

@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.BannerPicture;
@@ -23,21 +24,21 @@ import com.gs.buluo.store.bean.GoodsStandard;
 import com.gs.buluo.store.bean.GoodsStandardDescriptions;
 import com.gs.buluo.store.bean.GoodsStandardMeta;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
-import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
-import com.gs.buluo.store.model.GoodsModel;
-import com.gs.buluo.store.network.TribeCallback;
+import com.gs.buluo.store.bean.ResponseBody.UploadResponseBody;
+import com.gs.buluo.store.network.GoodsApis;
+import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.store.utils.GlideBannerLoader;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 import com.youth.banner.Banner;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import retrofit2.Response;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static com.gs.buluo.store.R.id.goods_create_next;
 
@@ -101,7 +102,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         picList = new ArrayList<>();
         initView();
         initData();
-        if (meta.pictures==null||meta.pictures.size()==0){
+        if (meta.pictures == null || meta.pictures.size() == 0) {
             addFirst.setVisibility(View.VISIBLE);
             addPic.setVisibility(View.GONE);
             delPic.setVisibility(View.GONE);
@@ -156,11 +157,11 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length()>60){
-                    etTitleDetail.setText(s.toString().substring(0,60));
+                if (s.length() > 60) {
+                    etTitleDetail.setText(s.toString().substring(0, 60));
                     etTitleDetail.setSelection(60);
-                    tvTitleWords.setText(60+"");
-                }else {
+                    tvTitleWords.setText(60 + "");
+                } else {
                     tvTitleWords.setText(s.length() + "");
                 }
             }
@@ -176,11 +177,11 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length()>20){
-                    etDesc.setText(s.toString().substring(0,20));
+                if (s.length() > 20) {
+                    etDesc.setText(s.toString().substring(0, 20));
                     etDesc.setSelection(20);
-                    tvDescWords.setText(20+"");
-                }else {
+                    tvDescWords.setText(20 + "");
+                } else {
                     tvDescWords.setText(s.length() + "");
                 }
             }
@@ -203,10 +204,10 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
 
     private void setData() {
         meta.isEdit = true;
-        if (meta.pictures!=null &&meta.pictures.size()>0){
+        if (meta.pictures != null && meta.pictures.size() > 0) {
             setBannerStyle();
         } else {
-            meta.pictures =new ArrayList<>();
+            meta.pictures = new ArrayList<>();
         }
 
         etTitleDetail.setText(meta.title);
@@ -224,15 +225,15 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         }
 
         mainButton.setChecked(meta.primary);
-        isMain =meta.primary;
+        isMain = meta.primary;
     }
 
     private void setBannerStyle() {
-        for (String url :meta.pictures){
+        for (String url : meta.pictures) {
             BannerPicture bannerPicture = new BannerPicture(url);
             picList.add(bannerPicture);
-            if (TextUtils.equals(url,meta.mainPicture)){
-                bannerPicture.isChecked =true;
+            if (TextUtils.equals(url, meta.mainPicture)) {
+                bannerPicture.isChecked = true;
             }
         }
         banner.setImages(meta.pictures);
@@ -275,12 +276,12 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
                 showChoosePhoto();
                 break;
             case R.id.rl_goods_main:
-                if (isMain){
+                if (isMain) {
                     mainButton.setChecked(false);
-                    isMain =false;
-                }else {
+                    isMain = false;
+                } else {
                     mainButton.setChecked(true);
-                    isMain =true;
+                    isMain = true;
                 }
                 break;
             case R.id.goods_create_del_pic:
@@ -308,13 +309,13 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
             ToastUtils.ToastMessage(getCtx(), getString(R.string.goods_info_not_complete));
             return;
         }
-        if (findView(R.id.ll_standard).getVisibility()==View.VISIBLE&&(tvValue1.getText().length()== 0 ||tvValue2.getText().length() ==0)){
-            ToastUtils.ToastMessage(getCtx(),getString(R.string.standard_not_empty));
+        if (findView(R.id.ll_standard).getVisibility() == View.VISIBLE && (tvValue1.getText().length() == 0 || tvValue2.getText().length() == 0)) {
+            ToastUtils.ToastMessage(getCtx(), getString(R.string.standard_not_empty));
             return;
         }
         meta.name = etTitle.getText().toString().trim();
         meta.title = etTitleDetail.getText().toString().trim();
-        meta.pictures =new ArrayList<>();
+        meta.pictures = new ArrayList<>();
         for (BannerPicture pic : picList) {
             if (pic.isChecked) {
                 meta.mainPicture = pic.url;
@@ -346,12 +347,12 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     private void uploadPic(String path) {
         TribeUploader.getInstance().uploadFile("goods", "", path, new TribeUploader.UploadCallback() {
             @Override
-            public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
+            public void uploadSuccess(UploadResponseBody data) {
                 banner.setVisibility(View.VISIBLE);
                 picList.add(0, new BannerPicture(data.objectKey));
                 banner.setImages(picList);
                 banner.start();
-                if (picList.size()==1){
+                if (picList.size() == 1) {
                     addFirst.setVisibility(View.GONE);
                     addPic.setVisibility(View.VISIBLE);
                     delPic.setVisibility(View.VISIBLE);
@@ -383,7 +384,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
 
     @Override
     public void onPageSelected(int position) {
-        if (position>picList.size()||position==0)return;
+        if (position > picList.size() || position == 0) return;
         pos = position - 1;
         checkBox.setChecked(picList.get(position - 1).isChecked);
     }
@@ -394,17 +395,14 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     }
 
     public void getStandard() {
-        new GoodsModel().getGoodsStandard(meta.standardId, new TribeCallback<GoodsStandard>() {
-            @Override
-            public void onSuccess(Response<BaseResponse<GoodsStandard>> response) {
-                setStandard(response.body().data.descriptions);
-            }
-
-            @Override
-            public void onFail(int responseCode, BaseResponse<GoodsStandard> body) {
-                ToastUtils.ToastMessage(getCtx(), R.string.connect_fail);
-            }
-        });
-
+        TribeRetrofit.getInstance().createApi(GoodsApis.class).getGoodsStandard(meta.standardId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<GoodsStandard>>() {
+                    @Override
+                    public void onNext(BaseResponse<GoodsStandard> goodListBaseResponse) {
+                        setStandard(goodListBaseResponse.data.descriptions);
+                    }
+                });
     }
 }

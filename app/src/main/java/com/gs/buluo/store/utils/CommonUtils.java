@@ -1,6 +1,7 @@
 package com.gs.buluo.store.utils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -27,6 +28,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.baidu.mapapi.model.LatLng;
+import com.gs.buluo.store.R;
+import com.gs.buluo.store.TribeApplication;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

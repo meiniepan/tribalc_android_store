@@ -1,8 +1,6 @@
 package com.gs.buluo.store.view.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,14 +10,11 @@ import com.bumptech.glide.Glide;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.AuthenticationData;
-import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
+import com.gs.buluo.store.bean.ResponseBody.UploadResponseBody;
 import com.gs.buluo.store.network.TribeUploader;
-import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
-
-import java.io.File;
 
 import butterknife.Bind;
 import cn.finalteam.galleryfinal.FunctionConfig;
@@ -72,7 +67,6 @@ public class Authentication1Activity extends BaseActivity implements View.OnClic
         ChoosePhotoPanel panel = new ChoosePhotoPanel(this, functionConfig, new ChoosePhotoPanel.OnSelectedFinished() {
             @Override
             public void onSelected(String string) {
-                Log.e("aaaaaaaaaaaaaaaa", "onSelected: "+string);
                 uploadPhoto(string);
             }
         });
@@ -83,7 +77,7 @@ public class Authentication1Activity extends BaseActivity implements View.OnClic
         showLoadingDialog();
         TribeUploader.getInstance().uploadFile("business", "", path, new TribeUploader.UploadCallback() {
             @Override
-            public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
+            public void uploadSuccess(UploadResponseBody data) {
                 dismissDialog();
                 authenticationData .businessLicense = data.objectKey;
                 businessImg.setVisibility(View.VISIBLE);

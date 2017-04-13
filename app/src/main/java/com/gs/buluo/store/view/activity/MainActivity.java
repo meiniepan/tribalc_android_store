@@ -2,6 +2,7 @@ package com.gs.buluo.store.view.activity;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Handler;
 import android.support.annotation.IntDef;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import com.gs.buluo.store.view.fragment.CommodityFragment;
 import com.gs.buluo.store.view.fragment.MainFragment;
 import com.gs.buluo.store.view.fragment.MineFragment;
 import com.gs.buluo.store.view.fragment.ManagerFragment;
+import com.gs.buluo.store.view.widget.LoadingDialog;
 import com.gs.buluo.store.view.widget.panel.UpdatePanel;
 
 import org.xutils.common.Callback;

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
@@ -20,14 +21,12 @@ import com.gs.buluo.store.bean.AuthenticationData;
 import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
-import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
+import com.gs.buluo.store.bean.ResponseBody.UploadResponseBody;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.eventbus.AuthSuccessEvent;
 import com.gs.buluo.store.eventbus.SelfEvent;
-import com.gs.buluo.store.model.MainModel;
 import com.gs.buluo.store.network.MainApis;
-import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.store.utils.GlideUtils;
@@ -49,9 +48,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.File;
-
-import retrofit2.Response;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 
 /**
@@ -195,7 +193,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             public void onSelected(final String path) {
                 TribeUploader.getInstance().uploadFile("cover.jpeg", "", path, new TribeUploader.UploadCallback() {
                     @Override
-                    public void uploadSuccess(UploadAccessResponse.UploadResponseBody body) {
+                    public void uploadSuccess(UploadResponseBody body) {
                         ToastUtils.ToastMessage(mContext, mContext.getString(R.string.upload_success));
                         updateUserCover(body, path);
                     }
@@ -210,23 +208,21 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         window.show();
     }
 
-    private void updateUserCover(final UploadAccessResponse.UploadResponseBody body, final String path) {
+    private void updateUserCover(final UploadResponseBody body, final String path) {
         final String url = body.objectKey;
         StoreMeta bean = new StoreMeta();
         bean.setCover(url);
-        new MainModel().updateStore(TribeApplication.getInstance().getUserInfo().getId(),
-                "cover", url, bean, new TribeCallback<CodeResponse>() {
+        TribeRetrofit.getInstance().createApi(MainApis.class).updateStoreProp(TribeApplication.getInstance().getUserInfo().getId(),
+                "cover", bean)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<CodeResponse>>() {
                     @Override
-                    public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
+                    public void onNext(BaseResponse<CodeResponse> response) {
                         StoreInfo userInfo = TribeApplication.getInstance().getUserInfo();
                         userInfo.setCover(url);
                         new StoreInfoDao().update(userInfo);
                         mCover.setImageURI(Uri.parse("file://" + path));
-                    }
-
-                    @Override
-                    public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
-                        ToastUtils.ToastMessage(mContext, R.string.connect_fail);
                     }
                 });
     }
@@ -273,38 +269,31 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     }
 
     public void getAuthInfo() {
-        showLoadingDialog();
         TribeRetrofit.getInstance().createApi(MainApis.class).getAuth(TribeApplication.getInstance().getUserInfo().getId())
-                .enqueue(new TribeCallback<AuthenticationData>() {
-            @Override
-            public void onSuccess(Response<BaseResponse<AuthenticationData>> response) {
-                dismissDialog();
-                AuthenticationData data = response.body().data;
-                StoreInfoDao dao=new StoreInfoDao();
-                StoreInfo storeInfo = dao.findFirst();
-                storeInfo.setAuthenticationStatus(data.authenticationStatus);
-                dao.update(storeInfo);
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<AuthenticationData>>() {
+                    @Override
+                    public void onNext(BaseResponse<AuthenticationData> response) {
+                        AuthenticationData data = response.data;
+                        StoreInfoDao dao=new StoreInfoDao();
+                        StoreInfo storeInfo = dao.findFirst();
+                        storeInfo.setAuthenticationStatus(data.authenticationStatus);
+                        dao.update(storeInfo);
 
-                if (TextUtils.equals(data.authenticationStatus,Constant.SUCCEED)){
-                    EventBus.getDefault().post(new AuthSuccessEvent());
-                }
-                Intent intent = new Intent();
-                if (data.authenticationStatus == null || TextUtils.equals(data.authenticationStatus, Constant.NOT_START)) {
-                    intent.setClass(getActivity(), Authentication1Activity.class);
-                    startActivity(intent);
-                } else {
-                    intent.setClass(getActivity(), AuthProcessingActivity.class);
-                    intent.putExtra(Constant.ForIntent.STATUS,data);
-                    startActivity(intent);
-                }
-
-            }
-
-            @Override
-            public void onFail(int responseCode, BaseResponse<AuthenticationData> body) {
-                dismissDialog();
-                ToastUtils.ToastMessage(getContext(),R.string.connect_fail);
-            }
-        });
+                        if (TextUtils.equals(data.authenticationStatus,Constant.SUCCEED)){
+                            EventBus.getDefault().post(new AuthSuccessEvent());
+                        }
+                        Intent intent = new Intent();
+                        if (data.authenticationStatus == null || TextUtils.equals(data.authenticationStatus, Constant.NOT_START)) {
+                            intent.setClass(getActivity(), Authentication1Activity.class);
+                            startActivity(intent);
+                        } else {
+                            intent.setClass(getActivity(), AuthProcessingActivity.class);
+                            intent.putExtra(Constant.ForIntent.STATUS,data);
+                            startActivity(intent);
+                        }
+                    }
+                });
     }
 }

@@ -6,13 +6,11 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.gs.buluo.store.Constant;
@@ -22,7 +20,7 @@ import com.gs.buluo.store.bean.GoodsCategory;
 import com.gs.buluo.store.bean.GoodsMeta;
 import com.gs.buluo.store.bean.GoodsPriceAndRepertory;
 import com.gs.buluo.store.bean.GoodsStandardMeta;
-import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
+import com.gs.buluo.store.bean.ResponseBody.UploadResponseBody;
 import com.gs.buluo.store.bean.SerializableHashMap;
 import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.store.utils.GlideBannerLoader;
@@ -32,7 +30,6 @@ import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -295,7 +292,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
     private void uploadPic(String path) {
         TribeUploader.getInstance().uploadFile("goods", "",path, new TribeUploader.UploadCallback() {
             @Override
-            public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
+            public void uploadSuccess(UploadResponseBody data) {
                 banner.setVisibility(View.VISIBLE);
                 picList.add(0, new BannerPicture(data.objectKey));
                 banner.setImages(picList);

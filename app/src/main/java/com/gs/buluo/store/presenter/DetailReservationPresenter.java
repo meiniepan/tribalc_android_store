@@ -1,63 +1,42 @@
 package com.gs.buluo.store.presenter;
 
-import com.gs.buluo.store.R;
+import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.DetailReservation;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
-import com.gs.buluo.store.model.ReserveModel;
+import com.gs.buluo.store.network.ReserveApis;
+import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.view.impl.IDetailReserveView;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by hjn on 2016/11/30.
  */
 public class DetailReservationPresenter extends BasePresenter<IDetailReserveView> {
-    ReserveModel model;
-
-    public DetailReservationPresenter() {
-        model = new ReserveModel();
-    }
-
     public void getReserveDetail(String id) {
-        model.getServeDetail(id, TribeApplication.getInstance().getUserInfo().getId(), new Callback<BaseResponse<DetailReservation>>() {
-            @Override
-            public void onResponse(Call<BaseResponse<DetailReservation>> call, Response<BaseResponse<DetailReservation>> response) {
-                if (mView == null) return;
-                if (response.body() != null && response.body().code == 200) {
-                    if (isAttach())mView.getDetailSuccess(response.body().data);
-                } else {
-                    if (isAttach())mView.showError(R.string.connect_fail);
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<BaseResponse<DetailReservation>> call, Throwable t) {
-                if (mView == null) return;
-                mView.showError(R.string.connect_fail);
-            }
-        });
+        TribeRetrofit.getInstance().createApi(ReserveApis.class).getReserveDetail(id, TribeApplication.getInstance().getUserInfo().getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<DetailReservation>>() {
+                    @Override
+                    public void onNext(BaseResponse<DetailReservation> response) {
+                        if (isAttach()) mView.getDetailSuccess(response.data);
+                    }
+                });
     }
 
     public void updateReserve(String id, String key) {
-        model.updateReserve(id, TribeApplication.getInstance().getUserInfo().getId(), new ValueRequestBody(key), new Callback<BaseResponse>() {
-            @Override
-            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                if (response.body() != null && response.body().code == 200) {
-                    if (isAttach())mView.updateSuccess();
-                } else {
-                    if (isAttach())mView.updateFailure();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BaseResponse> call, Throwable t) {
-                mView.showError(R.string.connect_fail);
-            }
-        });
+        TribeRetrofit.getInstance().createApi(ReserveApis.class).updateReserve(id, TribeApplication.getInstance().getUserInfo().getId(), new ValueRequestBody(key))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse>() {
+                    @Override
+                    public void onNext(BaseResponse response) {
+                        if (isAttach()) mView.updateSuccess();
+                    }
+                });
     }
 }

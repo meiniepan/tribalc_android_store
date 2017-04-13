@@ -7,8 +7,10 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.EditText;
 
+import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
+import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.TagAdapter;
 import com.gs.buluo.store.bean.CategoryBean;
 import com.gs.buluo.store.bean.GoodsMeta;
@@ -17,10 +19,9 @@ import com.gs.buluo.store.bean.GoodsStandardMeta;
 import com.gs.buluo.store.bean.RequestBodyBean.CreateGoodsRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
-import com.gs.buluo.store.bean.ResponseBody.CreateGoodsResponse;
 import com.gs.buluo.store.bean.SerializableHashMap;
-import com.gs.buluo.store.model.GoodsModel;
-import com.gs.buluo.store.network.TribeCallback;
+import com.gs.buluo.store.network.GoodsApis;
+import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -28,9 +29,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by hjn on 2017/1/23.
@@ -50,12 +50,11 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
     private boolean published;
     private ArrayList<CategoryBean> categoryBeanList;
     private TagAdapter beanAdapter;
-    private GoodsModel model;
     private String primaryStandardKey;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        model = new GoodsModel();
+
         Intent intent = getIntent();
         goodsMeta = intent.getParcelableExtra(Constant.ForIntent.META);
         setCategoryData();
@@ -83,7 +82,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
             }
         }
         etNum.setText(goodsMeta.number);
-        etFee.setText(goodsMeta.expressFee ==0? "":goodsMeta.expressFee+"");
+        etFee.setText(goodsMeta.expressFee == 0 ? "" : goodsMeta.expressFee + "");
     }
 
     private void setCategoryData() {
@@ -113,7 +112,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
                 setLivingData();
                 break;
         }
-        if (categoryBeanList!=null){
+        if (categoryBeanList != null) {
             beanAdapter = new TagAdapter(this, categoryBeanList);
             beanAdapter.setLimit(3);
             recyclerView.setAdapter(beanAdapter);
@@ -231,7 +230,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
             case R.id.create_goods_desc:
                 Intent intent = new Intent(this, IntroductionActivity.class);
                 intent.putExtra(Constant.ForIntent.FLAG, Constant.GOODS);
-                intent.putExtra(Constant.ForIntent.INTRODUCTION,goodsMeta.detail);
+                intent.putExtra(Constant.ForIntent.INTRODUCTION, goodsMeta.detail);
                 startActivityForResult(intent, 201);
                 break;
         }
@@ -251,8 +250,8 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
             if (bean.isSelect)
                 goodsMeta.tags.add(bean.value);
         }
-        if (goodsMeta.tags.size()>3){
-            ToastUtils.ToastMessage(this,R.string.tags_max);
+        if (goodsMeta.tags.size() > 3) {
+            ToastUtils.ToastMessage(this, R.string.tags_max);
             return;
         }
         showLoadingDialog();
@@ -270,46 +269,36 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
             body.standardMeta = standardMeta;
         }
         body.primaryStandardKey = primaryStandardKey;
-        model.createGoods(body, new Callback<CreateGoodsResponse>() {
-            @Override
-            public void onResponse(Call<CreateGoodsResponse> call, Response<CreateGoodsResponse> response) {
-                dismissDialog();
-                ToastUtils.ToastMessage(getCtx(), R.string.add_success);
-                Intent intent = new Intent(getCtx(), MainActivity.class);
-                intent.putExtra(Constant.ForIntent.FLAG, Constant.GOODS);
-                startActivity(intent);
-                finish();
-            }
-
-            @Override
-            public void onFailure(Call<CreateGoodsResponse> call, Throwable t) {
-                dismissDialog();
-                ToastUtils.ToastMessage(getCtx(), R.string.connect_fail);
-            }
-        });
-
+        TribeRetrofit.getInstance().createApi(GoodsApis.class).createGoods(TribeApplication.getInstance().getUserInfo().getId(), body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<List<GoodsMeta>>>() {
+                    @Override
+                    public void onNext(BaseResponse<List<GoodsMeta>> goodListBaseResponse) {
+                        ToastUtils.ToastMessage(getCtx(), R.string.add_success);
+                        Intent intent = new Intent(getCtx(), MainActivity.class);
+                        intent.putExtra(Constant.ForIntent.FLAG, Constant.GOODS);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
     }
 
     private void updateGoods() {
-        model.updateGoods(goodsMeta.id, goodsMeta, new TribeCallback<CodeResponse>() {
-            @Override
-            public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
-                dismissDialog();
-                ToastUtils.ToastMessage(getCtx(), R.string.update_success);
-                Intent intent = new Intent(getCtx(), MainActivity.class);
-                intent.putExtra(Constant.ForIntent.FLAG, Constant.GOODS);
-                intent.putExtra(Constant.PUBLISHED, published);
-                startActivity(intent);
-                finish();
-            }
-
-            @Override
-            public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
-                dismissDialog();
-                ToastUtils.ToastMessage(getCtx(), R.string.connect_fail);
-            }
-        });
-
+        TribeRetrofit.getInstance().createApi(GoodsApis.class).updateGoods(goodsMeta.id,TribeApplication.getInstance().getUserInfo().getId(), goodsMeta)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<CodeResponse>>() {
+                    @Override
+                    public void onNext(BaseResponse<CodeResponse> codeResponseBaseResponse) {
+                        ToastUtils.ToastMessage(getCtx(), R.string.update_success);
+                        Intent intent = new Intent(getCtx(), MainActivity.class);
+                        intent.putExtra(Constant.ForIntent.FLAG, Constant.GOODS);
+                        intent.putExtra(Constant.PUBLISHED, published);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
     }
 
     @Override

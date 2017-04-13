@@ -13,13 +13,12 @@ import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.PhotoAdapter;
-import com.gs.buluo.store.bean.ResponseBody.UploadAccessResponse;
+import com.gs.buluo.store.bean.ResponseBody.UploadResponseBody;
 import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -94,7 +93,7 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
     private void updatePic(String file) {
         TribeUploader.getInstance().uploadFile("photo", "", file, new TribeUploader.UploadCallback() {
             @Override
-            public void uploadSuccess(UploadAccessResponse.UploadResponseBody data) {
+            public void uploadSuccess(UploadResponseBody data) {
                 dismissDialog();
                 if (isLogo) {
                     Glide.with(mCtx).load(GlideUtils.formatImageUrl(data.objectKey)).centerCrop().into(image);
