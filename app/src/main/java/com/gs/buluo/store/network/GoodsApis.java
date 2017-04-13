@@ -13,7 +13,6 @@ import com.gs.buluo.store.bean.StoreGoodsList;
 
 import java.util.List;
 
-import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -62,8 +61,8 @@ public interface GoodsApis {
     Observable<BaseResponse<StoreGoodsList>> getStoreGoodsListMore(@Query("me")String uid,@Query("published")boolean published,@Query("sortSkip")String sortSkip);
 
     @PUT("goods/{goodsId}/published")
-    Call<BaseResponse<CodeResponse>> pullOffGoods(@Path("goodsId")String goodsId, @Query("me")String uid, @Body ValueBooleanRequest body);
+    Observable<BaseResponse<CodeResponse>> pullOffGoods(@Path("goodsId")String goodsId, @Query("me")String uid, @Body ValueBooleanRequest body);
 
     @DELETE("goods/{goodsId}")
-    Call<BaseResponse<CodeResponse>> deleteGoods(@Path("goodsId")String goodsId,@Query("me")String uid);
+    Observable<BaseResponse<CodeResponse>> deleteGoods(@Path("goodsId")String goodsId,@Query("me")String uid);
 }

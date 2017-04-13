@@ -69,9 +69,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
-            android:name="com.gs.buluo.store.view.activity.AddressListActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.gs.buluo.store.view.activity.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -90,9 +87,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.SettingActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.gs.buluo.store.view.activity.AddAddressActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.PhoneVerifyActivity"

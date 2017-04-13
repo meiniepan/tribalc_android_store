@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baidu.mapapi.model.LatLng;
+import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
@@ -33,11 +34,13 @@ import butterknife.Bind;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by hjn on 2016/12/20.
  */
-public class StoreDetailActivity extends BaseActivity implements Callback<BaseResponse<StoreMeta>>, View.OnClickListener {
+public class StoreDetailActivity extends BaseActivity implements View.OnClickListener {
     Context mCtx;
     TextView tvName;
     private TextView tvPrice;
@@ -141,17 +144,16 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
     }
 
     private void getDetailInfo(String id) {
-        showLoadingDialog();
-        TribeRetrofit.getInstance().createApi(CommunityApis.class).getStoreDetail(id).enqueue(this);
-    }
-
-    @Override
-    public void onResponse(Call<BaseResponse<StoreMeta>> call, Response<BaseResponse<StoreMeta>> response) {
-        dismissDialog();
-        if (response.body() != null && response.body().code == 200 && response.body().data != null) {
-            StoreMeta data = response.body().data;
-            setData(data);
-        }
+        TribeRetrofit.getInstance().createApi(CommunityApis.class).getStoreDetail(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<StoreMeta>>() {
+                    @Override
+                    public void onNext(BaseResponse<StoreMeta> response) {
+                        StoreMeta data = response.data;
+                        setData(data);
+                    }
+                });
     }
 
     private void setData(StoreMeta data) {
@@ -175,11 +177,6 @@ public class StoreDetailActivity extends BaseActivity implements Callback<BaseRe
         GlideUtils.loadImage(this,data.logo, logo,true);
     }
 
-    @Override
-    public void onFailure(Call<BaseResponse<StoreMeta>> call, Throwable t) {
-        dismissDialog();
-        ToastUtils.ToastMessage(this, R.string.connect_fail);
-    }
 
 
     private void initMap() {

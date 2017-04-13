@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
@@ -15,9 +16,9 @@ import com.gs.buluo.store.bean.GoodsMeta;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueBooleanRequest;
 import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
+import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.eventbus.GoodsChangedEvent;
 import com.gs.buluo.store.network.GoodsApis;
-import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
@@ -31,7 +32,8 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Date;
 
-import retrofit2.Response;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by hjn on 2017/1/24.
@@ -113,20 +115,16 @@ public class SaleGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
 
     private void pullOffGoods(final GoodsMeta entity) {
         TribeRetrofit.getInstance().createApi(GoodsApis.class).pullOffGoods(entity.id,
-                TribeApplication.getInstance().getUserInfo().getId(),new ValueBooleanRequest(false)).enqueue(new TribeCallback<CodeResponse>() {
-            @Override
-            public void onSuccess(Response<BaseResponse<CodeResponse>> response) {
-                ToastUtils.ToastMessage(getContext(),R.string.update_success);
-                remove(entity);
-                EventBus.getDefault().post(new GoodsChangedEvent(entity));
-            }
-
-            @Override
-            public void onFail(int responseCode, BaseResponse<CodeResponse> body) {
-                ToastUtils.ToastMessage(getContext(),R.string.update_fail);
-            }
-        });
-
-
+                TribeApplication.getInstance().getUserInfo().getId(),new ValueBooleanRequest(false))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<CodeResponse>>() {
+                    @Override
+                    public void onNext(BaseResponse<CodeResponse> response) {
+                        ToastUtils.ToastMessage(getContext(),R.string.update_success);
+                        remove(entity);
+                        EventBus.getDefault().post(new GoodsChangedEvent(entity));
+                    }
+                });
     }
 }

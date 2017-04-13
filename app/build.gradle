@@ -70,18 +70,13 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.0.0'
-    compile 'com.android.support:recyclerview-v7:25.0.0'
     compile 'com.android.support:support-v4:25.0.0'
     compile 'com.android.support:design:25.0.0'
-    compile 'com.jakewharton:butterknife:7.0.0'
 
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
 
     compile 'com.youth.banner:banner:1.4.8'
     compile 'com.brucetoo.pickview:library:1.2.2'
@@ -93,6 +88,5 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.google.zxing:core:3.2.1'
     compile 'com.jaredrummler:material-spinner:1.1.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha6'
     compile 'com.github.ngreedy:tribe_lib:2.3.2'
 }
