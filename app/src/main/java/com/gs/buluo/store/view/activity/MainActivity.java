@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.gs.buluo.common.network.TokenEvent;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
@@ -30,6 +31,9 @@ import com.gs.buluo.store.view.fragment.ManagerFragment;
 import com.gs.buluo.store.view.widget.LoadingDialog;
 import com.gs.buluo.store.view.widget.panel.UpdatePanel;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -109,6 +113,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         setCurrentTab(0);
 //        checkUpdate();
         initUser();
+
+        EventBus.getDefault().register(this);
     }
 
     private void initUser() {
@@ -241,5 +247,19 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
             return false;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void tokenExpired(TokenEvent event) {
+        SharePreferenceManager.getInstance(TribeApplication.getInstance().getApplicationContext()).clearValue(Constant.WALLET_PWD);
+        new StoreInfoDao().clear();
+        TribeApplication.getInstance().setUserInfo(null);
+
+        Intent intent = new Intent(getCtx(), LoginActivity.class);
+        intent.putExtra(Constant.RE_LOGIN, true);
+        startActivity(intent);
+        if (mineFragment != null) {
+            mineFragment.setLoginState(false);
+        }
     }
 }

@@ -36,6 +36,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         findViewById(R.id.login).setOnClickListener(this);
         findViewById(R.id.login_send_verify).setOnClickListener(this);
         findView(R.id.login_protocol).setOnClickListener(this);
+        if (getIntent().getBooleanExtra(Constant.RE_LOGIN, false)) { //登录冲突
+            ToastUtils.ToastMessage(getCtx(), getString(R.string.login_again));
+        }
     }
 
     @Override

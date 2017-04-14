@@ -23,6 +23,7 @@ public class Constant {
     public static final String UPDATE_TIME = "UPDATE_TIME";
     public static final String APK_URL = "http://www.buluo-gs.com/app-store.apk";
     public static final String DIR_PATH = Environment.getExternalStorageDirectory().toString() + "/tribe/";
+    public static final String RE_LOGIN = "re_login";
 
     public final static class Base {
         public static final String BASE = "https://app-services.buluo-gs.com/";
