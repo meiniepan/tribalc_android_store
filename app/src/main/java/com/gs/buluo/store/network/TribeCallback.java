@@ -1,6 +1,6 @@
 package com.gs.buluo.store.network;
 
-import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.IBaseResponse;
 
 import retrofit2.Call;

@@ -7,7 +7,7 @@ import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.RequestBodyBean.LoginBody;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
-import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.ResponseBody.UserBeanEntity;
 import com.gs.buluo.store.bean.StoreInfo;

@@ -6,7 +6,7 @@ import android.os.Handler;
 
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessBody;
 import com.gs.buluo.store.bean.ResponseBody.UploadResponseBody;
 import com.gs.buluo.store.bean.ResponseBody.UserBeanEntity;

@@ -13,7 +13,7 @@ import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.GoodsMeta;
-import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.eventbus.GoodsChangedEvent;
 import com.gs.buluo.store.network.GoodsApis;

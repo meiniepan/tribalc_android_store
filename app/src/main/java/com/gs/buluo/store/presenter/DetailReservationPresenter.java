@@ -4,7 +4,7 @@ import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.DetailReservation;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
-import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.network.ReserveApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.view.impl.IDetailReserveView;

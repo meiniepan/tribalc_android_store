@@ -6,7 +6,7 @@ import com.gs.buluo.store.bean.GoodsStandard;
 import com.gs.buluo.store.bean.ListGoodsDetail;
 import com.gs.buluo.store.bean.RequestBodyBean.CreateGoodsRequestBody;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueBooleanRequest;
-import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.ResponseBody.GoodsStandardResponse;
 import com.gs.buluo.store.bean.StoreGoodsList;

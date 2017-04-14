@@ -2,7 +2,7 @@ package com.gs.buluo.store.presenter;
 
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.bean.GoodList;
-import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.network.GoodsApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.view.impl.IGoodsView;

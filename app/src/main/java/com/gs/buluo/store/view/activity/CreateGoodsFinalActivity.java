@@ -17,7 +17,7 @@ import com.gs.buluo.store.bean.GoodsMeta;
 import com.gs.buluo.store.bean.GoodsPriceAndRepertory;
 import com.gs.buluo.store.bean.GoodsStandardMeta;
 import com.gs.buluo.store.bean.RequestBodyBean.CreateGoodsRequestBody;
-import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.SerializableHashMap;
 import com.gs.buluo.store.network.GoodsApis;

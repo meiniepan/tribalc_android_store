@@ -11,7 +11,7 @@ import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.StandardListAdapter;
 import com.gs.buluo.store.bean.GoodsStandard;
 import com.gs.buluo.store.bean.GoodsStandardMeta;
-import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.GoodsStandardResponse;
 import com.gs.buluo.store.network.GoodsApis;
 import com.gs.buluo.store.network.TribeRetrofit;

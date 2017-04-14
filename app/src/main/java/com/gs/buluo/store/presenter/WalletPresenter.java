@@ -2,7 +2,7 @@ package com.gs.buluo.store.presenter;
 
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.WalletAccount;
 import com.gs.buluo.store.model.MoneyModel;
 import com.gs.buluo.store.view.impl.IWalletView;

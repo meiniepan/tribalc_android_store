@@ -4,7 +4,7 @@ import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.bean.GoodsStandard;
 import com.gs.buluo.store.bean.ListGoodsDetail;
 import com.gs.buluo.store.bean.RequestBodyBean.NewOrderBean;
-import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.network.GoodsApis;
 import com.gs.buluo.store.network.ShoppingApis;
 import com.gs.buluo.store.network.TribeRetrofit;

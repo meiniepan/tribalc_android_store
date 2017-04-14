@@ -2,7 +2,7 @@ package com.gs.buluo.store.presenter;
 
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.ReserveResponseBody;
 import com.gs.buluo.store.network.ReserveApis;
 import com.gs.buluo.store.network.TribeRetrofit;

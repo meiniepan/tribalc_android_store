@@ -3,7 +3,7 @@ package com.gs.buluo.store.network;
 import com.gs.buluo.store.bean.DetailReservation;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.ReserveResponseBody;
-import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.common.network.BaseResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

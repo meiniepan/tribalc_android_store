@@ -4,7 +4,7 @@ import com.gs.buluo.store.bean.OrderBean;
 import com.gs.buluo.store.bean.RequestBodyBean.LogisticsRequestBody;
 import com.gs.buluo.store.bean.RequestBodyBean.NewOrderBean;
 import com.gs.buluo.store.bean.ResponseBody.OrderResponseBean;
-import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.common.network.BaseResponse;
 
 import retrofit2.http.Body;
 import retrofit2.http.GET;

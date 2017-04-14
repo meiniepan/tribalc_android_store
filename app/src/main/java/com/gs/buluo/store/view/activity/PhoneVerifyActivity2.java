@@ -15,7 +15,7 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.RequestBodyBean.PhoneUpdateBody;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
-import com.gs.buluo.store.bean.ResponseBody.BaseResponse;
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
@@ -155,7 +155,7 @@ public class PhoneVerifyActivity2 extends BaseActivity {
                     public void onError(Throwable e) {
                         if (e instanceof ApiException) {
                             ApiException exception = (ApiException) e;
-                            int responseCode = exception.getResponseCode();
+                            int responseCode = exception.getCode();
                             if (responseCode == 401) {
                                 ToastUtils.ToastMessage(PhoneVerifyActivity2.this, R.string.wrong_verify);
                             } else if (responseCode == 409) {
