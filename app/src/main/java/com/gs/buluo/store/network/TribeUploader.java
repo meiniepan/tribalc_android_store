@@ -4,13 +4,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessBody;
 import com.gs.buluo.store.bean.ResponseBody.UploadResponseBody;
-import com.gs.buluo.store.bean.ResponseBody.UserBeanEntity;
-import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.utils.CommonUtils;
 
 import org.xutils.common.util.MD5;
@@ -23,12 +21,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -56,6 +48,7 @@ public class TribeUploader {
         public void run() {
             String fileType = "image/jpeg";
             Bitmap bitmap = BitmapFactory.decodeFile(file);
+            if (bitmap == null) return;//防止空指针崩溃
             Bitmap newB = CommonUtils.compressBitmap(bitmap);
             final File picture = CommonUtils.saveBitmap2file(newB, "picture");
 

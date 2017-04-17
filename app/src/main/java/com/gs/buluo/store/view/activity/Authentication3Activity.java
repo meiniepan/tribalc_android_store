@@ -130,12 +130,11 @@ public class Authentication3Activity extends BaseActivity {
                         AuthenticationData data = response.data;
                         StoreInfoDao dao = new StoreInfoDao();
                         StoreInfo storeInfo = dao.findFirst();
-                        data.authenticationStatus = Constant.SUCCEED;
-                        storeInfo.setAuthenticationStatus(data.authenticationStatus);
-                        dao.update(storeInfo);
 
                         if (TextUtils.equals(data.authenticationStatus, Constant.SUCCEED)) {
                             EventBus.getDefault().post(new AuthSuccessEvent());
+                            storeInfo.setAuthenticationStatus(data.authenticationStatus);
+                            dao.update(storeInfo);
                         }
                         Intent intent = new Intent();
                         intent.setClass(getCtx(), AuthProcessingActivity.class);

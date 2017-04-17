@@ -7,15 +7,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.AuthenticationData;
 import com.gs.buluo.store.bean.ResponseBody.UploadResponseBody;
 import com.gs.buluo.store.camera.CameraActivity;
 import com.gs.buluo.store.network.TribeUploader;
-import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
 
 import java.io.BufferedInputStream;
@@ -63,6 +62,7 @@ public class Authentication2Activity extends BaseActivity {
             public void onClick(View v) {
                 if (front==null||back==null)return;
                 List<String> list=new ArrayList<>();
+                Toast.makeText(Authentication2Activity.this, front, Toast.LENGTH_SHORT).show();
                 list.add(front);
                 list.add(back);
                 data.idCardPicture = list;
@@ -110,13 +110,13 @@ public class Authentication2Activity extends BaseActivity {
                 if (isFront){
                     frontImg.setVisibility(View.VISIBLE);
                     front = data.objectKey;
-                    Glide.with(getCtx()).load(GlideUtils.formatImageUrl(data.objectKey)).centerCrop().into(frontImg);
+                    //Glide.with(getCtx()).load(GlideUtils.formatImageUrl(data.objectKey)).centerCrop().into(frontImg);
                     findViewById(R.id.identify_front).setVisibility(View.GONE);
                 }else {
                     backImg.setVisibility(View.VISIBLE);
                     back=data.objectKey;
                     findViewById(R.id.identify_back).setVisibility(View.GONE);
-                    Glide.with(getCtx()).load(GlideUtils.formatImageUrl(data.objectKey)).centerCrop().into(backImg);
+                    //Glide.with(getCtx()).load(GlideUtils.formatImageUrl(data.objectKey)).centerCrop().into(backImg);
                 }
             }
 
@@ -161,6 +161,7 @@ public class Authentication2Activity extends BaseActivity {
                 }
 
             }
+            uploadPic(front,true);
         }
         if (requestCode == 101) {
             if (resultCode == RESULT_OK) {
@@ -191,6 +192,7 @@ public class Authentication2Activity extends BaseActivity {
                 }
 
             }
+            uploadPic(back,false);
         }
 
         super.onActivityResult(requestCode, resultCode, data);
