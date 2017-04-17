@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="true"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="店铺介绍"
+            android:text="商品描述"
             android:textColor="@color/white"
             android:textSize="@dimen/title_size" />
 
@@ -24,25 +25,57 @@
             layout="@layout/back_img_white" />
     </RelativeLayout>
 
-    <include layout="@layout/split_area"/>
-    <EditText
-        android:id="@+id/store_introduction_text"
-        android:paddingStart="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="160dp"
-        android:background="@null"
-        android:hint="请输入店铺介绍"
-        android:gravity="top"/>
+    <include layout="@layout/split_area" />
+
     <RelativeLayout
-        android:background="@color/tint_bg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/tint_bg">
+        <TextView
+            android:id="@+id/store_introduction_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:text="请添加图片让你的宝贝看起来更诱人"
+            android:textColor="@color/common_gray"
+            android:textSize="@dimen/dimens_12sp" />
+            <ListView
+                android:id="@+id/add_goods_detail_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/tint_bg"
+                android:dividerHeight="6dp">
+            </ListView>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_height">
+        <RelativeLayout
+            android:id="@+id/add_goods_detail"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableLeft="@mipmap/add_2"
+                android:drawablePadding="6dp"
+                android:text="添加图片"
+                android:gravity="center"/>
+        </RelativeLayout>
+
         <Button
-            android:layout_alignParentBottom="true"
             android:id="@+id/store_introduct_finish"
             style="@style/button_style"
-            android:text="完成"
-            />
-    </RelativeLayout>
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="完成" />
+    </LinearLayout>
+
 </LinearLayout>

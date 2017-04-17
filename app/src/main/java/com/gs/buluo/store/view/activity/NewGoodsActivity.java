@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -246,6 +247,10 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
     private void goNext() {
         meta.name = etTitle.getText().toString().trim();
         meta.title = etTitleDetail.getText().toString().trim();
+        if (TextUtils.isEmpty(meta.name)){
+            ToastUtils.ToastMessage(getCtx(),"列表标题不能为空");
+            return;
+        }
         meta.pictures = new ArrayList<>();
         for (BannerPicture pic : picList) {
             if (pic.isChecked) {

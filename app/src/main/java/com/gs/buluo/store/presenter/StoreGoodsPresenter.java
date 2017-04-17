@@ -28,7 +28,7 @@ public class StoreGoodsPresenter extends BasePresenter<IStoreGoodsView> {
         TribeRetrofit.getInstance().createApi(GoodsApis.class).getStoreGoodsListFirst(TribeApplication.getInstance().getUserInfo().getId(), published)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<StoreGoodsList>>() {
+                .subscribe(new BaseSubscriber<BaseResponse<StoreGoodsList>>(false) {
                     @Override
                     public void onNext(BaseResponse<StoreGoodsList> goodListBaseResponse) {
                         StoreGoodsList data = goodListBaseResponse.data;
@@ -48,7 +48,7 @@ public class StoreGoodsPresenter extends BasePresenter<IStoreGoodsView> {
         TribeRetrofit.getInstance().createApi(GoodsApis.class).getStoreGoodsListMore(TribeApplication.getInstance().getUserInfo().getId(), published,sortSkip)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<StoreGoodsList>>() {
+                .subscribe(new BaseSubscriber<BaseResponse<StoreGoodsList>>(false) {
                     @Override
                     public void onNext(BaseResponse<StoreGoodsList> goodListBaseResponse) {
                         StoreGoodsList data = goodListBaseResponse.data;

@@ -4,6 +4,7 @@ import android.os.Parcel;
 
 import com.gs.buluo.store.bean.ResponseBody.IBaseResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class ListGoodsDetail extends ListGoods implements IBaseResponse {
     public GoodsCategory category;
     public List<String> pictures;
     public String thumbnail;
-    public String detailURL;
+    public ArrayList<String> detail;
     public int repertory;
     public String note;
     public List<String> tags;
@@ -44,7 +45,7 @@ public class ListGoodsDetail extends ListGoods implements IBaseResponse {
         dest.writeInt(this.category == null ? -1 : this.category.ordinal());
         dest.writeStringList(this.pictures);
         dest.writeString(this.thumbnail);
-        dest.writeString(this.detailURL);
+        dest.writeStringList(this.detail);
         dest.writeInt(this.repertory);
         dest.writeString(this.note);
         dest.writeStringList(this.tags);
@@ -63,7 +64,7 @@ public class ListGoodsDetail extends ListGoods implements IBaseResponse {
         this.category = tmpCategory == -1 ? null : GoodsCategory.values()[tmpCategory];
         this.pictures = in.createStringArrayList();
         this.thumbnail = in.readString();
-        this.detailURL = in.readString();
+        this.detail = in.createStringArrayList();
         this.repertory = in.readInt();
         this.note = in.readString();
         this.tags = in.createStringArrayList();

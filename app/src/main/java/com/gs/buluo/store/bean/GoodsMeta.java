@@ -22,7 +22,7 @@ public class GoodsMeta implements Parcelable {
     public String mainPicture;
     public List<String> pictures;
     public String thumbnail;
-    public String detail;
+    public ArrayList<String> detail;
     public String note;
     public ArrayList<String> tags ;
     public String originCountry;
@@ -59,7 +59,7 @@ public class GoodsMeta implements Parcelable {
         dest.writeString(this.mainPicture);
         dest.writeStringList(this.pictures);
         dest.writeString(this.thumbnail);
-        dest.writeString(this.detail);
+        dest.writeStringList(this.detail);
         dest.writeString(this.note);
         dest.writeStringList(this.tags);
         dest.writeString(this.originCountry);
@@ -88,7 +88,7 @@ public class GoodsMeta implements Parcelable {
         this.mainPicture = in.readString();
         this.pictures = in.createStringArrayList();
         this.thumbnail = in.readString();
-        this.detail = in.readString();
+        this.detail = in.createStringArrayList();
         this.note = in.readString();
         this.tags = in.createStringArrayList();
         this.originCountry = in.readString();

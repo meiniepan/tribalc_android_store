@@ -2,16 +2,20 @@ package com.gs.buluo.store.view.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
+import com.gs.buluo.store.adapter.GoodNewDetailAdapter;
 import com.gs.buluo.store.bean.ListGoodsDetail;
 import com.gs.buluo.store.bean.GoodsStandard;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.GoodsDetailPresenter;
+import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.GlideBannerLoader;
 import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.ToastUtils;
@@ -28,7 +32,7 @@ import butterknife.Bind;
 /**
  * Created by hjn on 2016/11/17.
  */
-public class GoodsDetailActivity extends BaseActivity implements View.OnClickListener, IGoodDetialView, GoodsChoosePanel.AddCartListener, GoodsChoosePanel.OnShowInDetail {
+public class GoodsDetailActivity extends BaseActivity implements View.OnClickListener, IGoodDetialView, GoodsChoosePanel.OnShowInDetail {
     private List<String> list;
     @Bind(R.id.goods_detail_pictures)
     Banner mBanner;
@@ -53,6 +57,8 @@ public class GoodsDetailActivity extends BaseActivity implements View.OnClickLis
     TextView tvTip;
     @Bind(R.id.goods_detail_price_point)
     TextView tvPricePoint;
+    @Bind(R.id.goods_detail_detail)
+    ListView listView;
 
     Context context;
     private GoodsChoosePanel panel;
@@ -69,12 +75,11 @@ public class GoodsDetailActivity extends BaseActivity implements View.OnClickLis
         id = getIntent().getStringExtra(Constant.GOODS_ID);
 
         ((GoodsDetailPresenter) mPresenter).getGoodsDetail(id);
-        showLoadingDialog();
 
         findViewById(R.id.goods_detail_back).setOnClickListener(this);
         findViewById(R.id.goods_detail_choose).setOnClickListener(this);
         panel = new GoodsChoosePanel(this, this);
-        panel.setAddCartListener(this);
+        listView.setFocusable(false);
     }
 
     @Override
@@ -120,7 +125,6 @@ public class GoodsDetailActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void getDetailSuccess(ListGoodsDetail goodsEntity) {
-        dismissDialog();
         this.goodsEntity = goodsEntity;
         panel.setRepertory(goodsEntity);
         if (this.goodsEntity.standardId != null) {
@@ -138,6 +142,8 @@ public class GoodsDetailActivity extends BaseActivity implements View.OnClickLis
         tvName.setText(goodsEntity.title);
         setGoodsPrice(goodsEntity.salePrice);
         tvCount.setText(goodsEntity.saleQuantity);
+        if (goodsEntity.detail !=null) listView.setAdapter(new  GoodNewDetailAdapter(getCtx(),goodsEntity.detail,true));
+        CommonUtils.setListViewHeightBasedOnChildren(listView);
         if (goodsEntity.tMarkStore!=null){
             GlideUtils.loadImage(getCtx(),goodsEntity.tMarkStore.logo, brandImg);
             tvBrand.setText(goodsEntity.tMarkStore.name);
@@ -170,14 +176,6 @@ public class GoodsDetailActivity extends BaseActivity implements View.OnClickLis
         panel.dismiss();
     }
 
-    public void addToShoppingCart(String id, int num) {
-        ((GoodsDetailPresenter) mPresenter).addCartItem(id, num);
-    }
-
-    @Override
-    public void onAddCart(String id, int nowNum) {
-        addToShoppingCart(id, nowNum);
-    }
 
     @Override
     public void onShow(ListGoodsDetail goodsDetail, int num) {

@@ -1,10 +1,14 @@
 package com.gs.buluo.store.utils;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 
@@ -55,6 +59,16 @@ public class GlideUtils {
         Glide.with(context).load(url).placeholder(R.mipmap.default_pic).bitmapTransform(new CropCircleTransformation(context)).into(imageView);
     }
 
+    public static void loadImage(Context context,String url, ImageView imageView,int width,int height) {
+        if (url == null) return;
+        if (!url.contains("://")) {
+            url = Constant.Base.BASE_IMG_URL + url;
+        } else {
+            url = transformUrl(url);
+        }
+        Glide.with(context).load(url).placeholder(R.mipmap.default_pic).override(width,height).into(imageView);
+    }
+
     private static String transformUrl(String url) {
         String[] arrs = url.split("://");
         String head = arrs[0];
@@ -66,19 +80,4 @@ public class GlideUtils {
                 return Constant.Base.BASE_IMG_URL + body;
         }
     }
-
-    /**
-     * 获取适用于Fresco本地图片资源Url
-     */
-    public static String getFrescoLocalResUrl(Context mContext, int resId) {
-        return "res://" + mContext.getPackageName() + "/" + resId;
-    }
-
-    /**
-     * 获取适用于Fresco本地文件图片资源
-     */
-    public static String getFrescoLocalFile(File file) {
-        return "file://" + file.getPath();
-    }
-
 }

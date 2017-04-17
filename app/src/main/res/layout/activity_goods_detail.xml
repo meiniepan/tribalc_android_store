@@ -6,7 +6,6 @@
     android:background="#fff"
     android:orientation="vertical">
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,23 +15,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <com.youth.banner.Banner
+                android:id="@+id/goods_detail_pictures"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.youth.banner.Banner
-                    android:id="@+id/goods_detail_pictures"
-                    android:layout_width="match_parent"
-                    android:layout_height="394dp"
-                    fresco:image_scale_type="fit_xy"
-                    fresco:indicator_height="8dp"
-                    fresco:indicator_width="8dp"></com.youth.banner.Banner>
-            </RelativeLayout>
+                android:layout_height="394dp"
+                fresco:image_scale_type="fit_xy"
+                fresco:indicator_height="8dp"
+                fresco:indicator_width="8dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:id="@+id/goods_detail_name"
@@ -154,7 +149,7 @@
                         android:layout_width="49dp"
                         android:layout_height="49dp"
                         android:layout_centerVertical="true"
-                        android:scaleType="centerCrop"/>
+                        android:scaleType="centerCrop" />
 
                     <TextView
                         android:id="@+id/goods_detail_brand"
@@ -236,6 +231,20 @@
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
+            <include layout="@layout/split_area"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:text="商品详情"/>
+            <ListView
+                android:id="@+id/goods_detail_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:dividerHeight="4dp"
+                android:divider="@color/white"/>
         </LinearLayout>
     </ScrollView>
 

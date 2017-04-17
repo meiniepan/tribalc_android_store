@@ -229,8 +229,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
                 break;
             case R.id.create_goods_desc:
                 Intent intent = new Intent(this, IntroductionActivity.class);
-                intent.putExtra(Constant.ForIntent.FLAG, Constant.GOODS);
-                intent.putExtra(Constant.ForIntent.INTRODUCTION, goodsMeta.detail);
+                intent.putStringArrayListExtra(Constant.ForIntent.INTRODUCTION, goodsMeta.detail);
                 startActivityForResult(intent, 201);
                 break;
         }
@@ -254,7 +253,6 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
             ToastUtils.ToastMessage(this, R.string.tags_max);
             return;
         }
-        showLoadingDialog();
         if (goodsMeta.isEdit) {
             updateGoods();
         } else {
@@ -305,7 +303,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 201 && resultCode == RESULT_OK) {
-            goodsMeta.detail = data.getStringExtra(Constant.ForIntent.INTRODUCTION);
+            goodsMeta.detail = data.getStringArrayListExtra(Constant.ForIntent.INTRODUCTION);
         }
     }
 }

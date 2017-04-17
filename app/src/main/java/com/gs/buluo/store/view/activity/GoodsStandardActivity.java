@@ -70,7 +70,6 @@ public class GoodsStandardActivity extends BaseActivity {
         standardMetas.add(goodsStandardMeta);
         listAdapter=new StandardListAdapter(this, standardMetas);
         refreshRecyclerView.setAdapter(listAdapter);
-        showLoadingDialog();
         TribeRetrofit.getInstance().createApi(GoodsApis.class).getStandardList(TribeApplication.getInstance().getUserInfo().getId(),category)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
