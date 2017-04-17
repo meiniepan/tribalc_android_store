@@ -89,6 +89,14 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                 }
             }
         });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //startActivity(new Intent(CameraActivity.this, Authentication2Activity.class));
+                setResult(109, new Intent());//109为随意数，异常返回
+                CameraActivity.this.finish();
+            }
+        });
 
         //重置宽高，3:4
         int widthPixels = getScreenWidth(this);
