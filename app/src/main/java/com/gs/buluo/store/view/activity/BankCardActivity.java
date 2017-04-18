@@ -12,7 +12,7 @@ import com.gs.buluo.store.adapter.BankCardListAdapter;
 import com.gs.buluo.store.bean.BankCard;
 import com.gs.buluo.store.presenter.BankCardPresenter;
 import com.gs.buluo.store.presenter.BasePresenter;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.ICardView;
 
 import java.util.List;

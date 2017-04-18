@@ -12,7 +12,7 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.presenter.LoginPresenter;
 import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.view.impl.ILoginView;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 
 import java.util.HashMap;
 
@@ -80,13 +80,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void dealWithIdentify(int res) {
         switch (res) {
-            case 202:
-
+            case 504:
+                ToastUtils.ToastMessage(this, getString(R.string.frequency_code));
                 break;
             case 400:
                 ToastUtils.ToastMessage(this, getString(R.string.wrong_number));
                 reg_send.setText("获取验证码");
                 reg_send.setClickable(true);
+                break;
+            case 401:
+                ToastUtils.ToastMessage(this,R.string.wrong_verify);
                 break;
         }
     }
@@ -110,13 +113,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void showError(int res) {
-        dismissDialog();
         ToastUtils.ToastMessage(this, res);
     }
 
     @Override
     public void loginSuccess() {
-        dismissDialog();
         finish();
     }
 }

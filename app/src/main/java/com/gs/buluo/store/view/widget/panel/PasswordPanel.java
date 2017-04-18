@@ -19,8 +19,8 @@ import com.gs.buluo.store.bean.OrderPayment;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.eventbus.PaymentEvent;
 import com.gs.buluo.store.model.MoneyModel;
-import com.gs.buluo.store.utils.DensityUtils;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.DensityUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.LoadingDialog;
 
 import org.greenrobot.eventbus.EventBus;

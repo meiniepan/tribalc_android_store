@@ -15,7 +15,7 @@ import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.GoodsStandardResponse;
 import com.gs.buluo.store.network.GoodsApis;
 import com.gs.buluo.store.network.TribeRetrofit;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView;
 
 import java.util.ArrayList;

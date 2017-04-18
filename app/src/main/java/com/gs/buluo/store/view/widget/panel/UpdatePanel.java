@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.utils.SharePreferenceManager;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.SharePreferenceManager;
+import com.gs.buluo.common.utils.ToastUtils;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;

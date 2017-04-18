@@ -13,7 +13,7 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.WalletAccount;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.WalletPresenter;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.IWalletView;
 import com.gs.buluo.store.view.widget.panel.RechargePanel;
 

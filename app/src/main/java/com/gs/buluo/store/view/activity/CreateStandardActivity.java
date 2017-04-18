@@ -23,7 +23,7 @@ import com.gs.buluo.store.bean.SerializableHashMap;
 import com.gs.buluo.store.bean.StandardLevel;
 import com.gs.buluo.store.eventbus.StandardRemoveEvent;
 import com.gs.buluo.store.utils.CommonUtils;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.panel.ChooseMainPanel;
 import com.gs.buluo.store.view.widget.panel.GroupSetStandardPanel;
 

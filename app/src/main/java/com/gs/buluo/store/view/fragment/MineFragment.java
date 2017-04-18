@@ -30,7 +30,7 @@ import com.gs.buluo.store.network.MainApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.store.utils.GlideUtils;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.activity.AuthProcessingActivity;
 import com.gs.buluo.store.view.activity.Authentication1Activity;
 import com.gs.buluo.store.view.activity.CaptureActivity;

@@ -10,7 +10,7 @@ import com.gs.buluo.store.adapter.ReserveListAdapter;
 import com.gs.buluo.store.bean.ResponseBody.ReserveResponseBody;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.ReservePresenter;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.IReserveView;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.Action;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView;

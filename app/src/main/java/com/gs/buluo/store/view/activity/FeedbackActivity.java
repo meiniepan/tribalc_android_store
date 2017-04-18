@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 
 /**
  * Created by hjn on 2016/12/23.

@@ -18,7 +18,7 @@ import com.gs.buluo.store.presenter.GoodsDetailPresenter;
 import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.GlideBannerLoader;
 import com.gs.buluo.store.utils.GlideUtils;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.IGoodDetialView;
 import com.gs.buluo.store.view.widget.panel.GoodsChoosePanel;
 import com.youth.banner.Banner;

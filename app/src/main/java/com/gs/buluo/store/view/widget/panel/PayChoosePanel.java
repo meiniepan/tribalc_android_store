@@ -13,7 +13,7 @@ import android.widget.CompoundButton;
 
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.OrderBean;
-import com.gs.buluo.store.utils.DensityUtils;
+import com.gs.buluo.common.utils.DensityUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

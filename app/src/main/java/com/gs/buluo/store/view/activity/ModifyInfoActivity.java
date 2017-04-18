@@ -21,7 +21,7 @@ import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.SelfPresenter;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.ISelfView;
 import com.gs.buluo.store.view.widget.LoadingDialog;
 
@@ -40,7 +40,6 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
     TextView save;
     @Bind(R.id.modify_title)
     TextView title;
-
 
     private String info;
     private StoreInfo userInfo;

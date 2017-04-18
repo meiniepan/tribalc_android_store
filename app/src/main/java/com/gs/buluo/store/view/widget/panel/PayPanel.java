@@ -21,8 +21,8 @@ import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.WalletAccount;
 import com.gs.buluo.store.model.MoneyModel;
 import com.gs.buluo.store.utils.CommonUtils;
-import com.gs.buluo.store.utils.DensityUtils;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.DensityUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.activity.UpdateWalletPwdActivity;
 import com.gs.buluo.store.view.widget.CustomAlertDialog;
 

@@ -15,7 +15,7 @@ import com.gs.buluo.store.bean.AuthenticationData;
 import com.gs.buluo.store.bean.ResponseBody.UploadResponseBody;
 import com.gs.buluo.store.camera.CameraActivity;
 import com.gs.buluo.store.network.TribeUploader;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

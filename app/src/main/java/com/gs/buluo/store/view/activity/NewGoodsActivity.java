@@ -25,7 +25,7 @@ import com.gs.buluo.store.bean.ResponseBody.UploadResponseBody;
 import com.gs.buluo.store.bean.SerializableHashMap;
 import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.store.utils.GlideBannerLoader;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.ObservableScrollView;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 import com.youth.banner.Banner;

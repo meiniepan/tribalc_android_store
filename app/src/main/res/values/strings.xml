@@ -241,4 +241,5 @@
     <string name="order_manager">订单管理</string>
     <string name="reserve_manager">预定管理</string>
     <string name="current_newest">您当前是最新版本</string>
+    <string name="frequency_code">发送验证码太频繁，请稍后再试</string>
 </resources>

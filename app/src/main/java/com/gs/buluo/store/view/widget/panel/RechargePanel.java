@@ -21,7 +21,7 @@ import com.gs.buluo.store.bean.WxPayResponse;
 import com.gs.buluo.store.eventbus.TopUpEvent;
 import com.gs.buluo.store.model.MoneyModel;
 import com.gs.buluo.store.network.TribeCallback;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.utils.WXPayUtils;
 import com.gs.buluo.store.view.widget.LoadingDialog;
 

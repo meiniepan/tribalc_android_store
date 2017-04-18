@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.FacilityBean;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.BaseViewHolder;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RecyclerAdapter;
 

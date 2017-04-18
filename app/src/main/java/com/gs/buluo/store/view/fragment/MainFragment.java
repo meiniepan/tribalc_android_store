@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.utils.DensityUtils;
+import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.store.utils.GlideBannerLoader;
 import com.gs.buluo.store.view.activity.ServeActivity;
 import com.gs.buluo.store.view.impl.IMainView;

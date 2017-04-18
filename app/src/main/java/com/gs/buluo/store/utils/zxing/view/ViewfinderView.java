@@ -29,7 +29,7 @@ import android.view.View;
 
 import com.google.zxing.ResultPoint;
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.utils.DensityUtils;
+import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.store.utils.zxing.camera.CameraManager;
 
 import java.util.Collection;

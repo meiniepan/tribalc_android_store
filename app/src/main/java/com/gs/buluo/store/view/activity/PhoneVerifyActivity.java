@@ -9,7 +9,7 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.LoginPresenter;
 import com.gs.buluo.store.utils.CommonUtils;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.ILoginView;
 
 import butterknife.Bind;

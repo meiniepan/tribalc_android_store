@@ -16,7 +16,7 @@ import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.UpdatePwdBody;
 import com.gs.buluo.store.network.MoneyApis;
 import com.gs.buluo.store.network.TribeRetrofit;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 
 import butterknife.Bind;
 import retrofit2.Call;

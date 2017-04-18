@@ -5,9 +5,8 @@ import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.model.LatLng;
 import com.gs.buluo.common.BaseApplication;
 import com.gs.buluo.store.bean.StoreInfo;
-import com.gs.buluo.store.utils.TribeCrashCollector;
+import com.gs.buluo.common.utils.TribeCrashCollector;
 
-import org.greenrobot.eventbus.EventBus;
 import org.xutils.DbManager;
 import org.xutils.x;
 
@@ -29,7 +28,6 @@ public class TribeApplication extends BaseApplication {
         x.Ext.init(this);//X utils初始化
 //        x.Ext.setDebug(BuildConfig.DEBUG);
         initDb();
-        EventBus.getDefault();
     }
 
     private void initCrashCollect() {

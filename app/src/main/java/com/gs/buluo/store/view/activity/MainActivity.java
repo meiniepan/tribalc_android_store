@@ -22,7 +22,7 @@ import com.gs.buluo.store.adapter.MainPagerAdapter;
 import com.gs.buluo.store.bean.ResponseBody.AppUpdateResponse;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
-import com.gs.buluo.store.utils.SharePreferenceManager;
+import com.gs.buluo.common.utils.SharePreferenceManager;
 import com.gs.buluo.store.view.fragment.BaseFragment;
 import com.gs.buluo.store.view.fragment.CommodityFragment;
 import com.gs.buluo.store.view.fragment.MainFragment;

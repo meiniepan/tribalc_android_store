@@ -20,7 +20,7 @@ import com.gs.buluo.store.network.GoodsApis;
 import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.GlideUtils;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.utils.TribeDateUtils;
 import com.gs.buluo.store.view.activity.AddGoodsWithStandardActivity;
 import com.gs.buluo.store.view.widget.SwipeMenuLayout;

@@ -8,17 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.OrderBean;
 import com.gs.buluo.store.presenter.OrderPresenter;
-import com.gs.buluo.store.utils.DensityUtils;
-import com.gs.buluo.store.utils.ToastUtils;
-import com.gs.buluo.store.view.activity.OrderActivity;
+import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.store.view.widget.LoadingDialog;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 

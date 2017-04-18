@@ -22,7 +22,7 @@ import com.gs.buluo.store.bean.ListGoodsDetail;
 import com.gs.buluo.store.bean.GoodsStandard;
 import com.gs.buluo.store.bean.StandardLevel;
 import com.gs.buluo.store.utils.GlideUtils;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 
 import java.util.List;
 import java.util.Map;

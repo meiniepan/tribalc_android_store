@@ -24,7 +24,7 @@ import com.gs.buluo.store.network.MainApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.StoreInfoPresenter;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.IInfoView;
 import com.gs.buluo.store.view.widget.CustomAlertDialog;
 

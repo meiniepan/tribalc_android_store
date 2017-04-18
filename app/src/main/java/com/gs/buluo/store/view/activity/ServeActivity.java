@@ -17,7 +17,7 @@ import com.gs.buluo.store.bean.ListStoreSetMeal;
 import com.gs.buluo.store.bean.ResponseBody.ServeResponseBody;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.ServePresenter;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.IServeView;
 import com.gs.buluo.store.view.widget.SortBoard;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.Action;

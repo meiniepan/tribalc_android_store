@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.GoodsPriceAndRepertory;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 
 import java.util.HashMap;
 import java.util.List;

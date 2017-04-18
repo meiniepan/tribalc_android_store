@@ -24,7 +24,7 @@ import com.gs.buluo.store.eventbus.GoodsChangedEvent;
 import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.StoreGoodsPresenter;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.activity.Authentication1Activity;
 import com.gs.buluo.store.view.activity.CreateGoodsVarietyActivity;
 import com.gs.buluo.store.view.activity.LoginActivity;

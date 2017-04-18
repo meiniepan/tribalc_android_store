@@ -14,7 +14,7 @@ import com.baidu.mapapi.model.LatLng;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.utils.SharePreferenceManager;
+import com.gs.buluo.common.utils.SharePreferenceManager;
 
 import java.io.File;
 

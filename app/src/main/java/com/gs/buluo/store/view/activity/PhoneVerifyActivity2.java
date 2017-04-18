@@ -21,8 +21,8 @@ import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.network.MainApis;
 import com.gs.buluo.store.network.TribeRetrofit;
-import com.gs.buluo.store.utils.AppManager;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.AppManager;
+import com.gs.buluo.common.utils.ToastUtils;
 
 import butterknife.Bind;
 import rx.android.schedulers.AndroidSchedulers;

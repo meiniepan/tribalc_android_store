@@ -29,7 +29,7 @@ import com.gs.buluo.store.network.GoodsApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.store.utils.GlideBannerLoader;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 import com.youth.banner.Banner;
 

@@ -22,7 +22,7 @@ import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.SerializableHashMap;
 import com.gs.buluo.store.network.GoodsApis;
 import com.gs.buluo.store.network.TribeRetrofit;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,13 +1,12 @@
 package com.gs.buluo.store.presenter;
 
-import android.util.Log;
-
+import com.gs.buluo.common.network.ApiException;
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.RequestBodyBean.LoginBody;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
-import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.ResponseBody.UserBeanEntity;
 import com.gs.buluo.store.bean.StoreInfo;
@@ -22,8 +21,10 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
-
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -39,17 +40,37 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
 
         TribeRetrofit.getInstance().createApi(MainApis.class).doLogin(bean)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<UserBeanEntity>>() {
+                .flatMap(new Func1<BaseResponse<UserBeanEntity>, Observable<BaseResponse<StoreMeta>>>() {
                     @Override
-                    public void onNext(BaseResponse<UserBeanEntity> response) {
+                    public Observable<BaseResponse<StoreMeta>> call(BaseResponse<UserBeanEntity> response) {
                         String uid = response.data.getAssigned();
                         token = response.data.getToken();
-                        StoreInfo entity =new StoreInfo();
+                        StoreInfo entity = new StoreInfo();
                         entity.setId(uid);
                         entity.setToken(token);
                         TribeApplication.getInstance().setUserInfo(entity);
-                        getStoreInfo(uid);
+                        return TribeRetrofit.getInstance().createApi(MainApis.class).getStoreMeta(uid);
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .doOnNext(new Action1<BaseResponse<StoreMeta>>() {
+                    @Override
+                    public void call(BaseResponse<StoreMeta> response) {
+                        setStoreInfo(response.data);
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<StoreMeta>>() {
+                    @Override
+                    public void onNext(BaseResponse<StoreMeta> response) {
+                        if (isAttach()) {
+                            mView.loginSuccess();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(ApiException e) {
+                        mView.dealWithIdentify(e.getCode());
                     }
                 });
     }
@@ -61,23 +82,12 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                 .subscribe(new BaseSubscriber<BaseResponse<CodeResponse>>(false) {
                     @Override
                     public void onNext(BaseResponse<CodeResponse> response) {
-                        if (response.data.responseCode == 202) {
-                            mView.dealWithIdentify(202);
-                        } else {
-                            mView.dealWithIdentify(400);
-                        }
+                        mView.dealWithIdentify(202);
                     }
-                });
-    }
 
-    public void getStoreInfo(String uid) {
-        TribeRetrofit.getInstance().createApi(MainApis.class).getStoreMeta(uid)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<StoreMeta>>() {
                     @Override
-                    public void onNext(BaseResponse<StoreMeta> response) {
-                        setStoreInfo(response.data);
+                    public void onFail(ApiException e) {
+                        mView.dealWithIdentify(e.getCode());
                     }
                 });
     }
@@ -98,8 +108,5 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
         StoreInfoDao dao = new StoreInfoDao();
         dao.saveBindingId(entity);
         EventBus.getDefault().post(new SelfEvent());
-        if (isAttach()) {
-            mView.loginSuccess();
-        }
     }
 }

@@ -20,7 +20,7 @@ import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.OrderPresenter;
 import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.GlideUtils;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.utils.TribeDateUtils;
 import com.gs.buluo.store.view.impl.IOrderView;
 import com.gs.buluo.store.view.widget.panel.LogisticsPanel;

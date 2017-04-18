@@ -6,9 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +17,9 @@ import android.view.WindowManager;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.presenter.BasePresenter;
-import com.gs.buluo.store.utils.AppManager;
-import com.gs.buluo.store.utils.SystemBarTintManager;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.AppManager;
+import com.gs.buluo.common.utils.SystemBarTintManager;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.IBaseView;
 import com.gs.buluo.store.view.widget.LoadingDialog;
 
@@ -42,7 +41,9 @@ public abstract class BaseActivity<T extends BasePresenter<IBaseView>> extends A
         init();
         AppManager.getAppManager().addActivity(this);
         setExplode();//new Slide()  new Fade()
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            addFlag();
+        }
         mPresenter = getPresenter();
         if (mPresenter != null && this instanceof IBaseView) {
             mPresenter.attach((IBaseView) this);
@@ -62,6 +63,11 @@ public abstract class BaseActivity<T extends BasePresenter<IBaseView>> extends A
                 }
             });
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void addFlag() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

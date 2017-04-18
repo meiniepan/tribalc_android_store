@@ -8,7 +8,7 @@ import android.view.View;
 import com.gs.buluo.common.widget.PwdEditText;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 
 import org.xutils.common.util.MD5;
 

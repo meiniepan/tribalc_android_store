@@ -13,7 +13,7 @@ import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.SelfPresenter;
-import com.gs.buluo.store.utils.ToastUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.ISelfView;
 
 import butterknife.Bind;
