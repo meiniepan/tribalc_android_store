@@ -1,5 +1,6 @@
 package com.gs.buluo.store.presenter;
 
+import com.gs.buluo.common.network.ApiException;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
@@ -41,6 +42,11 @@ public class StoreGoodsPresenter extends BasePresenter<IStoreGoodsView> {
                             mView.showNoData(published);
                         }
                     }
+
+                    @Override
+                    public void onFail(ApiException e) {
+                        mView.showError(R.string.connect_fail);
+                    }
                 });
     }
 
@@ -57,6 +63,11 @@ public class StoreGoodsPresenter extends BasePresenter<IStoreGoodsView> {
                         if (!data.hasMore) {
                             if (isAttach())mView.showNoMore(published);
                         }
+                    }
+
+                    @Override
+                    public void onFail(ApiException e) {
+                        mView.showError(R.string.connect_fail);
                     }
                 });
     }

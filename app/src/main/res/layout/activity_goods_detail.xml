@@ -240,6 +240,9 @@
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:text="商品详情"/>
             <ListView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:paddingBottom="@dimen/activity_horizontal_margin"
                 android:id="@+id/goods_detail_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
