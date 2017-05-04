@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
@@ -14,7 +16,6 @@ import com.gs.buluo.store.adapter.BankCardListAdapter;
 import com.gs.buluo.store.bean.BankCard;
 import com.gs.buluo.store.presenter.BankCardPresenter;
 import com.gs.buluo.store.presenter.BasePresenter;
-import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.ICardView;
 
 import java.util.List;
@@ -32,9 +33,11 @@ public class BankCardActivity extends BaseActivity implements ICardView {
     private BankCardListAdapter adapter;
 
     private boolean canDelete = false;
+    private boolean isFromCash;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        isFromCash = getIntent().getBooleanExtra(Constant.CASH_FLAG, false);
         adapter = new BankCardListAdapter(this);
         cardList.setAdapter(adapter);
 
@@ -42,8 +45,8 @@ public class BankCardActivity extends BaseActivity implements ICardView {
         findViewById(R.id.card_add_card).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!TextUtils.equals(Constant.SUCCEED,TribeApplication.getInstance().getUserInfo().getAuthenticationStatus())){
-                    ToastUtils.ToastMessage(getCtx(),"您尚未进行商户认证，无法绑定银行卡");
+                if (!TextUtils.equals(Constant.SUCCEED, TribeApplication.getInstance().getUserInfo().getAuthenticationStatus())) {
+                    ToastUtils.ToastMessage(getCtx(), "您尚未进行商户认证，无法绑定银行卡");
                     return;
                 }
                 startActivity(new Intent(BankCardActivity.this, AddBankCardActivity.class));
@@ -65,6 +68,18 @@ public class BankCardActivity extends BaseActivity implements ICardView {
                 }
             }
         });
+        if (isFromCash) {
+            cardList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    BankCard card = (BankCard) adapter.getItem(position);
+                    Intent intent = new Intent();
+                    intent.putExtra(Constant.BANK_CARD, card);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+            });
+        }
     }
 
     @Override
@@ -104,4 +119,6 @@ public class BankCardActivity extends BaseActivity implements ICardView {
     public void showError(int res) {
         ToastUtils.ToastMessage(this, getString(res));
     }
+
+
 }

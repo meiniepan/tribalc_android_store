@@ -30,7 +30,7 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
     Context mCtx;
     private String pwd;
     private RechargePanel panel;
-    private String balance;
+    private float balance;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -39,8 +39,7 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.wallet_card).setOnClickListener(this);
         findViewById(R.id.wallet_financial).setOnClickListener(this);
         findViewById(R.id.wallet_pwd).setOnClickListener(this);
-        findViewById(R.id.wallet_back).setOnClickListener(this);
-//        findViewById(R.id.wallet_recharge).setOnClickListener(this);
+        findViewById(R.id.wallet_cash).setOnClickListener(this);
 
         ((WalletPresenter)mPresenter).getWalletInfo();
     }
@@ -70,12 +69,6 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.wallet_financial:
                 break;
-//            case R.id.wallet_recharge:
-//                panel = new RechargePanel(this);
-//                panel.setData(balance);
-//                panel.show();
-//                panel.setOnDismissListener(this);
-//                break;
             case R.id.wallet_pwd:
                 if (TextUtils.isEmpty(pwd)) {
                     intent.setClass(mCtx, UpdateWalletPwdActivity.class);
@@ -85,8 +78,11 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
                 }
                 startActivity(intent);
                 break;
-            case R.id.wallet_back:
-                finish();
+            case R.id.wallet_cash:
+                intent.putExtra(Constant.WALLET_AMOUNT,balance);
+                intent.putExtra(Constant.WALLET_PWD,pwd);
+                intent.setClass(getCtx(),CashActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -101,7 +97,7 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
     public void getWalletInfoFinished(WalletAccount account) {
         pwd = account.password;
         balance = account.balance;
-        setData(balance);
+        setData(balance+"");
     }
 
     public void setData(String price) {

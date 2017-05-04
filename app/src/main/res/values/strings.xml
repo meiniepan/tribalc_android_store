@@ -247,4 +247,10 @@
     <string name="bank_card_binded">银行卡已被绑定</string>
     <string name="bank_card_forbidden">银行卡户名需和店铺认证通过的用户姓名相同</string>
     <string name="not_support_card">暂不支持卡类型</string>
+    <string name="withdraw_cash">提现</string>
+    <string name="withdraw_number">提现金额</string>
+    <string name="input_withdraw_number">请输入提现金额</string>
+    <string name="offered_money">可转出金额:</string>
+    <string name="withdraw_all">全部提现</string>
+    <string name="withdraw_too_much">提现金额不能大于账户余额</string>
 </resources>

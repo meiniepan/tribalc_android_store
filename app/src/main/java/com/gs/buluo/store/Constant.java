@@ -24,6 +24,9 @@ public class Constant {
     public static final String APK_URL = "http://www.buluo-gs.com/app-store.apk";
     public static final String DIR_PATH = Environment.getExternalStorageDirectory().toString() + "/tribe/";
     public static final String RE_LOGIN = "re_login";
+    public static final String WALLET_AMOUNT = "wallet_amount";
+    public static final String CASH_FLAG = "cash_flag";
+    public static final String BANK_CARD = "bank_card";
 
     public final static class Base {
         public static final String BASE = "https://app-services.buluo-gs.com/";

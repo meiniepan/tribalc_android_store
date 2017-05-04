@@ -48,6 +48,9 @@ public class PasswordPanel extends Dialog implements Callback<BaseResponse<Order
     private OrderBean.PayChannel payChannel;
     private String type;
 
+    private int payType;
+    private boolean doSuccess;
+
     public PasswordPanel(Context context, String pwd, List<String> orderId, OrderBean.PayChannel channel, String type, OnPasswordPanelDismissListener onPasswordPanelDismissListener) {
         super(context, R.style.pay_dialog);
         mContext = context;
@@ -56,6 +59,16 @@ public class PasswordPanel extends Dialog implements Callback<BaseResponse<Order
         this.payChannel = channel;
         this.type = type;
         this.onPasswordPanelDismissListener = onPasswordPanelDismissListener;
+        payType=0;  //订单支付
+        initView();
+    }
+
+    public PasswordPanel(Context context, String pwd,OnPasswordPanelDismissListener onPasswordPanelDismissListener) {
+        super(context, R.style.pay_dialog);
+        mContext = context;
+        myPwd = pwd;
+        this.onPasswordPanelDismissListener = onPasswordPanelDismissListener;
+        payType =1 ;  //提现
         initView();
     }
 
@@ -75,7 +88,8 @@ public class PasswordPanel extends Dialog implements Callback<BaseResponse<Order
             @Override
             public void inputComplete() {
                 if (TextUtils.equals(MD5.md5(pwdEditText.getStrPassword()), myPwd)) {
-                    payMoney();
+                    doSuccess = true;
+                    doDeal();
                 } else {
                     ToastUtils.ToastMessage(getContext(), R.string.wrong_pwd);
                     pwdEditText.clear();
@@ -89,6 +103,14 @@ public class PasswordPanel extends Dialog implements Callback<BaseResponse<Order
             }
         });
 
+    }
+
+    private void doDeal() {
+        if (payType==0){
+            payMoney();
+        }else {
+            dismiss();
+        }
     }
 
     private void payMoney() {
@@ -161,13 +183,13 @@ public class PasswordPanel extends Dialog implements Callback<BaseResponse<Order
     }
 
     public interface OnPasswordPanelDismissListener {
-        void onPasswordPanelDismiss();
+        void onPasswordPanelDismiss(boolean successful);
     }
 
     @Override
     public void dismiss() {
         if (onPasswordPanelDismissListener != null) {
-            onPasswordPanelDismissListener.onPasswordPanelDismiss();
+            onPasswordPanelDismissListener.onPasswordPanelDismiss(doSuccess);
         }
         super.dismiss();
     }

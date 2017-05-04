@@ -52,7 +52,7 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"/>
+            android:process=":remote" />
 
         <activity
             android:name="com.gs.buluo.store.view.activity.AppStartActivity"
@@ -154,9 +154,9 @@
 
         <activity
             android:name="com.gs.buluo.store.view.activity.ModifyInfoActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity android:name="com.gs.buluo.store.view.activity.CaptureActivity" />
-        <activity android:name="com.gs.buluo.store.view.activity.BankPickActivity"/>
+        <activity android:name="com.gs.buluo.store.view.activity.BankPickActivity" />
         <activity
             android:name="com.gs.buluo.store.view.activity.FeedbackActivity"
             android:windowSoftInputMode="stateVisible" />
@@ -231,11 +231,14 @@
             android:name=".view.activity.IntroductionActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".view.activity.WebActivity" />
-        <activity android:name=".view.activity.FacilityDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".camera.CameraActivity"
-                  android:screenOrientation="landscape"
-            />
+        <activity
+            android:name=".view.activity.FacilityDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".camera.CameraActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".view.activity.CashActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

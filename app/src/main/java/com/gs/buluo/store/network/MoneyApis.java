@@ -4,6 +4,7 @@ import com.gs.buluo.store.bean.BankCard;
 import com.gs.buluo.store.bean.OrderPayment;
 import com.gs.buluo.store.bean.RequestBodyBean.NewPaymentRequest;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
+import com.gs.buluo.store.bean.RequestBodyBean.WithdrawRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.BillResponse;
 import com.gs.buluo.store.bean.ResponseBody.CardResponse;
 import com.gs.buluo.common.network.BaseResponse;
@@ -40,11 +41,11 @@ public interface MoneyApis {
             @Path("id") String uid, @Query("limitSize") String limitSize);
 
 
-    @PUT("wallets/{id}/wallet/password")
+    @PUT("wallets/{id}/password")
     Call<BaseResponse<CodeResponse>> updatePwd(
             @Path("id") String uid, @Body UpdatePwdBody pwd);
 
-    @PUT("wallets/{id}/wallet/password")
+    @PUT("wallets/{id}/password")
     Call<BaseResponse<CodeResponse>> updatePwd(
             @Path("id") String uid, @Body UpdatePwdBody pwd, @Query("vcode") String vCode);
 
@@ -91,4 +92,7 @@ public interface MoneyApis {
     @PUT("wallets/{id}/bank_cards/{bankCardID}")
     Observable<BaseResponse<CodeResponse>> uploadVerify(
             @Path("id") String uid, @Path("bankCardID") String cardId, @Body ValueRequestBody verify);
+
+    @POST("wallets/{id}/withdraw")
+    Observable<BaseResponse<CodeResponse>> withdrawCash(@Path("id") String uid, @Body WithdrawRequestBody body);
 }

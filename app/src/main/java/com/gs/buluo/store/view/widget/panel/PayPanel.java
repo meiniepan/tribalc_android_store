@@ -90,12 +90,12 @@ public class PayPanel extends Dialog implements PasswordPanel.OnPasswordPanelDis
             public void onResponse(Call<BaseResponse<WalletAccount>> call, Response<BaseResponse<WalletAccount>> response) {
                 if (response.body() != null && response.body().data != null && response.body().code == ResponseCode.GET_SUCCESS) {
                     String password = response.body().data.password;
-                    String balance = response.body().data.balance;
+                    float balance = response.body().data.balance;
                     if (password == null) {
                         showAlert();
                     } else {
-                        if (Float.parseFloat(price) > Float.parseFloat(balance)) {
-                            showNotEnough(balance);
+                        if (Float.parseFloat(price) > balance) {
+                            showNotEnough(balance+"");
                         } else {
                             showPasswordPanel(password);
                         }
@@ -145,7 +145,7 @@ public class PayPanel extends Dialog implements PasswordPanel.OnPasswordPanelDis
     }
 
     @Override
-    public void onPasswordPanelDismiss() {
+    public void onPasswordPanelDismiss(boolean s) {
         dismiss();
     }
 

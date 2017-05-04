@@ -32,8 +32,8 @@
 
     <include layout="@layout/split_line_no_margin_common" />
 
-    <com.gs.buluo.store.view.widget.PwdEditText
+    <com.gs.buluo.common.widget.PwdEditText
         android:id="@+id/pwd_board_pet"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.gs.buluo.store.view.widget.PwdEditText>
+        android:layout_height="wrap_content"/>
 </LinearLayout>
