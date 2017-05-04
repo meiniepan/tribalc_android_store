@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.gs.buluo.common.utils.ToastUtils;
+import com.gs.buluo.common.widget.StatusLayout;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
@@ -30,19 +31,22 @@ public class BankCardActivity extends BaseActivity implements ICardView {
     ListView cardList;
     @Bind(R.id.card_manager)
     TextView manage;
+    @Bind(R.id.card_status_layout)
+    StatusLayout statusLayout;
     private BankCardListAdapter adapter;
 
     private boolean canDelete = false;
     private boolean isFromCash;
+    private View actionView;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        actionView = findViewById(R.id.card_add_card);
         isFromCash = getIntent().getBooleanExtra(Constant.CASH_FLAG, false);
         adapter = new BankCardListAdapter(this);
         cardList.setAdapter(adapter);
-
-        ((BankCardPresenter) mPresenter).getCardList(TribeApplication.getInstance().getUserInfo().getId());
-        findViewById(R.id.card_add_card).setOnClickListener(new View.OnClickListener() {
+        getData();
+        actionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!TextUtils.equals(Constant.SUCCEED, TribeApplication.getInstance().getUserInfo().getAuthenticationStatus())) {
@@ -50,12 +54,6 @@ public class BankCardActivity extends BaseActivity implements ICardView {
                     return;
                 }
                 startActivity(new Intent(BankCardActivity.this, AddBankCardActivity.class));
-            }
-        });
-        findViewById(R.id.card_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
             }
         });
         manage.setOnClickListener(new View.OnClickListener() {
@@ -80,12 +78,24 @@ public class BankCardActivity extends BaseActivity implements ICardView {
                 }
             });
         }
+        statusLayout.setErrorAndEmptyAction(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getData();
+            }
+        });
+    }
+
+    private void getData() {
+        statusLayout.showProgressView();
+        ((BankCardPresenter) mPresenter).getCardList(TribeApplication.getInstance().getUserInfo().getId());
+        actionView.setVisibility(View.GONE);
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        ((BankCardPresenter) mPresenter).getCardList(TribeApplication.getInstance().getUserInfo().getId());
+        getData();
     }
 
     private void hideDeleteView() {
@@ -112,12 +122,18 @@ public class BankCardActivity extends BaseActivity implements ICardView {
 
     @Override
     public void getCardInfoSuccess(List<BankCard> data) {
+        if (data.size() == 0) {
+            statusLayout.showEmptyView("您还未添加银行卡");
+            return;
+        }
+        statusLayout.showContentView();
         adapter.setData(data);
+        actionView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showError(int res) {
-        ToastUtils.ToastMessage(this, getString(res));
+        statusLayout.showErrorView(getString(res));
     }
 
 

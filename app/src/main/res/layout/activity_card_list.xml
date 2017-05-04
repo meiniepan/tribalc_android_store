@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,7 +23,7 @@
 
         <include
             layout="@layout/back_img_white"
-            android:id="@+id/card_back" />
+            android:id="@+id/back" />
 
         <TextView
             android:id="@+id/card_manager"
@@ -35,50 +36,52 @@
     </RelativeLayout>
 
 
-    <RelativeLayout
+    <com.gs.buluo.common.widget.StatusLayout
+        android:id="@+id/card_status_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:errorDrawable="@mipmap/net_error"
+        app:emptyDrawable ="@mipmap/empty_order">
 
         <ListView
             android:id="@+id/card_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"></ListView>
+            android:layout_height="match_parent"
+            android:layout_marginBottom="50dp"/>
+    </com.gs.buluo.common.widget.StatusLayout>
+    <LinearLayout
+        android:id="@+id/card_add_card"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/button_selector"
+        android:gravity="center"
+        android:layout_alignParentBottom="true">
 
-        <LinearLayout
-            android:id="@+id/card_add_card"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/button_selector"
+        <RelativeLayout
+            android:id="@+id/goods_board_add"
+            android:layout_width="30dp"
+            android:layout_height="30dp">
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="1dp"
+                android:background="#fff"
+                android:layout_centerInParent="true" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:background="#fff"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="#fff"
+            android:textSize="@dimen/dimens_20sp"
             android:gravity="center"
-            android:layout_alignParentBottom="true">
-
-            <RelativeLayout
-                android:id="@+id/goods_board_add"
-                android:layout_width="30dp"
-                android:layout_height="30dp">
-
-                <View
-                    android:layout_width="20dp"
-                    android:layout_height="1dp"
-                    android:background="#fff"
-                    android:layout_centerInParent="true" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="20dp"
-                    android:background="#fff"
-                    android:layout_centerInParent="true" />
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="#fff"
-                android:textSize="@dimen/dimens_20sp"
-                android:gravity="center"
-                android:text="@string/add_bank_card" />
-        </LinearLayout>
-    </RelativeLayout>
-
+            android:text="@string/add_bank_card" />
+    </LinearLayout>
 </LinearLayout>

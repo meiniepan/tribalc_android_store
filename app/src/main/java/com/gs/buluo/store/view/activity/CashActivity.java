@@ -166,7 +166,10 @@ public class CashActivity extends BaseActivity {
         } else {
             cash = number;
         }
-
+        if (TextUtils.isEmpty(chooseCardId)){
+            ToastUtils.ToastMessage(getCtx(),getString(R.string.please_choose_card));
+            return;
+        }
         WithdrawRequestBody body = new WithdrawRequestBody();
         body.amount = cash;
         body.bankCardId = chooseCardId;

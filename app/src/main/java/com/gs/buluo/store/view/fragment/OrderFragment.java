@@ -57,14 +57,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
                 ((OrderPresenter) mPresenter).getOrderListMore();
             }
         });
-        statusLayout.setErrorAction(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                statusLayout.showProgressView();
-                ((OrderPresenter) mPresenter).getOrderListFirst(type);
-            }
-        });
-        statusLayout.setEmptyAction(new View.OnClickListener() {
+        statusLayout.setErrorAndEmptyAction(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((OrderPresenter) mPresenter).getOrderListFirst(type);
@@ -100,6 +93,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
             statusLayout.showEmptyView(getString(R.string.no_order));
             return;
         }
+        statusLayout.showContentView();
         adapter.addAll(list);
         if (!data.haseMore) {
             adapter.showNoMore();
