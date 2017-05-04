@@ -20,7 +20,6 @@ import rx.schedulers.Schedulers;
 public class OrderPresenter extends BasePresenter<IOrderView> {
     private String status;
     private String nextSkip;
-
     public void getOrderListFirst(int pos) {
         setStatus(pos);
         TribeRetrofit.getInstance().createApi(OrderApis.class).getOrderFirst(TribeApplication.getInstance().getUserInfo().getId(), 20, status)
