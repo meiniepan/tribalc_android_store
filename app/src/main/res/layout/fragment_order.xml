@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<com.gs.buluo.common.widget.StatusLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/order_layout"
+    app:errorDrawable="@mipmap/net_error"
+    app:emptyDrawable ="@mipmap/empty_order"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView
         android:id="@+id/order_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView>
-</LinearLayout>
+        android:layout_height="wrap_content"/>
+</com.gs.buluo.common.widget.StatusLayout>

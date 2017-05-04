@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.AuthenticationData;
@@ -16,6 +17,8 @@ import com.gs.buluo.store.bean.ResponseBody.UploadResponseBody;
 import com.gs.buluo.store.camera.CameraActivity;
 import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.common.utils.ToastUtils;
+import com.gs.buluo.store.utils.GlideUtils;
+import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -27,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import cn.finalteam.galleryfinal.FunctionConfig;
 
 /**
  * Created by hjn on 2017/1/12.
@@ -80,26 +84,26 @@ public class Authentication2Activity extends BaseActivity {
     }
 
     private void showChoosePhoto(final boolean isFront) {
-        Intent intent = new Intent(Authentication2Activity.this, CameraActivity.class);
-        if (isFront){
-            startActivityForResult(intent, 100);
-        }else{
-            startActivityForResult(intent, 101);
-        }
-//        FunctionConfig functionConfig = new FunctionConfig.Builder()
-//                .setEnableEdit(true)
-//                .setEnableCamera(true)
-//                .setEnableRotate(true)
-//                .setEnablePreview(true)
-//                .build();
-//        ChoosePhotoPanel panel=new ChoosePhotoPanel(this, functionConfig, new ChoosePhotoPanel.OnSelectedFinished() {
-//            @Override
-//            public void onSelected(String string) {
-//                showLoadingDialog();
-//                uploadPic(string,isFront);
-//            }
-//        });
-//        panel.show();
+//        Intent intent = new Intent(Authentication2Activity.this, CameraActivity.class);
+//        if (isFront){
+//            startActivityForResult(intent, 100);
+//        }else{
+//            startActivityForResult(intent, 101);
+//        }
+        FunctionConfig functionConfig = new FunctionConfig.Builder()
+                .setEnableEdit(true)
+                .setEnableCamera(true)
+                .setEnableRotate(true)
+                .setEnablePreview(true)
+                .build();
+        ChoosePhotoPanel panel=new ChoosePhotoPanel(this, functionConfig, new ChoosePhotoPanel.OnSelectedFinished() {
+            @Override
+            public void onSelected(String string) {
+                showLoadingDialog();
+                uploadPic(string,isFront);
+            }
+        });
+        panel.show();
     }
 
     private void uploadPic(String pic, final boolean isFront) {
@@ -110,13 +114,13 @@ public class Authentication2Activity extends BaseActivity {
                 if (isFront){
                     frontImg.setVisibility(View.VISIBLE);
                     front = data.objectKey;
-                    //Glide.with(getCtx()).load(GlideUtils.formatImageUrl(data.objectKey)).centerCrop().into(frontImg);
-                    findViewById(R.id.identify_front).setVisibility(View.GONE);
+                    GlideUtils.loadImage(getCtx(),data.objectKey,frontImg);
+//                    findViewById(R.id.identify_front).setVisibility(View.GONE);
                 }else {
                     backImg.setVisibility(View.VISIBLE);
                     back=data.objectKey;
-                    findViewById(R.id.identify_back).setVisibility(View.GONE);
-                    //Glide.with(getCtx()).load(GlideUtils.formatImageUrl(data.objectKey)).centerCrop().into(backImg);
+//                    findViewById(R.id.identify_back).setVisibility(View.GONE);
+                    GlideUtils.loadImage(getCtx(),data.objectKey,backImg);
                 }
             }
 

@@ -2,10 +2,12 @@ package com.gs.buluo.store.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.BankCardListAdapter;
@@ -40,6 +42,10 @@ public class BankCardActivity extends BaseActivity implements ICardView {
         findViewById(R.id.card_add_card).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!TextUtils.equals(Constant.SUCCEED,TribeApplication.getInstance().getUserInfo().getAuthenticationStatus())){
+                    ToastUtils.ToastMessage(getCtx(),"您尚未进行商户认证，无法绑定银行卡");
+                    return;
+                }
                 startActivity(new Intent(BankCardActivity.this, AddBankCardActivity.class));
             }
         });

@@ -242,4 +242,9 @@
     <string name="reserve_manager">预定管理</string>
     <string name="current_newest">您当前是最新版本</string>
     <string name="frequency_code">发送验证码太频繁，请稍后再试</string>
+    <string name="connect_error">连接错误</string>
+    <string name="not_auth">尚未进行店铺认证</string>
+    <string name="bank_card_binded">银行卡已被绑定</string>
+    <string name="bank_card_forbidden">银行卡户名需和店铺认证通过的用户姓名相同</string>
+    <string name="not_support_card">暂不支持卡类型</string>
 </resources>

@@ -42,7 +42,7 @@ import com.gs.buluo.store.view.activity.SelfActivity;
 import com.gs.buluo.store.view.activity.SettingActivity;
 import com.gs.buluo.store.view.activity.WalletActivity;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
-import com.gs.buluo.store.view.widget.pulltozoom.PullToZoomScrollViewEx;
+import com.gs.buluo.common.widget.pulltozoom.PullToZoomScrollViewEx;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

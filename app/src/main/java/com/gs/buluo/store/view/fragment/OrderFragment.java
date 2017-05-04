@@ -2,7 +2,9 @@ package com.gs.buluo.store.view.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
+import com.gs.buluo.common.widget.StatusLayout;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.adapter.OrderListAdapter;
 import com.gs.buluo.store.bean.OrderBean;
@@ -10,7 +12,6 @@ import com.gs.buluo.store.bean.ResponseBody.OrderResponseBean;
 import com.gs.buluo.store.eventbus.PaymentEvent;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.OrderPresenter;
-import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.IOrderView;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.Action;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView;
@@ -31,6 +32,8 @@ public class OrderFragment extends BaseFragment implements IOrderView {
 
     @Bind(R.id.order_list)
     RefreshRecyclerView recyclerView;
+    @Bind(R.id.order_layout)
+    StatusLayout statusLayout;
 
     OrderListAdapter adapter;
 
@@ -46,23 +49,26 @@ public class OrderFragment extends BaseFragment implements IOrderView {
         adapter = new OrderListAdapter(getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        if (type == 0) {
-            showLoadingDialog();
-            ((OrderPresenter) mPresenter).getOrderListFirst(0);
-        } else if (type == 1) {
-            ((OrderPresenter) mPresenter).getOrderListFirst(1);
-        } else if (type == 2) {
-            showLoadingDialog();
-            ((OrderPresenter) mPresenter).getOrderListFirst(2);
-        } else if (type==3){
-            ((OrderPresenter) mPresenter).getOrderListFirst(3);
-        }   else {
-            ((OrderPresenter) mPresenter).getOrderListFirst(4);
-        }
+        statusLayout.showProgressView();
+        ((OrderPresenter) mPresenter).getOrderListFirst(type);
         adapter.setLoadMoreAction(new Action() {
             @Override
             public void onAction() {
                 ((OrderPresenter) mPresenter).getOrderListMore();
+            }
+        });
+        statusLayout.setErrorAction(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                statusLayout.showProgressView();
+                ((OrderPresenter) mPresenter).getOrderListFirst(type);
+            }
+        });
+        statusLayout.setEmptyAction(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((OrderPresenter) mPresenter).getOrderListFirst(type);
+                statusLayout.showProgressView();
             }
         });
         EventBus.getDefault().register(this);
@@ -71,20 +77,9 @@ public class OrderFragment extends BaseFragment implements IOrderView {
     //订单详情付款成功后，刷新订单列表
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void orderChanged(PaymentEvent event) {
+        statusLayout.showProgressView();
         if (adapter != null) {
-            if (type == 0) {
-                showLoadingDialog();
-                ((OrderPresenter) mPresenter).getOrderListFirst(0);
-            } else if (type == 1) {
-                ((OrderPresenter) mPresenter).getOrderListFirst(1);
-            } else if (type == 2) {
-                showLoadingDialog();
-                ((OrderPresenter) mPresenter).getOrderListFirst(2);
-            }  else if (type==3){
-                ((OrderPresenter) mPresenter).getOrderListFirst(3);
-            }   else {
-                ((OrderPresenter) mPresenter).getOrderListFirst(4);
-            }
+            ((OrderPresenter) mPresenter).getOrderListFirst(type);
             adapter.clear();
         }
     }
@@ -100,10 +95,9 @@ public class OrderFragment extends BaseFragment implements IOrderView {
 
     @Override
     public void getOrderInfoSuccess(OrderResponseBean data) {
-        dismissDialog();
         list = data.content;
         if (list.size() == 0) {
-            recyclerView.showNoData(R.string.no_order);
+            statusLayout.showEmptyView(getString(R.string.no_order));
             return;
         }
         adapter.addAll(list);
@@ -118,14 +112,13 @@ public class OrderFragment extends BaseFragment implements IOrderView {
     }
 
     @Override
-    public void showError(int res) {
-        ToastUtils.ToastMessage(getActivity(), getString(res));
-        dismissDialog();
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void showError(int res) {
+        statusLayout.showErrorView(getString(res));
     }
 }

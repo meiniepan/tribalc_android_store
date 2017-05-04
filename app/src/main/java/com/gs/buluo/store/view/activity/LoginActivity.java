@@ -29,6 +29,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Bind(R.id.login_send_verify)
     Button reg_send;
     private HashMap<String, String> params;
+    private CountDownTimer countDownTimer;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -82,9 +83,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         switch (res) {
             case 504:
                 ToastUtils.ToastMessage(this, getString(R.string.frequency_code));
+                countDownTimer.cancel();
+                reg_send.setText("获取验证码");
+                reg_send.setClickable(true);
                 break;
             case 400:
                 ToastUtils.ToastMessage(this, getString(R.string.wrong_number));
+                countDownTimer.cancel();
                 reg_send.setText("获取验证码");
                 reg_send.setClickable(true);
                 break;
@@ -97,7 +102,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     private void startCounter() {
         reg_send.setText("60s");
         reg_send.setClickable(false);
-        new CountDownTimer(60000, 1000) {
+        countDownTimer = new CountDownTimer(60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 reg_send.setText(millisUntilFinished / 1000 + "秒");
@@ -108,7 +113,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 reg_send.setText("获取验证码");
                 reg_send.setClickable(true);
             }
-        }.start();
+        };
+        countDownTimer.start();
     }
 
     @Override

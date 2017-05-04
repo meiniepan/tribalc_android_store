@@ -6,7 +6,7 @@ import com.gs.buluo.store.bean.ListGoodsDetail;
 import com.gs.buluo.store.bean.RequestBodyBean.NewOrderBean;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.network.GoodsApis;
-import com.gs.buluo.store.network.ShoppingApis;
+import com.gs.buluo.store.network.OrderApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.view.impl.IGoodDetialView;
 
@@ -46,7 +46,7 @@ public class GoodsDetailPresenter extends BasePresenter<IGoodDetialView> {
         NewOrderBean item = new NewOrderBean();
         item.goodsId = id;
         item.amount = num;
-        TribeRetrofit.getInstance().createApi(ShoppingApis.class).addCartItem(id,item)
+        TribeRetrofit.getInstance().createApi(OrderApis.class).addCartItem(id,item)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse>() {

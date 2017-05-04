@@ -8,6 +8,5 @@ import com.gs.buluo.store.bean.ResponseBody.OrderResponseBean;
  */
 public interface IOrderView extends IBaseView {
     void getOrderInfoSuccess(OrderResponseBean data);
-
     void updateSuccess(OrderBean data);
 }

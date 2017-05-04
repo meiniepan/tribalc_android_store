@@ -24,7 +24,7 @@ import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.GlideBannerLoader;
 import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.common.utils.ToastUtils;
-import com.gs.buluo.store.view.widget.pulltozoom.PullToZoomScrollViewEx;
+import com.gs.buluo.common.widget.pulltozoom.PullToZoomScrollViewEx;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 

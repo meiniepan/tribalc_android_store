@@ -1,12 +1,13 @@
 package com.gs.buluo.store.presenter;
 
 import com.gs.buluo.common.network.BaseSubscriber;
+import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.OrderBean;
 import com.gs.buluo.store.bean.RequestBodyBean.LogisticsRequestBody;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.OrderResponseBean;
-import com.gs.buluo.store.network.ShoppingApis;
+import com.gs.buluo.store.network.OrderApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.view.impl.IOrderView;
 
@@ -22,14 +23,19 @@ public class OrderPresenter extends BasePresenter<IOrderView> {
 
     public void getOrderListFirst(int pos) {
         setStatus(pos);
-        TribeRetrofit.getInstance().createApi(ShoppingApis.class).getOrderFirst(TribeApplication.getInstance().getUserInfo().getId(), 20, status)
+        TribeRetrofit.getInstance().createApi(OrderApis.class).getOrderFirst(TribeApplication.getInstance().getUserInfo().getId(), 20, status)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<OrderResponseBean>>() {
+                .subscribe(new BaseSubscriber<BaseResponse<OrderResponseBean>>(false) {
                     @Override
                     public void onNext(BaseResponse<OrderResponseBean> goodListBaseResponse) {
                         nextSkip = goodListBaseResponse.data.nextSkip;
                         if (isAttach()) mView.getOrderInfoSuccess(goodListBaseResponse.data);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.showError(R.string.connect_fail);
                     }
                 });
     }
@@ -55,20 +61,24 @@ public class OrderPresenter extends BasePresenter<IOrderView> {
     }
 
     public void getOrderListMore() {
-        TribeRetrofit.getInstance().createApi(ShoppingApis.class).getOrder(TribeApplication.getInstance().getUserInfo().getId(), 20, status, nextSkip)
+        TribeRetrofit.getInstance().createApi(OrderApis.class).getOrder(TribeApplication.getInstance().getUserInfo().getId(), 20, status, nextSkip)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<OrderResponseBean>>() {
+                .subscribe(new BaseSubscriber<BaseResponse<OrderResponseBean>>(false) {
                     @Override
                     public void onNext(BaseResponse<OrderResponseBean> goodListBaseResponse) {
                         nextSkip = goodListBaseResponse.data.nextSkip;
                         if (isAttach()) mView.getOrderInfoSuccess(goodListBaseResponse.data);
                     }
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.showError(R.string.connect_fail);
+                    }
                 });
     }
 
     public void updateOrderStatus(String orderId, String num, String way, String status) {
-        TribeRetrofit.getInstance().createApi(ShoppingApis.class).updateOrderToSend(orderId, TribeApplication.getInstance().getUserInfo().getId(),
+        TribeRetrofit.getInstance().createApi(OrderApis.class).updateOrderToSend(orderId, TribeApplication.getInstance().getUserInfo().getId(),
                 new LogisticsRequestBody(num, way, status))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

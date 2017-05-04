@@ -20,6 +20,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import rx.Observable;
 
 /**
  * Created by hjn on 2016/11/11.
@@ -69,4 +70,25 @@ public interface MoneyApis {
 
     @POST("recharge/wechat/orderquery")
     Call<BaseResponse<CodeResponse>> getTopUpResult(@Query("me") String uid, @Body ValueRequestBody body);
+
+    /**
+     * 准备添加银行卡信息
+     *
+     * @param uid
+     * @param card
+     */
+    @POST("wallets/{id}/bank_cards")
+    Observable<BaseResponse<BankCard>> prepareAddBankCard(
+            @Path("id") String uid, @Body BankCard card);
+
+    /**
+     * 上传验证码，确认添加银行卡信息
+     *
+     * @param uid
+     * @param cardId
+     * @param verify
+     */
+    @PUT("wallets/{id}/bank_cards/{bankCardID}")
+    Observable<BaseResponse<CodeResponse>> uploadVerify(
+            @Path("id") String uid, @Path("bankCardID") String cardId, @Body ValueRequestBody verify);
 }

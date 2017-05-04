@@ -16,9 +16,9 @@ import com.gs.buluo.store.bean.DistrictModel;
 import com.gs.buluo.store.bean.ProvinceModel;
 import com.gs.buluo.store.utils.XmlParserHandler;
 import com.gs.buluo.store.view.activity.BaseActivity;
-import com.gs.buluo.store.view.widget.wheel.OnWheelChangedListener;
-import com.gs.buluo.store.view.widget.wheel.WheelView;
-import com.gs.buluo.store.view.widget.wheel.adapters.ArrayWheelAdapter;
+import com.gs.buluo.common.widget.wheel.OnWheelChangedListener;
+import com.gs.buluo.common.widget.wheel.WheelView;
+import com.gs.buluo.common.widget.wheel.adapters.ArrayWheelAdapter;
 
 import java.io.InputStream;
 import java.util.HashMap;

@@ -17,7 +17,7 @@ import rx.Observable;
 /**
  * Created by hjn on 2016/11/24.
  */
-public interface ShoppingApis {
+public interface OrderApis {
 
     @GET("orders?type=store")
     Observable<BaseResponse<OrderResponseBean>> getOrderFirst(@Query("me") String uid, @Query("limitSize") int limitSize,

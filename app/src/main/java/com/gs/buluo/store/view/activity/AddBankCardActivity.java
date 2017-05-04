@@ -1,6 +1,5 @@
 package com.gs.buluo.store.view.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -9,23 +8,20 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.gs.buluo.common.network.ApiException;
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.BankCard;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
-import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
-import com.gs.buluo.store.model.MoneyModel;
-import com.gs.buluo.store.network.MainApis;
+import com.gs.buluo.store.network.MoneyApis;
 import com.gs.buluo.store.network.TribeRetrofit;
-import com.gs.buluo.common.utils.ToastUtils;
 
 import butterknife.Bind;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -46,11 +42,10 @@ public class AddBankCardActivity extends BaseActivity {
 
     @Bind(R.id.card_send_verify)
     TextView sendVerify;
-    Context mContext;
+    private String cardId;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        mContext = this;
         findViewById(R.id.card_bind_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +62,7 @@ public class AddBankCardActivity extends BaseActivity {
         findViewById(R.id.card_add_choose).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(mContext, BankPickActivity.class), Constant.ForIntent.REQUEST_CODE);
+                startActivityForResult(new Intent(getCtx(), BankPickActivity.class), Constant.ForIntent.REQUEST_CODE);
             }
         });
         sendVerify.setOnClickListener(new View.OnClickListener() {
@@ -91,13 +86,26 @@ public class AddBankCardActivity extends BaseActivity {
             ToastUtils.ToastMessage(this, R.string.phone_not_empty);
             return;
         }
-        TribeRetrofit.getInstance().createApi(MainApis.class).doVerify(new ValueRequestBody(phone))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<CodeResponse>>() {
+        final BankCard card = new BankCard();
+        card.bankCardNum = etNum.getText().toString().trim();
+        card.bankName = etBankName.getText().toString().trim();
+        card.userName = etName.getText().toString().trim();
+        card.phone = etPhone.getText().toString().trim();
+        TribeRetrofit.getInstance().createApi(MoneyApis.class).
+                prepareAddBankCard(TribeApplication.getInstance().getUserInfo().getId(), card).
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<BankCard>>() {
                     @Override
-                    public void onNext(BaseResponse<CodeResponse> response) {
-                        dealWithIdentify(response.code);
+                    public void onNext(BaseResponse<BankCard> bankCardBaseResponse) {
+                        dealWithIdentify(bankCardBaseResponse.code);
+                        BankCard data = bankCardBaseResponse.data;
+                        cardId = data.id;
+                    }
+
+                    @Override
+                    public void onFail(ApiException e) {
+                        dealWithIdentify(e.getCode());
                     }
                 });
     }
@@ -105,7 +113,7 @@ public class AddBankCardActivity extends BaseActivity {
 
     private void dealWithIdentify(int code) {
         switch (code) {
-            case 202:
+            case 201:
                 sendVerify.setText("60s");
                 new CountDownTimer(60000, 1000) {
                     @Override
@@ -122,35 +130,44 @@ public class AddBankCardActivity extends BaseActivity {
                 }.start();
                 break;
             case 400:
-                ToastUtils.ToastMessage(this, getString(R.string.wrong_number));
+                ToastUtils.ToastMessage(getCtx(),R.string.wrong_number);
                 break;
+            case 403:
+                ToastUtils.ToastMessage(getCtx(),getString(R.string.bank_card_forbidden));
+                break;
+            case 409:
+                ToastUtils.ToastMessage(getCtx(),getString(R.string.bank_card_binded));
+                break;
+            case 412:
+                ToastUtils.ToastMessage(getCtx(),getString(R.string.not_auth));
+                break;
+            case 424:
+                ToastUtils.ToastMessage(getCtx(),getString(R.string.not_support_card));
+            default:
+                ToastUtils.ToastMessage(getCtx(),getString(R.string.connect_error)+code);
+                break;
+
         }
     }
 
     private void doAddCard() {
         String vCode = etVerify.getText().toString().trim();
-        BankCard card = new BankCard();
-        card.bankCardNum = etNum.getText().toString().trim();
-        card.bankName = etBankName.getText().toString().trim();
-        card.userName = etName.getText().toString().trim();
-        card.phone = etPhone.getText().toString().trim();
-        MoneyModel moneyModel = new MoneyModel();
-        moneyModel.addBankCard(TribeApplication.getInstance().getUserInfo().getId(), vCode, card, new Callback<BaseResponse<CodeResponse>>() {
-            @Override
-            public void onResponse(Call<BaseResponse<CodeResponse>> call, Response<BaseResponse<CodeResponse>> response) {
-                if (response.body() != null && response.body().code == 201 && response.body() != null && response.body().code == 201) {
-                    startActivity(new Intent(AddBankCardActivity.this, BankCardActivity.class));
-                    finish();
-                } else if (response.body().code == 401) {
-                    ToastUtils.ToastMessage(AddBankCardActivity.this, R.string.wrong_verify);
-                }
-            }
+        ValueRequestBody verifyBody = new ValueRequestBody(vCode);
+        TribeRetrofit.getInstance().createApi(MoneyApis.class).
+                uploadVerify(TribeApplication.getInstance().getUserInfo().getId(), cardId, verifyBody).
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<CodeResponse>>() {
+                    @Override
+                    public void onNext(BaseResponse<CodeResponse> codeResponseBaseResponse) {
+                        startActivity(new Intent(getCtx(), BankCardActivity.class));
+                    }
 
-            @Override
-            public void onFailure(Call<BaseResponse<CodeResponse>> call, Throwable t) {
-                ToastUtils.ToastMessage(AddBankCardActivity.this, R.string.connect_fail);
-            }
-        });
+                    @Override
+                    public void onFail(ApiException e) {
+                        if (e.getCode()==401) ToastUtils.ToastMessage(getCtx(), R.string.wrong_verify);
+                    }
+                });
     }
 
     @Override

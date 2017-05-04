@@ -13,7 +13,7 @@
             android:id="@+id/empty_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/empty_goods"
+            android:src="@mipmap/empty_order"
             android:layout_centerInParent="true"
             />
         <TextView
