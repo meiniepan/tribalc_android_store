@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         />
 
-    <com.gs.buluo.store.camera.PreviewBorderView
+    <com.gs.buluo.store.view.widget.PreviewBorderView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/borderview"
         android:layout_width="wrap_content"

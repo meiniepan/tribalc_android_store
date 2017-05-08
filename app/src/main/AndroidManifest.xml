@@ -235,7 +235,7 @@
             android:name=".view.activity.FacilityDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".camera.CameraActivity"
+            android:name=".view.activity.CameraActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".view.activity.CashActivity"
             android:screenOrientation="portrait" />

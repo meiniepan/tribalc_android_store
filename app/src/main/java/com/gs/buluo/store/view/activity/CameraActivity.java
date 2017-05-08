@@ -1,4 +1,4 @@
-package com.gs.buluo.store.camera;
+package com.gs.buluo.store.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.gs.buluo.store.R;
+import com.gs.buluo.store.utils.customcamera.CameraManager;
+import com.gs.buluo.store.view.widget.PreviewBorderView;
 
 import java.io.File;
 import java.io.FileOutputStream;
