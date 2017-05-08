@@ -3,6 +3,7 @@ package com.gs.buluo.store.view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,8 +16,15 @@ import com.gs.buluo.store.view.impl.ILoginView;
 import com.gs.buluo.common.utils.ToastUtils;
 
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by hjn on 2016/11/3.
@@ -29,7 +37,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Bind(R.id.login_send_verify)
     Button reg_send;
     private HashMap<String, String> params;
-    private CountDownTimer countDownTimer;
+    private Subscriber<Long> subscriber;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -83,13 +91,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         switch (res) {
             case 504:
                 ToastUtils.ToastMessage(this, getString(R.string.frequency_code));
-                countDownTimer.cancel();
-                reg_send.setText("获取验证码");
-                reg_send.setClickable(true);
                 break;
             case 400:
                 ToastUtils.ToastMessage(this, getString(R.string.wrong_number));
-                countDownTimer.cancel();
+                subscriber.unsubscribe();
                 reg_send.setText("获取验证码");
                 reg_send.setClickable(true);
                 break;
@@ -100,21 +105,33 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void startCounter() {
-        reg_send.setText("60s");
+        final int startTime = 60;
         reg_send.setClickable(false);
-        countDownTimer = new CountDownTimer(60000, 1000) {
+        subscriber = new Subscriber<Long>() {
             @Override
-            public void onTick(long millisUntilFinished) {
-                reg_send.setText(millisUntilFinished / 1000 + "秒");
-            }
-
-            @Override
-            public void onFinish() {
+            public void onCompleted() {
                 reg_send.setText("获取验证码");
                 reg_send.setClickable(true);
             }
+
+            @Override
+            public void onError(Throwable e) {
+            }
+
+            @Override
+            public void onNext(Long aLong) {
+                reg_send.setText(aLong + "秒");
+            }
         };
-        countDownTimer.start();
+        Observable.interval(0,1, TimeUnit.SECONDS).take(startTime+1)
+                .map(new Func1<Long, Long>() {
+                    @Override
+                    public Long call(Long time) {
+                        return startTime-time;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
     }
 
     @Override

@@ -144,6 +144,9 @@ public class CashActivity extends BaseActivity {
             showAlert();
             return;
         }
+        if (chooseCardId==null){
+            ToastUtils.ToastMessage(getCtx(),"请先选择银行卡");
+        }
         PasswordPanel passwordPanel = new PasswordPanel(this, pwd, new PasswordPanel.OnPasswordPanelDismissListener() {
             @Override
             public void onPasswordPanelDismiss(boolean successful) {
