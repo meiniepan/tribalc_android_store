@@ -6,6 +6,7 @@ import com.baidu.mapapi.model.LatLng;
 import com.gs.buluo.common.BaseApplication;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.common.utils.TribeCrashCollector;
+import com.gs.buluo.store.dao.StoreInfoDao;
 
 import org.xutils.DbManager;
 import org.xutils.x;
@@ -74,6 +75,9 @@ public class TribeApplication extends BaseApplication {
     }
 
     public StoreInfo getUserInfo() {
+        if (user==null){
+            user=new StoreInfoDao().findFirst();
+        }
         return user;
     }
 
