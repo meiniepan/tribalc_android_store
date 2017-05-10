@@ -1,4 +1,4 @@
-package com.gs.buluo.store.camera;
+package com.gs.buluo.store.utils.customcamera;
 
 import android.graphics.ImageFormat;
 import android.hardware.Camera;

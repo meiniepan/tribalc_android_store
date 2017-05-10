@@ -1,4 +1,4 @@
-package com.gs.buluo.store.camera;
+package com.gs.buluo.store.utils.customcamera;
 
 import android.hardware.Camera;
 import android.os.AsyncTask;

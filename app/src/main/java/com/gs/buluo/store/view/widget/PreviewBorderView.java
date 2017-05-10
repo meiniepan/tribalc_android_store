@@ -1,4 +1,4 @@
-package com.gs.buluo.store.camera;
+package com.gs.buluo.store.view.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
