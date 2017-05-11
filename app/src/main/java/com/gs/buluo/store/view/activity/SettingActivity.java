@@ -23,7 +23,7 @@ import com.gs.buluo.store.bean.ResponseBody.AppUpdateResponse;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.presenter.BasePresenter;
-import com.gs.buluo.store.view.widget.CustomAlertDialog;
+import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.gs.buluo.store.view.widget.panel.UpdatePanel;
 
 import org.xutils.common.Callback;

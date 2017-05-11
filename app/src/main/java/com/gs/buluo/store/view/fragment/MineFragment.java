@@ -41,6 +41,7 @@ import com.gs.buluo.store.view.activity.MealStoreInfoActivity;
 import com.gs.buluo.store.view.activity.SelfActivity;
 import com.gs.buluo.store.view.activity.SettingActivity;
 import com.gs.buluo.store.view.activity.WalletActivity;
+import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 import com.gs.buluo.common.widget.pulltozoom.PullToZoomScrollViewEx;
 
@@ -163,6 +164,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 chooseCover();
                 break;
             case R.id.self_scan:
+
                 intent.setClass(getActivity(), CaptureActivity.class);
                 startActivity(intent);
                 break;
@@ -186,6 +188,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 break;
         }
     }
+
 
     public void chooseCover() {
         ChoosePhotoPanel window = new ChoosePhotoPanel(getActivity(), false, new ChoosePhotoPanel.OnSelectedFinished() {

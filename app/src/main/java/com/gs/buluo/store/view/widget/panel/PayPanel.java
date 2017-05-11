@@ -24,7 +24,7 @@ import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.activity.UpdateWalletPwdActivity;
-import com.gs.buluo.store.view.widget.CustomAlertDialog;
+import com.gs.buluo.common.widget.CustomAlertDialog;
 
 import java.util.List;
 

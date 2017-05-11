@@ -37,16 +37,14 @@ public class BankCardActivity extends BaseActivity implements ICardView {
 
     private boolean canDelete = false;
     private boolean isFromCash;
-    private View actionView;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        actionView = findViewById(R.id.card_add_card);
         isFromCash = getIntent().getBooleanExtra(Constant.CASH_FLAG, false);
         adapter = new BankCardListAdapter(this);
         cardList.setAdapter(adapter);
         getData();
-        actionView.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.card_add_card).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!TextUtils.equals(Constant.SUCCEED, TribeApplication.getInstance().getUserInfo().getAuthenticationStatus())) {
@@ -78,7 +76,7 @@ public class BankCardActivity extends BaseActivity implements ICardView {
                 }
             });
         }
-        statusLayout.setErrorAndEmptyAction(new View.OnClickListener() {
+        statusLayout.setErrorAction(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getData();
@@ -89,7 +87,6 @@ public class BankCardActivity extends BaseActivity implements ICardView {
     private void getData() {
         statusLayout.showProgressView();
         ((BankCardPresenter) mPresenter).getCardList(TribeApplication.getInstance().getUserInfo().getId());
-        actionView.setVisibility(View.GONE);
     }
 
     @Override
@@ -128,7 +125,6 @@ public class BankCardActivity extends BaseActivity implements ICardView {
         }
         statusLayout.showContentView();
         adapter.setData(data);
-        actionView.setVisibility(View.VISIBLE);
     }
 
     @Override

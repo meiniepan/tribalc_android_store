@@ -26,7 +26,7 @@ import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.StoreInfoPresenter;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.IInfoView;
-import com.gs.buluo.store.view.widget.CustomAlertDialog;
+import com.gs.buluo.common.widget.CustomAlertDialog;
 
 import butterknife.Bind;
 import rx.android.schedulers.AndroidSchedulers;

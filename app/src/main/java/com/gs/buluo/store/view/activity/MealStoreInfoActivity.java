@@ -30,7 +30,7 @@ import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.IInfoView;
-import com.gs.buluo.store.view.widget.CustomAlertDialog;
+import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.gs.buluo.store.view.widget.ObservableScrollView;
 
 import java.util.ArrayList;

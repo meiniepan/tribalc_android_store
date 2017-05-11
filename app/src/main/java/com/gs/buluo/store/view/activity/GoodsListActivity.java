@@ -5,6 +5,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 
 import com.gs.buluo.common.widget.RecycleViewDivider;
+import com.gs.buluo.common.widget.StatusLayout;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.adapter.GoodsListAdapter;
 import com.gs.buluo.store.bean.ListGoods;
@@ -31,6 +32,8 @@ public class GoodsListActivity extends BaseActivity implements IGoodsView {
     List<ListGoods> list;
     private boolean hasMore;
     private GoodsListAdapter adapter;
+    @Bind(R.id.goods_list_wrap)
+    StatusLayout statusLayout;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -52,10 +55,10 @@ public class GoodsListActivity extends BaseActivity implements IGoodsView {
             }
         });
 
-        findViewById(R.id.goods_list_back).setOnClickListener(new View.OnClickListener() {
+        statusLayout.setErrorAndEmptyAction(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                ((GoodsPresenter) mPresenter).getGoodsList();
             }
         });
     }
@@ -74,14 +77,15 @@ public class GoodsListActivity extends BaseActivity implements IGoodsView {
             adapter.showNoMore();
             return;
         }
+
         if (list.size() == 0) {
-            recyclerView.showNoData(R.string.no_goods);
+            statusLayout.showErrorView(getString(R.string.no_goods));
         }
     }
 
     @Override
     public void showError(int res) {
-        ToastUtils.ToastMessage(this, getString(res));
+        statusLayout.showErrorView(getString(res));
     }
 
     @Override

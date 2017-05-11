@@ -24,7 +24,7 @@ import com.gs.buluo.store.bean.RequestBodyBean.WithdrawRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.network.MoneyApis;
 import com.gs.buluo.store.network.TribeRetrofit;
-import com.gs.buluo.store.view.widget.CustomAlertDialog;
+import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.gs.buluo.store.view.widget.panel.PasswordPanel;
 
 import butterknife.Bind;

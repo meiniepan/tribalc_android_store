@@ -13,7 +13,7 @@
         android:background="#2a2a2a">
 
         <include
-            android:id="@+id/goods_list_back"
+            android:id="@+id/back"
             layout="@layout/back_img_white" />
 
         <TextView
@@ -24,10 +24,15 @@
             android:textColor="#fff"
             android:textSize="@dimen/title_size" />
     </RelativeLayout>
-
-    <com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView
-        android:id="@+id/goods_list"
+    <com.gs.buluo.common.widget.StatusLayout
+        android:id="@+id/goods_list_wrap"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView>
+        android:layout_height="match_parent">
+        <com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView
+            android:id="@+id/goods_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.gs.buluo.common.widget.StatusLayout>
+
 
 </LinearLayout>
