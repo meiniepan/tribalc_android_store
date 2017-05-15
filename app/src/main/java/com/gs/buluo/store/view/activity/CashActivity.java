@@ -26,6 +26,8 @@ import com.gs.buluo.store.network.MoneyApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.view.widget.panel.PasswordPanel;
 
+import java.math.BigDecimal;
+
 import butterknife.Bind;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -60,7 +62,12 @@ public class CashActivity extends BaseActivity {
         pwd = intent.getStringExtra(Constant.WALLET_PWD);
         float poundage = intent.getFloatExtra(Constant.POUNDAGE, 0);
         tvPoundage.setText(poundage + "");
-        availableAmount = amount - poundage > 0 ? amount - poundage : 0;
+
+        BigDecimal amountDecimal=new BigDecimal(amount+"");
+        BigDecimal poundageDecimal=new BigDecimal(poundage+"");
+
+        float floatValue = amountDecimal.subtract(poundageDecimal).floatValue();
+        availableAmount =   floatValue > 0 ? floatValue : 0;
         tvAmount.setText(availableAmount + "");
 
         findViewById(R.id.card_withdraw_all).setOnClickListener(new View.OnClickListener() {

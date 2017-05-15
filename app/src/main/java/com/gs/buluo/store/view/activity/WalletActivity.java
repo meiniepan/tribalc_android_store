@@ -51,8 +51,8 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
+    protected void onResume() {
+        super.onResume();
         ((WalletPresenter) mPresenter).getWalletInfo();
     }
 
