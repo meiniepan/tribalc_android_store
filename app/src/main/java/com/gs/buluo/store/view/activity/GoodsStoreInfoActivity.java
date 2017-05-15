@@ -46,6 +46,10 @@ public class GoodsStoreInfoActivity extends BaseActivity implements View.OnClick
     TextView tvLogo;
     @Bind(R.id.info_store_introduction)
     EditText etDesc;
+    @Bind(R.id.info_store_phone)
+    TextView tvPhone;
+    @Bind(R.id.info_store_other_phone)
+    EditText tvOtherPhone;
     private StoreMeta storeBean;
     @Bind(R.id.info_store_auth)
     Button auth;
@@ -97,6 +101,7 @@ public class GoodsStoreInfoActivity extends BaseActivity implements View.OnClick
         showLoadingDialog();
         storeBean.name = tvName.getText().toString().trim();
         storeBean.desc = etDesc.getText().toString().trim();
+        storeBean.otherPhone = tvOtherPhone.getText().toString().trim();
         ((StoreInfoPresenter)mPresenter).updateStore(storeBean);
     }
 
@@ -117,7 +122,8 @@ public class GoodsStoreInfoActivity extends BaseActivity implements View.OnClick
             double lan = data.getDoubleExtra(Constant.LATITUDE, 0);
             double lon = data.getDoubleExtra(Constant.LONGITUDE,0);
             storeBean.coordinate = new double[]{lon,lan};
-            tvSend.setText(storeBean.province + storeBean.city + storeBean.district + storeBean.address);
+            String totalAddress = storeBean.province + storeBean.city + storeBean.district + storeBean.address;
+            tvSend.setText(storeBean.province==null? "" :totalAddress );
         }
     }
 
@@ -154,8 +160,11 @@ public class GoodsStoreInfoActivity extends BaseActivity implements View.OnClick
         }
         storeBean = data;
         tvName.setText(data.name);
+        tvPhone.setText(data.phone);
+        tvOtherPhone.setText(data.otherPhone);
         if (data.category!=null)tvCategory.setText(data.category.toString());
-        tvSend.setText(data.province + data.city + data.district + data.address);
+        String totalAddress = data.province + data.city + data.district + data.address;
+        tvSend.setText(data.province==null?"":totalAddress);
         etDesc.setText(data.desc);
     }
 

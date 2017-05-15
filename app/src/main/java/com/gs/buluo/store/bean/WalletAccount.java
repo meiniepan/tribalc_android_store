@@ -17,6 +17,7 @@ public class WalletAccount implements IBaseResponse {
 
     public String id;
     public float balance;
+    public float withdrawCharge;
     public STATUS state;
     public String lastTrading;
     public String password;

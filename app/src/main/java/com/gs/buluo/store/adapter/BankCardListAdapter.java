@@ -67,66 +67,66 @@ public class BankCardListAdapter extends BaseAdapter {
         holder.bankName.setText(card.bankName);
         holder.cardNum.setText(card.bankCardNum.substring(card.bankCardNum.length() - 4, card.bankCardNum.length()));
 
-        switch (card.bankName) {
-            case "中国工商银行":
+        switch (card.bankCode) {
+            case "ICBC":
                 holder.cardIcon.setImageResource(R.mipmap.bank_logo_icbc);
-                holder.card.setBackgroundResource(R.mipmap.bank_bg_01);
+                holder.card.setBackgroundResource(R.mipmap.bank_bg_02);
                 break;
-            case "中国农业银行":
+            case "ABC":
                 holder.cardIcon.setImageResource(R.mipmap.bank_logo_abc);
                 holder.card.setBackgroundResource(R.mipmap.bank_bg_03);
                 break;
-            case "中国建设银行":
+            case "CCB":
                 holder.cardIcon.setImageResource(R.mipmap.bank_logo_ccb);
                 holder.card.setBackgroundResource(R.mipmap.bank_bg_01);
                 break;
-            case "中国银行":
+            case "BOC":
                 holder.cardIcon.setImageResource(R.mipmap.bank_logo_boc);
                 holder.card.setBackgroundResource(R.mipmap.bank_bg_02);
                 break;
-            case "中国交通银行":
+            case "BCOM":
                 holder.cardIcon.setImageResource(R.mipmap.bank_logo_bcom);
                 holder.card.setBackgroundResource(R.mipmap.bank_bg_01);
                 break;
-            case "兴业银行":
+            case "CIB":
                 holder.cardIcon.setImageResource(R.mipmap.bank_logo_cib);
                 holder.card.setBackgroundResource(R.mipmap.bank_bg_01);
                 break;
-            case "中信银行":
+            case "CITIC":
                 holder.cardIcon.setImageResource(R.mipmap.bank_logo_citic);
                 holder.card.setBackgroundResource(R.mipmap.bank_bg_02);
                 break;
-            case "中国光大银行":
+            case "CEB":
                 holder.cardIcon.setImageResource(R.mipmap.bank_logo_ceb);
                 holder.card.setBackgroundResource(R.mipmap.bank_bg_04);
                 break;
-            case "平安银行":
+            case "PAB":
                 holder.cardIcon.setImageResource(R.mipmap.bank_logo_pab);
-                holder.card.setBackgroundResource(R.mipmap.bank_bg_01);
-                break;
-            case "中国邮政储蓄":
-                holder.cardIcon.setImageResource(R.mipmap.bank_logo_psbc);
                 holder.card.setBackgroundResource(R.mipmap.bank_bg_02);
                 break;
-            case "上海银行":
+            case "PSBC":
+                holder.cardIcon.setImageResource(R.mipmap.bank_logo_psbc);
+                holder.card.setBackgroundResource(R.mipmap.bank_bg_03);
+                break;
+            case "SHB":
                 holder.cardIcon.setImageResource(R.mipmap.bank_logo_shb);
                 holder.card.setBackgroundResource(R.mipmap.bank_bg_01);
                 break;
-            case "浦东发展银行":
+            case "SPDB":
                 holder.cardIcon.setImageResource(R.mipmap.bank_logo_spdb);
                 holder.card.setBackgroundResource(R.mipmap.bank_bg_01);
                 break;
-            case "中国民生银行":
-                holder.cardIcon.setImageResource(R.mipmap.bank_logo_cmsb);
-                holder.card.setBackgroundResource(R.mipmap.bank_bg_01);
-                break;
-            case "中国招商银行":
+            case "CMB":
                 holder.cardIcon.setImageResource(R.mipmap.bank_logo_cmb);
                 holder.card.setBackgroundResource(R.mipmap.bank_bg_02);
                 break;
-            case "广东发展银行":
+            case "GDB":
                 holder.cardIcon.setImageResource(R.mipmap.bank_logo_gdb);
                 holder.card.setBackgroundResource(R.mipmap.bank_bg_01);
+                break;
+            case "BOB":
+                holder.cardIcon.setImageResource(R.mipmap.bank_logo_cmb);
+                holder.card.setBackgroundResource(R.mipmap.bank_bg_02);
                 break;
 //            case "华夏银行":
 //                holder.cardIcon.setImageResource(R.mipmap.bank_logo_hb);

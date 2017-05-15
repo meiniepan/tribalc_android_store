@@ -27,6 +27,7 @@ public class Constant {
     public static final String WALLET_AMOUNT = "wallet_amount";
     public static final String CASH_FLAG = "cash_flag";
     public static final String BANK_CARD = "bank_card";
+    public static final String POUNDAGE = "poundage";
 
     public final static class Base {
         public static final String BASE = "https://app-services.buluo-gs.com/";

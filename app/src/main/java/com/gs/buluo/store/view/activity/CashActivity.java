@@ -48,19 +48,27 @@ public class CashActivity extends BaseActivity {
     TextView tvAmount;
     @Bind(R.id.withdraw_finish)
     Button btWithdraw;
+    @Bind(R.id.cash_poundage)
+    TextView tvPoundage;
     private float amount;
     private String pwd;
     private String chooseCardId;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        amount = getIntent().getFloatExtra(Constant.WALLET_AMOUNT, 0);
-        pwd = getIntent().getStringExtra(Constant.WALLET_PWD);
-        tvAmount.setText(amount + "");
+        Intent intent = getIntent();
+        amount = intent.getFloatExtra(Constant.WALLET_AMOUNT, 0);
+        pwd = intent.getStringExtra(Constant.WALLET_PWD);
+        float poundage = intent.getFloatExtra(Constant.POUNDAGE,0);
+        tvPoundage.setText(poundage+"");
+        tvAmount.setText((amount-poundage>0? amount-poundage: 0 )+ "");
 
         findViewById(R.id.card_withdraw_all).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (chooseCardId==null){
+                    ToastUtils.ToastMessage(getCtx(),"请先选择银行卡");
+                }
                 doWithDraw(amount);
             }
         });
@@ -146,6 +154,7 @@ public class CashActivity extends BaseActivity {
         }
         if (chooseCardId==null){
             ToastUtils.ToastMessage(getCtx(),"请先选择银行卡");
+            return;
         }
         PasswordPanel passwordPanel = new PasswordPanel(this, pwd, new PasswordPanel.OnPasswordPanelDismissListener() {
             @Override
