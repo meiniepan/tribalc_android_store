@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.Constant;
@@ -62,7 +61,6 @@ public class Authentication2Activity extends BaseActivity {
             public void onClick(View v) {
                 if (front==null||back==null)return;
                 List<String> list=new ArrayList<>();
-                Toast.makeText(Authentication2Activity.this, front, Toast.LENGTH_SHORT).show();
                 list.add(front);
                 list.add(back);
                 data.idCardPicture = list;
@@ -111,11 +109,11 @@ public class Authentication2Activity extends BaseActivity {
                     frontImg.setVisibility(View.VISIBLE);
                     front = data.objectKey;
                     GlideUtils.loadImage(getCtx(),data.objectKey,frontImg);
-//                    findViewById(R.id.identify_front).setVisibility(View.GONE);
+                    findViewById(R.id.identify_front).setVisibility(View.GONE);
                 }else {
                     backImg.setVisibility(View.VISIBLE);
                     back=data.objectKey;
-//                    findViewById(R.id.identify_back).setVisibility(View.GONE);
+                    findViewById(R.id.identify_back).setVisibility(View.GONE);
                     GlideUtils.loadImage(getCtx(),data.objectKey,backImg);
                 }
             }

@@ -89,7 +89,7 @@ public class CameraManager {
            // parameters.setPreviewSize(800, 600);
             parameters.setPictureFormat(ImageFormat.JPEG);
             parameters.setJpegQuality(100);
-           // parameters.setPictureSize(800, 600);
+            parameters.setPictureSize(800, 600);
             theCamera.setParameters(parameters);
         }
     }
@@ -149,8 +149,10 @@ public class CameraManager {
         Log.e(TAG, "openLight");
         if (camera != null) {
             parameters = camera.getParameters();
-            parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-            camera.setParameters(parameters);
+            if (parameters!=null){
+                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                camera.setParameters(parameters);
+            }
         }
     }
 
