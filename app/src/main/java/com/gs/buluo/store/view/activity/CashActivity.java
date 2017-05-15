@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.utils.ToastUtils;
+import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
@@ -24,7 +24,6 @@ import com.gs.buluo.store.bean.RequestBodyBean.WithdrawRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.network.MoneyApis;
 import com.gs.buluo.store.network.TribeRetrofit;
-import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.gs.buluo.store.view.widget.panel.PasswordPanel;
 
 import butterknife.Bind;
@@ -50,26 +49,28 @@ public class CashActivity extends BaseActivity {
     Button btWithdraw;
     @Bind(R.id.cash_poundage)
     TextView tvPoundage;
-    private float amount;
     private String pwd;
     private String chooseCardId;
+    private float availableAmount;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
         Intent intent = getIntent();
-        amount = intent.getFloatExtra(Constant.WALLET_AMOUNT, 0);
+        float amount = intent.getFloatExtra(Constant.WALLET_AMOUNT, 0);
         pwd = intent.getStringExtra(Constant.WALLET_PWD);
-        float poundage = intent.getFloatExtra(Constant.POUNDAGE,0);
-        tvPoundage.setText(poundage+"");
-        tvAmount.setText((amount-poundage>0? amount-poundage: 0 )+ "");
+        float poundage = intent.getFloatExtra(Constant.POUNDAGE, 0);
+        tvPoundage.setText(poundage + "");
+        availableAmount = amount - poundage > 0 ? amount - poundage : 0;
+        tvAmount.setText(availableAmount + "");
 
         findViewById(R.id.card_withdraw_all).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (chooseCardId==null){
-                    ToastUtils.ToastMessage(getCtx(),"请先选择银行卡");
+                if (chooseCardId == null) {
+                    ToastUtils.ToastMessage(getCtx(), "请先选择银行卡");
+                    return;
                 }
-                doWithDraw(amount);
+                doWithDraw(availableAmount);
             }
         });
         findViewById(R.id.card_choose_card).setOnClickListener(new View.OnClickListener() {
@@ -129,7 +130,7 @@ public class CashActivity extends BaseActivity {
                 ivIcon.setImageResource(R.mipmap.default_pic);
 
             tvName.setText(card.bankName);
-            tvEnd.setText(card.bankCardNum.substring(card.bankCardNum.length()-4,card.bankCardNum.length()));
+            tvEnd.setText(card.bankCardNum.substring(card.bankCardNum.length() - 4, card.bankCardNum.length()));
         }
     }
 
@@ -143,8 +144,8 @@ public class CashActivity extends BaseActivity {
                 }).setNegativeButton("取消", null).create().show();
     }
 
-    public void clickWithdraw(View view){
-        doWithDraw(0);
+    public void clickWithdraw(View view) {
+        doWithDraw(Float.parseFloat(etWithdraw.getText().toString().trim()));
     }
 
     public void doWithDraw(final float number) {
@@ -152,8 +153,12 @@ public class CashActivity extends BaseActivity {
             showAlert();
             return;
         }
-        if (chooseCardId==null){
-            ToastUtils.ToastMessage(getCtx(),"请先选择银行卡");
+        if (chooseCardId == null) {
+            ToastUtils.ToastMessage(getCtx(), getString(R.string.choose_bank_card));
+            return;
+        }
+        if (number > availableAmount) {
+            ToastUtils.ToastMessage(getCtx(), getString(R.string.withdraw_too_much));
             return;
         }
         PasswordPanel passwordPanel = new PasswordPanel(this, pwd, new PasswordPanel.OnPasswordPanelDismissListener() {
@@ -168,22 +173,12 @@ public class CashActivity extends BaseActivity {
     }
 
     private void finishWithDraw(float number) {
-        float cash;
-        if (number == 0) {
-            cash = Float.parseFloat(etWithdraw.getText().toString().trim());
-            if (cash > amount) {
-                ToastUtils.ToastMessage(getCtx(), getString(R.string.withdraw_too_much));
-                return;
-            }
-        } else {
-            cash = number;
-        }
-        if (TextUtils.isEmpty(chooseCardId)){
-            ToastUtils.ToastMessage(getCtx(),getString(R.string.please_choose_card));
+        if (TextUtils.isEmpty(chooseCardId)) {
+            ToastUtils.ToastMessage(getCtx(), getString(R.string.please_choose_card));
             return;
         }
         WithdrawRequestBody body = new WithdrawRequestBody();
-        body.amount = cash;
+        body.amount = number;
         body.bankCardId = chooseCardId;
 
         TribeRetrofit.getInstance().createApi(MoneyApis.class).withdrawCash(TribeApplication.getInstance().getUserInfo().getId(), body)
