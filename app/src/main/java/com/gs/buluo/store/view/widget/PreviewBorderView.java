@@ -103,6 +103,7 @@ public class PreviewBorderView extends SurfaceView implements SurfaceHolder.Call
     private void draw() {
         try {
             this.mCanvas = this.mHolder.lockCanvas();
+
             this.mCanvas.drawARGB(100, 0, 0, 0);
             this.mScreenW = (this.mScreenH * 4 / 3);
             Log.e("TAG","mScreenW:"+mScreenW+" mScreenH:"+mScreenH);
