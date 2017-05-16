@@ -14,8 +14,6 @@ import java.io.IOException;
  */
 public class CameraManager {
     private static final String TAG = CameraManager.class.getName();
-    private final int mWidth;
-    private final int mHeight;
     private Camera camera;
     private Camera.Parameters parameters;
     private AutoFocusManager autoFocusManager;
@@ -23,10 +21,7 @@ public class CameraManager {
 
     private boolean initialized;
     private boolean previewing;
-public CameraManager(int width,int height){
-    mWidth = width;
-    mHeight = height;
-}
+
     /**
      * 打开摄像头
      *

@@ -11,11 +11,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -30,7 +28,6 @@ import java.lang.reflect.Field;
 
 public class CameraActivity extends AppCompatActivity implements SurfaceHolder.Callback {
     private PreviewBorderView mPreviewBorderView;
-
     private SurfaceView mSurfaceView;
 
     private CameraManager cameraManager;
@@ -113,12 +110,12 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
 
 
         RelativeLayout.LayoutParams surfaceviewParams = (RelativeLayout.LayoutParams) mSurfaceView.getLayoutParams();
-        surfaceviewParams.width = widthPixels;
+        surfaceviewParams.width = heightPixels * 4 / 3;
         surfaceviewParams.height = heightPixels;
         mSurfaceView.setLayoutParams(surfaceviewParams);
 
         RelativeLayout.LayoutParams borderViewParams = (RelativeLayout.LayoutParams) mPreviewBorderView.getLayoutParams();
-        borderViewParams.width = widthPixels;
+        borderViewParams.width = heightPixels * 4 / 3;
         borderViewParams.height = heightPixels;
         mPreviewBorderView.setLayoutParams(borderViewParams);
 
@@ -136,11 +133,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
         /**
          * 初始化camera
          */
-        WindowManager windowManager = getWindowManager();
-        Display display = windowManager.getDefaultDisplay();
-        int screenWidth  = display.getWidth();
-        int screenHeight  = display.getHeight();
-        cameraManager = new CameraManager(screenWidth,screenHeight);
+        cameraManager = new CameraManager();
         SurfaceView surfaceView = (SurfaceView) findViewById(R.id.surfaceview);
         SurfaceHolder surfaceHolder = surfaceView.getHolder();
 
@@ -221,7 +214,7 @@ public class CameraActivity extends AppCompatActivity implements SurfaceHolder.C
                     data.length);
             int height = bitmap.getHeight();
             int width = bitmap.getWidth();
-            final Bitmap bitmap1 = Bitmap.createBitmap(bitmap, (width - height) /5,(int) (height * 0.22), height*23/24,(int) (height * 0.62));
+            final Bitmap bitmap1 = Bitmap.createBitmap(bitmap, (width - height) / 2, height / 6, height, height * 2 / 3);
             Log.e("TAG","width:"+width+" height:"+height);
             Log.e("TAG","x:"+(width - height) / 2+" y:"+height / 6+" width:"+height+" height:"+height * 2 / 3);
             // 创建一个位于SD卡上的文件
