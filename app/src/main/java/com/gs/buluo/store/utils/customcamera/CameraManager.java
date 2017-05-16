@@ -89,7 +89,7 @@ public class CameraManager {
            // parameters.setPreviewSize(800, 600);
             parameters.setPictureFormat(ImageFormat.JPEG);
             parameters.setJpegQuality(100);
-            parameters.setPictureSize(800, 600);
+//            parameters.setPictureSize(800, 600);
             theCamera.setParameters(parameters);
         }
     }
