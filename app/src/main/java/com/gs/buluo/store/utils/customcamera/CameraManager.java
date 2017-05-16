@@ -14,6 +14,8 @@ import java.io.IOException;
  */
 public class CameraManager {
     private static final String TAG = CameraManager.class.getName();
+    private final int mWidth;
+    private final int mHeight;
     private Camera camera;
     private Camera.Parameters parameters;
     private AutoFocusManager autoFocusManager;
@@ -21,7 +23,10 @@ public class CameraManager {
 
     private boolean initialized;
     private boolean previewing;
-
+public CameraManager(int width,int height){
+    mWidth = width;
+    mHeight = height;
+}
     /**
      * 打开摄像头
      *
@@ -86,10 +91,12 @@ public class CameraManager {
         if (!initialized) {
             initialized = true;
             parameters = camera.getParameters();
-           // parameters.setPreviewSize(800, 600);
+            Camera.Size pictureS = MyCamPara.getInstance().getPreviewSize(parameters.getSupportedPreviewSizes(), 800);
+            Camera.Size pictureS2 = MyCamPara.getInstance().getPictureSize(parameters.getSupportedPictureSizes(), 800);
+            parameters.setPreviewSize(pictureS.width, pictureS.height);
             parameters.setPictureFormat(ImageFormat.JPEG);
             parameters.setJpegQuality(100);
-//            parameters.setPictureSize(800, 600);
+            parameters.setPictureSize(pictureS2.width, pictureS2.height);
             theCamera.setParameters(parameters);
         }
     }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.Constant;
@@ -15,7 +16,6 @@ import com.gs.buluo.store.bean.AuthenticationData;
 import com.gs.buluo.store.bean.ResponseBody.UploadResponseBody;
 import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.store.utils.GlideUtils;
-import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import cn.finalteam.galleryfinal.FunctionConfig;
 
 /**
  * Created by hjn on 2017/1/12.
@@ -63,6 +62,7 @@ public class Authentication2Activity extends BaseActivity {
             public void onClick(View v) {
                 if (front==null||back==null)return;
                 List<String> list=new ArrayList<>();
+                Toast.makeText(Authentication2Activity.this, front, Toast.LENGTH_SHORT).show();
                 list.add(front);
                 list.add(back);
                 data.idCardPicture = list;
@@ -81,25 +81,25 @@ public class Authentication2Activity extends BaseActivity {
 
     private void showChoosePhoto(final boolean isFront) {
         Intent intent = new Intent(Authentication2Activity.this, CameraActivity.class);
-//        if (isFront){
-//            startActivityForResult(intent, 100);
-//        }else{
-//            startActivityForResult(intent, 101);
-//        }
-        FunctionConfig functionConfig = new FunctionConfig.Builder()
-                .setEnableEdit(true)
-                .setEnableCamera(true)
-                .setEnableRotate(true)
-                .setEnablePreview(true)
-                .build();
-        ChoosePhotoPanel panel=new ChoosePhotoPanel(this, functionConfig, new ChoosePhotoPanel.OnSelectedFinished() {
-            @Override
-            public void onSelected(String string) {
-                showLoadingDialog();
-                uploadPic(string,isFront);
-            }
-        });
-        panel.show();
+        if (isFront){
+            startActivityForResult(intent, 100);
+        }else{
+            startActivityForResult(intent, 101);
+        }
+//        FunctionConfig functionConfig = new FunctionConfig.Builder()
+//                .setEnableEdit(true)
+//                .setEnableCamera(true)
+//                .setEnableRotate(true)
+//                .setEnablePreview(true)
+//                .build();
+//        ChoosePhotoPanel panel=new ChoosePhotoPanel(this, functionConfig, new ChoosePhotoPanel.OnSelectedFinished() {
+//            @Override
+//            public void onSelected(String string) {
+//                showLoadingDialog();
+//                uploadPic(string,isFront);
+//            }
+//        });
+//        panel.show();
     }
 
     private void uploadPic(String pic, final boolean isFront) {
@@ -111,11 +111,11 @@ public class Authentication2Activity extends BaseActivity {
                     frontImg.setVisibility(View.VISIBLE);
                     front = data.objectKey;
                     GlideUtils.loadImage(getCtx(),data.objectKey,frontImg);
-                    findViewById(R.id.identify_front).setVisibility(View.GONE);
+//                    findViewById(R.id.identify_front).setVisibility(View.GONE);
                 }else {
                     backImg.setVisibility(View.VISIBLE);
                     back=data.objectKey;
-                    findViewById(R.id.identify_back).setVisibility(View.GONE);
+//                    findViewById(R.id.identify_back).setVisibility(View.GONE);
                     GlideUtils.loadImage(getCtx(),data.objectKey,backImg);
                 }
             }
@@ -131,6 +131,7 @@ public class Authentication2Activity extends BaseActivity {
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e("TAG","onActivityResult");
         if (requestCode == 100) {
             if (resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
