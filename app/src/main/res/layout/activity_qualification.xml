@@ -64,9 +64,14 @@
         android:background="@drawable/text_background_round"
         android:gravity="center"
         android:layout_gravity="center_horizontal">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
         <TextView
             android:id="@+id/identify_front"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="身份证正面照上传"
@@ -80,6 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
+    </FrameLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -91,9 +97,14 @@
         android:background="@drawable/text_background_round"
         android:gravity="center"
         android:layout_gravity="center_horizontal">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
         <TextView
             android:id="@+id/identify_back"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="身份证反面照上传"
@@ -105,6 +116,7 @@
             android:scaleType="fitCenter"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+        </FrameLayout>
     </LinearLayout>
 
     <RelativeLayout

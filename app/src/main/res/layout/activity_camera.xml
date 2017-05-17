@@ -21,7 +21,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
-        app:tipTextColor="#2586bf"
+        app:tipTextColor="#ffff00"
         app:tipTextSize="18sp"
         />
 
@@ -53,7 +53,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="42dp"
-        android:src="@mipmap/custom_camera_back_capture"
+        android:src="@drawable/camera_btn_select"
         />
 
 
