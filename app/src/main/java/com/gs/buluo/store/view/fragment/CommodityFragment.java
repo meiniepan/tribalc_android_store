@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.gs.buluo.common.widget.RecycleViewDivider;
+import com.gs.buluo.common.widget.StatusLayout;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
@@ -119,6 +120,7 @@ public class CommodityFragment extends BaseFragment implements IStoreGoodsView, 
         recyclerViewSale.addItemDecoration(new RecycleViewDivider(
                 getActivity(), LinearLayoutManager.HORIZONTAL, 12, getResources().getColor(R.color.tint_bg)));
         recyclerViewSale.setSwipeRefreshColorsFromRes(R.color.common_gray, R.color.custom_color_shallow, R.color.custom_yellow);
+        recyclerViewSale.showProgress();
         ((StoreGoodsPresenter) mPresenter).getGoodsListFirst(true);
         recyclerViewSale.setRefreshAction(new Action() {
             @Override
@@ -148,6 +150,7 @@ public class CommodityFragment extends BaseFragment implements IStoreGoodsView, 
 
     @Override
     public void getGoodsSuccess(StoreGoodsList data, boolean published) {
+        recyclerViewSale.dismissProgress();
         if (published) {
             tvSaleNum.setText(data.publishedAmount);
             recyclerViewSale.dismissSwipeRefresh();
@@ -157,6 +160,7 @@ public class CommodityFragment extends BaseFragment implements IStoreGoodsView, 
             recyclerViewStore.dismissSwipeRefresh();
             goodsListAdapter.addAll(data.content);
         }
+
     }
 
     @Override
@@ -171,17 +175,17 @@ public class CommodityFragment extends BaseFragment implements IStoreGoodsView, 
     public void showNoData(boolean published) {
         if (published) {
             if (saleListAdapter.getData() != null && saleListAdapter.getData().size() == 0)
-                recyclerViewSale.showNoData(R.string.no_goods_add);
+                recyclerViewSale.showNoData(getString(R.string.no_goods_add));
         } else {
             if (saleListAdapter.getData() != null && saleListAdapter.getData().size() == 0)
-                recyclerViewStore.showNoData(R.string.no_goods_add);
+                recyclerViewStore.showNoData(getString(R.string.no_goods_add));
         }
     }
 
     @Override
     public void showError(int res) {
+        ToastUtils.ToastMessage(getActivity(),res);
         recyclerViewSale.dismissSwipeRefresh();
-        ToastUtils.ToastMessage(getActivity(), res);
     }
 
 

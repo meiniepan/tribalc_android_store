@@ -22,11 +22,6 @@ import retrofit2.Callback;
  * Created by hjn on 2016/11/18.
  */
 public class MoneyModel {
-    public void getWelletInfo(String uid, Callback<BaseResponse<WalletAccount>> callback) {
-        TribeRetrofit.getInstance().createApi(MoneyApis.class).
-                getWallet(uid).enqueue(callback);
-    }
-
 
     public void getBillList(String uid, String sortSkip, Callback<BillResponse> callback) {
         TribeRetrofit.getInstance().createApi(MoneyApis.class).

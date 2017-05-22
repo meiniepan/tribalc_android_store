@@ -78,6 +78,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 params = new HashMap<>();
                 params.put(Constant.PHONE, phone);
                 params.put(Constant.VERIFICATION, et_verify.getText().toString().trim());
+                showLoadingDialog();
                 ((LoginPresenter) mPresenter).doLogin(params);
                 break;
             case R.id.login_protocol:

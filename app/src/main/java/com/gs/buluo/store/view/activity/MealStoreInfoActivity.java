@@ -131,7 +131,6 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void setData(StoreMeta data) {
-        dismissDialog();
         storeBean = data;
         if (data.category == StoreMeta.StoreCategory.REPAST) {
             initCookingStyle();
@@ -202,7 +201,6 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void setMealData(StoreSetMealCreation mealData) {
-        dismissDialog();
         mealCreation = mealData;
         tvFee.setText(mealData.personExpense);
         tvRecommend.setText(mealData.recommendedReason);
@@ -377,13 +375,11 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void showError(int res) {
-        dismissDialog();
         ToastUtils.ToastMessage(this,res);
     }
 
     @Override
     public void updateSuccess() {
-        dismissDialog();
         ToastUtils.ToastMessage(this,R.string.update_success);
         finish();
     }

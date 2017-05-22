@@ -15,7 +15,7 @@ import com.gs.buluo.store.bean.BankCard;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.model.MoneyModel;
 import com.gs.buluo.common.utils.ToastUtils;
-import com.gs.buluo.store.view.widget.LoadingDialog;
+import com.gs.buluo.common.widget.LoadingDialog;
 import com.gs.buluo.common.widget.CustomAlertDialog;
 
 import java.util.ArrayList;

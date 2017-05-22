@@ -73,7 +73,7 @@ public class GoodsDetailActivity extends BaseActivity implements View.OnClickLis
         mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         mBanner.isAutoPlay(false);
         id = getIntent().getStringExtra(Constant.GOODS_ID);
-
+        showLoadingDialog();
         ((GoodsDetailPresenter) mPresenter).getGoodsDetail(id);
 
         findViewById(R.id.goods_detail_back).setOnClickListener(this);
@@ -120,11 +120,13 @@ public class GoodsDetailActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void showError(int res) {
+        dismissDialog();
         ToastUtils.ToastMessage(this, res);
     }
 
     @Override
     public void getDetailSuccess(ListGoodsDetail goodsEntity) {
+        dismissDialog();
         this.goodsEntity = goodsEntity;
         panel.setRepertory(goodsEntity);
         if (this.goodsEntity.standardId != null) {

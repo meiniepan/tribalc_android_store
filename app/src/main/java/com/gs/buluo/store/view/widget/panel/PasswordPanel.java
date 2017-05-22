@@ -21,7 +21,7 @@ import com.gs.buluo.store.eventbus.PaymentEvent;
 import com.gs.buluo.store.model.MoneyModel;
 import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.common.utils.ToastUtils;
-import com.gs.buluo.store.view.widget.LoadingDialog;
+import com.gs.buluo.common.widget.LoadingDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.xutils.common.util.MD5;

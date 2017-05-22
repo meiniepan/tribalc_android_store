@@ -28,7 +28,7 @@ import rx.Observable;
  */
 public interface MoneyApis {
     @GET("wallets/{id}")
-    Call<BaseResponse<WalletAccount>> getWallet(
+    Observable<BaseResponse<WalletAccount>> getWallet(
             @Path("id") String uid);
 
 

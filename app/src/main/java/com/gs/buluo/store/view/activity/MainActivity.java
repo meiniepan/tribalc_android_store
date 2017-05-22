@@ -28,7 +28,7 @@ import com.gs.buluo.store.view.fragment.CommodityFragment;
 import com.gs.buluo.store.view.fragment.MainFragment;
 import com.gs.buluo.store.view.fragment.MineFragment;
 import com.gs.buluo.store.view.fragment.ManagerFragment;
-import com.gs.buluo.store.view.widget.LoadingDialog;
+import com.gs.buluo.common.widget.LoadingDialog;
 import com.gs.buluo.store.view.widget.panel.UpdatePanel;
 
 import org.greenrobot.eventbus.EventBus;

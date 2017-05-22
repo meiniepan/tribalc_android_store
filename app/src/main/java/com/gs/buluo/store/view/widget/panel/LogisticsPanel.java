@@ -14,7 +14,7 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.OrderBean;
 import com.gs.buluo.store.presenter.OrderPresenter;
 import com.gs.buluo.common.utils.DensityUtils;
-import com.gs.buluo.store.view.widget.LoadingDialog;
+import com.gs.buluo.common.widget.LoadingDialog;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.util.ArrayList;

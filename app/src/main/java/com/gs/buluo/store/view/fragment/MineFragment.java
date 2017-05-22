@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -230,6 +231,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 });
     }
 
+
     public void setLoginState(boolean loginState) {
         if (null == llUnLogin || null == llLogin) {
             SystemClock.sleep(500);
@@ -272,12 +274,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     }
 
     public void getAuthInfo() {
+        showLoadingDialog();
         TribeRetrofit.getInstance().createApi(MainApis.class).getAuth(TribeApplication.getInstance().getUserInfo().getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse<AuthenticationData>>() {
                     @Override
                     public void onNext(BaseResponse<AuthenticationData> response) {
+                        dismissDialog();
                         AuthenticationData data = response.data;
                         StoreInfoDao dao=new StoreInfoDao();
                         StoreInfo storeInfo = dao.findFirst();

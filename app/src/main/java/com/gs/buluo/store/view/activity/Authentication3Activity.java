@@ -68,6 +68,7 @@ public class Authentication3Activity extends BaseActivity {
     }
 
     private void doAuth() {
+        showLoadingDialog();
         TribeRetrofit.getInstance().createApi(MainApis.class).doAuthentication(TribeApplication.getInstance().getUserInfo().getId(), data)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

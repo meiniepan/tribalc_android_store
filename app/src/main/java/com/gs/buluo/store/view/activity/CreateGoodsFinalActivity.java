@@ -253,6 +253,8 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
             ToastUtils.ToastMessage(this, R.string.tags_max);
             return;
         }
+
+        showLoadingDialog();
         if (goodsMeta.isEdit) {
             updateGoods();
         } else {
@@ -274,6 +276,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
                     @Override
                     public void onNext(BaseResponse<List<GoodsMeta>> goodListBaseResponse) {
                         ToastUtils.ToastMessage(getCtx(), R.string.add_success);
+                        dismissDialog();
                         Intent intent = new Intent(getCtx(), MainActivity.class);
                         intent.putExtra(Constant.ForIntent.FLAG, Constant.GOODS);
                         startActivity(intent);
@@ -289,6 +292,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
                 .subscribe(new BaseSubscriber<BaseResponse<CodeResponse>>() {
                     @Override
                     public void onNext(BaseResponse<CodeResponse> codeResponseBaseResponse) {
+                        dismissDialog();
                         ToastUtils.ToastMessage(getCtx(), R.string.update_success);
                         Intent intent = new Intent(getCtx(), MainActivity.class);
                         intent.putExtra(Constant.ForIntent.FLAG, Constant.GOODS);

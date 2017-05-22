@@ -62,6 +62,7 @@ public class GoodsStoreInfoActivity extends BaseActivity implements View.OnClick
         findViewById(R.id.info_store_save).setOnClickListener(this);
         findViewById(R.id.ll_store_info_address).setOnClickListener(this);
         auth.setOnClickListener(this);
+        showLoadingDialog();
         ((StoreInfoPresenter)mPresenter).getDetailStoreInfo();
     }
 
@@ -149,12 +150,14 @@ public class GoodsStoreInfoActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void updateSuccess() {
+        dismissDialog();
         ToastUtils.ToastMessage(this,R.string.update_success);
         finish();
     }
 
     @Override
     public void setData(StoreMeta data) {
+        dismissDialog();
         if (TextUtils.equals(data.authenticationStatus,"NOT_START")){
             auth.setVisibility(View.VISIBLE);
         }
@@ -174,6 +177,7 @@ public class GoodsStoreInfoActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void showError(int res) {
+        dismissDialog();
         ToastUtils.ToastMessage(this,res);
     }
 

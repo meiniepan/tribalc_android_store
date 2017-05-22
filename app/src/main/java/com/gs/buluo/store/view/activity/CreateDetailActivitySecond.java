@@ -140,6 +140,7 @@ public class CreateDetailActivitySecond extends BaseActivity implements View.OnC
     }
 
     private void createStore() {
+        showLoadingDialog();
         TribeRetrofit.getInstance().createApi(MainApis.class).createStore(TribeApplication.getInstance().getUserInfo().getId(), storeBean)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

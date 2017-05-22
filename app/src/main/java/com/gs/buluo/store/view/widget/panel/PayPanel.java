@@ -13,26 +13,25 @@ import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
+import com.gs.buluo.common.network.BaseResponse;
+import com.gs.buluo.common.network.BaseSubscriber;
+import com.gs.buluo.common.utils.DensityUtils;
+import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.ResponseCode;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.OrderBean;
-import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.WalletAccount;
-import com.gs.buluo.store.model.MoneyModel;
+import com.gs.buluo.store.network.MoneyApis;
+import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.CommonUtils;
-import com.gs.buluo.common.utils.DensityUtils;
-import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.activity.UpdateWalletPwdActivity;
-import com.gs.buluo.common.widget.CustomAlertDialog;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by hjn on 2016/12/7.
@@ -85,31 +84,25 @@ public class PayPanel extends Dialog implements PasswordPanel.OnPasswordPanelDis
 
 
     public void getWalletInfo() {
-        new MoneyModel().getWelletInfo(TribeApplication.getInstance().getUserInfo().getId(), new Callback<BaseResponse<WalletAccount>>() {
-            @Override
-            public void onResponse(Call<BaseResponse<WalletAccount>> call, Response<BaseResponse<WalletAccount>> response) {
-                if (response.body() != null && response.body().data != null && response.body().code == ResponseCode.GET_SUCCESS) {
-                    String password = response.body().data.password;
-                    float balance = response.body().data.balance;
-                    if (password == null) {
-                        showAlert();
-                    } else {
-                        if (Float.parseFloat(price) > balance) {
-                            showNotEnough(balance+"");
+        TribeRetrofit.getInstance().createApi(MoneyApis.class).getWallet(TribeApplication.getInstance().getUserInfo().getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<WalletAccount>>() {
+                    @Override
+                    public void onNext(BaseResponse<WalletAccount> response) {
+                        String password = response.data.password;
+                        float balance = response.data.balance;
+                        if (password == null) {
+                            showAlert();
                         } else {
-                            showPasswordPanel(password);
+                            if (Float.parseFloat(price) > balance) {
+                                showNotEnough(balance + "");
+                            } else {
+                                showPasswordPanel(password);
+                            }
                         }
                     }
-                } else {
-                    ToastUtils.ToastMessage(getContext(), R.string.connect_fail);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BaseResponse<WalletAccount>> call, Throwable t) {
-                ToastUtils.ToastMessage(getContext(), R.string.connect_fail);
-            }
-        });
+                });
     }
 
     private void showNotEnough(final String balance) {

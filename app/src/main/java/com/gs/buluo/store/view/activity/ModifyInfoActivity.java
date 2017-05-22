@@ -23,7 +23,7 @@ import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.SelfPresenter;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.ISelfView;
-import com.gs.buluo.store.view.widget.LoadingDialog;
+import com.gs.buluo.common.widget.LoadingDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -72,6 +72,7 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
                         StoreMeta bean = new StoreMeta();
                         String value = name.getText().toString().trim();
                         bean.linkman=value;
+                        showLoadingDialog();
                         ((SelfPresenter) mPresenter).updateUser(Constant.LINKMAN, value, bean);
                     }
                 });
@@ -90,6 +91,7 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
                         StoreMeta bean = new StoreMeta();
                         String value = storeName.getText().toString().trim();
                         bean.setName(value);
+                        showLoadingDialog();
                         ((SelfPresenter) mPresenter).updateUser(Constant.NAME, value, bean);
                     }
                 });
@@ -161,7 +163,7 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void updateSuccess(String key, String value) {
-        LoadingDialog.getInstance().dismissDialog();
+        dismissDialog();
         switch (key) {
             case Constant.NAME:
                 intent.putExtra(Constant.NAME, value);

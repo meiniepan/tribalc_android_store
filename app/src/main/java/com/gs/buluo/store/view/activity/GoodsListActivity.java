@@ -12,7 +12,6 @@ import com.gs.buluo.store.bean.ListGoods;
 import com.gs.buluo.store.bean.GoodList;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.GoodsPresenter;
-import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.IGoodsView;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.Action;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView;

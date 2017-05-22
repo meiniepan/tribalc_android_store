@@ -187,7 +187,7 @@ public class CashActivity extends BaseActivity {
         WithdrawRequestBody body = new WithdrawRequestBody();
         body.amount = number;
         body.bankCardId = chooseCardId;
-
+        showLoadingDialog();
         TribeRetrofit.getInstance().createApi(MoneyApis.class).withdrawCash(TribeApplication.getInstance().getUserInfo().getId(), body)
                 .subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread())

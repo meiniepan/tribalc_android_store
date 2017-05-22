@@ -45,6 +45,7 @@ public class ReserveActivity extends BaseActivity implements IReserveView {
         });
 
         ((ReservePresenter) mPresenter).getReserveListFirst("");
+        showLoadingDialog();
     }
 
     @Override
@@ -52,6 +53,7 @@ public class ReserveActivity extends BaseActivity implements IReserveView {
         super.onNewIntent(intent);
         adapter.clear();
         ((ReservePresenter) mPresenter).getReserveListFirst("");
+        showLoadingDialog();
     }
 
     @Override
@@ -66,6 +68,7 @@ public class ReserveActivity extends BaseActivity implements IReserveView {
 
     @Override
     public void getReserveSuccess(ReserveResponseBody data) {
+        dismissDialog();
         adapter.addAll(data.content);
         if (data.content.size() == 0) {
             recyclerView.showNoData(R.string.no_order);
@@ -78,6 +81,7 @@ public class ReserveActivity extends BaseActivity implements IReserveView {
 
     @Override
     public void showError(int res) {
+        dismissDialog();
         ToastUtils.ToastMessage(this, getString(res));
     }
 }

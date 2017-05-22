@@ -2,202 +2,217 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="true"
     android:fitsSystemWindows="true"
-    android:clipToPadding="true">
+    android:orientation="vertical">
+
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:background="@color/common_dark"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true"
+        android:background="@color/common_dark" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/goods_bar"
-        android:layout_below="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
+        android:layout_below="@+id/view"
         android:background="@color/common_dark">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             android:layout_gravity="center"
-            android:textSize="@dimen/dimens_18sp"
-            android:text="@string/store_management"/>
+            android:text="@string/store_management"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dimens_18sp" />
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
-        android:layout_below="@+id/goods_bar"
         android:id="@+id/goods_tab"
         android:layout_width="match_parent"
         android:layout_height="41dp"
+        android:layout_below="@+id/goods_bar"
         android:orientation="horizontal">
+
         <LinearLayout
             android:id="@+id/ll_goods_sale"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/goods_sale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="出售中"
                 android:textColor="@color/custom_yellow"
-                android:textSize="@dimen/dimens_16sp"/>
+                android:textSize="@dimen/dimens_16sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="("
-                android:textSize="@dimen/dimens_12sp"/>
+                android:textSize="@dimen/dimens_12sp" />
+
             <TextView
                 android:id="@+id/goods_sale_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" 0 "
-                android:textSize="@dimen/dimens_12sp"/>
+                android:textSize="@dimen/dimens_12sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=")"
-                android:textSize="@dimen/dimens_12sp"/>
+                android:textSize="@dimen/dimens_12sp" />
         </LinearLayout>
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:background="@color/common_gray"/>
+            android:layout_marginTop="10dp"
+            android:background="@color/common_gray" />
+
         <LinearLayout
             android:id="@+id/ll_goods_store"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/goods_store"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="仓库中"
-                android:textSize="@dimen/dimens_16sp"/>
+                android:textSize="@dimen/dimens_16sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="("
-                android:textSize="@dimen/dimens_12sp"/>
+                android:textSize="@dimen/dimens_12sp" />
+
             <TextView
                 android:id="@+id/goods_store_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" 0 "
-                android:textSize="@dimen/dimens_12sp"/>
+                android:textSize="@dimen/dimens_12sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=")"
-                android:textSize="@dimen/dimens_12sp"/>
+                android:textSize="@dimen/dimens_12sp" />
         </LinearLayout>
     </LinearLayout>
+
     <View
         android:id="@+id/split"
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:layout_below="@+id/goods_tab"
-        android:background="@color/tint_bg"/>
+        android:background="@color/tint_bg" />
+
     <com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView
         android:id="@+id/store_list_store"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/split">
-    </com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView>
+        android:layout_below="@+id/split"
+        android:visibility="gone" />
+
     <com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView
         android:id="@+id/store_list_sale"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/split"/>
+        android:layout_below="@+id/split" />
+
     <RelativeLayout
-        android:visibility="gone"
         android:id="@+id/no_auth_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="30dp">
+        android:layout_marginBottom="30dp"
+        android:visibility="gone">
+
         <ImageView
             android:id="@+id/no_auth_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/no_auth"
             android:layout_centerInParent="true"
-            />
+            android:src="@mipmap/no_auth" />
+
         <TextView
-            android:layout_marginTop="10dp"
             android:id="@+id/no_auth_view_text"
-            android:layout_below="@+id/no_auth_icon"
             android:layout_width="210dp"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/no_auth_icon"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
             android:gravity="center"
-            android:textColor="@color/common_gray"
-            android:text="@string/no_auth"
             android:lineSpacingMultiplier="1.2"
-            android:layout_centerHorizontal="true"/>
+            android:text="@string/no_auth"
+            android:textColor="@color/common_gray" />
+
         <Button
             android:id="@+id/commodity_auth"
-            android:layout_below="@+id/no_auth_view_text"
-            android:layout_marginTop="30dp"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:gravity="center"
-            android:paddingStart="36dp"
-            android:paddingEnd="36dp"
+            android:layout_below="@+id/no_auth_view_text"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
             android:background="@drawable/button_selector"
+            android:gravity="center"
+            android:paddingEnd="36dp"
+            android:paddingStart="36dp"
             android:text="去认证"
             android:textColor="@color/white" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/no_login_view"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="30dp">
+        android:layout_marginBottom="30dp"
+        android:visibility="gone">
+
         <ImageView
             android:id="@+id/no_login_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/no_login"
             android:layout_centerInParent="true"
-            />
+            android:src="@mipmap/no_login" />
+
         <TextView
-            android:layout_marginTop="10dp"
             android:id="@+id/no_login_view_text"
-            android:layout_below="@+id/no_login_icon"
             android:layout_width="210dp"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/no_login_icon"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
             android:gravity="center"
-            android:textColor="@color/common_gray"
-            android:text="@string/to_login"
             android:lineSpacingMultiplier="1.2"
-            android:layout_centerHorizontal="true"/>
+            android:text="@string/to_login"
+            android:textColor="@color/common_gray" />
+
         <Button
             android:id="@+id/commodity_login_button"
             android:layout_width="180dp"
             android:layout_height="40dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/button_selector"
             android:layout_below="@+id/no_login_view_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_selector"
+            android:gravity="center"
             android:text="登录"
             android:textColor="@color/white" />
     </RelativeLayout>
@@ -206,13 +221,14 @@
         android:id="@+id/store_floating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:rippleColor="@color/custom_yellow_select"
-        android:elevation="6dp" tools:targetApi="LOLLIPOP"
-        app:borderWidth="0dp"
-        android:src="@mipmap/add"
-        app:pressedTranslationZ="12dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="28dp"
-        android:layout_marginEnd="28dp"/>
+        android:layout_marginEnd="28dp"
+        android:elevation="6dp"
+        android:src="@mipmap/add"
+        app:borderWidth="0dp"
+        app:pressedTranslationZ="12dp"
+        app:rippleColor="@color/custom_yellow_select"
+        tools:targetApi="LOLLIPOP" />
 </RelativeLayout>

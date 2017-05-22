@@ -134,6 +134,7 @@ public class PhoneVerifyActivity2 extends BaseActivity {
     }
 
     private void updatePhone(String verify) {
+        showLoadingDialog();
         PhoneUpdateBody body = new PhoneUpdateBody();
         body.phone = phone;
         body.verificationCode = verify;
@@ -143,6 +144,7 @@ public class PhoneVerifyActivity2 extends BaseActivity {
                 .subscribe(new BaseSubscriber<BaseResponse<CodeResponse>>() {
                     @Override
                     public void onNext(BaseResponse<CodeResponse> response) {
+                        dismissDialog();
                         StoreInfoDao dao = new StoreInfoDao();
                         StoreInfo entity = dao.findFirst();
                         entity.setPhone(phone);
@@ -152,17 +154,15 @@ public class PhoneVerifyActivity2 extends BaseActivity {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-                        if (e instanceof ApiException) {
-                            ApiException exception = (ApiException) e;
-                            int responseCode = exception.getCode();
-                            if (responseCode == 401) {
-                                ToastUtils.ToastMessage(PhoneVerifyActivity2.this, R.string.wrong_verify);
-                            } else if (responseCode == 409) {
-                                ToastUtils.ToastMessage(PhoneVerifyActivity2.this, R.string.phone_exist);
-                            } else {
-                                ToastUtils.ToastMessage(PhoneVerifyActivity2.this, R.string.connect_fail);
-                            }
+                    public void onFail(ApiException e) {
+                        dismissDialog();
+                        int responseCode = e.getCode();
+                        if (responseCode == 401) {
+                            ToastUtils.ToastMessage(PhoneVerifyActivity2.this, R.string.wrong_verify);
+                        } else if (responseCode == 409) {
+                            ToastUtils.ToastMessage(PhoneVerifyActivity2.this, R.string.phone_exist);
+                        } else {
+                            ToastUtils.ToastMessage(PhoneVerifyActivity2.this, R.string.connect_fail);
                         }
                     }
                 });

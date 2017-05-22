@@ -24,6 +24,7 @@ public class RefreshRecyclerView extends FrameLayout {
     private RecyclerAdapter mAdapter;
     private boolean loadMoreAble = false;
     private View empty;
+    private View progressView;
     private TextView msg;
 
     public RefreshRecyclerView(Context context) {
@@ -38,6 +39,7 @@ public class RefreshRecyclerView extends FrameLayout {
         super(context, attrs, defStyleAttr);
         View view = inflate(context, R.layout.view_refresh_recycler, this);
         empty = view.findViewById(R.id.empty_view);
+        progressView = view.findViewById(R.id.progress_view);
         msg = (TextView) view.findViewById(R.id.empty_view_text);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycle);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -57,6 +59,14 @@ public class RefreshRecyclerView extends FrameLayout {
 //                super.onScrollStateChanged(recyclerView, newState);
 //            }
 //        });
+    }
+
+    public void showProgress(){
+        progressView.setVisibility(VISIBLE);
+    }
+
+    public void dismissProgress(){
+        progressView.setVisibility(GONE);
     }
 
     public void showNoData(int message) {

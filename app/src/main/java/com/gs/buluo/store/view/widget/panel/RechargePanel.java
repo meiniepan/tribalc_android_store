@@ -23,7 +23,7 @@ import com.gs.buluo.store.model.MoneyModel;
 import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.utils.WXPayUtils;
-import com.gs.buluo.store.view.widget.LoadingDialog;
+import com.gs.buluo.common.widget.LoadingDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
