@@ -93,7 +93,7 @@ public class PreviewBorderView extends SurfaceView implements SurfaceHolder.Call
         this.mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
         this.mPaintLine = new Paint();
         this.mPaintLine.setColor(tipTextColor);
-        this.mPaintLine.setStrokeWidth(10.0F);
+        this.mPaintLine.setStrokeWidth(5.0F);
         setKeepScreenOn(true);
     }
 
