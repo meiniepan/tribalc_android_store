@@ -345,6 +345,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     }
 
     private void uploadPic(String path) {
+        showLoadingDialog();
         TribeUploader.getInstance().uploadFile("goods", "", path, new TribeUploader.UploadCallback() {
             @Override
             public void uploadSuccess(UploadResponseBody data) {
@@ -362,6 +363,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
 
             @Override
             public void uploadFail() {
+                dismissDialog();
                 ToastUtils.ToastMessage(getCtx(), R.string.upload_fail);
             }
         });

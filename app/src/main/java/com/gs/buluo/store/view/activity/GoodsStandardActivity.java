@@ -57,19 +57,14 @@ public class GoodsStandardActivity extends BaseActivity {
                 }
             }
         });
-        findView(R.id.back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
         GoodsStandardMeta goodsStandardMeta= new GoodsStandardMeta();
         goodsStandardMeta.title = getString(R.string.create_goods_standard);
         standardMetas = new ArrayList<>();
         standardMetas.add(goodsStandardMeta);
         listAdapter=new StandardListAdapter(this, standardMetas);
         refreshRecyclerView.setAdapter(listAdapter);
+
+        showLoadingDialog();
         TribeRetrofit.getInstance().createApi(GoodsApis.class).getStandardList(TribeApplication.getInstance().getUserInfo().getId(),category)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

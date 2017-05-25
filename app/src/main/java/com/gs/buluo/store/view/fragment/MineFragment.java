@@ -192,18 +192,21 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
 
     public void chooseCover() {
+        showLoadingDialog();
         ChoosePhotoPanel window = new ChoosePhotoPanel(getActivity(), false, new ChoosePhotoPanel.OnSelectedFinished() {
             @Override
             public void onSelected(final String path) {
                 TribeUploader.getInstance().uploadFile("cover.jpeg", "", path, new TribeUploader.UploadCallback() {
                     @Override
                     public void uploadSuccess(UploadResponseBody body) {
+                        dismissDialog();
                         ToastUtils.ToastMessage(mContext, mContext.getString(R.string.upload_success));
                         updateUserCover(body, path);
                     }
 
                     @Override
                     public void uploadFail() {
+                        dismissDialog();
                         ToastUtils.ToastMessage(mContext, mContext.getString(R.string.upload_fail));
                     }
                 });

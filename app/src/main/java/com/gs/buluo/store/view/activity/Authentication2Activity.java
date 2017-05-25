@@ -39,7 +39,6 @@ public class Authentication2Activity extends BaseActivity {
     @Bind(R.id.identify_front_image)
     ImageView frontImg;
     private AuthenticationData data;
-    private String mPhotoPath;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -71,12 +70,6 @@ public class Authentication2Activity extends BaseActivity {
                 startActivity(intent);
             }
         });
-        findView(R.id.back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     private void showChoosePhoto(final boolean isFront) {
@@ -103,6 +96,7 @@ public class Authentication2Activity extends BaseActivity {
     }
 
     private void uploadPic(String pic, final boolean isFront) {
+        showLoadingDialog();
         TribeUploader.getInstance().uploadFile("id", "", pic, new TribeUploader.UploadCallback() {
             @Override
             public void uploadSuccess(UploadResponseBody data) {
@@ -148,7 +142,6 @@ public class Authentication2Activity extends BaseActivity {
                     }
                 }
                 copyFile(file,fileFront);
-               // Toast.makeText(getApplicationContext(),fileFront.getAbsolutePath(), Toast.LENGTH_LONG).show();
                 FileInputStream inStream = null;
                 try {
                     inStream = new FileInputStream(fileFront);
@@ -159,7 +152,6 @@ public class Authentication2Activity extends BaseActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
             uploadPic(front,true);
         }

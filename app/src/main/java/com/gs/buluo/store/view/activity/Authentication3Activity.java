@@ -98,6 +98,7 @@ public class Authentication3Activity extends BaseActivity {
     }
 
     private void uploadPic(String pic) {
+        showLoadingDialog();
         TribeUploader.getInstance().uploadFile("trade", "", pic, new TribeUploader.UploadCallback() {
             @Override
             public void uploadSuccess(UploadResponseBody data) {

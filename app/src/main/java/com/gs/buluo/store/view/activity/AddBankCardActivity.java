@@ -161,13 +161,11 @@ public class AddBankCardActivity extends BaseActivity {
                 .subscribe(new BaseSubscriber<BaseResponse<CodeResponse>>() {
                     @Override
                     public void onNext(BaseResponse<CodeResponse> codeResponseBaseResponse) {
-                        dismissDialog();
                         startActivity(new Intent(getCtx(), BankCardActivity.class));
                     }
 
                     @Override
                     public void onFail(ApiException e) {
-                        dismissDialog();
                         if (e.getCode()==401) ToastUtils.ToastMessage(getCtx(), R.string.wrong_verify);
                     }
                 });

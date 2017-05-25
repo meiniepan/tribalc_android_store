@@ -28,7 +28,7 @@
 
         <include
             layout="@layout/back_img_white"
-            android:id="@+id/bill_back" />
+            android:id="@+id/back" />
     </RelativeLayout>
 
     <com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView

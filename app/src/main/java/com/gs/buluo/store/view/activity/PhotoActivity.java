@@ -91,6 +91,7 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
     }
 
     private void updatePic(String file) {
+        showLoadingDialog(R.string.uploading);
         TribeUploader.getInstance().uploadFile("photo", "", file, new TribeUploader.UploadCallback() {
             @Override
             public void uploadSuccess(UploadResponseBody data) {
@@ -122,7 +123,6 @@ public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSe
 
     @Override
     public void onSelected(String string) {
-        showLoadingDialog(R.string.uploading);
         updatePic(string);
     }
 

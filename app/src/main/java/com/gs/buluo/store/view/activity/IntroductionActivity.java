@@ -76,6 +76,7 @@ public class IntroductionActivity extends BaseActivity {
 
                     @Override
                     public void uploadFail() {
+                        dismissDialog();
                         ToastUtils.ToastMessage(getCtx(), R.string.update_fail);
                     }
                 });

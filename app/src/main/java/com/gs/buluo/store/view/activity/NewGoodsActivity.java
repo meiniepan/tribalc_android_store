@@ -295,9 +295,11 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void uploadPic(String path) {
+        showLoadingDialog();
         TribeUploader.getInstance().uploadFile("goods", "",path, new TribeUploader.UploadCallback() {
             @Override
             public void uploadSuccess(UploadResponseBody data) {
+                dismissDialog();
                 banner.setVisibility(View.VISIBLE);
                 picList.add(0, new BannerPicture(data.objectKey));
                 banner.setImages(picList);
@@ -312,6 +314,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
 
             @Override
             public void uploadFail() {
+                dismissDialog();
                 ToastUtils.ToastMessage(getCtx(), R.string.upload_fail);
             }
         });

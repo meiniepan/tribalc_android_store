@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.widget.RecycleViewDivider;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.adapter.BillListAdapter;
@@ -46,14 +47,8 @@ public class BillActivity extends BaseActivity implements IBillView, View.OnClic
             }
         });
 
+        showLoadingDialog();
         ((BillPresenter) mPresenter).getBillListFirst();
-
-        findViewById(R.id.bill_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     @Override
@@ -76,7 +71,7 @@ public class BillActivity extends BaseActivity implements IBillView, View.OnClic
 
     @Override
     public void showError(int res) {
-
+        ToastUtils.ToastMessage(getCtx(),res);
     }
 
     @Override

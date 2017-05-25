@@ -20,7 +20,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
+import java.util.Vector;
 
+import rx.Observable;
+import rx.Subscriber;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -28,10 +33,7 @@ import rx.schedulers.Schedulers;
  */
 public class TribeUploader {
     private static TribeUploader uploader;
-    private UploadCallback callback;
     private Handler handler = new Handler();
-    private String name;
-    private String file;
 
     private TribeUploader() {
     }
@@ -43,48 +45,54 @@ public class TribeUploader {
         return uploader;
     }
 
-    private Runnable uploadRunnable = new Runnable() {
-        @Override
-        public void run() {
-            String fileType = "image/jpeg";
-            Bitmap bitmap = BitmapFactory.decodeFile(file);
-            if (bitmap == null) return;//防止空指针崩溃
-            Bitmap newB = CommonUtils.compressBitmap(bitmap);
-            final File picture = CommonUtils.saveBitmap2file(newB, "picture");
-
-            UploadAccessBody body = new UploadAccessBody();
-            body.key = name;
-            body.contentType = fileType;
-            body.contentMD5 = MD5.md5(file);
-//            body.contentMD5 = "98d8826e6308556a4a0ed87e265e2573";
-            TribeRetrofit.getInstance().createApi(MainApis.class).
-                    getUploadUrl(TribeApplication.getInstance().getUserInfo().getId(), body)
-                    .subscribeOn(Schedulers.io())
-                    .subscribe(new BaseSubscriber<BaseResponse<UploadResponseBody>>(false) {
-                        @Override
-                        public void onNext(BaseResponse<UploadResponseBody> response) {
-                            response.data.objectKey = "oss://" + response.data.objectKey;
-                            putFile(response.data, picture, callback);
+    private List<File> vector = new Vector<>();
+    public void uploadFile(final String name, String fileType, final String file, final UploadCallback callback) {  //压缩
+        fileType = "image/jpeg";
+        final String finalFileType = fileType;
+        Observable.just(file)
+                .subscribeOn(Schedulers.io())
+                .flatMap(new Func1<String, Observable<BaseResponse<UploadResponseBody>>>() {
+                    @Override
+                    public Observable<BaseResponse<UploadResponseBody>> call(String file) {
+                        Bitmap bitmap = BitmapFactory.decodeFile(file);
+                        Bitmap newB = CommonUtils.compressBitmap(bitmap);
+                        File picture = CommonUtils.saveBitmap2file(newB, "picture" + System.currentTimeMillis());
+                        vector.add(picture);
+                        UploadAccessBody body = new UploadAccessBody();
+                        body.key = name;
+                        body.contentType = finalFileType;
+                        try {
+                            body.contentMD5 = MD5.md5(picture);
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
+                        return TribeRetrofit.getInstance().createApi(MainApis.class).
+                                getUploadUrl(TribeApplication.getInstance().getUserInfo().getId(), body);
+                    }
+                })
+                .subscribe(new Subscriber<BaseResponse<UploadResponseBody>>() {
+                    @Override
+                    public void onCompleted() {
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    callback.uploadFail();
-                                }
-                            });
-                        }
-                    });
-        }
-    };
+                    @Override
+                    public void onError(Throwable e) {
+                        vector.remove(vector.size() - 1);
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                callback.uploadFail();
+                            }
+                        });
+                    }
 
-    public void uploadFile(String name, String fileType, final String file, final UploadCallback callback) {
-        this.callback = callback;
-        this.name = name;
-        this.file = file;
-        handler.postDelayed(uploadRunnable, 100);//不等待 finish gallery 会卡顿
+                    @Override
+                    public void onNext(final BaseResponse<UploadResponseBody> response) {
+                        response.data.objectKey = "oss://" + response.data.objectKey;
+                        putFile(response.data, vector.get(vector.size() - 1), callback);
+                        vector.remove(vector.size() - 1);
+                    }
+                });
     }
 
     private void putFile(final UploadResponseBody data, File file, final UploadCallback callback) {
@@ -103,7 +111,6 @@ public class TribeUploader {
 
             if (file != null) {
                 DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
-                StringBuffer sb = new StringBuffer();
                 InputStream is = new FileInputStream(file);
                 byte[] bytes = new byte[1024];
                 int len = 0;
@@ -113,6 +120,7 @@ public class TribeUploader {
                 is.close();
                 dos.flush();
                 int res = conn.getResponseCode();
+                file.delete();
                 if (res == 200) {
                     handler.post(new Runnable() {
                         @Override
@@ -131,8 +139,13 @@ public class TribeUploader {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.uploadFail();
+                }
+            });
         }
-        handler.removeCallbacks(uploadRunnable);
     }
 
     public interface UploadCallback {
