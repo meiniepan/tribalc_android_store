@@ -270,7 +270,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
                 ToastUtils.ToastMessage(this, R.string.goods_info_not_complete);
                 return;
             }
-            goods.originPrice = Float.parseFloat(etOrigin.getText().toString().trim());
+            goods.originPrice = Float.parseFloat(etOrigin.length()==0? "0":etOrigin.getText().toString().trim());
             goods.salePrice = Float.parseFloat(etSale.getText().toString().trim());
             goods.repertory = Integer.parseInt(etStock.getText().toString().trim());
             meta.priceAndRepertory = goods;
