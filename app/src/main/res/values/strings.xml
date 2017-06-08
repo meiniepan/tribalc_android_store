@@ -244,6 +244,8 @@
     <string name="frequency_code">发送验证码太频繁，请稍后再试</string>
     <string name="connect_error">连接错误</string>
     <string name="not_auth">尚未进行店铺认证</string>
+
+    <!--钱包相关-->
     <string name="bank_card_binded">银行卡已被绑定</string>
     <string name="bank_card_forbidden">银行卡户名需和店铺认证通过的用户姓名相同</string>
     <string name="not_support_card">暂不支持卡类型</string>
@@ -254,4 +256,10 @@
     <string name="withdraw_too_much">提现金额不能大于账户余额</string>
     <string name="please_choose_card">请选择银行卡</string>
     <string name="choose_bank_card">请先选择银行卡</string>
+    <string name="save_success">保存成功</string>
+    <string name="app_pay">嗨托邦支付</string>
+    <string name="scan_to_pay">扫二维码向我付款</string>
+    <string name="receive_bill">收款账单</string>
+    <string name="no_bill">当前尚无订单信息</string>
+    <string name="receive_money">收款</string>
 </resources>

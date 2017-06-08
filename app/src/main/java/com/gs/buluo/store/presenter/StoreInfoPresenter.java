@@ -59,7 +59,8 @@ public class StoreInfoPresenter extends BasePresenter<IInfoView> {
     }
 
     public void getDetailStoreInfo() {
-        TribeRetrofit.getInstance().createApi(MainApis.class).getStoreMeta(TribeApplication.getInstance().getUserInfo().getId())
+        String id = TribeApplication.getInstance().getUserInfo().getId();
+        TribeRetrofit.getInstance().createApi(MainApis.class).getStoreMeta(id,id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse<StoreMeta>>() {

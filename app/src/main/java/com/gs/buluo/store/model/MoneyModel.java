@@ -23,16 +23,6 @@ import retrofit2.Callback;
  */
 public class MoneyModel {
 
-    public void getBillList(String uid, String sortSkip, Callback<BillResponse> callback) {
-        TribeRetrofit.getInstance().createApi(MoneyApis.class).
-                getBillList(uid, "20", sortSkip).enqueue(callback);
-    }
-
-    public void getBillListFirst(String uid, Callback<BillResponse> callback) {
-        TribeRetrofit.getInstance().createApi(MoneyApis.class).
-                getBillListFirst(uid, "20").enqueue(callback);
-    }
-
     public void getCardList(String uid, Callback<CardResponse> callback) {
         TribeRetrofit.getInstance().createApi(MoneyApis.class).
                 getCardList(uid).enqueue(callback);

@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
 import com.gs.buluo.store.Constant;
@@ -57,6 +59,27 @@ public class GlideUtils {
             url = transformUrl(url);
         }
         Glide.with(context).load(url).placeholder(R.mipmap.default_pic).bitmapTransform(new CropCircleTransformation(context)).into(imageView);
+    }
+
+
+    public interface OnLoadListener{
+       void onLoaded();
+    }
+    public static void loadImageWithListener(Context context, String url, ImageView imageView, boolean isCircle, final OnLoadListener onLoadListener) {
+        if (url == null) return;
+        if (!url.contains("://")) {
+            url = Constant.Base.BASE_IMG_URL + url;
+        } else {
+            url = transformUrl(url);
+        }
+        Glide.with(context).load(url).placeholder(R.mipmap.default_pic).bitmapTransform(new CropCircleTransformation(context)).into(new GlideDrawableImageViewTarget(imageView)
+        {
+            @Override
+            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
+                super.onResourceReady(resource, animation);
+                onLoadListener.onLoaded();
+            }
+        });
     }
 
     public static void loadImage(Context context,String url, ImageView imageView,int width,int height) {

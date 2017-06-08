@@ -41,6 +41,7 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.wallet_financial).setOnClickListener(this);
         findViewById(R.id.wallet_pwd).setOnClickListener(this);
         findViewById(R.id.wallet_cash).setOnClickListener(this);
+        findViewById(R.id.wallet_receive).setOnClickListener(this);
     }
 
     @Override
@@ -67,7 +68,12 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
                 intent.setClass(mCtx, BankCardActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.wallet_receive:
+                intent.setClass(mCtx,PayCodeActivity.class);
+                startActivity(intent);
+                break;
             case R.id.wallet_financial:
+                ToastUtils.ToastMessage(getCtx(),R.string.no_function);
                 break;
             case R.id.wallet_pwd:
                 if (TextUtils.isEmpty(pwd)) {

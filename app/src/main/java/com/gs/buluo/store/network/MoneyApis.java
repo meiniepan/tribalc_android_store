@@ -33,12 +33,12 @@ public interface MoneyApis {
 
 
     @GET("wallets/{id}/bills")
-    Call<BillResponse> getBillList(
-            @Path("id") String uid, @Query("limitSize") String limitSize, @Query("sortSkip") String sortSkip);
+    Observable<BillResponse> getBillList(
+            @Path("id") String uid, @Query("limitSize") int limitSize,@Query("sortSkip")String sortSkip,@Query("face2face") boolean isFace);
 
     @GET("wallets/{id}/bills")
-    Call<BillResponse> getBillListFirst(
-            @Path("id") String uid, @Query("limitSize") String limitSize);
+    Observable<BillResponse> getBillListFirst(
+            @Path("id") String uid, @Query("limitSize") int limitSize,@Query("face2face") boolean isFace);
 
 
     @PUT("wallets/{id}/password")

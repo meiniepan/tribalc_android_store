@@ -43,7 +43,7 @@ public interface MainApis {
     Observable<BaseResponse<CodeResponse>> updatePhone(@Path("id") String id, @Body PhoneUpdateBody body);
 
     @GET("stores/{id}")
-    Observable<BaseResponse<StoreMeta>> getStoreMeta(@Path("id")String uid);
+    Observable<BaseResponse<StoreMeta>> getStoreMeta(@Path("id")String uid,@Query("me")String id);
 
     @PUT("stores/{id}/{propNames}")
     Observable<BaseResponse<CodeResponse>> updateStoreProp(@Path("id") String id, @Path("propNames") String propNames, @Body StoreMeta bean);

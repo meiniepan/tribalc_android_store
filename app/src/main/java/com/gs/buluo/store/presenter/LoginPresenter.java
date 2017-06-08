@@ -49,7 +49,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                         entity.setId(uid);
                         entity.setToken(token);
                         TribeApplication.getInstance().setUserInfo(entity);
-                        return TribeRetrofit.getInstance().createApi(MainApis.class).getStoreMeta(uid);
+                        return TribeRetrofit.getInstance().createApi(MainApis.class).getStoreMeta(uid,uid);
                     }
                 })
                 .subscribeOn(Schedulers.io())

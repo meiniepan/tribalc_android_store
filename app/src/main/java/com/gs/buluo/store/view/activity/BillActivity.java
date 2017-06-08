@@ -7,6 +7,8 @@ import android.view.View;
 
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.widget.RecycleViewDivider;
+import com.gs.buluo.common.widget.StatusLayout;
+import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.adapter.BillListAdapter;
 import com.gs.buluo.store.bean.BillEntity;
@@ -28,12 +30,16 @@ import butterknife.Bind;
 public class BillActivity extends BaseActivity implements IBillView, View.OnClickListener {
     @Bind(R.id.bill_list)
     RefreshRecyclerView recyclerView;
+    @Bind(R.id.bill_status)
+    StatusLayout statusLayout;
 
     BillListAdapter adapter;
     List<BillEntity> list;
+    private boolean isFace;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        isFace = getIntent().getBooleanExtra(Constant.FACE, false);
         list = new ArrayList<>();
         adapter = new BillListAdapter(this, list);
         recyclerView.setAdapter(adapter);
@@ -43,12 +49,12 @@ public class BillActivity extends BaseActivity implements IBillView, View.OnClic
         recyclerView.setLoadMoreAction(new Action() {
             @Override
             public void onAction() {
-                ((BillPresenter) mPresenter).loadMoreBill();
+                ((BillPresenter) mPresenter).loadMoreBill(isFace);
             }
         });
 
-        showLoadingDialog();
-        ((BillPresenter) mPresenter).getBillListFirst();
+        ((BillPresenter) mPresenter).getBillListFirst(isFace);
+        statusLayout.showProgressView();
     }
 
     @Override
@@ -64,6 +70,11 @@ public class BillActivity extends BaseActivity implements IBillView, View.OnClic
     @Override
     public void getBillSuccess(BillResponse.BillResponseData response) {
         adapter.addAll(response.content);
+        if (adapter.getData()==null||adapter.getData().size()==0){
+            statusLayout.showEmptyView(getString(R.string.no_bill));
+            return;
+        }
+        statusLayout.showContentView();
         if (!response.hasMoren) {
             adapter.showNoMore();
         }
@@ -71,7 +82,7 @@ public class BillActivity extends BaseActivity implements IBillView, View.OnClic
 
     @Override
     public void showError(int res) {
-        ToastUtils.ToastMessage(getCtx(),res);
+        statusLayout.showErrorView(getString(res));
     }
 
     @Override

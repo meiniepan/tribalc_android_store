@@ -239,6 +239,8 @@
             android:screenOrientation="landscape" />
         <activity android:name=".view.activity.CashActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".view.activity.PayCodeActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

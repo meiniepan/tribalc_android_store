@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -27,7 +28,15 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.baidu.mapapi.model.LatLng;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.common.utils.ToastUtils;
+import com.gs.buluo.store.R;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -39,6 +48,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Hashtable;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -286,29 +296,32 @@ public class CommonUtils {
 
     /**
      * Check if there is any connectivity to a Wifi network
+     *
      * @param context
      * @return
      */
-    public static boolean isConnectedWifi(Context context){
+    public static boolean isConnectedWifi(Context context) {
         NetworkInfo info = getNetworkInfo(context);
         return (info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_WIFI);
     }
 
     /**
      * Check if there is any connectivity to a mobile network
+     *
      * @param context
      * @return
      */
-    public static boolean isConnectedMobile(Context context){
+    public static boolean isConnectedMobile(Context context) {
         NetworkInfo info = getNetworkInfo(context);
         return (info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_MOBILE);
     }
-    public static boolean isConnected(Context context){
+
+    public static boolean isConnected(Context context) {
         NetworkInfo info = getNetworkInfo(context);
         return (info != null && info.isConnected());
     }
 
-    public static NetworkInfo getNetworkInfo(Context context){
+    public static NetworkInfo getNetworkInfo(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo();
     }
@@ -316,13 +329,13 @@ public class CommonUtils {
     /**
      * 计算两点之间距离
      */
-    public static String getDistance(LatLng start, LatLng end){
-        if (start==null||end == null)return "";
-        double lat1 = (Math.PI/180)*start.latitude;
-        double lat2 = (Math.PI/180)*end.latitude;
+    public static String getDistance(LatLng start, LatLng end) {
+        if (start == null || end == null) return "";
+        double lat1 = (Math.PI / 180) * start.latitude;
+        double lat2 = (Math.PI / 180) * end.latitude;
 
-        double lon1 = (Math.PI/180)*start.longitude;
-        double lon2 = (Math.PI/180)*end.longitude;
+        double lon1 = (Math.PI / 180) * start.longitude;
+        double lon2 = (Math.PI / 180) * end.longitude;
 
 //      double Lat1r = (Math.PI/180)*(gp1.getLatitudeE6()/1E6);
 //      double Lat2r = (Math.PI/180)*(gp2.getLatitudeE6()/1E6);
@@ -333,9 +346,9 @@ public class CommonUtils {
         double R = 6371;
 
         //两点间距离 km，如果想要米的话，结果*1000就可以了
-        double d =  Math.acos(Math.sin(lat1)*Math.sin(lat2)+Math.cos(lat1)*Math.cos(lat2)*Math.cos(lon2-lon1))*R;
-        int lenth = (d+"").indexOf(".")+2;
-        return (d+"").substring(0,lenth) +"km";
+        double d = Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1)) * R;
+        int lenth = (d + "").indexOf(".") + 2;
+        return (d + "").substring(0, lenth) + "km";
     }
 
 
@@ -350,12 +363,12 @@ public class CommonUtils {
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
 
-    public static File saveBitmap2file(Bitmap bmp,String filename){
-        Bitmap.CompressFormat format= Bitmap.CompressFormat.JPEG;
+    public static File saveBitmap2file(Bitmap bmp, String filename) {
+        Bitmap.CompressFormat format = Bitmap.CompressFormat.JPEG;
         int quality = 100;
         OutputStream stream = null;
-        String path =Environment.getExternalStorageDirectory().toString() + "/tribe/" + filename;
-        File file =new File(path);
+        String path = Environment.getExternalStorageDirectory().toString() + "/tribe_store/" + filename;
+        File file = new File(path);
         try {
             stream = new FileOutputStream(file);
         } catch (FileNotFoundException e) {
@@ -368,7 +381,7 @@ public class CommonUtils {
     public static Bitmap compressBitmap(Bitmap image) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        if( baos.toByteArray().length / 1024>1024) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
+        if (baos.toByteArray().length / 1024 > 1024) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
             baos.reset();
             image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         }
@@ -395,6 +408,95 @@ public class CommonUtils {
         newOpts.inPreferredConfig = Bitmap.Config.RGB_565;
         isBm = new ByteArrayInputStream(baos.toByteArray());
         bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);
+        return bitmap;
+    }
+
+    /**
+     * 生成普通二维码图片
+     * * @return  bitmap
+     */
+    public static Bitmap createQRImage(Context context, String url,int size) {
+        Bitmap bitmap;
+        try {
+            if (url == null || "".equals(url) || url.length() < 1) {
+                return null;
+            }
+            Hashtable<EncodeHintType, String> hints = new Hashtable<>();
+            hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
+            BitMatrix bitMatrix = new QRCodeWriter().encode(url, BarcodeFormat.QR_CODE, size, size, hints);
+            int[] pixels = new int[size * size];
+            for (int y = 0; y < size; y++) {
+                for (int x = 0; x < size; x++) {
+                    if (bitMatrix.get(x, y)) {
+                        pixels[y * size + x] = 0xff000000;
+                    } else {
+                        pixels[y * size + x] = 0xffffffff;
+                    }
+                }
+            }
+            bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565);
+            bitmap.setPixels(pixels, 0, size, 0, 0, size, size);
+            return bitmap;
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 生成带logo的二维码图片
+     * * * @param contentString * 扫描的内容
+     * * @param res * 插入的logo 的resource*
+     * * @return  bitmap
+     * * @throws WriterException
+     */
+    public static Bitmap createBarCode(Context context, int res, String contentString) {
+        Bitmap qrCodeBitmap = null;
+        try {
+            Bitmap mBitmap = BitmapFactory.decodeResource(context.getResources(), res);
+            qrCodeBitmap = createCode(context, contentString, mBitmap, DensityUtils.dip2px(context, 300));
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
+        return qrCodeBitmap;
+    }
+
+    /**
+     * 生成带logo的二维码图片 * * @param str * 扫描的内容
+     * * @param mBitmap * 插入的logo *
+     * @param * 格式 * @return * @throws WriterException
+     */
+    @SuppressWarnings("unchecked")
+    public static  Bitmap createCode(Context context, String str, Bitmap mBitmap, int widthAndHeight) throws WriterException {
+        final int IMAGE_HALFWIDTH = DensityUtils.dip2px(context, 35);
+        Matrix m = new Matrix();
+        float sx = (float) 2 * IMAGE_HALFWIDTH / mBitmap.getWidth();
+        float sy = (float) 2 * IMAGE_HALFWIDTH / mBitmap.getHeight();
+        m.setScale(sx, sy);// 设置缩放信息 // 将logo图片按martix设置的信息缩放
+        mBitmap = Bitmap.createBitmap(mBitmap, 0, 0, mBitmap.getWidth(), mBitmap.getHeight(), m, false);
+        MultiFormatWriter writer = new MultiFormatWriter();
+        @SuppressWarnings("rawtypes")
+        Hashtable hst = new Hashtable(); // 设置字符编码
+        hst.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+        BitMatrix matrix = writer.encode(str, BarcodeFormat.QR_CODE, widthAndHeight, widthAndHeight, hst);
+        int width = matrix.getWidth();
+        int height = matrix.getHeight();
+        int halfW = width / 2;
+        int halfH = height / 2; // 定义数组长度为矩阵高度*矩阵宽度，用于记录矩阵中像素信息
+        int[] pixels = new int[width * height];
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if (x > halfW - IMAGE_HALFWIDTH && x < halfW + IMAGE_HALFWIDTH && y > halfH - IMAGE_HALFWIDTH && y < halfH + IMAGE_HALFWIDTH) {
+                    pixels[y * width + x] = mBitmap.getPixel(x - halfW + IMAGE_HALFWIDTH, y - halfH + IMAGE_HALFWIDTH);
+                } else {
+                    if (matrix.get(x, y)) {
+                        pixels[y * width + x] = 0xff000000;
+                    }
+                }
+            }
+        }
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
         return bitmap;
     }
 }

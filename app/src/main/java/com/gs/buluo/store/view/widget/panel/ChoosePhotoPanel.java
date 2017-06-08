@@ -36,7 +36,7 @@ public class ChoosePhotoPanel extends Dialog implements View.OnClickListener {
     private static final int REQUEST_CODE_CAMERA = 20003;
     private OnSelectedFinished onSelectedFinished;
 
-    public static final String IMAGE_FILE_DIR = Environment.getExternalStorageDirectory().getPath() + "/tribe/image_cache";
+    public static final String IMAGE_FILE_DIR = Environment.getExternalStorageDirectory().getPath() + "/tribe_store/image_cache";
     @Bind(R.id.take_photo)
     TextView take;
     @Bind(R.id.choose_photo)
