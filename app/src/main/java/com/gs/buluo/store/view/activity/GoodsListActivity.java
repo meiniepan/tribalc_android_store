@@ -8,8 +8,8 @@ import com.gs.buluo.common.widget.RecycleViewDivider;
 import com.gs.buluo.common.widget.StatusLayout;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.adapter.GoodsListAdapter;
-import com.gs.buluo.store.bean.ListGoods;
 import com.gs.buluo.store.bean.GoodList;
+import com.gs.buluo.store.bean.ListGoods;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.GoodsPresenter;
 import com.gs.buluo.store.view.impl.IGoodsView;
@@ -69,7 +69,12 @@ public class GoodsListActivity extends BaseActivity implements IGoodsView {
 
     @Override
     public void getGoodsInfo(GoodList responseList) {
-        list = responseList.content;
+        list.addAll(responseList.content);
+        if (list == null || list.size() == 0) {
+            statusLayout.showErrorView(getString(R.string.no_goods));
+            return;
+        }
+        statusLayout.showContentView();
         adapter.addAll(list);
         hasMore = responseList.hasMore;
         if (!hasMore) {
@@ -77,9 +82,6 @@ public class GoodsListActivity extends BaseActivity implements IGoodsView {
             return;
         }
 
-        if (list.size() == 0) {
-            statusLayout.showErrorView(getString(R.string.no_goods));
-        }
     }
 
     @Override

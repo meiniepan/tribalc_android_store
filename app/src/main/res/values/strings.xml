@@ -260,6 +260,7 @@
     <string name="app_pay">嗨托邦支付</string>
     <string name="scan_to_pay">扫二维码向我付款</string>
     <string name="receive_bill">收款账单</string>
-    <string name="no_bill">当前尚无订单信息</string>
+    <string name="no_bill">当前尚无账单信息</string>
     <string name="receive_money">收款</string>
+    <string name="save_gallery">保存至相册</string>
 </resources>

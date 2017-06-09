@@ -16,7 +16,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-import com.google.zxing.WriterException;
 import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.Constant;
@@ -63,6 +62,7 @@ public class PayCodeActivity extends BaseActivity {
 
     @Bind(R.id.parent)
     RelativeLayout relativeLayout;
+
     private void saveBitmap() {
         final View qrView = View.inflate(this, R.layout.receive_view, null);
         qrImage = (ImageView) qrView.findViewById(R.id.download_image);
@@ -99,18 +99,15 @@ public class PayCodeActivity extends BaseActivity {
                 intent.setData(uri);
                 sendBroadcast(intent);
                 ToastUtils.ToastMessage(getCtx(), R.string.save_success);
+                bitmap.recycle();
             }
         }
     }
 
     private Bitmap createQRWithLogo(Drawable logo) {
         Bitmap qrCodeBitmap = null;
-        try {
-            Bitmap mBitmap = drawableToBitmap(logo);
-            qrCodeBitmap = CommonUtils.createCode(this, TribeApplication.getInstance().getUserInfo().getId(), mBitmap, DensityUtils.dip2px(this, 240));
-        } catch (WriterException e) {
-            e.printStackTrace();
-        }
+        Bitmap mBitmap = drawableToBitmap(logo);
+        qrCodeBitmap = CommonUtils.createQRCodeWithLogo(TribeApplication.getInstance().getUserInfo().getId(), DensityUtils.dip2px(this, 240), mBitmap);
         return qrCodeBitmap;
     }
 
@@ -136,18 +133,14 @@ public class PayCodeActivity extends BaseActivity {
         return bitmap;
     }
 
-    private Bitmap takeShot(View view, int height, int width) {
-        view.setDrawingCacheEnabled(true);
-        view.buildDrawingCache();
-        Bitmap bitmap = view.getDrawingCache();
-        Bitmap b = Bitmap.createBitmap(bitmap, 0,
-                0, width, height);
-        view.destroyDrawingCache();
-        return b;
-    }
-
     @Override
     protected int getContentLayout() {
         return R.layout.activity_pay_code;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bitmap.recycle();
     }
 }
