@@ -317,7 +317,7 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
     }
 
     private void updateStoreInfo() {
-        showLoadingDialog();
+        showLoadingDialog(R.string.saving_now);
         storeBean.name = tvName.getText().toString().trim();
         storeBean.subbranchName = tvSubName.getText().toString().trim();
         storeBean.otherPhone = tvOrPhone.getText().toString().trim();

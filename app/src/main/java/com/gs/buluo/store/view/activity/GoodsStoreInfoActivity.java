@@ -99,7 +99,7 @@ public class GoodsStoreInfoActivity extends BaseActivity implements View.OnClick
     }
 
     private void updateStoreInfo() {
-        showLoadingDialog();
+        showLoadingDialog(R.string.saving_now);
         storeBean.name = tvName.getText().toString().trim();
         storeBean.desc = etDesc.getText().toString().trim();
         storeBean.otherPhone = tvOtherPhone.getText().toString().trim();
