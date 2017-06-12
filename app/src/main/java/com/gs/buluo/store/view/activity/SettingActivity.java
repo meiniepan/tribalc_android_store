@@ -12,25 +12,28 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
+import com.gs.buluo.common.UpdateEvent;
+import com.gs.buluo.common.network.BaseResponse;
+import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.utils.DataCleanManager;
 import com.gs.buluo.common.utils.SharePreferenceManager;
 import com.gs.buluo.common.utils.ToastUtils;
+import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.bean.ResponseBody.AppUpdateResponse;
+import com.gs.buluo.store.bean.AppConfigInfo;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
+import com.gs.buluo.store.network.MainApis;
+import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.presenter.BasePresenter;
-import com.gs.buluo.common.widget.CustomAlertDialog;
-import com.gs.buluo.store.view.widget.panel.UpdatePanel;
 
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.Bind;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by hjn on 2016/11/7.
@@ -142,44 +145,37 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
         }
     }
 
+    private String versionName;
+
     private void checkUpdate() {
-        RequestParams entity = new RequestParams(Constant.Base.BASE + "tribalc/versions/android.json");
-        entity.addParameter("t", System.currentTimeMillis());
-        x.http().get(entity, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                AppUpdateResponse response = JSON.parseObject(result, AppUpdateResponse.class);
-                if (checkNeedUpdate(response.v)) {
-                    new UpdatePanel(getCtx()).show();
-                } else {
-                    ToastUtils.ToastMessage(getCtx(), getString(R.string.current_newest));
-                }
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-            }
-
-            @Override
-            public void onFinished() {
-            }
-        });
-    }
-
-    private boolean checkNeedUpdate(String v) {
+        showLoadingDialog();
         try {
-            String version = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-            if (!TextUtils.equals(v, version)) {
-                return true;
-            }
+            versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        return false;
-    }
 
+        TribeRetrofit.getInstance().createApi(MainApis.class).getLastVersion(versionName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<AppConfigInfo>>() {
+                    @Override
+                    public void onNext(BaseResponse<AppConfigInfo> config) {
+                        String[] nows = versionName.split("\\.");
+                        String[] minis = config.data.minVersion.split("\\.");
+                        for (int i = 0; i < minis.length; i++) {
+                            if (Integer.parseInt(nows[i]) < Integer.parseInt(minis[i])) {
+                                EventBus.getDefault().postSticky(new UpdateEvent(false, config.data.lastVersion, config.data.releaseNote));
+                                return;
+                            }
+                        }
+
+                        if (!TextUtils.equals(config.data.lastVersion.substring(0, config.data.lastVersion.lastIndexOf(".")), versionName.substring(0, config.data.lastVersion.lastIndexOf(".")))) {
+                            EventBus.getDefault().postSticky(new UpdateEvent(true, config.data.lastVersion, config.data.releaseNote));
+                        } else {
+                            ToastUtils.ToastMessage(getCtx(), R.string.current_newest);
+                        }
+                    }
+                });
+    }
 }

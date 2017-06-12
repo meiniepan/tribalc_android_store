@@ -29,6 +29,7 @@ public class Constant {
     public static final String BANK_CARD = "bank_card";
     public static final String POUNDAGE = "poundage";
     public static final String FACE = "face";
+    public static final String CANCEL_UPDATE_VERSION = "cancel_update";
 
     public final static class Base {
         public static final String BASE = "https://app-services.buluo-gs.com/";

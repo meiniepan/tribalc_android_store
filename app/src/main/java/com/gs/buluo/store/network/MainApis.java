@@ -1,6 +1,8 @@
 package com.gs.buluo.store.network;
 
+import com.gs.buluo.store.bean.AppConfigInfo;
 import com.gs.buluo.store.bean.AuthenticationData;
+import com.gs.buluo.store.bean.ConfigInfo;
 import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.RequestBodyBean.LoginBody;
 import com.gs.buluo.store.bean.RequestBodyBean.PhoneUpdateBody;
@@ -26,6 +28,12 @@ import rx.Observable;
  * Created by hjn on 2016/11/3.
  */
 public interface MainApis {
+    @GET("configs/init?os=android&edition=store")
+    Observable<BaseResponse<ConfigInfo>> getConfig(
+            @Query("selfId") String uid, @Query("version") String version);
+
+    @GET("configs/version?os=android&edition=store")
+    Observable<BaseResponse<AppConfigInfo>> getLastVersion(@Query("version") String version);
 
     @POST("stores/login")
     Observable<BaseResponse<UserBeanEntity>> doLogin(@Body LoginBody params);

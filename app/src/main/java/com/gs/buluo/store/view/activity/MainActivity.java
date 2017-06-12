@@ -1,11 +1,8 @@
 package com.gs.buluo.store.view.activity;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Handler;
-import android.support.annotation.IntDef;
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -13,40 +10,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
 import com.gs.buluo.common.network.TokenEvent;
+import com.gs.buluo.common.utils.SharePreferenceManager;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.MainPagerAdapter;
-import com.gs.buluo.store.bean.ResponseBody.AppUpdateResponse;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
-import com.gs.buluo.common.utils.SharePreferenceManager;
 import com.gs.buluo.store.view.fragment.BaseFragment;
 import com.gs.buluo.store.view.fragment.CommodityFragment;
 import com.gs.buluo.store.view.fragment.MainFragment;
-import com.gs.buluo.store.view.fragment.MineFragment;
 import com.gs.buluo.store.view.fragment.ManagerFragment;
-import com.gs.buluo.common.widget.LoadingDialog;
-import com.gs.buluo.store.view.widget.panel.UpdatePanel;
+import com.gs.buluo.store.view.fragment.MineFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 
 
-public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener{
+public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
     @Bind(R.id.main_pager)
     ViewPager mPager;
     @Bind(R.id.main_found_text)
@@ -79,7 +67,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         String flag = intent.getStringExtra(Constant.ForIntent.FLAG);
-        if (TextUtils.equals(flag,Constant.GOODS)){
+        if (TextUtils.equals(flag, Constant.GOODS)) {
             commodityFragment.refreshList();
             return;
         }
@@ -194,44 +182,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                 img.setBackgroundResource(imageRids.get(i));
             }
         }
-    }
-
-    private void checkUpdate() {
-        RequestParams entity = new RequestParams(Constant.Base.BASE + "tribalc/versions/android.json");
-        entity.addParameter("t",System.currentTimeMillis());
-        x.http().get(entity, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                AppUpdateResponse response = JSON.parseObject(result,AppUpdateResponse.class);
-                if (checkNeedUpdate(response.v)){
-                    new UpdatePanel(getCtx()).show();
-                }
-            }
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-            }
-            @Override
-            public void onCancelled(CancelledException cex) {
-            }
-            @Override
-            public void onFinished() {
-            }
-        });
-    }
-
-    private boolean checkNeedUpdate(String v) {
-        try {
-            String version = getPackageManager().getPackageInfo(getPackageName(),0).versionName;
-            if (!TextUtils.equals(v,version)){
-                long lastDenyUpdateTime = SharePreferenceManager.getInstance(getCtx()).getLongValue(Constant.UPDATE_TIME);      //如果用户取消更新，一周问一次
-                if (System.currentTimeMillis() - lastDenyUpdateTime>= 7*24*3600*1000){
-                    return true;
-                }
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     @Override
