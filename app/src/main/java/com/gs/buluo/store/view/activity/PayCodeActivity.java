@@ -41,7 +41,7 @@ public class PayCodeActivity extends BaseActivity {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        bitmap = CommonUtils.createQRImage(this, TribeApplication.getInstance().getUserInfo().getId(), DensityUtils.dip2px(this, 240));
+        bitmap = CommonUtils.createQRImage(this, Constant.PAY_SIGN+TribeApplication.getInstance().getUserInfo().getId(), DensityUtils.dip2px(this, 240));
         image.setImageBitmap(bitmap);
         findViewById(R.id.qr_save).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +107,8 @@ public class PayCodeActivity extends BaseActivity {
     private Bitmap createQRWithLogo(Drawable logo) {
         Bitmap qrCodeBitmap = null;
         Bitmap mBitmap = drawableToBitmap(logo);
-        qrCodeBitmap = CommonUtils.createQRCodeWithLogo(TribeApplication.getInstance().getUserInfo().getId(), DensityUtils.dip2px(this, 240), mBitmap);
+        String id = Constant.PAY_SIGN + TribeApplication.getInstance().getUserInfo().getId();
+        qrCodeBitmap = CommonUtils.createQRCodeWithLogo(id, DensityUtils.dip2px(this, 240), mBitmap);
         return qrCodeBitmap;
     }
 

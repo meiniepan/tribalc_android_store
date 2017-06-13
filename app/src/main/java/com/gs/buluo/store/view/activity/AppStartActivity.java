@@ -80,7 +80,6 @@ public class AppStartActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.ToastMessage(getCtx(), "当前网络状况不佳");
                     }
                 });
     }
