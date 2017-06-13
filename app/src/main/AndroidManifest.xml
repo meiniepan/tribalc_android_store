@@ -229,6 +229,11 @@
             android:screenOrientation="portrait" />
         <activity android:name=".view.activity.PayCodeActivity"
             android:screenOrientation="portrait"/>
+
+        <!--应用宝下载更新-->
+        <service   android:name="com.tencent.tmdownloader.TMAssistantDownloadService"
+            android:exported="false"
+            android:process=":TMAssistantDownloadSDKService" />
     </application>
 
 </manifest>
