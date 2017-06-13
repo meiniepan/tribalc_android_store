@@ -266,13 +266,23 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
         meta.originCountry = etSource.getText().toString().trim();
         if (standardMeta == null) {
             GoodsPriceAndRepertory goods = new GoodsPriceAndRepertory();
-            if (etSale.length() == 0 || etStock.length() == 0) {
+            if (etSale.length() == 0 || etStock.length() == 0 ) {
                 ToastUtils.ToastMessage(this, R.string.goods_info_not_complete);
                 return;
             }
             goods.originPrice = Float.parseFloat(etOrigin.length()==0? "0":etOrigin.getText().toString().trim());
-            goods.salePrice = Float.parseFloat(etSale.getText().toString().trim());
-            goods.repertory = Integer.parseInt(etStock.getText().toString().trim());
+            float nunSale = Float.parseFloat(etSale.getText().toString().trim());
+            int numStock = Integer.parseInt(etStock.getText().toString().trim());
+            if (nunSale<=0){
+                ToastUtils.ToastMessage(getCtx(),getString(R.string.sale_price_legal));
+                return;
+            }
+            if (numStock<=0){
+                ToastUtils.ToastMessage(getCtx(),getString(R.string.stock_price_legal));
+                return;
+            }
+            goods.salePrice = nunSale;
+            goods.repertory = numStock;
             meta.priceAndRepertory = goods;
         }
 

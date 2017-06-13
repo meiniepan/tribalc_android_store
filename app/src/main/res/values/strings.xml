@@ -264,4 +264,6 @@
     <string name="receive_money">收款</string>
     <string name="save_gallery">保存至相册</string>
     <string name="saving_now">保存中</string>
+    <string name="sale_price_legal">销售价格需大于0</string>
+    <string name="stock_price_legal">库存需大于0</string>
 </resources>

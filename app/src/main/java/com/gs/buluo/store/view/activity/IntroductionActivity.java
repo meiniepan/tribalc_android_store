@@ -70,7 +70,7 @@ public class IntroductionActivity extends BaseActivity {
                     @Override
                     public void uploadSuccess(UploadResponseBody data) {
                         dismissDialog();
-                        intro.add(data.objectKey + "?scale=" + scale.substring(0,4));
+                        intro.add(data.objectKey + "?scale=" + (scale.length()>4?scale.substring(0,4):scale));
                         adapter.notifyDataSetChanged();
                     }
 

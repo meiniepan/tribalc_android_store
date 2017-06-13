@@ -335,9 +335,21 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
             meta.standardKeys.add(tvValue2.getText().toString().trim());
         }
         meta.priceAndRepertory = new GoodsPriceAndRepertory();
+
+
         meta.priceAndRepertory.originPrice = Float.parseFloat(etOrigin.getText().toString().trim());
-        meta.priceAndRepertory.salePrice = Float.parseFloat(etSale.getText().toString().trim());
-        meta.priceAndRepertory.repertory = Integer.parseInt(etStock.getText().toString().trim());
+        float nunSale = Float.parseFloat(etSale.getText().toString().trim());
+        int numStock = Integer.parseInt(etStock.getText().toString().trim());
+        if (nunSale<=0){
+            ToastUtils.ToastMessage(getCtx(),getString(R.string.sale_price_legal));
+            return;
+        }
+        if (numStock<=0){
+            ToastUtils.ToastMessage(getCtx(),getString(R.string.stock_price_legal));
+            return;
+        }
+        meta.priceAndRepertory.salePrice = nunSale;
+        meta.priceAndRepertory.repertory = numStock;
 
         Intent intent = new Intent(this, CreateGoodsFinalActivity.class);
         intent.putExtra(Constant.ForIntent.META, meta);
