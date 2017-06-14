@@ -10,12 +10,12 @@ import android.widget.TextView;
 
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
+import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.WalletAccount;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.WalletPresenter;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.IWalletView;
-import com.gs.buluo.store.view.widget.panel.RechargePanel;
 
 import butterknife.Bind;
 
@@ -29,8 +29,7 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
     TextView mFloat;
     Context mCtx;
     private String pwd;
-    private RechargePanel panel;
-    private float balance;
+    private float balance = -1;
     private float withdrawCharge;
 
     @Override
@@ -58,6 +57,10 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
+        if (balance==-1){
+            ToastUtils.ToastMessage(getCtx(),R.string.connect_fail);
+            return;
+        }
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.wallet_bill:
@@ -85,6 +88,10 @@ public class WalletActivity extends BaseActivity implements View.OnClickListener
                 startActivity(intent);
                 break;
             case R.id.wallet_cash:
+                if (!TribeApplication.getInstance().isBf_withdraw()){
+                    ToastUtils.ToastMessage(getCtx(),R.string.no_function);
+                    break;
+                }
                 intent.putExtra(Constant.WALLET_AMOUNT,balance);
                 intent.putExtra(Constant.WALLET_PWD,pwd);
                 intent.putExtra(Constant.POUNDAGE,withdrawCharge);

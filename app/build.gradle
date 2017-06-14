@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.antfortune.freeline'
 
 android {
@@ -88,4 +89,8 @@ dependencies {
     compile 'com.github.ngreedy:tribe_lib:2.5.7'
     compile files('libs/tmassistantsdk_selfupdate_v2.0_20170210155519.jar')
     compile files('libs/jce.jar')
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
