@@ -19,11 +19,11 @@ import com.bumptech.glide.Glide;
 import com.gs.buluo.common.UpdateEvent;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
+import com.gs.buluo.common.utils.SharePreferenceManager;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.common.utils.SharePreferenceManager;
 import com.gs.buluo.store.bean.AppConfigInfo;
 import com.gs.buluo.store.bean.ConfigInfo;
 import com.gs.buluo.store.bean.PromotionInfo;
@@ -44,8 +44,6 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
-
-import static android.R.attr.versionName;
 
 /**
  * Created by hjn on 2016/11/3.
@@ -80,8 +78,8 @@ public class AppStartActivity extends BaseActivity {
         mLocClient = new LocationClient(this);
         mLocClient.registerLocationListener(myListener);
         mLocClient.start();
-        File file =new File(Constant.DIR_PATH);
-        if (!file.exists())file.mkdirs();
+        File file = new File(Constant.DIR_PATH);
+        if (!file.exists()) file.mkdirs();
         setupPromotion();
     }
 
@@ -153,6 +151,7 @@ public class AppStartActivity extends BaseActivity {
 
     int startTime = 1;
     private Subscriber<Long> subscriber;
+
     private void startCounter() {
         tvSecond.setText(startTime + "");
         subscriber = new Subscriber<Long>() {
@@ -219,21 +218,11 @@ public class AppStartActivity extends BaseActivity {
     private void beginActivity() {
         if (SharePreferenceManager.getInstance(this).getBooeanValue("guide" + getVersionCode())) {
             SharePreferenceManager.getInstance(this).setValue("guide" + getVersionCode(), false);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(new Intent(AppStartActivity.this, GuideActivity.class));
-                    finish();
-                }
-            }, 1000);
+            startActivity(new Intent(AppStartActivity.this, GuideActivity.class));
+            finish();
         } else {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(new Intent(AppStartActivity.this, MainActivity.class));
-                    finish();
-                }
-            }, 1000);
+            startActivity(new Intent(AppStartActivity.this, MainActivity.class));
+            finish();
         }
     }
 
@@ -269,6 +258,7 @@ public class AppStartActivity extends BaseActivity {
                 TribeApplication.getInstance().setPosition(myPos);
             }
         }
+
         public void onReceivePoi(BDLocation poiLocation) {
         }
     }

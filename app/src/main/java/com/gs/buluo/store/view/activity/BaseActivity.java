@@ -15,14 +15,14 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.gs.buluo.common.UpdateEvent;
-import com.gs.buluo.store.R;
-import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.common.utils.AppManager;
 import com.gs.buluo.common.utils.SystemBarTintManager;
 import com.gs.buluo.common.utils.ToastUtils;
-import com.gs.buluo.store.view.impl.IBaseView;
 import com.gs.buluo.common.widget.LoadingDialog;
+import com.gs.buluo.store.R;
+import com.gs.buluo.store.TribeApplication;
+import com.gs.buluo.store.presenter.BasePresenter;
+import com.gs.buluo.store.view.impl.IBaseView;
 import com.gs.buluo.store.view.widget.panel.UpdatePanel;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -60,7 +60,7 @@ public abstract class BaseActivity<T extends BasePresenter<IBaseView>> extends A
         initSystemBar(this);
 
         View view = mRoot.findViewById(R.id.back);
-        if (view!=null){
+        if (view != null) {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -141,15 +141,19 @@ public abstract class BaseActivity<T extends BasePresenter<IBaseView>> extends A
         LoadingDialog.getInstance().show(mRoot.getContext(), getString(R.string.loading), true);
     }
 
+    protected void showLoadingDialog(boolean cancel) {
+        LoadingDialog.getInstance().show(mRoot.getContext(), getString(R.string.loading), cancel);
+    }
+
     protected void showLoadingDialog(int res) {
-        LoadingDialog.getInstance().show(mRoot.getContext(),res, true);
+        LoadingDialog.getInstance().show(mRoot.getContext(), res, true);
     }
 
     protected void dismissDialog() {
         LoadingDialog.getInstance().dismissDialog();
     }
 
-    protected Context getCtx(){
+    protected Context getCtx() {
         return this;
     }
 
@@ -171,11 +175,11 @@ public abstract class BaseActivity<T extends BasePresenter<IBaseView>> extends A
         return true;
     }
 
-    protected  <T extends View> T findView(int resId) {
+    protected <T extends View> T findView(int resId) {
         return (T) findViewById(resId);
     }
 
-    @Subscribe( sticky = true ,threadMode = ThreadMode.MAIN)
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onUpdate(UpdateEvent event) {
         UpdatePanel updatePanel = new UpdatePanel(AppManager.getAppManager().currentActivity(), event);
         updatePanel.setCancelable(event.supported);
