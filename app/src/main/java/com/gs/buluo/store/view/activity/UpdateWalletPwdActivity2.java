@@ -14,6 +14,7 @@ import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.UpdatePwdBody;
+import com.gs.buluo.store.kotlin.activity.WalletActivity;
 import com.gs.buluo.store.network.MoneyApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.common.utils.ToastUtils;

@@ -90,8 +90,8 @@ public class PayPanel extends Dialog implements PasswordPanel.OnPasswordPanelDis
                 .subscribe(new BaseSubscriber<BaseResponse<WalletAccount>>() {
                     @Override
                     public void onNext(BaseResponse<WalletAccount> response) {
-                        String password = response.data.password;
-                        float balance = response.data.balance;
+                        String password = response.data.getPassword();
+                        float balance = response.data.getBalance();
                         if (password == null) {
                             showAlert();
                         } else {

@@ -6,13 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
-import android.view.DragEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -24,10 +21,6 @@ import com.gs.buluo.store.bean.CategoryBean;
 import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.FacilityBean;
 import com.gs.buluo.store.bean.StoreSetMealCreation;
-import com.gs.buluo.store.presenter.BasePresenter;
-import com.gs.buluo.store.presenter.StoreInfoPresenter;
-import com.gs.buluo.store.utils.CommonUtils;
-import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.IInfoView;
 import com.gs.buluo.common.widget.CustomAlertDialog;
@@ -35,7 +28,6 @@ import com.gs.buluo.store.view.widget.ObservableScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import butterknife.Bind;
 
@@ -237,8 +229,8 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
 
     private void initData() {
         showLoadingDialog();
-        ((StoreInfoPresenter)mPresenter).getDetailStoreInfo();
-        ((StoreInfoPresenter)mPresenter).getSetMeal();
+//        ((StoreInfoPresenter)mPresenter).getDetailStoreInfo();
+//        ((StoreInfoPresenter)mPresenter).getSetMeal();
     }
 
     @Override
@@ -325,7 +317,7 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         storeBean.markPlace = etArea.getText().toString().trim();
         setFacility();
         setCookingStyle();
-        ((StoreInfoPresenter)mPresenter).updateStore(storeBean);
+//        ((StoreInfoPresenter)mPresenter).updateStore(storeBean);
 
         mealCreation.coordinate =storeBean.coordinate;
         mealCreation.personExpense = tvFee.getText().toString().trim();
@@ -336,7 +328,7 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         mealCreation.category = storeBean.category;
         mealCreation.recommendedReason = tvRecommend.getText().toString().trim();
 
-        ((StoreInfoPresenter)mPresenter).updateMeal(mealCreation);
+//        ((StoreInfoPresenter)mPresenter).updateMeal(mealCreation);
     }
 
     private void setCookingStyle() {
@@ -348,10 +340,10 @@ public class MealStoreInfoActivity extends BaseActivity implements View.OnClickL
         }
     }
 
-    @Override
-    protected BasePresenter getPresenter() {
-        return new StoreInfoPresenter();
-    }
+//    @Override
+//    protected BasePresenter getPresenter() {
+//        return new StoreInfoPresenter();
+//    }
 
     @Override
     public void onBackPressed() {

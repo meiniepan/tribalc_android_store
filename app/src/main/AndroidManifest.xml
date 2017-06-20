@@ -84,13 +84,13 @@
             android:name="com.gs.buluo.store.view.activity.PhoneVerifyActivity2"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gs.buluo.store.view.activity.GoodsListActivity"
+            android:name="com.gs.buluo.store.kotlin.activity.GoodsListActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.GoodsDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gs.buluo.store.view.activity.WalletActivity"
+            android:name="com.gs.buluo.store.kotlin.activity.WalletActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
@@ -188,7 +188,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".view.activity.Authentication3Activity" />
         <activity
-            android:name=".view.activity.GoodsStoreInfoActivity"
+            android:name=".kotlin.activity.GoodsStoreInfoActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.AuthProcessingActivity"

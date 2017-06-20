@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.antfortune.freeline'
 
 android {
@@ -12,11 +13,19 @@ android {
             if ("true" == IS_JENKINS){
                 outPath = 'apk/'     //自动构建目录
             }
-            output.outputFile = new File(
-                    outPath,
-                    "app.store-${variant.versionName}.apk".toLowerCase())
+            if (IS_TEST){
+                output.outputFile = new File(
+                        outPath,
+                        "dev-app.store-${variant.versionName}.apk".toLowerCase())
+            }else {
+                output.outputFile = new File(
+                        outPath,
+                        "app.store-${variant.versionName}.apk".toLowerCase())
+            }
+
         }
     }
+
 
     defaultConfig {
         applicationId "com.gs.buluo.store"
@@ -71,14 +80,12 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:support-v4:25.0.0'
     compile 'com.android.support:design:25.0.0'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.youth.banner:banner:1.4.8'
-    compile 'com.brucetoo.pickview:library:1.2.2'
     compile 'org.xutils:xutils:3.3.36'
     compile 'com.alibaba:fastjson:1.2.20'
     compile 'cn.finalteam:galleryfinal:1.4.8.7'
@@ -86,7 +93,7 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.google.zxing:core:3.2.1'
     compile 'com.jaredrummler:material-spinner:1.1.0'
-    compile 'com.github.ngreedy:tribe_lib:2.5.7'
+    compile 'com.github.ngreedy:tribe_lib:2.6.0'
     compile files('libs/tmassistantsdk_selfupdate_v2.0_20170210155519.jar')
     compile files('libs/jce.jar')
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"

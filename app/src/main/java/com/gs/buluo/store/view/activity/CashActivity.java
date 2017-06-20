@@ -22,6 +22,7 @@ import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.BankCard;
 import com.gs.buluo.store.bean.RequestBodyBean.WithdrawRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
+import com.gs.buluo.store.kotlin.activity.WalletActivity;
 import com.gs.buluo.store.network.MoneyApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.view.widget.panel.PasswordPanel;

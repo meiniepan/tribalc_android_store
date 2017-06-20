@@ -12,7 +12,7 @@ import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.store.utils.GlideBannerLoader;
 import com.gs.buluo.store.view.activity.ServeActivity;
 import com.gs.buluo.store.view.impl.IMainView;
-import com.gs.buluo.store.view.activity.GoodsListActivity;
+import com.gs.buluo.store.kotlin.activity.GoodsListActivity;
 import com.gs.buluo.store.view.widget.AlphaScrollView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
