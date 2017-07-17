@@ -2,131 +2,122 @@ package com.gs.buluo.store.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gs.buluo.common.network.BaseResponse;
+import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.TokenEvent;
 import com.gs.buluo.common.utils.SharePreferenceManager;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.adapter.MainPagerAdapter;
+import com.gs.buluo.store.adapter.MainListAdapter;
 import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.bean.WalletAccount;
 import com.gs.buluo.store.dao.StoreInfoDao;
-import com.gs.buluo.store.view.fragment.BaseFragment;
-import com.gs.buluo.store.view.fragment.CommodityFragment;
-import com.gs.buluo.store.view.fragment.MainFragment;
-import com.gs.buluo.store.view.fragment.ManagerFragment;
-import com.gs.buluo.store.view.fragment.MineFragment;
+import com.gs.buluo.store.kotlin.activity.StrategyActivity;
+import com.gs.buluo.store.network.MoneyApis;
+import com.gs.buluo.store.network.TribeRetrofit;
+import com.gs.buluo.store.utils.GlideUtils;
+import com.gs.buluo.store.view.widget.MoneyTextView;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 
-public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
-    @Bind(R.id.main_pager)
-    ViewPager mPager;
-    @Bind(R.id.main_found_text)
-    TextView mFound;
-    @Bind(R.id.main_mine_text)
-    TextView mMine;
-    @Bind(R.id.main_usual_text)
-    TextView mUsual;
-    @Bind(R.id.main_home_text)
-    TextView mHome;
-    @Bind(R.id.main_found)
-    ImageView mFoundImage;
-    @Bind(R.id.main_mine)
-    ImageView mMineImage;
-    @Bind(R.id.main_usual)
-    ImageView mUsualImage;
-    @Bind(R.id.main_home)
-    ImageView mHomeImage;
+public class MainActivity extends BaseActivity implements View.OnClickListener {
+    private long mkeyTime;
+    @Bind(R.id.main_recycler)
+    XRecyclerView recyclerView;
+    @Bind(R.id.store_name)
+    TextView tvName;
 
-    private ArrayList<BaseFragment> list;
-    private ArrayList<TextView> tabs = new ArrayList<>(4);
-    private List<Integer> imageRids = new ArrayList<>(4);
-    private List<Integer> imageSelectedRids = new ArrayList<>(4);
-    private List<ImageView> tabIcons = new ArrayList<>(4);
-    private MineFragment mineFragment;
-    private long mkeyTime = 0;
-    private CommodityFragment commodityFragment;
+    MainListAdapter adapter;
+    private MoneyTextView tvBalance;
+    private View withDraw;
+    private View bankCard;
+    private View topView;
+    private ImageView ivIcon;
+    private float balance;
+    private float poundage;
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        String flag = intent.getStringExtra(Constant.ForIntent.FLAG);
-        if (TextUtils.equals(flag, Constant.GOODS)) {
-            commodityFragment.refreshList();
-            return;
+        if (new StoreInfoDao().findFirst() != null) {
+            initData();
         }
-        if (new StoreInfoDao().findFirst() == null) {
-            mineFragment.setLoginState(false);
-            commodityFragment.showLogin();
-        } else {
-            mineFragment.setLoginState(true);
+    }
+
+    private void initData() {
+        StoreInfo userInfo = initUser();
+        tvName.setText(userInfo.getName());
+        tvBalance.setMoneyText(userInfo.getBalance());
+        if (userInfo.getType() == StoreInfo.StoreType.CARD) {
+            withDraw.setVisibility(View.GONE);
+            bankCard.setVisibility(View.GONE);
+            topView.findViewById(R.id.main_top).setBackgroundResource(R.mipmap.withdraw_bg);
         }
+        GlideUtils.loadImage(this, TribeApplication.getInstance().getUserInfo().getLogo(), ivIcon, true);
     }
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        setBarColor(R.color.transparent);
-        list = new ArrayList<>();
-        list.add(new MainFragment());
-        commodityFragment = new CommodityFragment();
-        list.add(commodityFragment);
-        list.add(new ManagerFragment());
-        mineFragment = new MineFragment();
-        list.add(mineFragment);
-        findViewById(R.id.main_home_layout).setOnClickListener(new MainOnClickListener(0));
-        findViewById(R.id.main_found_layout).setOnClickListener(new MainOnClickListener(1));
-        findViewById(R.id.main_usual_layout).setOnClickListener(new MainOnClickListener(2));
-        findViewById(R.id.main_mine_layout).setOnClickListener(new MainOnClickListener(3));
-        initBar();
-        mPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), list));
-        mPager.addOnPageChangeListener(this);
-        mPager.setCurrentItem(0);
-        mPager.setOffscreenPageLimit(3);
-        setCurrentTab(0);
-//        checkUpdate();
-        initUser();
+        findViewById(R.id.main_setting).setOnClickListener(this);
+        topView = LayoutInflater.from(this).inflate(R.layout.main_item, (ViewGroup) getRootView(), false);
+        tvBalance = (MoneyTextView) topView.findViewById(R.id.store_balance);
+        ivIcon = (ImageView) topView.findViewById(R.id.store_icon);
+        withDraw = topView.findViewById(R.id.main_withdraw);
+        bankCard = topView.findViewById(R.id.main_bank_card);
+        bankCard.setOnClickListener(this);
+        withDraw.setOnClickListener(this);
+        topView.findViewById(R.id.main_bill).setOnClickListener(this);
+        topView.findViewById(R.id.main_receive).setOnClickListener(this);
+        topView.findViewById(R.id.main_strategy).setOnClickListener(this);
 
+        initData();
+        setMessageList(topView);
         EventBus.getDefault().register(this);
     }
 
-    private void initUser() {
-        StoreInfo first = new StoreInfoDao().findFirst();
-        TribeApplication.getInstance().setUserInfo(first);
+    private void setMessageList(View view) {
+        ArrayList list = new ArrayList<>();
+        list.add("jhahhahahaha");
+        list.add("jhahhahahaha");
+        list.add("jhahhahahaha");
+        list.add("jhahhahahaha");
+        list.add("jhahhahahaha");
+        list.add("jhahhahahaha");
+        list.add("jhahhahahaha");
+        list.add("jhahhahahaha");
+        list.add("jhahhahahaha");
+        adapter = new MainListAdapter(list, this);
+        recyclerView.addHeaderView(view);
+        recyclerView.setRefreshPosition(1);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void initBar() {
-        tabs.add(mHome);
-        tabs.add(mFound);
-        tabs.add(mUsual);
-        tabs.add(mMine);
-        imageRids.add(R.mipmap.tabbar_home_normal);
-        imageRids.add(R.mipmap.tabbar_goods_normal);
-        imageRids.add(R.mipmap.tabbar_order_normal);
-        imageRids.add(R.mipmap.tabbar_profile_normal);
-        imageSelectedRids.add(R.mipmap.tabbar_home_selected);
-        imageSelectedRids.add(R.mipmap.tabbar_goods_selected);
-        imageSelectedRids.add(R.mipmap.tabbar_order_selected);
-        imageSelectedRids.add(R.mipmap.tabbar_profile_selected);
-        tabIcons.add(mHomeImage);
-        tabIcons.add(mFoundImage);
-        tabIcons.add(mUsualImage);
-        tabIcons.add(mMineImage);
+    private StoreInfo initUser() {
+        StoreInfo first = new StoreInfoDao().findFirst();
+        TribeApplication.getInstance().setUserInfo(first);
+        return first;
     }
 
     @Override
@@ -134,55 +125,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         return R.layout.activity_main;
     }
 
-
-    private void changeFragment(int i) {
-        mPager.setCurrentItem(i, false);
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        changeFragment(position);
-        setCurrentTab(position);
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-    }
-
-    private class MainOnClickListener implements View.OnClickListener {
-        private int mIndex;
-
-        public MainOnClickListener(int index) {
-            mIndex = index;
-        }
-
-        @Override
-        public void onClick(View v) {
-            changeFragment(mIndex);
-            setCurrentTab(mIndex);
-        }
-    }
-
-    public void setCurrentTab(int currentTab) {
-        for (int i = 0; i < tabs.size(); i++) {
-            TextView textView = tabs.get(i);
-            ImageView img = tabIcons.get(i);
-            if (i == 2) {
-//                setBarColor(R.color.black);
-            }
-            if (i == currentTab) {
-                textView.setTextColor(getResources().getColor(R.color.black));
-                img.setBackgroundResource(imageSelectedRids.get(i));
-            } else {
-                textView.setTextColor(getResources().getColor(R.color.main_tab));
-                img.setBackgroundResource(imageRids.get(i));
-            }
-        }
-    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -208,8 +150,59 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         Intent intent = new Intent(getCtx(), LoginActivity.class);
         intent.putExtra(Constant.RE_LOGIN, true);
         startActivity(intent);
-        if (mineFragment != null) {
-            mineFragment.setLoginState(false);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent();
+        switch (v.getId()) {
+            case R.id.main_receive:
+                intent.setClass(this, PayCodeActivity.class);
+                this.startActivity(intent);
+                break;
+            case R.id.main_withdraw:
+                if (poundage==0&&balance==0){
+                    ToastUtils.ToastMessage(getCtx(),R.string.connect_fail);
+                    return;
+                }
+                intent.setClass(this, CashActivity.class);
+                intent.putExtra(Constant.POUNDAGE,poundage);
+                intent.putExtra(Constant.WALLET_AMOUNT,balance);
+                startActivity(intent);
+                break;
+            case R.id.main_bank_card:
+                intent.setClass(this, BankCardActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.main_bill:
+                intent.setClass(this, BillActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.main_strategy:
+                intent.setClass(this, StrategyActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.main_setting:
+                intent.setClass(this, SettingActivity.class);
+                startActivity(intent);
+                break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TribeRetrofit.getInstance().createApi(MoneyApis.class).getWallet(TribeApplication.getInstance().getUserInfo().getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<WalletAccount>>() {
+                    @Override
+                    public void onNext(BaseResponse<WalletAccount> walletAccountBaseResponse) {
+                        TribeApplication.getInstance().setPwd(walletAccountBaseResponse.data.getPassword());
+                        balance = walletAccountBaseResponse.data.getBalance();
+                        poundage = walletAccountBaseResponse.data.getWithdrawCharge();
+                        tvBalance.setMoneyText(balance +"");
+                    }
+                });
     }
 }

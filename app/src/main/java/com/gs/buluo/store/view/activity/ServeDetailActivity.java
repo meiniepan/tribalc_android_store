@@ -10,21 +10,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.baidu.mapapi.model.LatLng;
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
+import com.gs.buluo.common.utils.ToastUtils;
+import com.gs.buluo.common.widget.pulltozoom.PullToZoomScrollViewEx;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.DetailStore;
 import com.gs.buluo.store.bean.DetailStoreSetMeal;
-import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.network.ServeApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.GlideBannerLoader;
 import com.gs.buluo.store.utils.GlideUtils;
-import com.gs.buluo.common.utils.ToastUtils;
-import com.gs.buluo.common.widget.pulltozoom.PullToZoomScrollViewEx;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -56,7 +54,7 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
     private String id;
     private LinearLayout facilitiesGroup;
     private HashMap<String, Integer> map = new HashMap<>();
-    private LatLng des;
+//    private LatLng des;
     ImageView logo;
     private TextView counts;
     ArrayList<String> mFacilities;
@@ -238,9 +236,9 @@ public class ServeDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     public void setDistance(List<Double> distance) {
-        des = new LatLng(distance.get(1), distance.get(0));
-        LatLng myPos = TribeApplication.getInstance().getPosition();
-        if (myPos != null)
-            tvDistance.setText(" | " + CommonUtils.getDistance(des, myPos));
+//        des = new LatLng(distance.get(1), distance.get(0));
+//        LatLng myPos = TribeApplication.getInstance().getPosition();
+//        if (myPos != null)
+//            tvDistance.setText(" | " + CommonUtils.getDistance(des, myPos));
     }
 }

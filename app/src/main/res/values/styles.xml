@@ -125,5 +125,12 @@
         <item name="android:layout_marginTop">20dp</item>
     </style>
 
+    <style name="big_img_dialog" parent="@style/sheet_dialog">
+        <item name="android:windowAnimationStyle">@style/ActionSheetDialogAnimationScale</item>
+    </style>
+    <style name="ActionSheetDialogAnimationScale" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/scale_in</item>
+        <item name="android:windowExitAnimation">@anim/scale_out</item>
+    </style>
 
 </resources>

@@ -10,20 +10,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.baidu.mapapi.model.LatLng;
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
+import com.gs.buluo.common.utils.ToastUtils;
+import com.gs.buluo.common.widget.pulltozoom.PullToZoomScrollViewEx;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.network.CommunityApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.GlideBannerLoader;
 import com.gs.buluo.store.utils.GlideUtils;
-import com.gs.buluo.common.utils.ToastUtils;
-import com.gs.buluo.common.widget.pulltozoom.PullToZoomScrollViewEx;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -31,9 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -58,10 +53,11 @@ public class StoreDetailActivity extends BaseActivity implements View.OnClickLis
     private ImageView logo;
     private LinearLayout facilitiesGroup;
     private HashMap<String, Integer> map = new HashMap<>();
-    private LatLng des;
+//    private LatLng des;
 
     @Bind(R.id.detail_scroll_view)
     PullToZoomScrollViewEx scrollView;
+
     @Override
     protected void bindView(Bundle savedInstanceState) {
         id = getIntent().getStringExtra(Constant.STORE_ID);
@@ -78,7 +74,7 @@ public class StoreDetailActivity extends BaseActivity implements View.OnClickLis
         banner = (Banner) zoomView.findViewById(R.id.server_detail_banner);
         logo = (ImageView) zoomView.findViewById(R.id.server_detail_logo);
 
-        tvName = (TextView)contentView.findViewById(R.id.server_detail_name);
+        tvName = (TextView) contentView.findViewById(R.id.server_detail_name);
         tvPrice = (TextView) contentView.findViewById(R.id.server_detail_person_price);
         tvCollectNum = (TextView) contentView.findViewById(R.id.server_detail_collect);
         tvAddress = (TextView) contentView.findViewById(R.id.service_shop_address);
@@ -89,7 +85,7 @@ public class StoreDetailActivity extends BaseActivity implements View.OnClickLis
         tvBrand = (TextView) contentView.findViewById(R.id.server_detail_category);
         tvTime = (TextView) contentView.findViewById(R.id.server_detail_work_time);
         tvTopic = (TextView) contentView.findViewById(R.id.server_detail_topic);
-        facilitiesGroup = (LinearLayout)contentView.findViewById(R.id.server_detail_facilities);
+        facilitiesGroup = (LinearLayout) contentView.findViewById(R.id.server_detail_facilities);
 
         contentView.findViewById(R.id.service_phone_call).setOnClickListener(this);
         contentView.findViewById(R.id.service_location).setOnClickListener(this);
@@ -126,10 +122,10 @@ public class StoreDetailActivity extends BaseActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.service_booking_food:
-                ToastUtils.ToastMessage(mCtx,R.string.no_function);
+                ToastUtils.ToastMessage(mCtx, R.string.no_function);
                 break;
             case R.id.service_booking_seat:
-                if (!checkUser(mCtx))return;
+                if (!checkUser(mCtx)) return;
                 break;
             case R.id.service_call_server:
                 intent.setAction(Intent.ACTION_DIAL);
@@ -165,46 +161,44 @@ public class StoreDetailActivity extends BaseActivity implements View.OnClickLis
         banner.start();
         tvName.setText(data.name);
         tvPhone.setText(data.phone);
-        tvAddress.setText(data.address==null? "": data.city+ data.district+ data.address);
+        tvAddress.setText(data.address == null ? "" : data.city + data.district + data.address);
         tvMarkplace.setText(data.markPlace);
         String businessHours = data.businessHours;
         if (businessHours == null) tvTime.setVisibility(View.GONE);
         else tvTime.setText("每天 " + businessHours);
-        if (data.coordinate!=null&&data.coordinate.length>0){
-            setDistance(data.coordinate);
+        if (data.coordinate != null && data.coordinate.length > 0) {
+//            setDistance(data.coordinate);
         }
-        setFacilities(data.facilities);
-        GlideUtils.loadImage(this,data.logo, logo,true);
+        GlideUtils.loadImage(this, data.logo, logo, true);
     }
-
 
 
     private void initMap() {
-        map.put(getString(R.string.baby_chair),R.mipmap.baby_chair);
-        map.put(getString(R.string.bar),R.mipmap.bar);
-        map.put(getString(R.string.business_circle),R.mipmap.business_circle);
-        map.put(getString(R.string.business_dinner),R.mipmap.business_dinner);
-        map.put(getString(R.string.facilities_for_disabled),R.mipmap.facilities_for_disabled);
-        map.put(getString(R.string.organic_food),R.mipmap.organic_food);
-        map.put(getString(R.string.parking),R.mipmap.parking);
-        map.put(getString(R.string.pet_ok),R.mipmap.pet_ok);
-        map.put(getString(R.string.restaurants_of_hotel),R.mipmap.restaurants_of_hotel);
-        map.put(getString(R.string.room),R.mipmap.room);
-        map.put(getString(R.string.scene_seat),R.mipmap.scene_seat);
-        map.put(getString(R.string.small_party),R.mipmap.small_party);
-        map.put(getString(R.string.subway),R.mipmap.subway);
-        map.put(getString(R.string.valet_parking),R.mipmap.valet_parking);
-        map.put(getString(R.string.vip_rights),R.mipmap.vip_rights);
-        map.put(getString(R.string.weekend_brunch),R.mipmap.weekend_brunch);
-        map.put(getString(R.string.wi_fi),R.mipmap.wi_fi);
+        map.put(getString(R.string.baby_chair), R.mipmap.baby_chair);
+        map.put(getString(R.string.bar), R.mipmap.bar);
+        map.put(getString(R.string.business_circle), R.mipmap.business_circle);
+        map.put(getString(R.string.business_dinner), R.mipmap.business_dinner);
+        map.put(getString(R.string.facilities_for_disabled), R.mipmap.facilities_for_disabled);
+        map.put(getString(R.string.organic_food), R.mipmap.organic_food);
+        map.put(getString(R.string.parking), R.mipmap.parking);
+        map.put(getString(R.string.pet_ok), R.mipmap.pet_ok);
+        map.put(getString(R.string.restaurants_of_hotel), R.mipmap.restaurants_of_hotel);
+        map.put(getString(R.string.room), R.mipmap.room);
+        map.put(getString(R.string.scene_seat), R.mipmap.scene_seat);
+        map.put(getString(R.string.small_party), R.mipmap.small_party);
+        map.put(getString(R.string.subway), R.mipmap.subway);
+        map.put(getString(R.string.valet_parking), R.mipmap.valet_parking);
+        map.put(getString(R.string.vip_rights), R.mipmap.vip_rights);
+        map.put(getString(R.string.weekend_brunch), R.mipmap.weekend_brunch);
+        map.put(getString(R.string.wi_fi), R.mipmap.wi_fi);
     }
 
     public void setFacilities(List<String> facilities) {
-        if (facilities==null)return;
-        for (String facility:facilities){
-            View facilityView=View.inflate(this,R.layout.serve_detail_facility,null);
-            ImageView iv= (ImageView) facilityView.findViewById(R.id.facility_image);
-            TextView  tv= (TextView) facilityView.findViewById(R.id.facility_text);
+        if (facilities == null) return;
+        for (String facility : facilities) {
+            View facilityView = View.inflate(this, R.layout.serve_detail_facility, null);
+            ImageView iv = (ImageView) facilityView.findViewById(R.id.facility_image);
+            TextView tv = (TextView) facilityView.findViewById(R.id.facility_text);
             tv.setText(facility);
             Integer resId = map.get(facility);
             iv.setImageResource(resId);
@@ -212,9 +206,9 @@ public class StoreDetailActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-    public void setDistance(double[]  distance) {
-        des = new LatLng(distance[1],distance[0]);
-        LatLng myPos = TribeApplication.getInstance().getPosition();
-        tvDistance.setText(" | " + CommonUtils.getDistance(des,myPos));
-    }
+//    public void setDistance(double[]  distance) {
+//        des = new LatLng(distance[1],distance[0]);
+//        LatLng myPos = TribeApplication.getInstance().getPosition();
+//        tvDistance.setText(" | " + CommonUtils.getDistance(des,myPos));
+//    }
 }

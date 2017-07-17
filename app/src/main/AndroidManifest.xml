@@ -16,7 +16,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <supports-screens
@@ -69,9 +68,6 @@
         <activity
             android:name="com.gs.buluo.store.view.activity.MapActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.gs.buluo.store.view.activity.Authentication1Activity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.view.activity.SettingActivity"
@@ -152,13 +148,6 @@
             android:name="com.gs.buluo.store.view.activity.GuideActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.activity.CreateStoreVarietyActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".view.activity.CreateDetailActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-        <activity
             android:name=".view.activity.PhotoActivity"
             android:screenOrientation="portrait" />
 
@@ -167,31 +156,11 @@
             android:exported="true"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.CreateDetailActivitySecond"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
-        <activity
-            android:name=".view.activity.CreateGoodsVarietyActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".view.activity.Authentication2Activity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".view.activity.CreateStoreAddressActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".view.activity.CreateStoreFinishActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".view.activity.MealStoreInfoActivity"
+            android:name=".view.activity.StoreInfoDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".view.activity.Authentication3Activity" />
         <activity
             android:name=".kotlin.activity.GoodsStoreInfoActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".view.activity.AuthProcessingActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.ServeTimeActivity"
@@ -203,14 +172,6 @@
             android:name=".view.activity.NewGoodsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity
-            android:name=".view.activity.CreateStandardActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity
-            android:name=".view.activity.CreateGoodsFinalActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".view.activity.AddGoodsWithStandardActivity"
             android:screenOrientation="portrait"
@@ -228,6 +189,8 @@
         <activity android:name=".view.activity.CashActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".view.activity.PayCodeActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".kotlin.activity.StrategyActivity"
             android:screenOrientation="portrait"/>
 
         <!--应用宝下载更新-->

@@ -6,12 +6,14 @@ import com.gs.buluo.store.bean.RequestBodyBean.NewPaymentRequest;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
 import com.gs.buluo.store.bean.RequestBodyBean.WithdrawRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.BillResponse;
-import com.gs.buluo.store.bean.ResponseBody.CardResponse;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.UpdatePwdBody;
 import com.gs.buluo.store.bean.WalletAccount;
+import com.gs.buluo.store.bean.WithdrawBill;
 import com.gs.buluo.store.bean.WxPayResponse;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -31,14 +33,17 @@ public interface MoneyApis {
     Observable<BaseResponse<WalletAccount>> getWallet(
             @Path("id") String uid);
 
-
     @GET("wallets/{id}/bills")
-    Observable<BillResponse> getBillList(
+    Observable<BaseResponse<BillResponse>> getBillList(
             @Path("id") String uid, @Query("limitSize") int limitSize,@Query("sortSkip")String sortSkip,@Query("face2face") boolean isFace);
 
     @GET("wallets/{id}/bills")
-    Observable<BillResponse> getBillListFirst(
+    Observable<BaseResponse<BillResponse>> getBillListFirst(
             @Path("id") String uid, @Query("limitSize") int limitSize,@Query("face2face") boolean isFace);
+
+    @GET("wallets/{id}/withdraw")
+    Observable<BaseResponse<List<WithdrawBill>>> getWithdrawBill(@Path("id")String uid,@Query("me")String id);
+
 
 
     @PUT("wallets/{id}/password")
@@ -50,7 +55,7 @@ public interface MoneyApis {
             @Path("id") String uid, @Body UpdatePwdBody pwd, @Query("vcode") String vCode);
 
     @GET("wallets/{id}/bank_cards")
-    Call<CardResponse> getCardList(
+    Observable<BaseResponse<List<BankCard>>> getCardList(
             @Path("id") String uid);
 
     @POST("wallets/{id}/bank_cards")
@@ -93,6 +98,6 @@ public interface MoneyApis {
     Observable<BaseResponse<CodeResponse>> uploadVerify(
             @Path("id") String uid, @Path("bankCardID") String cardId, @Body ValueRequestBody verify);
 
-    @POST("wallets/{id}/withdraw")
+    @POST("wallets/{id}/withdraw?type=person")
     Observable<BaseResponse<CodeResponse>> withdrawCash(@Path("id") String uid, @Body WithdrawRequestBody body);
 }

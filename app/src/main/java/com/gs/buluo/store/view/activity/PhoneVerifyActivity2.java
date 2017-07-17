@@ -49,7 +49,6 @@ public class PhoneVerifyActivity2 extends BaseActivity {
     protected void bindView(Bundle savedInstanceState) {
         fromPwd = getIntent().getBooleanExtra("for_security", false);
         if (fromPwd) {
-            phone = new StoreInfoDao().findFirst().getPhone();
             title.setText("安全校验");
             mPhone.setText(phone);
         } else {
@@ -147,7 +146,6 @@ public class PhoneVerifyActivity2 extends BaseActivity {
                         dismissDialog();
                         StoreInfoDao dao = new StoreInfoDao();
                         StoreInfo entity = dao.findFirst();
-                        entity.setPhone(phone);
                         dao.update(entity);
                         finish();
                         AppManager.getAppManager().finishActivity(PhoneVerifyActivity.class);

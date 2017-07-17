@@ -63,7 +63,6 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
                         if (name.length() == 0) return;
                         StoreMeta bean = new StoreMeta();
                         String value = name.getText().toString().trim();
-                        bean.linkman = value;
                         showLoadingDialog();
                         ((SelfPresenter) mPresenter).updateUser(Constant.LINKMAN, value, bean);
                     }
@@ -143,7 +142,6 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
                 finish();
                 break;
             case Constant.LINKMAN:
-                userInfo.setLinkman(value);
                 intent.putExtra(Constant.LINKMAN, value);
                 setResult(RESULT_OK, intent);
                 finish();

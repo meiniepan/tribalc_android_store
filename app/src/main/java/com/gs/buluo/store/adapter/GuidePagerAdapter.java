@@ -4,14 +4,15 @@ import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.List;
-
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.view.activity.GuideActivity;
+import com.gs.buluo.store.view.activity.LoginActivity;
 import com.gs.buluo.store.view.activity.MainActivity;
+
+import java.util.List;
 
 /**
  * Created by hjn on 2016/11/1.
@@ -54,7 +55,11 @@ public class GuidePagerAdapter extends PagerAdapter {
             imgView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mAct.startActivity(new Intent(mAct, MainActivity.class));
+                    if (TribeApplication.getInstance().getUserInfo() == null) {
+                        mAct.startActivity(new Intent(mAct, LoginActivity.class));
+                    } else {
+                        mAct.startActivity(new Intent(mAct, MainActivity.class));
+                    }
                     mAct.finish();
                 }
             });

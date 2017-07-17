@@ -56,7 +56,7 @@ public class StandardListAdapter extends RecyclerAdapter<GoodsStandardMeta> {
         TextView title;
         RadioButton radioButton;
         RecyclerView recyclerView;
-        private StandardDetailAdapter adapter;
+        private PictureListAdapter adapter;
 
         public StandardListHolder(ViewGroup parent) {
             super(parent, R.layout.standard_list_item);
@@ -92,7 +92,7 @@ public class StandardListAdapter extends RecyclerAdapter<GoodsStandardMeta> {
 
         private void getDetailData(GoodsStandardMeta entity) {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-            adapter = new StandardDetailAdapter(getContext());
+//            adapter = new PictureListAdapter(getContext());
             recyclerView.setAdapter(adapter);
             getGoodsList(entity);
         }
@@ -130,7 +130,7 @@ public class StandardListAdapter extends RecyclerAdapter<GoodsStandardMeta> {
             for (String s :list){
                 goodsDetails.add(goodsIndexes.get(s));
             }
-            adapter.addAll(goodsDetails);
+//            adapter.addAll(goodsDetails);
         }
 
         @Override

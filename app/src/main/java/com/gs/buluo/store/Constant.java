@@ -32,6 +32,8 @@ public class Constant {
     public static final String CANCEL_UPDATE_VERSION = "cancel_update";
     public static final String PAY_SIGN = "pay://stores/";
     public static final String APP_START = "app_start";
+    public static final String WITHDRAW_FLAG = "withdraw_flag";
+    public static final String WITHDRAW_BILL = "withdraw_bill";
 
     public final static class Base {
         public static final String BASE = "https://app-services.buluo-gs.com/";

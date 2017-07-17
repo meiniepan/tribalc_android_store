@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:layout_margin="6dp">
+    <include  layout="@layout/split_area"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="支付助手"
+        android:textColor="@color/common_gray"
+        android:layout_marginStart="30dp"
+         android:layout_marginTop="20dp"
+        android:id="@+id/textView8" />
+    <TextClock
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="20.20"
+        android:textColor="@color/common_gray"
+        android:layout_below="@+id/textView8"
+        android:layout_alignStart="@+id/textView8"
+        android:id="@+id/textClock" />
+
+    <TextView
+        android:id="@+id/item_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="@dimen/dimens_20sp"
+        android:text="..."
+        android:layout_alignTop="@+id/textView8"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="19dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="123.12"
+        android:textSize="@dimen/dimens_18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="14dp"
+        android:id="@+id/textView10"
+        android:layout_below="@+id/textClock"
+        android:layout_alignStart="@+id/textClock"
+        android:layout_marginStart="11dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/common_gray"
+        android:text="向商家xxxx付款"
+        android:layout_below="@+id/textView10"
+        android:layout_alignStart="@+id/textView10"
+        android:layout_marginTop="11dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="立即查看"
+        android:textColor="@color/common_gray"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp" />
+
+</RelativeLayout>

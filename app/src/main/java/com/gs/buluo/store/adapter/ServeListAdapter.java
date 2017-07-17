@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.baidu.mapapi.model.LatLng;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
@@ -71,8 +70,8 @@ public class ServeListAdapter extends RecyclerAdapter<ListStoreSetMeal> {
             name.setText(entity.name);
             money.setText(entity.personExpense);
             if (store.coordinate!=null){
-                LatLng start = new LatLng(store.coordinate.get(1), store.coordinate.get(0));
-                tags.setText(store.markPlace==null? "" :(store.markPlace+" | ")+ CommonUtils.getDistance(start, TribeApplication.getInstance().getPosition()));
+//                LatLng start = new LatLng(store.coordinate.get(1), store.coordinate.get(0));
+//                tags.setText(store.markPlace==null? "" :(store.markPlace+" | ")+ CommonUtils.getDistance(start, TribeApplication.getInstance().getPosition()));
             }  else {
                 tags.setText(store.markPlace==null? "" :store.markPlace);
             }

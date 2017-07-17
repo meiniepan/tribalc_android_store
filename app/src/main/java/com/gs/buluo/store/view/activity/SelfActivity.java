@@ -53,8 +53,6 @@ public class SelfActivity extends BaseActivity implements View.OnClickListener,I
     private void initData() {
         if (null != userInfo) {
             storeName.setText(userInfo.getName());
-            linkName.setText(userInfo.getLinkman());
-            mPhone.setText(userInfo.getPhone());
         }
     }
 

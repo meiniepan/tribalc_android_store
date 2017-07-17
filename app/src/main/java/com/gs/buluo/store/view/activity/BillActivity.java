@@ -5,14 +5,15 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
-import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.widget.RecycleViewDivider;
 import com.gs.buluo.common.widget.StatusLayout;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.adapter.BillListAdapter;
+import com.gs.buluo.store.adapter.WithdrawListAdapter;
 import com.gs.buluo.store.bean.BillEntity;
 import com.gs.buluo.store.bean.ResponseBody.BillResponse;
+import com.gs.buluo.store.bean.WithdrawBill;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.BillPresenter;
 import com.gs.buluo.store.view.impl.IBillView;
@@ -34,26 +35,24 @@ public class BillActivity extends BaseActivity implements IBillView, View.OnClic
     StatusLayout statusLayout;
 
     BillListAdapter adapter;
-    List<BillEntity> list;
+    WithdrawListAdapter withdrawAdapter;
+    List<BillEntity> list = new ArrayList<>();
+    List<WithdrawBill> withdrawBills = new ArrayList<>();
     private boolean isFace;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        boolean isWithdraw = getIntent().getBooleanExtra(Constant.WITHDRAW_FLAG, false);
         isFace = getIntent().getBooleanExtra(Constant.FACE, false);
-        list = new ArrayList<>();
-        adapter = new BillListAdapter(this, list);
-        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new RecycleViewDivider(
                 this, LinearLayoutManager.HORIZONTAL, 4, getResources().getColor(R.color.tint_bg)));
-        recyclerView.setLoadMoreAction(new Action() {
-            @Override
-            public void onAction() {
-                ((BillPresenter) mPresenter).loadMoreBill(isFace);
-            }
-        });
 
-        ((BillPresenter) mPresenter).getBillListFirst(isFace);
+        if (isWithdraw) {
+            ((BillPresenter) mPresenter).getWithdrawBill();
+        } else {
+            ((BillPresenter) mPresenter).getBillListFirst(isFace);
+        }
         statusLayout.showProgressView();
     }
 
@@ -68,9 +67,17 @@ public class BillActivity extends BaseActivity implements IBillView, View.OnClic
     }
 
     @Override
-    public void getBillSuccess(BillResponse.BillResponseData response) {
+    public void getBillSuccess(BillResponse response) {
+        adapter = new BillListAdapter(this, list);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLoadMoreAction(new Action() {
+            @Override
+            public void onAction() {
+                ((BillPresenter) mPresenter).loadMoreBill(isFace);
+            }
+        });
         adapter.addAll(response.content);
-        if (adapter.getData()==null||adapter.getData().size()==0){
+        if (adapter.getData() == null || adapter.getData().size() == 0) {
             statusLayout.showEmptyView(getString(R.string.no_bill));
             return;
         }
@@ -78,6 +85,18 @@ public class BillActivity extends BaseActivity implements IBillView, View.OnClic
         if (!response.hasMoren) {
             adapter.showNoMore();
         }
+    }
+
+    @Override
+    public void getWithdrawBillSuccess(List<WithdrawBill> billList) {
+        withdrawAdapter = new WithdrawListAdapter(this, withdrawBills);
+        recyclerView.setAdapter(withdrawAdapter);
+        withdrawAdapter.addAll(billList);
+        if (withdrawAdapter.getData() == null || withdrawAdapter.getData().size() == 0) {
+            statusLayout.showEmptyView(getString(R.string.no_bill));
+            return;
+        }
+        statusLayout.showContentView();
     }
 
     @Override

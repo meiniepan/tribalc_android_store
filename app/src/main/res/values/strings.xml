@@ -266,4 +266,8 @@
     <string name="saving_now">保存中</string>
     <string name="sale_price_legal">销售价格需大于0</string>
     <string name="stock_price_legal">库存需大于0</string>
+    <string name="discount_strategy">优惠策略</string>
+    <string name="store_strategy">优惠策略</string>
+    <string name="withdraw_pwd">提现密码</string>
+    <string name="store_tags">商家标签</string>
 </resources>

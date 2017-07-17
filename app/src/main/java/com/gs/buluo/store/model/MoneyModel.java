@@ -5,11 +5,8 @@ import com.gs.buluo.store.bean.BankCard;
 import com.gs.buluo.store.bean.OrderPayment;
 import com.gs.buluo.store.bean.RequestBodyBean.NewPaymentRequest;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
-import com.gs.buluo.store.bean.ResponseBody.BillResponse;
-import com.gs.buluo.store.bean.ResponseBody.CardResponse;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
-import com.gs.buluo.store.bean.WalletAccount;
 import com.gs.buluo.store.bean.WxPayResponse;
 import com.gs.buluo.store.network.MoneyApis;
 import com.gs.buluo.store.network.TribeRetrofit;
@@ -22,11 +19,6 @@ import retrofit2.Callback;
  * Created by hjn on 2016/11/18.
  */
 public class MoneyModel {
-
-    public void getCardList(String uid, Callback<CardResponse> callback) {
-        TribeRetrofit.getInstance().createApi(MoneyApis.class).
-                getCardList(uid).enqueue(callback);
-    }
 
     public void addBankCard(String uid, String vCode, BankCard card, Callback<BaseResponse<CodeResponse>> callback) {
         TribeRetrofit.getInstance().createApi(MoneyApis.class).

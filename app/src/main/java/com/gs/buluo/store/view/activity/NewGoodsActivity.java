@@ -14,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.BannerPicture;
@@ -25,7 +26,6 @@ import com.gs.buluo.store.bean.ResponseBody.UploadResponseBody;
 import com.gs.buluo.store.bean.SerializableHashMap;
 import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.store.utils.GlideBannerLoader;
-import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.ObservableScrollView;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 import com.youth.banner.Banner;
@@ -81,6 +81,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
     private View addPic;
 
     private boolean isScrolling;
+
     @Override
     protected void bindView(Bundle savedInstanceState) {
         initView();
@@ -97,19 +98,19 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void hideSoftWhenScroll(int y, int oldy) {
-        if (y-oldy>20|| oldy-y>20){
-            if (!isScrolling){
-                isScrolling=true;
+        if (y - oldy > 20 || oldy - y > 20) {
+            if (!isScrolling) {
+                isScrolling = true;
                 View currentFocus = NewGoodsActivity.this.getCurrentFocus();
-                if (currentFocus!=null){
-                    ((InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE)).
-                            hideSoftInputFromWindow(currentFocus.getWindowToken(),0);
+                if (currentFocus != null) {
+                    ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).
+                            hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
                 }
 
             }
-        }else {
-            if (isScrolling){
-                isScrolling=false;
+        } else {
+            if (isScrolling) {
+                isScrolling = false;
             }
         }
     }
@@ -216,11 +217,6 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
                 pos = picList.size() - 1;
                 break;
             case R.id.ll_goods_create_standard:
-                Intent intent = new Intent(getCtx(), CreateStandardActivity.class);
-                if (bundle != null) {
-                    intent.putExtras(bundle);
-                }
-                startActivityForResult(intent, 201);
                 break;
             case R.id.goods_create_next:
                 goNext();
@@ -247,8 +243,8 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
     private void goNext() {
         meta.name = etTitle.getText().toString().trim();
         meta.title = etTitleDetail.getText().toString().trim();
-        if (TextUtils.isEmpty(meta.name)){
-            ToastUtils.ToastMessage(getCtx(),"列表标题不能为空");
+        if (TextUtils.isEmpty(meta.name)) {
+            ToastUtils.ToastMessage(getCtx(), "列表标题不能为空");
             return;
         }
         meta.pictures = new ArrayList<>();
@@ -266,32 +262,25 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
         meta.originCountry = etSource.getText().toString().trim();
         if (standardMeta == null) {
             GoodsPriceAndRepertory goods = new GoodsPriceAndRepertory();
-            if (etSale.length() == 0 || etStock.length() == 0 ) {
+            if (etSale.length() == 0 || etStock.length() == 0) {
                 ToastUtils.ToastMessage(this, R.string.goods_info_not_complete);
                 return;
             }
-            goods.originPrice = Float.parseFloat(etOrigin.length()==0? "0":etOrigin.getText().toString().trim());
+            goods.originPrice = Float.parseFloat(etOrigin.length() == 0 ? "0" : etOrigin.getText().toString().trim());
             float nunSale = Float.parseFloat(etSale.getText().toString().trim());
             int numStock = Integer.parseInt(etStock.getText().toString().trim());
-            if (nunSale<=0){
-                ToastUtils.ToastMessage(getCtx(),getString(R.string.sale_price_legal));
+            if (nunSale <= 0) {
+                ToastUtils.ToastMessage(getCtx(), getString(R.string.sale_price_legal));
                 return;
             }
-            if (numStock<=0){
-                ToastUtils.ToastMessage(getCtx(),getString(R.string.stock_price_legal));
+            if (numStock <= 0) {
+                ToastUtils.ToastMessage(getCtx(), getString(R.string.stock_price_legal));
                 return;
             }
             goods.salePrice = nunSale;
             goods.repertory = numStock;
             meta.priceAndRepertory = goods;
         }
-
-        Intent intent = new Intent(this, CreateGoodsFinalActivity.class);
-        intent.putExtra(Constant.ForIntent.META, meta);
-        if (bundle != null) {
-            intent.putExtras(bundle);
-        }
-        startActivity(intent);
     }
 
     private void showChoosePhoto() {
@@ -306,7 +295,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
 
     private void uploadPic(String path) {
         showLoadingDialog();
-        TribeUploader.getInstance().uploadFile("goods", "",path, new TribeUploader.UploadCallback() {
+        TribeUploader.getInstance().uploadFile("goods", "", path, new TribeUploader.UploadCallback() {
             @Override
             public void uploadSuccess(UploadResponseBody data) {
                 dismissDialog();

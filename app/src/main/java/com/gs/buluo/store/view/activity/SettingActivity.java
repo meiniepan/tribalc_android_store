@@ -68,6 +68,8 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
         findViewById(R.id.setting_clear_cache).setOnClickListener(this);
         findViewById(R.id.setting_recall).setOnClickListener(this);
         findViewById(R.id.setting_update).setOnClickListener(this);
+        findViewById(R.id.setting_pwd).setOnClickListener(this);
+        findViewById(R.id.setting_info).setOnClickListener(this);
 
         String cacheSize = null;
         try {
@@ -138,9 +140,23 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
                 SharePreferenceManager.getInstance(getApplicationContext()).clearValue(Constant.WALLET_PWD);
                 new StoreInfoDao().clear();
                 TribeApplication.getInstance().setUserInfo(null);
-                intent.setClass(mCtx, MainActivity.class);
+                intent.setClass(mCtx, LoginActivity.class);
                 startActivity(intent);
                 finish();
+                break;
+            case R.id.setting_pwd:
+                String pwd = TribeApplication.getInstance().getPwd();
+                if (pwd == null) {
+                    intent.setClass(this, UpdateWalletPwdActivity.class);
+                } else {
+                    intent.setClass(this, ConfirmActivity.class);
+                    intent.putExtra(Constant.WALLET_PWD, pwd);
+                }
+                startActivity(intent);
+                break;
+            case R.id.setting_info:
+                intent.setClass(this,StoreInfoDetailActivity.class);
+                startActivity(intent);
                 break;
         }
     }

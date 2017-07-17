@@ -3,16 +3,17 @@ package com.gs.buluo.store.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.gs.buluo.store.bean.ResponseBody.IBaseResponse;
-
 import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by hjn on 2016/11/10.
  */
 @Table(name = "store_info")
-public class StoreInfo implements IBaseResponse, Parcelable {
+public class StoreInfo implements Parcelable {
     @Column(name = "id", isId = true)
     private int mid;
     @Column(name = "cid")
@@ -21,24 +22,40 @@ public class StoreInfo implements IBaseResponse, Parcelable {
     @Column(name = "name")
     public String name;
 
-    public String getLinkman() {
-        return linkman;
+    @Column(name = "type")
+    private String accountType;
+
+    private List<Privilege> discount;
+
+    public List<Privilege> getDiscount() {
+        return discount;
     }
 
-    public void setLinkman(String linkman) {
-        this.linkman = linkman;
+    public void setDiscount(List<Privilege> discount) {
+        this.discount = discount;
     }
 
-    public String getAuthenticationStatus() {
-        return authenticationStatus;
+    public String getBalance() {
+        return balance;
     }
 
-    public void setAuthenticationStatus(String authenticationStatus) {
-        this.authenticationStatus = authenticationStatus;
+    public void setBalance(String balance) {
+        this.balance = balance;
     }
 
-    @Column(name = "linkman")
-    public String linkman;
+    private String balance;
+
+    public enum StoreType {
+        CARD, PROTOCOL
+    }
+
+    public StoreType getType() {
+        return accountType == null ? StoreType.CARD : StoreType.valueOf(accountType);
+    }
+
+    public void setType(StoreType type) {
+        this.accountType = type.name();
+    }
 
     @Column(name = "token")
     public String token;
@@ -46,17 +63,8 @@ public class StoreInfo implements IBaseResponse, Parcelable {
     @Column(name = "store_type")
     public String storeType;
 
-    @Column(name = "phone")
-    public String phone;
-
-    @Column(name = "cover")
-    public String cover;
-
     @Column(name = "logo")
     public String logo;
-
-    @Column(name = "status")
-    public String authenticationStatus;
 
     public String getName() {
         return name;
@@ -75,7 +83,6 @@ public class StoreInfo implements IBaseResponse, Parcelable {
     }
 
     public String getId() {
-//        return "584e4f8c1c3e73d1bc07e6ea";
         return id;
     }
 
@@ -89,23 +96,6 @@ public class StoreInfo implements IBaseResponse, Parcelable {
 
     public void setStoreType(String storeType) {
         this.storeType = storeType;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-
-    public String getCover() {
-        return cover;
-    }
-
-    public void setCover(String cover) {
-        this.cover = cover;
     }
 
     public String getLogo() {
@@ -138,26 +128,25 @@ public class StoreInfo implements IBaseResponse, Parcelable {
         dest.writeInt(this.mid);
         dest.writeString(this.id);
         dest.writeString(this.name);
-        dest.writeString(this.linkman);
+        dest.writeString(this.accountType);
+        dest.writeList(this.discount);
+        dest.writeString(this.balance);
         dest.writeString(this.token);
         dest.writeString(this.storeType);
-        dest.writeString(this.phone);
-        dest.writeString(this.cover);
         dest.writeString(this.logo);
-        dest.writeString(this.authenticationStatus);
     }
 
     protected StoreInfo(Parcel in) {
         this.mid = in.readInt();
         this.id = in.readString();
         this.name = in.readString();
-        this.linkman = in.readString();
+        this.accountType = in.readString();
+        this.discount = new ArrayList<Privilege>();
+        in.readList(this.discount, Privilege.class.getClassLoader());
+        this.balance = in.readString();
         this.token = in.readString();
         this.storeType = in.readString();
-        this.phone = in.readString();
-        this.cover = in.readString();
         this.logo = in.readString();
-        this.authenticationStatus = in.readString();
     }
 
     public static final Creator<StoreInfo> CREATOR = new Creator<StoreInfo>() {

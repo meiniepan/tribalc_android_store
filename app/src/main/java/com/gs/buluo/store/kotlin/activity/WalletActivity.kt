@@ -14,7 +14,7 @@ class WalletActivity: KotBaseActivity(), android.view.View.OnClickListener, com.
         wallet_pwd.setOnClickListener(this)
         wallet_cash.setOnClickListener(this)
         wallet_receive.setOnClickListener(this)
-        presenter  = WalletPresenter(this)
+        mPresenter = WalletPresenter(this)
     }
 
     override val contentLayout: Int
@@ -32,7 +32,7 @@ class WalletActivity: KotBaseActivity(), android.view.View.OnClickListener, com.
     }
 
     private fun getData() {
-        (presenter as WalletPresenter).getWalletInfo()
+        (mPresenter as WalletPresenter).getWalletInfo()
     }
 
     override fun onClick(v: android.view.View) {
@@ -104,6 +104,6 @@ class WalletActivity: KotBaseActivity(), android.view.View.OnClickListener, com.
     }
 
     override fun onDismiss(dialog: android.content.DialogInterface) {
-        (presenter as WalletPresenter).getWalletInfo()
+        (mPresenter as WalletPresenter).getWalletInfo()
     }
 }

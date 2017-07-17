@@ -3,6 +3,7 @@ package com.gs.buluo.store.network;
 import com.gs.buluo.store.bean.AppConfigInfo;
 import com.gs.buluo.store.bean.AuthenticationData;
 import com.gs.buluo.store.bean.ConfigInfo;
+import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.RequestBodyBean.LoginBody;
 import com.gs.buluo.store.bean.RequestBodyBean.PhoneUpdateBody;
@@ -35,6 +36,12 @@ public interface MainApis {
     @GET("configs/version?os=android&edition=store")
     Observable<BaseResponse<AppConfigInfo>> getLastVersion(@Query("version") String version);
 
+    @GET("stores/{storeId}?type=store")
+    Observable<BaseResponse<StoreInfo>> getStoreInfo(@Path("storeId")String uid, @Query("me")String id);
+
+    @GET("stores/{storeId}/store_detail?type=store")
+    Observable<BaseResponse<StoreMeta>> getStoreDetailInfo(@Path("storeId")String uid, @Query("me")String id);
+
     @POST("stores/login")
     Observable<BaseResponse<UserBeanEntity>> doLogin(@Body LoginBody params);
 
@@ -44,14 +51,15 @@ public interface MainApis {
     @POST("oss_authorization/picture")
     Observable<BaseResponse<UploadResponseBody>> getUploadUrl(@Query("me") String id, @Body UploadAccessBody body);
 
+
+
+
     @PUT("stores/{id}/authentication")
     Observable<BaseResponse<AuthenticationData>> doAuthentication(@Path("id") String id, @Body AuthenticationData request);
 
     @PUT("stores/{id}/phone")
     Observable<BaseResponse<CodeResponse>> updatePhone(@Path("id") String id, @Body PhoneUpdateBody body);
 
-    @GET("stores/{id}")
-    Observable<BaseResponse<StoreMeta>> getStoreMeta(@Path("id")String uid,@Query("me")String id);
 
     @PUT("stores/{id}/{propNames}")
     Observable<BaseResponse<CodeResponse>> updateStoreProp(@Path("id") String id, @Path("propNames") String propNames, @Body StoreMeta bean);

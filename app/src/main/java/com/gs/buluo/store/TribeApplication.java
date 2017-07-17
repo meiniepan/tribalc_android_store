@@ -1,15 +1,16 @@
 package com.gs.buluo.store;
 
 
-import com.baidu.mapapi.SDKInitializer;
-import com.baidu.mapapi.model.LatLng;
 import com.gs.buluo.common.BaseApplication;
-import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.common.utils.TribeCrashCollector;
+import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
 
 import org.xutils.DbManager;
+import org.xutils.ex.DbException;
 import org.xutils.x;
+
+//import com.squareup.leakcanary.LeakCanary;
 
 
 /**
@@ -19,15 +20,18 @@ public class TribeApplication extends BaseApplication {
     private static TribeApplication instance;
     private DbManager.DaoConfig daoConfig;
     private StoreInfo user;
-    private LatLng positon;
+    private String pwd;
+//    private LatLng positon;
+
     @Override
     public void onCreate() {
         super.onCreate();
-        SDKInitializer.initialize(this);  //map initialize
+//        SDKInitializer.initialize(this);  //map initialize
         initCrashCollect();
         instance = this;
         x.Ext.init(this);//X utils初始化
 //        x.Ext.setDebug(BuildConfig.DEBUG);
+//        LeakCanary.install(this);
         initDb();
     }
 
@@ -39,6 +43,7 @@ public class TribeApplication extends BaseApplication {
     private void initDb() {
         daoConfig = new DbManager.DaoConfig()
                 .setDbName("store")
+                .setDbVersion(2)
                 .setDbOpenListener(new DbManager.DbOpenListener() {
                     @Override
                     public void onDbOpened(DbManager db) {
@@ -48,8 +53,19 @@ public class TribeApplication extends BaseApplication {
                 .setDbUpgradeListener(new DbManager.DbUpgradeListener() { //更新数据库
                     @Override
                     public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
+                        if (oldVersion == 1) {
+                            update1To2(db);
+                        }
                     }
                 });
+    }
+
+    private void update1To2(DbManager db) {
+        try {
+            db.addColumn(StoreInfo.class, "type");
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
     }
 
     public static synchronized TribeApplication getInstance() {
@@ -75,19 +91,19 @@ public class TribeApplication extends BaseApplication {
     }
 
     public StoreInfo getUserInfo() {
-        if (user==null){
-            user=new StoreInfoDao().findFirst();
+        if (user == null) {
+            user = new StoreInfoDao().findFirst();
         }
         return user;
     }
 
-    public LatLng getPosition() {
-        return positon;
-    }
-
-    public void setPosition(LatLng latLng){
-        positon =latLng;
-    }
+//    public LatLng getPosition() {
+//        return positon;
+//    }
+//
+//    public void setPosition(LatLng latLng) {
+//        positon = latLng;
+//    }
 
     private boolean bf_recharge;
     private boolean bf_withdraw;
@@ -106,5 +122,13 @@ public class TribeApplication extends BaseApplication {
 
     public void setBf_withdraw(boolean bf_withdraw) {
         this.bf_withdraw = bf_withdraw;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
     }
 }

@@ -10,14 +10,10 @@ import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.ResponseBody.UserBeanEntity;
 import com.gs.buluo.store.bean.StoreInfo;
-import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.dao.StoreInfoDao;
-import com.gs.buluo.store.eventbus.SelfEvent;
 import com.gs.buluo.store.network.MainApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.view.impl.ILoginView;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
@@ -40,29 +36,29 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
 
         TribeRetrofit.getInstance().createApi(MainApis.class).doLogin(bean)
                 .subscribeOn(Schedulers.io())
-                .flatMap(new Func1<BaseResponse<UserBeanEntity>, Observable<BaseResponse<StoreMeta>>>() {
+                .flatMap(new Func1<BaseResponse<UserBeanEntity>, Observable<BaseResponse<StoreInfo>>>() {
                     @Override
-                    public Observable<BaseResponse<StoreMeta>> call(BaseResponse<UserBeanEntity> response) {
+                    public Observable<BaseResponse<StoreInfo>> call(BaseResponse<UserBeanEntity> response) {
                         String uid = response.data.getAssigned();
                         token = response.data.getToken();
                         StoreInfo entity = new StoreInfo();
                         entity.setId(uid);
                         entity.setToken(token);
                         TribeApplication.getInstance().setUserInfo(entity);
-                        return TribeRetrofit.getInstance().createApi(MainApis.class).getStoreMeta(uid,uid);
+                        return TribeRetrofit.getInstance().createApi(MainApis.class).getStoreInfo(uid,uid);
                     }
                 })
                 .subscribeOn(Schedulers.io())
-                .doOnNext(new Action1<BaseResponse<StoreMeta>>() {
+                .doOnNext(new Action1<BaseResponse<StoreInfo>>() {
                     @Override
-                    public void call(BaseResponse<StoreMeta> response) {
+                    public void call(BaseResponse<StoreInfo> response) {
                         setStoreInfo(response.data);
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<StoreMeta>>() {
+                .subscribe(new BaseSubscriber<BaseResponse<StoreInfo>>() {
                     @Override
-                    public void onNext(BaseResponse<StoreMeta> response) {
+                    public void onNext(BaseResponse<StoreInfo> response) {
                         if (isAttach()) {
                             mView.loginSuccess();
                         }
@@ -92,21 +88,9 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                 });
     }
 
-    private void setStoreInfo(StoreMeta storeInfo) {
-        StoreInfo entity = new StoreInfo();
-        entity.setToken(token);
-        entity.setLogo(storeInfo.logo);
-        entity.setCover(storeInfo.cover);
-        entity.setAuthenticationStatus(storeInfo.authenticationStatus);
-        entity.setId(storeInfo.getId());
-        entity.setLinkman(storeInfo.linkman);
-        entity.setName(storeInfo.name);
-        entity.setPhone(storeInfo.phone);
-        entity.setStoreType(storeInfo.storeType);
-
-        TribeApplication.getInstance().setUserInfo(entity);
+    private void setStoreInfo(StoreInfo storeInfo) {
         StoreInfoDao dao = new StoreInfoDao();
-        dao.saveBindingId(entity);
-        EventBus.getDefault().post(new SelfEvent());
+        storeInfo.setToken(token);
+        dao.saveBindingId(storeInfo);
     }
 }

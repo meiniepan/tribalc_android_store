@@ -29,6 +29,17 @@
         <include
             android:id="@+id/back"
             layout="@layout/back_img_white" />
+
+        <TextView
+            android:id="@+id/withdraw_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提现记录"
+            android:textColor="@color/white"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:paddingEnd="6dp"
+            android:paddingStart="6dp"/>
     </RelativeLayout>
 
     <include layout="@layout/split_area" />

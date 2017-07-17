@@ -52,23 +52,23 @@ public class CashActivity extends BaseActivity {
     Button btWithdraw;
     @Bind(R.id.cash_poundage)
     TextView tvPoundage;
-    private String pwd;
     private String chooseCardId;
     private float availableAmount;
+    private String pwd;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        pwd = TribeApplication.getInstance().getPwd();
         Intent intent = getIntent();
         float amount = intent.getFloatExtra(Constant.WALLET_AMOUNT, 0);
-        pwd = intent.getStringExtra(Constant.WALLET_PWD);
         float poundage = intent.getFloatExtra(Constant.POUNDAGE, 0);
         tvPoundage.setText(poundage + "");
 
-        BigDecimal amountDecimal=new BigDecimal(amount+"");
-        BigDecimal poundageDecimal=new BigDecimal(poundage+"");
+        BigDecimal amountDecimal = new BigDecimal(amount + "");
+        BigDecimal poundageDecimal = new BigDecimal(poundage + "");
 
         float floatValue = amountDecimal.subtract(poundageDecimal).floatValue();
-        availableAmount =   floatValue > 0 ? floatValue : 0;
+        availableAmount = floatValue > 0 ? floatValue : 0;
         tvAmount.setText(availableAmount + "");
 
         findViewById(R.id.card_withdraw_all).setOnClickListener(new View.OnClickListener() {
@@ -89,6 +89,15 @@ public class CashActivity extends BaseActivity {
                 startActivityForResult(intent, 201);
             }
         });
+        findViewById(R.id.withdraw_record).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getCtx(), BillActivity.class);
+                intent.putExtra(Constant.WITHDRAW_FLAG,true);
+                startActivity(intent);
+            }
+        });
+
 
         etWithdraw.addTextChangedListener(new TextWatcher() {
             @Override

@@ -16,9 +16,6 @@ import butterknife.Bind;
  * Created by hjn on 2016/11/21.
  */
 public class UpdateWalletPwdActivity extends BaseActivity {
-    @Bind(R.id.pwd_title)
-    TextView mText;
-
     @Bind(R.id.wallet_pwd_1)
     PwdEditText editText;
 
@@ -30,10 +27,6 @@ public class UpdateWalletPwdActivity extends BaseActivity {
     protected void bindView(Bundle savedInstanceState) {
         oldPwd = getIntent().getStringExtra(Constant.OLD_PWD);
         vCode = getIntent().getStringExtra(Constant.VCODE);
-        if (oldPwd == null) {
-            mText.setText(R.string.pay_pwd);
-        }
-
         editText.requestFocus();
         editText.setInputCompleteListener(new PwdEditText.InputCompleteListener() {
             @Override

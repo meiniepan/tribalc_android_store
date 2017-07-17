@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.BillEntity;
+import com.gs.buluo.store.bean.WithdrawBill;
 import com.gs.buluo.store.utils.TribeDateUtils;
 
 import java.util.Date;
@@ -29,26 +30,36 @@ public class BillDetailActivity extends BaseActivity {
     @Override
     protected void bindView(Bundle savedInstanceState) {
         BillEntity entity = (BillEntity) getIntent().getSerializableExtra(Constant.BILL);
-        mNumber.setText(entity.id);
-        String amount = entity.amount;
-        if (amount.contains("-")) {
-            mMoney.setText("支出" + amount.substring(1, amount.length()));
-        } else {
-            mMoney.setText("收入" + amount);
+        WithdrawBill bill = getIntent().getParcelableExtra(Constant.WITHDRAW_BILL);
+        if (entity!=null){          //账单
+            mNumber.setText(entity.id);
+            String amount = entity.amount;
+            if (amount.contains("-")) {
+                mMoney.setText("支出" + amount.substring(1, amount.length()));
+            } else {
+                mMoney.setText("收入" + amount);
+            }
+
+            mName.setText(entity.annotherAccountId);
+
+            long createTime = Long.parseLong(entity.createTime);
+            Date date = new Date(createTime);
+            mTime.setText(TribeDateUtils.dateFormat9(date));
+        }else {             //提现记录
+            mNumber.setText(bill.id);
+            String amount = bill.amount;
+            if (amount.contains("-")) {
+                mMoney.setText("支出" + amount.substring(1, amount.length()));
+            } else {
+                mMoney.setText("收入" + amount);
+            }
+
+            mName.setText(bill.status.toString());
+
+            Date date = new Date(bill.createTime);
+            mTime.setText(TribeDateUtils.dateFormat9(date));
         }
 
-        mName.setText(entity.annotherAccountId);
-
-        long createTime = Long.parseLong(entity.createTime);
-        Date date = new Date(createTime);
-        mTime.setText(TribeDateUtils.dateFormat9(date));
-
-        findViewById(R.id.bill_detail_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     @Override

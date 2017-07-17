@@ -51,15 +51,15 @@ class StoreInfoPresenter(var mView: IInfoView) : KotBasePresenter() {
     }
 
     fun getDetailStoreInfo() {
-        val id = TribeApplication.getInstance().userInfo.id
-        TribeRetrofit.getInstance().createApi(MainApis::class.java).getStoreMeta(id, id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : BaseSubscriber<BaseResponse<StoreMeta>>() {
-                    override fun onNext(response: BaseResponse<StoreMeta>?) {
-                        mView.setData(response!!.data)
-                    }
-                })
+//        val id = TribeApplication.getInstance().userInfo.id
+//        TribeRetrofit.getInstance().createApi(MainApis::class.java).getStoreInfo(id, id)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(object : BaseSubscriber<BaseResponse<StoreMeta>>() {
+//                    override fun onNext(response: BaseResponse<StoreMeta>?) {
+//                        mView.setData(response!!.data)
+//                    }
+//                })
     }
 
     fun getSetMeal() {

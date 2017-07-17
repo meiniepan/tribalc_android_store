@@ -18,7 +18,7 @@ import java.util.*
 class GoodsListActivity : KotBaseActivity(), IGoodsView {
 
     override fun bindView(savedInstanceState: Bundle?) {
-        presenter = GoodsPresenter(this)
+        mPresenter = GoodsPresenter(this)
         adapter = GoodsListAdapter(this)
         goods_list.setAdapter(adapter)
         goods_list.setLayoutManager(GridLayoutManager(this, 2))
@@ -27,12 +27,13 @@ class GoodsListActivity : KotBaseActivity(), IGoodsView {
         goods_list.addItemDecoration(RecycleViewDivider(
                 this, GridLayoutManager.VERTICAL, 12, resources.getColor(R.color.tint_bg)))
         goods_list_wrap.showProgressView()
-        (presenter as GoodsPresenter).getGoodsList()
+        (mPresenter as GoodsPresenter).getGoodsList()
 
-        goods_list.setLoadMoreAction { (presenter as GoodsPresenter).loadMore() }
+        goods_list.setLoadMoreAction { (mPresenter as GoodsPresenter).loadMore() }
 
-        goods_list_wrap.setErrorAndEmptyAction { (presenter as GoodsPresenter).getGoodsList() }
+        goods_list_wrap.setErrorAndEmptyAction { (mPresenter as GoodsPresenter).getGoodsList() }
     }
+
 
     override val contentLayout: Int
         get() = R.layout.activity_goods
@@ -43,6 +44,8 @@ class GoodsListActivity : KotBaseActivity(), IGoodsView {
 
 
     override fun getGoodsInfo(responseList: GoodList) {
+        var (expensive, cheap) = responseList.content.partition { it.salePrice.toFloat() > 1.0f }
+        list.addAll(expensive)
         list.addAll(responseList.content)
         if (list.size == 0) {
             goods_list_wrap.showErrorView(getString(R.string.no_goods))

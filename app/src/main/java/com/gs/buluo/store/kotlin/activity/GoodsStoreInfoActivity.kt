@@ -3,7 +3,6 @@ package com.gs.buluo.store.kotlin.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.View
 import com.gs.buluo.common.utils.ToastUtils
 import com.gs.buluo.common.widget.CustomAlertDialog
@@ -12,8 +11,6 @@ import com.gs.buluo.store.R
 import com.gs.buluo.store.bean.StoreMeta
 import com.gs.buluo.store.bean.StoreSetMealCreation
 import com.gs.buluo.store.kotlin.presenter.StoreInfoPresenter
-import com.gs.buluo.store.view.activity.Authentication1Activity
-import com.gs.buluo.store.view.activity.CreateStoreAddressActivity
 import com.gs.buluo.store.view.activity.PhotoActivity
 import com.gs.buluo.store.view.impl.IInfoView
 import kotlinx.android.synthetic.main.activity_store_activity.*
@@ -30,8 +27,8 @@ class GoodsStoreInfoActivity : KotBaseActivity(), View.OnClickListener, IInfoVie
         ll_store_info_address.setOnClickListener(this)
         info_store_auth.setOnClickListener(this)
         showLoadingDialog()
-        presenter = StoreInfoPresenter(this)
-        (presenter as StoreInfoPresenter).getDetailStoreInfo()
+        mPresenter = StoreInfoPresenter(this)
+        (mPresenter as StoreInfoPresenter).getDetailStoreInfo()
     }
 
     override val contentLayout: Int
@@ -46,13 +43,7 @@ class GoodsStoreInfoActivity : KotBaseActivity(), View.OnClickListener, IInfoVie
                 startActivityForResult(intent, 200)
             }
             R.id.info_store_save -> updateStoreInfo()
-            R.id.ll_store_info_address -> {
-                intent.setClass(ctx, CreateStoreAddressActivity::class.java)
-                startActivityForResult(intent, 202)
-            }
             R.id.info_store_auth -> {
-                intent.setClass(ctx, Authentication1Activity::class.java)
-                startActivity(intent)
             }
         }
     }
@@ -61,8 +52,7 @@ class GoodsStoreInfoActivity : KotBaseActivity(), View.OnClickListener, IInfoVie
         showLoadingDialog(R.string.saving_now)
         storeBean!!.name = info_store_name.text.toString()
         storeBean!!.desc = info_store_introduction!!.text.toString().trim { it <= ' ' }
-        storeBean!!.otherPhone = info_store_other_phone!!.text.toString().trim { it <= ' ' }
-        (presenter as StoreInfoPresenter).updateStore(storeBean!!)
+        (mPresenter as StoreInfoPresenter).updateStore(storeBean!!)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -105,13 +95,9 @@ class GoodsStoreInfoActivity : KotBaseActivity(), View.OnClickListener, IInfoVie
 
     override fun setData(data: StoreMeta) {
         dismissDialog()
-        if (TextUtils.equals(data.authenticationStatus, "NOT_START")) {
-            info_store_auth.visibility = View.VISIBLE
-        }
         storeBean = data
         info_store_name.setText(data.name)
         info_store_phone!!.text = data.phone
-        info_store_other_phone!!.setText(data.otherPhone)
         if (data.category != null) info_store_category!!.text = data.category.toString()
         val totalAddress = data.province + data.city + data.district + data.address
         info_send_address!!.text = if (data.province == null) "" else totalAddress

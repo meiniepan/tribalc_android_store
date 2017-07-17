@@ -217,18 +217,18 @@
             android:textColor="@color/white" />
     </RelativeLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/store_floating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="28dp"
-        android:layout_marginEnd="28dp"
-        android:elevation="6dp"
-        android:src="@mipmap/add"
-        app:borderWidth="0dp"
-        app:pressedTranslationZ="12dp"
-        app:rippleColor="@color/custom_yellow_select"
-        tools:targetApi="LOLLIPOP" />
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/store_floating"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_marginBottom="28dp"-->
+        <!--android:layout_marginEnd="28dp"-->
+        <!--android:elevation="6dp"-->
+        <!--android:src="@mipmap/add"-->
+        <!--app:borderWidth="0dp"-->
+        <!--app:pressedTranslationZ="12dp"-->
+        <!--app:rippleColor="@color/custom_yellow_select"-->
+        <!--tools:targetApi="LOLLIPOP" />-->
 </RelativeLayout>

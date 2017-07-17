@@ -1,19 +1,25 @@
 package com.gs.buluo.store.kotlin.activity
 
+import android.support.v7.app.AppCompatActivity
+import com.gs.buluo.common.utils.AppManager
+import com.gs.buluo.common.widget.LoadingDialog
+import com.gs.buluo.store.R
+import com.gs.buluo.store.TribeApplication
 import com.gs.buluo.store.kotlin.presenter.KotBasePresenter
 import com.gs.buluo.store.view.activity.LoginActivity
+import com.gs.buluo.store.view.widget.panel.UpdatePanel
 
 
 /**
  * Created by admin on 2016/11/1.
  */
-abstract class KotBaseActivity : android.support.v7.app.AppCompatActivity() {
+abstract class KotBaseActivity : AppCompatActivity() {
     var rootView: android.view.View? = null
         internal set
 
-    open var presenter: KotBasePresenter? = null
+    open var mPresenter: KotBasePresenter? = null
 
-    private var color = com.gs.buluo.store.R.color.titlebar_background
+    private var color = R.color.titlebar_background
 
     @android.support.annotation.RequiresApi(android.os.Build.VERSION_CODES.KITKAT)
     override fun onCreate(@android.support.annotation.Nullable savedInstanceState: android.os.Bundle?) {
@@ -24,8 +30,8 @@ abstract class KotBaseActivity : android.support.v7.app.AppCompatActivity() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
             addFlag()
         }
-//        if (presenter != null && this is IBaseView) {
-//            presenter!!.attach(this)
+//        if (mPresenter != null && this is IBaseView) {
+//            mPresenter!!.attach(this)
 //        }
 
         rootView = createView()
@@ -33,8 +39,8 @@ abstract class KotBaseActivity : android.support.v7.app.AppCompatActivity() {
         bindView(savedInstanceState)
         initSystemBar(this)
 
-        val view = rootView!!.findViewById(com.gs.buluo.store.R.id.back)
-        view!!.setOnClickListener { finish() }
+        val view = rootView!!.findViewById(R.id.back)
+        view?.setOnClickListener { finish() }
     }
 
     @android.support.annotation.RequiresApi(api = android.os.Build.VERSION_CODES.KITKAT)
@@ -61,8 +67,8 @@ abstract class KotBaseActivity : android.support.v7.app.AppCompatActivity() {
 
     override fun onDestroy() {
         com.gs.buluo.common.utils.AppManager.getAppManager().finishActivity(this)
-//        if (presenter != null) {
-//            presenter!!.detachView()
+//        if (mPresenter != null) {
+//            mPresenter!!.detachView()
 //        }
         super.onDestroy()
     }
@@ -101,19 +107,19 @@ abstract class KotBaseActivity : android.support.v7.app.AppCompatActivity() {
     }
 
     protected fun showLoadingDialog() {
-        com.gs.buluo.common.widget.LoadingDialog.getInstance().show(rootView!!.context, getString(com.gs.buluo.store.R.string.loading), true)
+        LoadingDialog.getInstance().show(rootView!!.context, getString(R.string.loading), true)
     }
 
     protected fun showLoadingDialog(cancel: Boolean) {
-        com.gs.buluo.common.widget.LoadingDialog.getInstance().show(rootView!!.context, getString(com.gs.buluo.store.R.string.loading), cancel)
+        LoadingDialog.getInstance().show(rootView!!.context, getString(R.string.loading), cancel)
     }
 
     protected fun showLoadingDialog(res: Int) {
-        com.gs.buluo.common.widget.LoadingDialog.getInstance().show(rootView!!.context, res, true)
+        LoadingDialog.getInstance().show(rootView!!.context, res, true)
     }
 
     protected fun dismissDialog() {
-        com.gs.buluo.common.widget.LoadingDialog.getInstance().dismissDialog()
+        LoadingDialog.getInstance().dismissDialog()
     }
 
     protected val ctx: android.content.Context
@@ -125,8 +131,8 @@ abstract class KotBaseActivity : android.support.v7.app.AppCompatActivity() {
 
 
     protected fun checkUser(context: android.content.Context): Boolean {
-        if (com.gs.buluo.store.TribeApplication.getInstance().userInfo == null) {
-            com.gs.buluo.common.utils.ToastUtils.ToastMessage(context, getString(com.gs.buluo.store.R.string.login_first))
+        if (TribeApplication.getInstance().userInfo == null) {
+            com.gs.buluo.common.utils.ToastUtils.ToastMessage(context, getString(R.string.login_first))
             val intent = android.content.Intent(context, LoginActivity::class.java)
             startActivity(intent)
             return false
@@ -137,7 +143,7 @@ abstract class KotBaseActivity : android.support.v7.app.AppCompatActivity() {
 
     @org.greenrobot.eventbus.Subscribe(sticky = true, threadMode = org.greenrobot.eventbus.ThreadMode.MAIN)
     fun onUpdate(event: com.gs.buluo.common.UpdateEvent) {
-        val updatePanel = com.gs.buluo.store.view.widget.panel.UpdatePanel(com.gs.buluo.common.utils.AppManager.getAppManager().currentActivity(), event)
+        val updatePanel = UpdatePanel(AppManager.getAppManager().currentActivity(), event)
         updatePanel.setCancelable(event.supported)
         updatePanel.show()
     }

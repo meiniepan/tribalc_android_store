@@ -1,10 +1,8 @@
 package com.gs.buluo.store.view.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.gs.buluo.store.Constant;
@@ -22,8 +20,8 @@ import butterknife.Bind;
 public class OrderActivity extends BaseActivity  {
     @Bind(R.id.order_pager)
     UnScrollViewPager pager;
-    @Bind(R.id.order_tab)
-    TabLayout tabLayout;
+//    @Bind(R.id.order_tab)
+//    TabLayout tabLayout;
     private Toolbar mToolbar;
 
     @Override
@@ -43,24 +41,15 @@ public class OrderActivity extends BaseActivity  {
         OrderFragmentAdapter adapter =
                 new OrderFragmentAdapter(getSupportFragmentManager(), Arrays.asList(titles));
         pager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(pager);
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+//        tabLayout.setupWithViewPager(pager);
+//        tabLayout.setTabMode(TabLayout.MODE_FIXED);
         pager.setCurrentItem(getIntent().getIntExtra(Constant.TYPE, 0), false);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.order_menu,menu);
-        return true;
-    }
 
     @Override
     protected int getContentLayout() {
         return R.layout.activity_order;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 }
