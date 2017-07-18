@@ -18,6 +18,8 @@ import com.gs.buluo.store.network.MainApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.GlideUtils;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +49,8 @@ public class StoreInfoDetailActivity extends BaseActivity implements View.OnClic
     ImageView tvLogo;
     @Bind(R.id.info_store_introduction)
     TextView etDesc;
+    @Bind(R.id.store_tags)
+    TextView tvTags;
     @Bind(R.id.store_pictures)
     RecyclerView recyclerView;
     private PictureListAdapter adapter;
@@ -57,7 +61,7 @@ public class StoreInfoDetailActivity extends BaseActivity implements View.OnClic
         findViewById(R.id.ll_store_info_address).setOnClickListener(this);
         findViewById(R.id.info_store_introduction).setOnClickListener(this);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         adapter = new PictureListAdapter(this);
         recyclerView.setAdapter(adapter);
         initData();
@@ -68,12 +72,15 @@ public class StoreInfoDetailActivity extends BaseActivity implements View.OnClic
         tvName.setText(data.name);
         tvCategory.setText(data.category);
         tvPhone.setText(data.phone);
-        etArea.setText(data.markPlace);
+        etArea.setText(data.province + data.city + data.district);
+        tvAddress.setText(data.address);
         tvTime.setText(data.businessHours);
         tvFee.setText(data.avgprice);
+        tvTags.setText(data.tags);
+
         GlideUtils.loadImage(getCtx(), data.getLogo(), tvLogo, true);
         tvAddress.setText(data.address == null ? "" : data.province + data.city + data.district + data.address);
-        List<String> list =new ArrayList<>();
+        List<String> list = new ArrayList<>();
         list.add("oss://590974e50cf2e1e68db1a17d/1496978273891_photo");
         list.add("oss://59257f5e0cf27b75250fdd62/1495684147380_property0");
         list.add("oss://59257f5e0cf27b75250fdd62/1495684147444_property1");
@@ -98,7 +105,7 @@ public class StoreInfoDetailActivity extends BaseActivity implements View.OnClic
 
     @Override
     protected int getContentLayout() {
-        return R.layout.activity_meal_info;
+        return R.layout.activity_store_info;
     }
 
     @Override

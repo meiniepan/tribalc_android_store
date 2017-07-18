@@ -14,7 +14,7 @@ public class Privilege {
     public long startDate;
     public long endDate;
 
-    private enum PrivilegeType {
+    public enum PrivilegeType {
         DISCOUNT, REDUCE, ALIQUOT
     }
 

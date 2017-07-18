@@ -13,6 +13,6 @@ public class BillResponse {
     public TradingType tradingType;
     public String preSkip;
     public String nextSkip;
-    public boolean hasMoren;
+    public boolean hasMore;
     public List<BillEntity> content;
 }

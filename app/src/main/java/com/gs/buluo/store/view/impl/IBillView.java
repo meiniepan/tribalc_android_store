@@ -1,9 +1,7 @@
 package com.gs.buluo.store.view.impl;
 
 import com.gs.buluo.store.bean.ResponseBody.BillResponse;
-import com.gs.buluo.store.bean.WithdrawBill;
-
-import java.util.List;
+import com.gs.buluo.store.bean.ResponseBody.WithdrawBillResponse;
 
 /**
  * Created by hjn on 2016/11/18.
@@ -11,5 +9,5 @@ import java.util.List;
 public interface IBillView extends IBaseView {
     void getBillSuccess(BillResponse billList);
 
-    void getWithdrawBillSuccess(List<WithdrawBill> billList);
+    void getWithdrawBillSuccess(WithdrawBillResponse billList);
 }

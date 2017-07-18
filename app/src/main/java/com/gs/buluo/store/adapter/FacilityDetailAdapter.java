@@ -6,11 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.gs.buluo.store.R;
-import com.gs.buluo.store.view.activity.FacilityDetailActivity;
 
 import java.util.ArrayList;
 
@@ -20,9 +18,10 @@ import java.util.ArrayList;
 public class FacilityDetailAdapter extends BaseAdapter {
     Context context;
     ArrayList<String> datas;
+
     public FacilityDetailAdapter(Context context, ArrayList<String> list) {
-        this.context =context;
-        datas =list;
+        this.context = context;
+        datas = list;
     }
 
     @Override
@@ -42,11 +41,11 @@ public class FacilityDetailAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView==null){
-            convertView = LayoutInflater.from(context).inflate(R.layout.serve_detail_facility,parent,false);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.serve_detail_facility, parent, false);
         }
-        ImageView iv= (ImageView) convertView.findViewById(R.id.facility_image);
-        TextView tv= (TextView) convertView.findViewById(R.id.facility_text);
+        ImageView iv = (ImageView) convertView.findViewById(R.id.facility_image);
+        TextView tv = (TextView) convertView.findViewById(R.id.facility_text);
 
         String[] strings = datas.get(position).split(",");
         String name = strings[0];
@@ -54,7 +53,6 @@ public class FacilityDetailAdapter extends BaseAdapter {
         int res = Integer.parseInt(strings[1]);
         iv.setImageResource(res);
         tv.setText(name);
-
         return convertView;
     }
 }

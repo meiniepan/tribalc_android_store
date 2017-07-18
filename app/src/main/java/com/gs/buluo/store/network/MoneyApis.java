@@ -2,15 +2,16 @@ package com.gs.buluo.store.network;
 
 import com.gs.buluo.store.bean.BankCard;
 import com.gs.buluo.store.bean.OrderPayment;
+import com.gs.buluo.store.bean.Privilege;
 import com.gs.buluo.store.bean.RequestBodyBean.NewPaymentRequest;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
 import com.gs.buluo.store.bean.RequestBodyBean.WithdrawRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.BillResponse;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
+import com.gs.buluo.store.bean.ResponseBody.WithdrawBillResponse;
 import com.gs.buluo.store.bean.UpdatePwdBody;
 import com.gs.buluo.store.bean.WalletAccount;
-import com.gs.buluo.store.bean.WithdrawBill;
 import com.gs.buluo.store.bean.WxPayResponse;
 
 import java.util.List;
@@ -42,9 +43,11 @@ public interface MoneyApis {
             @Path("id") String uid, @Query("limitSize") int limitSize,@Query("face2face") boolean isFace);
 
     @GET("wallets/{id}/withdraw")
-    Observable<BaseResponse<List<WithdrawBill>>> getWithdrawBill(@Path("id")String uid,@Query("me")String id);
+    Observable<BaseResponse<WithdrawBillResponse>> getWithdrawBill(@Path("id")String uid, @Query("me")String id,@Query("accountType")String type);
 
-
+    @GET("wallets/{id}/withdraw")
+    Observable<BaseResponse<WithdrawBillResponse>> getWithdrawMoreBill(@Path("id")String uid, @Query("me")String id,
+    @Query("accountType")String type,@Query("sortSkip")String nextSkip);
 
     @PUT("wallets/{id}/password")
     Call<BaseResponse<CodeResponse>> updatePwd(
@@ -100,4 +103,7 @@ public interface MoneyApis {
 
     @POST("wallets/{id}/withdraw?type=person")
     Observable<BaseResponse<CodeResponse>> withdrawCash(@Path("id") String uid, @Body WithdrawRequestBody body);
+
+    @GET("stores/{storeId}/privilege")
+    Observable<BaseResponse<List<Privilege>>> getAllPrivilage(@Path("storeId") String sid, @Query("me") String uid);
 }

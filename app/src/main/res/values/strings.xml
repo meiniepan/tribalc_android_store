@@ -270,4 +270,5 @@
     <string name="store_strategy">优惠策略</string>
     <string name="withdraw_pwd">提现密码</string>
     <string name="store_tags">商家标签</string>
+    <string name="store_email">商家邮箱</string>
 </resources>

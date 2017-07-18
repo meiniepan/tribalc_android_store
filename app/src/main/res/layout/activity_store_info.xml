@@ -16,21 +16,15 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_height"
-            android:background="#2A2A2A">
+            android:background="@color/title_bg">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="店铺信息"
-                android:textColor="#fff"
+                android:textColor="@color/title_text_color"
                 android:textSize="@dimen/title_size" />
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="0.5dp"
-                android:layout_alignParentBottom="true"
-                android:background="#000" />
 
             <include
                 android:id="@+id/back"
@@ -123,18 +117,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/store_main_phone"
+                android:text="@string/store_area"
                 android:textSize="@dimen/dimens_16sp" />
 
             <TextView
-                android:id="@+id/info_store_phone"
+                android:id="@+id/store_area"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/dimens_16sp" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <include layout="@layout/split_line_margin" />
-
 
         <LinearLayout
             android:id="@+id/ll_store_info_address"
@@ -175,16 +167,42 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/store_area"
+                android:text="@string/store_main_phone"
                 android:textSize="@dimen/dimens_16sp" />
 
             <TextView
-                android:id="@+id/store_area"
+                android:id="@+id/info_store_phone"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimens_16sp" />
         </LinearLayout>
 
         <include layout="@layout/split_line_margin" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/self_item_height"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/store_email"
+                android:textSize="@dimen/dimens_16sp" />
+
+            <TextView
+                android:id="@+id/info_store_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimens_16sp" />
+        </LinearLayout>
+
+        <include layout="@layout/split_line_margin" />
+
 
         <LinearLayout
             android:layout_width="match_parent"

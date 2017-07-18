@@ -41,6 +41,7 @@ public class PayCodeActivity extends BaseActivity {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        setBarColor(R.color.custom_blue);
         bitmap = CommonUtils.createQRImage(this, Constant.PAY_SIGN+TribeApplication.getInstance().getUserInfo().getId(), DensityUtils.dip2px(this, 240));
         image.setImageBitmap(bitmap);
         findViewById(R.id.qr_save).setOnClickListener(new View.OnClickListener() {

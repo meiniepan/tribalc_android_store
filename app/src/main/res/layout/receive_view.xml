@@ -27,7 +27,7 @@
     <RelativeLayout
         android:layout_width="360dp"
         android:layout_height="320dp"
-        android:background="@color/pay_color">
+        android:background="@color/custom_blue">
 
         <ImageView
             android:id="@+id/download_image"

@@ -13,6 +13,7 @@ import com.gs.buluo.store.adapter.BillListAdapter;
 import com.gs.buluo.store.adapter.WithdrawListAdapter;
 import com.gs.buluo.store.bean.BillEntity;
 import com.gs.buluo.store.bean.ResponseBody.BillResponse;
+import com.gs.buluo.store.bean.ResponseBody.WithdrawBillResponse;
 import com.gs.buluo.store.bean.WithdrawBill;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.BillPresenter;
@@ -82,21 +83,30 @@ public class BillActivity extends BaseActivity implements IBillView, View.OnClic
             return;
         }
         statusLayout.showContentView();
-        if (!response.hasMoren) {
+        if (!response.hasMore) {
             adapter.showNoMore();
         }
     }
 
     @Override
-    public void getWithdrawBillSuccess(List<WithdrawBill> billList) {
+    public void getWithdrawBillSuccess(WithdrawBillResponse billList) {
         withdrawAdapter = new WithdrawListAdapter(this, withdrawBills);
         recyclerView.setAdapter(withdrawAdapter);
-        withdrawAdapter.addAll(billList);
+        recyclerView.setLoadMoreAction(new Action() {
+            @Override
+            public void onAction() {
+                ((BillPresenter) mPresenter).loadMoreWithdrawBill();
+            }
+        });
+        withdrawAdapter.addAll(billList.content);
         if (withdrawAdapter.getData() == null || withdrawAdapter.getData().size() == 0) {
             statusLayout.showEmptyView(getString(R.string.no_bill));
             return;
         }
         statusLayout.showContentView();
+        if (!billList.hasMore) {
+            adapter.showNoMore();
+        }
     }
 
     @Override

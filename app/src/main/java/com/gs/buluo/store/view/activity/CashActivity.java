@@ -205,7 +205,7 @@ public class CashActivity extends BaseActivity {
                     @Override
                     public void onNext(BaseResponse<CodeResponse> codeResponseBaseResponse) {
                         ToastUtils.ToastMessage(getCtx(), "提现成功");
-                        startActivity(new Intent(getCtx(), WalletActivity.class));
+                        startActivity(new Intent(getCtx(), MainActivity.class));
                     }
                 });
     }
