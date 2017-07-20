@@ -50,7 +50,7 @@ public class StoreInfo implements Parcelable {
     }
 
     public StoreType getType() {
-        return accountType == null ? StoreType.CARD : StoreType.valueOf(accountType);
+        return accountType == null ? StoreType.PROTOCOL : StoreType.valueOf(accountType);
     }
 
     public void setType(StoreType type) {

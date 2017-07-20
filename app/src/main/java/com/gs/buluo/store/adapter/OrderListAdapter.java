@@ -13,7 +13,6 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.OrderBean;
 import com.gs.buluo.store.bean.CartItem;
 import com.gs.buluo.store.utils.CommonUtils;
-import com.gs.buluo.store.view.activity.OrderDetailActivity;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.BaseViewHolder;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RecyclerAdapter;
 
@@ -104,8 +103,5 @@ public class OrderListAdapter extends RecyclerAdapter<OrderBean> {
     }
 
     private void goDetail(OrderBean entity) {
-        Intent intent = new Intent(mCtx, OrderDetailActivity.class);
-        intent.putExtra(Constant.ORDER, entity);
-        mCtx.startActivity(intent);
     }
 }

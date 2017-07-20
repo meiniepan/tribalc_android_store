@@ -112,7 +112,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
     }
 
     @Override
-    public void showError(int res) {
+    public void showError(int res,String message) {
         statusLayout.showErrorView(getString(res));
     }
 }

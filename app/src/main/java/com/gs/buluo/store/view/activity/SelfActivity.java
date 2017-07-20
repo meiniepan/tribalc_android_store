@@ -108,7 +108,7 @@ public class SelfActivity extends BaseActivity implements View.OnClickListener,I
     }
 
     @Override
-    public void showError(int res) {
+    public void showError(int res,String message) {
         dismissDialog();
         ToastUtils.ToastMessage(this, R.string.connect_fail);
     }

@@ -52,7 +52,7 @@ public class PhoneVerifyActivity extends BaseActivity implements ILoginView {
     }
 
     @Override
-    public void showError(int res) {
+    public void showError(int res,String message) {
         ToastUtils.ToastMessage(this, getString(R.string.connect_fail));
     }
 

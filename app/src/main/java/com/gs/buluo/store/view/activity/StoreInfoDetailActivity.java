@@ -18,8 +18,6 @@ import com.gs.buluo.store.network.MainApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.GlideUtils;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +49,8 @@ public class StoreInfoDetailActivity extends BaseActivity implements View.OnClic
     TextView etDesc;
     @Bind(R.id.store_tags)
     TextView tvTags;
+    @Bind(R.id.info_store_email)
+    TextView tvEmail;
     @Bind(R.id.store_pictures)
     RecyclerView recyclerView;
     private PictureListAdapter adapter;
@@ -76,17 +76,17 @@ public class StoreInfoDetailActivity extends BaseActivity implements View.OnClic
         tvAddress.setText(data.address);
         tvTime.setText(data.businessHours);
         tvFee.setText(data.avgprice);
-        tvTags.setText(data.tags);
+        if (data.sellingPoint!=null){
+            StringBuilder tags = new StringBuilder();
+            for (String s : data.sellingPoint) {
+                tags.append(s).append(",");
+            }
+            tvTags.setText(tags.toString().length() > 0 ? tags.toString().substring(0, tags.length() - 1) : "");
+        }
 
+        tvEmail.setText(data.email);
         GlideUtils.loadImage(getCtx(), data.getLogo(), tvLogo, true);
-        tvAddress.setText(data.address == null ? "" : data.province + data.city + data.district + data.address);
-        List<String> list = new ArrayList<>();
-        list.add("oss://590974e50cf2e1e68db1a17d/1496978273891_photo");
-        list.add("oss://59257f5e0cf27b75250fdd62/1495684147380_property0");
-        list.add("oss://59257f5e0cf27b75250fdd62/1495684147444_property1");
-        list.add("oss://59257f5e0cf27b75250fdd62/1495684146095_property2");
-        list.add("oss://590974e50cf2e1e68db1a17d/1496978273891_photo");
-        adapter.addAll(list);
+        adapter.addAll(data.pictures);
     }
 
     private void initData() {

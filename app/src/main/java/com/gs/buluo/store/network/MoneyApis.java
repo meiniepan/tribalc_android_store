@@ -42,12 +42,6 @@ public interface MoneyApis {
     Observable<BaseResponse<BillResponse>> getBillListFirst(
             @Path("id") String uid, @Query("limitSize") int limitSize,@Query("face2face") boolean isFace);
 
-    @GET("wallets/{id}/withdraw")
-    Observable<BaseResponse<WithdrawBillResponse>> getWithdrawBill(@Path("id")String uid, @Query("me")String id,@Query("accountType")String type);
-
-    @GET("wallets/{id}/withdraw")
-    Observable<BaseResponse<WithdrawBillResponse>> getWithdrawMoreBill(@Path("id")String uid, @Query("me")String id,
-    @Query("accountType")String type,@Query("sortSkip")String nextSkip);
 
     @PUT("wallets/{id}/password")
     Call<BaseResponse<CodeResponse>> updatePwd(
@@ -101,8 +95,16 @@ public interface MoneyApis {
     Observable<BaseResponse<CodeResponse>> uploadVerify(
             @Path("id") String uid, @Path("bankCardID") String cardId, @Body ValueRequestBody verify);
 
-    @POST("wallets/{id}/withdraw?type=person")
+    @POST("wallets/{id}/withdraws")
     Observable<BaseResponse<CodeResponse>> withdrawCash(@Path("id") String uid, @Body WithdrawRequestBody body);
+
+    @GET("wallets/{id}/withdraws?sort=time,desc")
+    Observable<BaseResponse<WithdrawBillResponse>> getWithdrawBill(@Path("id")String uid, @Query("me")String id,@Query("accountType")String type);
+
+    @GET("wallets/{id}/withdraws?sort=time,desc")
+    Observable<BaseResponse<WithdrawBillResponse>> getWithdrawMoreBill(@Path("id")String uid, @Query("me")String id,
+                                                                       @Query("accountType")String type,@Query("sortSkip")String nextSkip);
+
 
     @GET("stores/{storeId}/privilege")
     Observable<BaseResponse<List<Privilege>>> getAllPrivilage(@Path("storeId") String sid, @Query("me") String uid);

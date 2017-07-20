@@ -29,6 +29,7 @@ public class StoreMeta extends StoreInfo implements Parcelable, IBaseResponse {
     public double[] coordinate;
     public String markPlace;
     public String tags;
+    public String email;
 
     public enum StoreCategory {
         FOOD("食品"), GIFT("礼品"), OFFICE("办公用品"), LIVING("生活用品"), HOUSE("家居用品"), MAKEUP("化妆品"), PENETRATION("妇婴用品"),
@@ -71,6 +72,8 @@ public class StoreMeta extends StoreInfo implements Parcelable, IBaseResponse {
         dest.writeString(this.businessHours);
         dest.writeDoubleArray(this.coordinate);
         dest.writeString(this.markPlace);
+        dest.writeString(this.tags);
+        dest.writeString(this.email);
     }
 
     protected StoreMeta(Parcel in) {
@@ -90,6 +93,8 @@ public class StoreMeta extends StoreInfo implements Parcelable, IBaseResponse {
         this.businessHours = in.readString();
         this.coordinate = in.createDoubleArray();
         this.markPlace = in.readString();
+        this.tags = in.readString();
+        this.email = in.readString();
     }
 
     public static final Creator<StoreMeta> CREATOR = new Creator<StoreMeta>() {

@@ -7,6 +7,10 @@ import kotlinx.android.synthetic.main.activity_wallet.*
  * Created by hjn on 2016/11/17.
  */
 class WalletActivity: KotBaseActivity(), android.view.View.OnClickListener, com.gs.buluo.store.view.impl.IWalletView, android.content.DialogInterface.OnDismissListener {
+    override fun showError(res: Int, message: String?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun bindView(savedInstanceState: android.os.Bundle?) {
         wallet_bill.setOnClickListener(this)
         wallet_card.setOnClickListener(this)
@@ -97,10 +101,6 @@ class WalletActivity: KotBaseActivity(), android.view.View.OnClickListener, com.
             wallet_integer.text = price
             wallet_float.text = "00"
         }
-    }
-
-    override fun showError(res: Int) {
-        com.gs.buluo.common.utils.ToastUtils.ToastMessage(this, getString(res))
     }
 
     override fun onDismiss(dialog: android.content.DialogInterface) {

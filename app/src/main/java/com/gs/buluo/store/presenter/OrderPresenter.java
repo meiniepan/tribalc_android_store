@@ -34,7 +34,7 @@ public class OrderPresenter extends BasePresenter<IOrderView> {
 
                     @Override
                     public void onError(Throwable e) {
-                        mView.showError(R.string.connect_fail);
+                        mView.showError(R.string.connect_fail,e.getMessage());
                     }
                 });
     }
@@ -71,7 +71,7 @@ public class OrderPresenter extends BasePresenter<IOrderView> {
                     }
                     @Override
                     public void onError(Throwable e) {
-                        mView.showError(R.string.connect_fail);
+                        mView.showError(R.string.connect_fail,e.getMessage());
                     }
                 });
     }

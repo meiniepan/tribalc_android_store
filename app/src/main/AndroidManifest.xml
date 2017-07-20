@@ -63,9 +63,6 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gs.buluo.store.view.activity.ServeActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.gs.buluo.store.view.activity.MapActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
@@ -78,12 +75,6 @@
             android:windowSoftInputMode="stateAlwaysVisible" />
         <activity
             android:name="com.gs.buluo.store.view.activity.PhoneVerifyActivity2"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.gs.buluo.store.kotlin.activity.GoodsListActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.gs.buluo.store.view.activity.GoodsDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.gs.buluo.store.kotlin.activity.WalletActivity"
@@ -115,25 +106,8 @@
             android:name="com.gs.buluo.store.view.activity.AddBankCardActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.gs.buluo.store.view.activity.ServeDetailActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.gs.buluo.store.view.activity.OrderActivity"
             android:label=""
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.gs.buluo.store.view.activity.OrderDetailActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name="com.gs.buluo.store.view.activity.StoreDetailActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.gs.buluo.store.view.activity.ReserveActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.gs.buluo.store.view.activity.ReserveDetailActivity"
             android:screenOrientation="portrait" />
 
         <activity
@@ -160,9 +134,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".kotlin.activity.GoodsStoreInfoActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".view.activity.ServeTimeActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -186,15 +157,19 @@
         <activity
             android:name=".view.activity.CameraActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".view.activity.CashActivity"
+        <activity
+            android:name=".view.activity.CashActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.activity.PayCodeActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".kotlin.activity.StrategyActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".view.activity.PayCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".kotlin.activity.StrategyActivity"
+            android:screenOrientation="portrait" />
 
         <!--应用宝下载更新-->
-        <service   android:name="com.tencent.tmdownloader.TMAssistantDownloadService"
+        <service
+            android:name="com.tencent.tmdownloader.TMAssistantDownloadService"
             android:exported="false"
             android:process=":TMAssistantDownloadSDKService" />
     </application>

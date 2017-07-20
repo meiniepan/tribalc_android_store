@@ -5,18 +5,26 @@
     android:background="@color/white">
 
     <TextView
+        android:id="@+id/main_item_delete"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:gravity="center_vertical"
         android:text="删除此消息"
+        android:drawableStart="@mipmap/main_item_delete"
+        android:drawablePadding="16dp"
         android:paddingEnd="@dimen/activity_horizontal_margin"
         android:paddingStart="@dimen/activity_horizontal_margin"/>
 
+    <include layout="@layout/split_line_no_margin_common"/>
+
     <TextView
+        android:id="@+id/main_item_ignore"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:gravity="center_vertical"
         android:text="不再显示此类消息"
+        android:drawableStart="@mipmap/main_item_ignore"
+        android:drawablePadding="16dp"
         android:paddingEnd="@dimen/activity_horizontal_margin"
         android:paddingStart="@dimen/activity_horizontal_margin"/>
 </LinearLayout>

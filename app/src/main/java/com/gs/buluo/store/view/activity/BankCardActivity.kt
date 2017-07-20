@@ -20,6 +20,10 @@ import kotlinx.android.synthetic.main.activity_card_list.*
  * Created by hjn on 2016/11/23.
  */
 class BankCardActivity : KotBaseActivity(), ICardView {
+    override fun showError(res: Int, message: String?) {
+        card_status_layout!!.showErrorView(getString(res))
+    }
+
     private var adapter: BankCardListAdapter? = null
 
     private var canDelete = false
@@ -86,9 +90,5 @@ class BankCardActivity : KotBaseActivity(), ICardView {
         }
         card_status_layout!!.showContentView()
         adapter!!.setData(data)
-    }
-
-    override fun showError(res: Int) {
-        card_status_layout!!.showErrorView(getString(res))
     }
 }

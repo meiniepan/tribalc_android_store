@@ -271,4 +271,5 @@
     <string name="withdraw_pwd">提现密码</string>
     <string name="store_tags">商家标签</string>
     <string name="store_email">商家邮箱</string>
+    <string name="account_balance">会员卡余额</string>
 </resources>

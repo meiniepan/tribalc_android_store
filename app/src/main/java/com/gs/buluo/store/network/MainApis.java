@@ -1,18 +1,21 @@
 package com.gs.buluo.store.network;
 
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.AppConfigInfo;
 import com.gs.buluo.store.bean.AuthenticationData;
 import com.gs.buluo.store.bean.ConfigInfo;
-import com.gs.buluo.store.bean.StoreInfo;
-import com.gs.buluo.store.bean.StoreMeta;
+import com.gs.buluo.store.bean.HomeMessage;
+import com.gs.buluo.store.bean.HomeMessageEnum;
+import com.gs.buluo.store.bean.HomeMessageResponse;
 import com.gs.buluo.store.bean.RequestBodyBean.LoginBody;
 import com.gs.buluo.store.bean.RequestBodyBean.PhoneUpdateBody;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
-import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessBody;
 import com.gs.buluo.store.bean.ResponseBody.UploadResponseBody;
 import com.gs.buluo.store.bean.ResponseBody.UserBeanEntity;
+import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.StoreSetMealCreation;
 
 import java.util.List;
@@ -37,10 +40,10 @@ public interface MainApis {
     Observable<BaseResponse<AppConfigInfo>> getLastVersion(@Query("version") String version);
 
     @GET("stores/{storeId}?type=store")
-    Observable<BaseResponse<StoreInfo>> getStoreInfo(@Path("storeId")String uid, @Query("me")String id);
+    Observable<BaseResponse<StoreInfo>> getStoreInfo(@Path("storeId") String uid, @Query("me") String id);
 
     @GET("stores/{storeId}/store_detail?type=store")
-    Observable<BaseResponse<StoreMeta>> getStoreDetailInfo(@Path("storeId")String uid, @Query("me")String id);
+    Observable<BaseResponse<StoreMeta>> getStoreDetailInfo(@Path("storeId") String uid, @Query("me") String id);
 
     @POST("stores/login")
     Observable<BaseResponse<UserBeanEntity>> doLogin(@Body LoginBody params);
@@ -50,8 +53,6 @@ public interface MainApis {
 
     @POST("oss_authorization/picture")
     Observable<BaseResponse<UploadResponseBody>> getUploadUrl(@Query("me") String id, @Body UploadAccessBody body);
-
-
 
 
     @PUT("stores/{id}/authentication")
@@ -65,20 +66,27 @@ public interface MainApis {
     Observable<BaseResponse<CodeResponse>> updateStoreProp(@Path("id") String id, @Path("propNames") String propNames, @Body StoreMeta bean);
 
     @PUT("stores/{id}")
-    Observable<BaseResponse<CodeResponse>> updateStore(@Path("id") String id,@Body StoreMeta bean);
-
-    @POST("stores/{id}")
-    Observable<BaseResponse<StoreMeta>> createStore(@Path("id") String id,@Body StoreMeta bean);
+    Observable<BaseResponse<CodeResponse>> updateStore(@Path("id") String id, @Body StoreMeta bean);
 
     @GET("store_set_meals")
-    Observable<BaseResponse<List<StoreSetMealCreation>>> getCreateSetMeal(@Query("me")String uid);
+    Observable<BaseResponse<List<StoreSetMealCreation>>> getCreateSetMeal(@Query("me") String uid);
 
-    @POST("store_set_meals")
-    Observable<BaseResponse<CodeResponse>> createServe(@Query("me") String uid, @Body StoreSetMealCreation body);
 
     @PUT("store_set_meals/{id}")
-    Observable<BaseResponse<CodeResponse>> updateMeal(@Path("id")String mealId,@Query("me")String uid,@Body StoreSetMealCreation mealCreation);
+    Observable<BaseResponse<CodeResponse>> updateMeal(@Path("id") String mealId, @Query("me") String uid, @Body StoreSetMealCreation mealCreation);
 
     @GET("stores/{id}/authentication")
-    Observable<BaseResponse<AuthenticationData>> getAuth(@Path("id")String uid);
+    Observable<BaseResponse<AuthenticationData>> getAuth(@Path("id") String uid);
+
+    @GET("members/{ownerId}/homeMessages")
+    Observable<BaseResponse<HomeMessageResponse>> getMessage(@Path("ownerId") String uid, @Query("limit") int limit);
+
+    @GET("members/{ownerId}/homeMessages")
+    Observable<BaseResponse<HomeMessageResponse>> getMessageMore(@Path("ownerId") String uid, @Query("limit") int limit, @Query("sinceTime") long sinceTime, @Query("isNew") boolean isNew);
+
+    @PUT("members/{ownerId}/homeMessages/{messageId}/state")
+    Observable<BaseResponse> deleteMessage(@Path("ownerId")String uid,@Path("messageId")String mid);
+
+    @PUT("members/{ownerId}/homeMessageTypeShield/{messageType}")
+    Observable<BaseResponse> ignoreMessage(@Path("ownerId")String uid,@Path("messageType")HomeMessageEnum type);
 }

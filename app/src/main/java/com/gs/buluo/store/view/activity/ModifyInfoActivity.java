@@ -163,7 +163,7 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    public void showError(int res) {
+    public void showError(int res,String message) {
         dismissDialog();
         ToastUtils.ToastMessage(this, getString(res));
     }

@@ -110,7 +110,7 @@ public class BillActivity extends BaseActivity implements IBillView, View.OnClic
     }
 
     @Override
-    public void showError(int res) {
+    public void showError(int res,String message) {
         statusLayout.showErrorView(getString(res));
     }
 

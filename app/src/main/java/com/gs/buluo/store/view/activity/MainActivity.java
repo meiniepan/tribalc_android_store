@@ -3,6 +3,7 @@ package com.gs.buluo.store.view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gs.buluo.common.network.BaseResponse;
-import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.TokenEvent;
 import com.gs.buluo.common.utils.SharePreferenceManager;
 import com.gs.buluo.common.utils.ToastUtils;
@@ -20,13 +19,16 @@ import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.MainListAdapter;
+import com.gs.buluo.store.bean.HomeMessage;
+import com.gs.buluo.store.bean.HomeMessageResponse;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.bean.WalletAccount;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.kotlin.activity.StrategyActivity;
-import com.gs.buluo.store.network.MoneyApis;
-import com.gs.buluo.store.network.TribeRetrofit;
+import com.gs.buluo.store.presenter.BasePresenter;
+import com.gs.buluo.store.presenter.MainPresenter;
 import com.gs.buluo.store.utils.GlideUtils;
+import com.gs.buluo.store.view.impl.IMainView;
 import com.gs.buluo.store.view.widget.MoneyTextView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -37,11 +39,9 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 
 import butterknife.Bind;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, IMainView {
     private long mkeyTime;
     @Bind(R.id.main_recycler)
     XRecyclerView recyclerView;
@@ -56,6 +56,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView ivIcon;
     private float balance;
     private float poundage;
+    private TextView tvType;
+
+    ArrayList<HomeMessage> list = new ArrayList<>();
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -73,8 +76,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             withDraw.setVisibility(View.GONE);
             bankCard.setVisibility(View.GONE);
             topView.findViewById(R.id.main_top).setBackgroundResource(R.mipmap.withdraw_bg);
+            tvType.setText(R.string.account_balance);
         }
         GlideUtils.loadImage(this, TribeApplication.getInstance().getUserInfo().getLogo(), ivIcon, true);
+        ((MainPresenter) mPresenter).getMessage();
     }
 
     @Override
@@ -85,6 +90,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         ivIcon = (ImageView) topView.findViewById(R.id.store_icon);
         withDraw = topView.findViewById(R.id.main_withdraw);
         bankCard = topView.findViewById(R.id.main_bank_card);
+        tvType = (TextView) topView.findViewById(R.id.main_type);
         bankCard.setOnClickListener(this);
         withDraw.setOnClickListener(this);
         topView.findViewById(R.id.main_bill).setOnClickListener(this);
@@ -97,21 +103,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void setMessageList(View view) {
-        ArrayList list = new ArrayList<>();
-        list.add("jhahhahahaha");
-        list.add("jhahhahahaha");
-        list.add("jhahhahahaha");
-        list.add("jhahhahahaha");
-        list.add("jhahhahahaha");
-        list.add("jhahhahahaha");
-        list.add("jhahhahahaha");
-        list.add("jhahhahahaha");
-        list.add("jhahhahahaha");
         adapter = new MainListAdapter(list, this);
         recyclerView.addHeaderView(view);
         recyclerView.setRefreshPosition(1);
         recyclerView.setAdapter(adapter);
+        adapter.setPresenter((MainPresenter) mPresenter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                ((MainPresenter) mPresenter).getMessageNewer();
+            }
+
+            @Override
+            public void onLoadMore() {
+                ((MainPresenter) mPresenter).getMessageMore();
+            }
+        });
+    }
+
+    @Override
+    protected BasePresenter getPresenter() {
+        return new MainPresenter();
     }
 
     private StoreInfo initUser() {
@@ -161,13 +174,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 this.startActivity(intent);
                 break;
             case R.id.main_withdraw:
-                if (poundage==0&&balance==0){
-                    ToastUtils.ToastMessage(getCtx(),R.string.connect_fail);
+                if (poundage == 0 && balance == 0) {
+                    ToastUtils.ToastMessage(getCtx(), R.string.connect_fail);
                     return;
                 }
                 intent.setClass(this, CashActivity.class);
-                intent.putExtra(Constant.POUNDAGE,poundage);
-                intent.putExtra(Constant.WALLET_AMOUNT,balance);
+                intent.putExtra(Constant.POUNDAGE, poundage);
+                intent.putExtra(Constant.WALLET_AMOUNT, balance);
                 startActivity(intent);
                 break;
             case R.id.main_bank_card:
@@ -192,17 +205,53 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onResume() {
         super.onResume();
-        TribeRetrofit.getInstance().createApi(MoneyApis.class).getWallet(TribeApplication.getInstance().getUserInfo().getId())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<WalletAccount>>() {
-                    @Override
-                    public void onNext(BaseResponse<WalletAccount> walletAccountBaseResponse) {
-                        TribeApplication.getInstance().setPwd(walletAccountBaseResponse.data.getPassword());
-                        balance = walletAccountBaseResponse.data.getBalance();
-                        poundage = walletAccountBaseResponse.data.getWithdrawCharge();
-                        tvBalance.setMoneyText(balance +"");
-                    }
-                });
+        ((MainPresenter) mPresenter).getWalletInfo();
+    }
+
+    @Override
+    public void getWalletSuccess(WalletAccount account) {
+        TribeApplication.getInstance().setPwd(account.getPassword());
+        balance = account.getBalance();
+        poundage = account.getWithdrawCharge();
+        tvBalance.setMoneyText(balance + "");
+    }
+
+    @Override
+    public void getMessageSuccess(HomeMessageResponse data, boolean isNewer) {
+        if (isNewer) { //新消息
+            recyclerView.refreshComplete();
+            list.addAll(data.content);
+            adapter.notifyItemRangeInserted(2, data.content.size());
+        } else { //老消息
+            recyclerView.loadMoreComplete();
+            list.addAll(data.content);
+            adapter.notifyItemRangeInserted(adapter.getItemCount(), data.content.size());
+            if (!data.hasMore) {
+                recyclerView.setNoMore(true);
+            }
+        }
+    }
+
+    @Override
+    public void deleteSuccess(HomeMessage message) {
+        int pos = list.indexOf(message);
+        list.remove(message);
+        adapter.notifyItemRemoved(pos+2);
+    }
+
+    @Override
+    public void ignoreSuccess(HomeMessage message) {
+        ((MainPresenter) mPresenter).getMessage();
+        list.clear();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showError(int res, String message) {
+        recyclerView.refreshComplete();
+        recyclerView.loadMoreComplete();
+        if (!TextUtils.isEmpty(message)) {
+            ToastUtils.ToastMessage(getCtx(), message);
+        }
     }
 }
