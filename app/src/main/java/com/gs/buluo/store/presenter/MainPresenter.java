@@ -26,8 +26,9 @@ public class MainPresenter extends BasePresenter<IMainView> {
     private long lastTime;
     private long firstTime ;
 
+    private int limit = 10;
     public void getMessage() {
-        TribeRetrofit.getInstance().createApi(MainApis.class).getMessage(TribeApplication.getInstance().getUserInfo().getId(), 5)
+        TribeRetrofit.getInstance().createApi(MainApis.class).getMessage(TribeApplication.getInstance().getUserInfo().getId(), limit)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse<HomeMessageResponse>>() {
@@ -53,7 +54,7 @@ public class MainPresenter extends BasePresenter<IMainView> {
     }
 
     public void getMessageMore() {
-        TribeRetrofit.getInstance().createApi(MainApis.class).getMessageMore(TribeApplication.getInstance().getUserInfo().getId(), 5, lastTime, false)
+        TribeRetrofit.getInstance().createApi(MainApis.class).getMessageMore(TribeApplication.getInstance().getUserInfo().getId(), limit, lastTime, false)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse<HomeMessageResponse>>() {
@@ -78,7 +79,7 @@ public class MainPresenter extends BasePresenter<IMainView> {
     }
 
     public void getMessageNewer() {
-        TribeRetrofit.getInstance().createApi(MainApis.class).getMessageMore(TribeApplication.getInstance().getUserInfo().getId(), 5, firstTime, true)
+        TribeRetrofit.getInstance().createApi(MainApis.class).getMessageMore(TribeApplication.getInstance().getUserInfo().getId(), limit, firstTime, true)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse<HomeMessageResponse>>() {

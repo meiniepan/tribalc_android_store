@@ -12,6 +12,7 @@ import com.gs.buluo.common.network.BaseSubscriber
 import com.gs.buluo.store.R
 import com.gs.buluo.store.TribeApplication
 import com.gs.buluo.store.bean.Privilege
+import com.gs.buluo.store.bean.ResponseBody.PrivilegeResponse
 import com.gs.buluo.store.network.MoneyApis
 import com.gs.buluo.store.network.TribeRetrofit
 import com.gs.buluo.store.utils.TribeDateUtils
@@ -27,14 +28,13 @@ import java.util.*
 class StrategyActivity : KotBaseActivity() {
     override fun bindView(savedInstanceState: Bundle?) {
         val uid = TribeApplication.getInstance().userInfo.id
-//        val id = "59199bb00cf221001568ef33"
         showLoadingDialog()
         TribeRetrofit.getInstance().createApi(MoneyApis::class.java).getAllPrivilage(uid, uid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : BaseSubscriber<BaseResponse<List<Privilege>>>() {
-                    override fun onNext(goodListBaseResponse: BaseResponse<List<Privilege>>?) {
-                        setData(goodListBaseResponse!!.data)
+                .subscribe(object : BaseSubscriber<BaseResponse<PrivilegeResponse>>() {
+                    override fun onNext(goodListBaseResponse: BaseResponse<PrivilegeResponse>?) {
+                        setData(goodListBaseResponse!!.data.privileges)
                     }
                 })
     }

@@ -16,6 +16,7 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.HomeMessage;
 import com.gs.buluo.store.presenter.MainPresenter;
 import com.gs.buluo.store.utils.CommonUtils;
+import com.gs.buluo.store.utils.GlideUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -57,6 +58,8 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainVi
         final HomeMessage homeMessage = datas.get(position);
         holder.tvMoney.setText(homeMessage.messageBody.body);
         holder.tvDesc.setText(homeMessage.messageBody.description);
+        if (homeMessage.messageBody.avatar != null)
+            GlideUtils.loadImage(mCtx, homeMessage.messageBody.avatar, holder.ivHead);
         if (homeMessage.messageBody.applicationTime != 0)
             holder.tvDate.setText(TribeDateUtils.dateFormat5(new Date(homeMessage.messageBody.applicationTime)));
         holder.tvOwner.setText(homeMessage.messageBody.homeMessageType.homeMessageTypeEnum.owner);

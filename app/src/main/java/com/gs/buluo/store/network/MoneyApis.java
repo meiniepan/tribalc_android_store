@@ -9,6 +9,7 @@ import com.gs.buluo.store.bean.RequestBodyBean.WithdrawRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.BillResponse;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
+import com.gs.buluo.store.bean.ResponseBody.PrivilegeResponse;
 import com.gs.buluo.store.bean.ResponseBody.WithdrawBillResponse;
 import com.gs.buluo.store.bean.UpdatePwdBody;
 import com.gs.buluo.store.bean.WalletAccount;
@@ -107,5 +108,5 @@ public interface MoneyApis {
 
 
     @GET("stores/{storeId}/privilege")
-    Observable<BaseResponse<List<Privilege>>> getAllPrivilage(@Path("storeId") String sid, @Query("me") String uid);
+    Observable<BaseResponse<PrivilegeResponse>> getAllPrivilage(@Path("storeId") String sid, @Query("me") String uid);
 }
