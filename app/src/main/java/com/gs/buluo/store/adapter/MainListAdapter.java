@@ -88,6 +88,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainVi
         final PopupWindow popupWindow = new PopupWindow(CommonUtils.getScreenWidth(mCtx) - 40, DensityUtils.dip2px(mCtx, 80));
         popupWindow.setOutsideTouchable(true);
         popupWindow.setFocusable(true);
+        popupWindow.setAnimationStyle(R.style.MainPopupWindowAnimationScale);
         if (i < CommonUtils.getScreenHeight(mCtx) / 2) {
             view.setBackgroundResource(R.mipmap.pop_bg_bottom);
             popupWindow.setContentView(view);
@@ -97,9 +98,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainVi
             popupWindow.setContentView(view);
             popupWindow.showAtLocation(v, Gravity.TOP, 0, i - DensityUtils.dip2px(mCtx, 50));
         }
-
         CommonUtils.backgroundAlpha(mCtx, 0.6f);
-        popupWindow.setAnimationStyle(R.style.AroundDialogAnimation);
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
