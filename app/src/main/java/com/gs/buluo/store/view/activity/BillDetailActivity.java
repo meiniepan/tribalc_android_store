@@ -9,7 +9,6 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.BillEntity;
 import com.gs.buluo.store.bean.WithdrawBill;
 import com.gs.buluo.store.utils.TribeDateUtils;
-import com.gs.buluo.store.view.widget.MoneyTextView;
 
 import java.util.Date;
 
@@ -22,7 +21,7 @@ public class BillDetailActivity extends BaseActivity {
     @Bind(R.id.bill_number)
     TextView tvNumber;
     @Bind(R.id.bill_money)
-    MoneyTextView tvMoney;
+    TextView tvMoney;
     @Bind(R.id.bill_time)
     TextView tvTime;
     @Bind(R.id.bill_status)
@@ -38,9 +37,9 @@ public class BillDetailActivity extends BaseActivity {
             tvNumber.setText(entity.id);
             String amount = entity.amount;
             if (amount.contains("-")) {
-                tvMoney.setMoneyText("支出" + amount.substring(1, amount.length()));
+                tvMoney.setText("支出" + amount.substring(1, amount.length()));
             } else {
-                tvMoney.setMoneyText("收入" + amount);
+                tvMoney.setText("收入" + amount);
             }
 
             tvStatus.setText(entity.annotherAccountId);
@@ -52,9 +51,9 @@ public class BillDetailActivity extends BaseActivity {
             tvNumber.setText(bill.id);
             String amount = bill.amount;
             if (amount.contains("-")) {
-                tvMoney.setMoneyText("支出" + amount.substring(1, amount.length()));
+                tvMoney.setText("支出" + amount.substring(1, amount.length()));
             } else {
-                tvMoney.setMoneyText("收入" + amount);
+                tvMoney.setText("收入" + amount);
             }
 
             tvStatus.setText(bill.status.toString());

@@ -10,7 +10,6 @@ import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.BaseViewHolder;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RecyclerAdapter;
 import com.gs.buluo.store.view.widget.panel.BigImagePanel;
-import com.gs.buluo.store.view.widget.recyclerHelper.BaseQuickAdapter;
 
 /**
  * Created by hjn on 2017/1/24.

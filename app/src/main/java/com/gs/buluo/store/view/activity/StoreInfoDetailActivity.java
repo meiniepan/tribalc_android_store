@@ -28,7 +28,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by hjn on 2017/1/19.
  */
-public class StoreInfoDetailActivity extends BaseActivity implements View.OnClickListener {
+public class StoreInfoDetailActivity extends BaseActivity  {
     @Bind(R.id.info_store_name)
     TextView tvName;
     @Bind(R.id.info_store_category)
@@ -57,10 +57,6 @@ public class StoreInfoDetailActivity extends BaseActivity implements View.OnClic
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        findViewById(R.id.info_store_logo).setOnClickListener(this);
-        findViewById(R.id.ll_store_info_address).setOnClickListener(this);
-        findViewById(R.id.info_store_introduction).setOnClickListener(this);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         adapter = new PictureListAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -106,12 +102,5 @@ public class StoreInfoDetailActivity extends BaseActivity implements View.OnClic
     @Override
     protected int getContentLayout() {
         return R.layout.activity_store_info;
-    }
-
-    @Override
-    public void onClick(View v) {
-        Intent intent = new Intent();
-        switch (v.getId()) {
-        }
     }
 }

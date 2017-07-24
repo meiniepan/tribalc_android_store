@@ -22,7 +22,6 @@ import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.BankCard;
 import com.gs.buluo.store.bean.RequestBodyBean.WithdrawRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
-import com.gs.buluo.store.kotlin.activity.WalletActivity;
 import com.gs.buluo.store.network.MoneyApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.view.widget.panel.PasswordPanel;
@@ -93,7 +92,7 @@ public class CashActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getCtx(), BillActivity.class);
-                intent.putExtra(Constant.WITHDRAW_FLAG,true);
+                intent.putExtra(Constant.WITHDRAW_FLAG, true);
                 startActivity(intent);
             }
         });
@@ -152,7 +151,7 @@ public class CashActivity extends BaseActivity {
     }
 
     private void showAlert() {
-        new CustomAlertDialog.Builder(getCtx()).setTitle("提示").setMessage("您还没有设置支付密码，请先去设置密码")
+        new CustomAlertDialog.Builder(getCtx()).setTitle("提示").setMessage("您还没有设置提现密码，请先去设置密码")
                 .setPositiveButton("去设置", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
