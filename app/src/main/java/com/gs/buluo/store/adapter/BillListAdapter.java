@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.BillEntity;
+import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.TribeDateUtils;
 import com.gs.buluo.store.view.activity.BillDetailActivity;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.BaseViewHolder;
@@ -46,6 +48,7 @@ public class BillListAdapter extends RecyclerAdapter<BillEntity> {
         TextView money;
         TextView detail;
         TextView month;
+        ImageView icon;
 
         public BillHolder(ViewGroup itemView, int res) {
             super(itemView, res);
@@ -59,11 +62,14 @@ public class BillListAdapter extends RecyclerAdapter<BillEntity> {
             money = findViewById(R.id.bill_money);
             detail = findViewById(R.id.bill_detail);
             month = findViewById(R.id.bill_item_month);
+            icon = findViewById(R.id.bill_icon);
         }
 
         @Override
         public void setData(BillEntity entity) {
             super.setData(entity);
+            String url = Constant.Base.BASE_ONLINE_URL + entity.anotherId + "/icon.jpg";
+            GlideUtils.loadImage(getContext(), url, icon, true);
             long createTime = Long.parseLong(entity.createTime);
             Date date = new Date(createTime);
 

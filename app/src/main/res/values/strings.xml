@@ -272,4 +272,5 @@
     <string name="store_tags">商家标签</string>
     <string name="store_email">商家邮箱</string>
     <string name="account_balance">会员卡余额</string>
+    <string name="withdraw_success">提现申请提叫交成功，请等待处理</string>
 </resources>

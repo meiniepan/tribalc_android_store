@@ -15,9 +15,10 @@ public class WithdrawBill implements Parcelable {
     public String amount;
     public WithdrawStatus status;
 
-    public enum WithdrawStatus{
-        CREATED("提现中"), PAYED("提现已到账"), FINISHED("提现已完成"), FAILURE("提现已失败");
+    public enum WithdrawStatus {
+        CREATED("提现中"), COMMITTED("已提交"), PAYED("已支付"), FINISHED("提现已完成"), FAILURE("提现已失败"), REJECTED("驳回");
         public String status;
+
         WithdrawStatus(String status) {
             this.status = status;
         }

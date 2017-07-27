@@ -31,29 +31,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="175dp"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
         <ImageView
             android:id="@+id/bill_logo"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:layout_marginTop="16dp"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@mipmap/default_pic"/>
+            android:src="@mipmap/default_pic" />
 
         <com.gs.buluo.store.view.widget.MoneyTextView
+            android:id="@+id/bill_detail_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/dimens_40sp"
-            app:textSize="@dimen/dimens_40sp"
-            app:textStyle="bold"
+            android:layout_marginTop="12dp"
             app:textColor="@color/common_dark"
-            android:layout_marginTop="12dp"/>
+            app:textSize="@dimen/dimens_18sp"
+            app:textStyle="bold" />
+
         <TextView
             android:id="@+id/bill_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="交易完成"/>
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
     </LinearLayout>
 
     <include layout="@layout/split_line_margin"/>
@@ -121,25 +123,26 @@
             android:layout_marginStart="20dp"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/bill_id_card_area"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginEnd="@dimen/activity_horizontal_margin"-->
+        <!--android:layout_marginStart="@dimen/activity_horizontal_margin"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:orientation="horizontal">-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="会员卡号："
-            android:textColor="@color/common_gray" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="会员卡号："-->
+            <!--android:textColor="@color/common_gray" />-->
 
-        <TextView
-            android:id="@+id/bill_id_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp" />
-    </LinearLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/bill_id_card"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="20dp" />-->
+    <!--</LinearLayout>-->
 
 </LinearLayout>

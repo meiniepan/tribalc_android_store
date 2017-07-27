@@ -102,7 +102,7 @@ public class UpdateWalletPwdActivity2 extends BaseActivity {
                 dismissDialog();
                 if (response.body() != null && response.body().code == 200) {
                     ToastUtils.ToastMessage(mCtx, getString(R.string.update_success));
-                    startActivity(new Intent(UpdateWalletPwdActivity2.this, WalletActivity.class));
+                    startActivity(new Intent(UpdateWalletPwdActivity2.this, MainActivity.class));
                     finish();
                 } else if (response.body() != null && response.body().code == 401) {
                     ToastUtils.ToastMessage(mCtx, getString(R.string.wrong_pwd));
@@ -127,7 +127,7 @@ public class UpdateWalletPwdActivity2 extends BaseActivity {
                 dismissDialog();
                 if (response.body() != null && response.body().code == 200) {
                     ToastUtils.ToastMessage(mCtx, getString(R.string.update_success));
-                    startActivity(new Intent(UpdateWalletPwdActivity2.this, WalletActivity.class));
+                    startActivity(new Intent(UpdateWalletPwdActivity2.this, MainActivity.class));
                     finish();
                 } else if (response.body() != null && response.body().code == 401) {
                     ToastUtils.ToastMessage(mCtx, getString(R.string.wrong_pwd));

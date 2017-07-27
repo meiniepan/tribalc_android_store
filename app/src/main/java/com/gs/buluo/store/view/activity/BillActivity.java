@@ -105,7 +105,7 @@ public class BillActivity extends BaseActivity implements IBillView, View.OnClic
         }
         statusLayout.showContentView();
         if (!billList.hasMore) {
-            adapter.showNoMore();
+            withdrawAdapter.showNoMore();
         }
     }
 

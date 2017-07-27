@@ -738,11 +738,11 @@ public class XRecyclerView extends RecyclerView {
     @Override
     public void onScrolled(int dx, int dy) {
         super.onScrolled(dx, dy);
+        scrollDyCounter = scrollDyCounter + dy;
         if (scrollAlphaChangeListener == null) {
             return;
         }
         int height = scrollAlphaChangeListener.setLimitHeight();
-        scrollDyCounter = scrollDyCounter + dy;
         if (scrollDyCounter <= 0) {
             scrollAlphaChangeListener.onAlphaChange(0);
         } else if (scrollDyCounter <= height && scrollDyCounter > 0) {

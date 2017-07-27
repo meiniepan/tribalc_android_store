@@ -27,12 +27,13 @@ public class BillEntity implements Serializable {
     public String id;
     public String createTime;
     public String title;
-    public String myAccountId;
-    public String annotherAccountId;
+    public String paymentId;
+    public String anotherId;
     public String amount;
     public String balance;
     public TradingType tradingType;
     public PayChannel payChannel;
-    public String associatedOrderId;
+    public String ownerId;
     public String note;
+    public String associatedOrderId;
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gs.buluo.store.Constant;
@@ -46,6 +47,7 @@ public class WithdrawListAdapter extends RecyclerAdapter<WithdrawBill> {
         TextView money;
         TextView detail;
         TextView month;
+        ImageView icon;
 
         public BillHolder(ViewGroup itemView, int res) {
             super(itemView, res);
@@ -59,6 +61,7 @@ public class WithdrawListAdapter extends RecyclerAdapter<WithdrawBill> {
             money = findViewById(R.id.bill_money);
             detail = findViewById(R.id.bill_detail);
             month = findViewById(R.id.bill_item_month);
+            icon = findViewById(R.id.bill_icon);
         }
 
         @Override
@@ -82,7 +85,7 @@ public class WithdrawListAdapter extends RecyclerAdapter<WithdrawBill> {
             }
 
             money.setText(entity.amount);
-            detail.setText(entity.status==null?"":entity.status.status);
+            detail.setText(entity.status == null ? "" : entity.status.status);
             String newMonth = s.split("-")[1];
             month.setText(newMonth + "月");
             if (!TextUtils.equals(newMonth, lastMonth)) {

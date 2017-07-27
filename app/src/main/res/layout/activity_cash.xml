@@ -28,12 +28,12 @@
             android:id="@+id/withdraw_record"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="提现记录"
-            android:textColor="@color/title_text_color"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:paddingEnd="6dp"
-            android:paddingStart="6dp"/>
+            android:paddingStart="6dp"
+            android:text="提现记录"
+            android:textColor="@color/title_text_color" />
     </RelativeLayout>
 
     <include layout="@layout/split_area" />
@@ -105,10 +105,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="30dp"
-            android:textSize="@dimen/dimens_16sp"
-            android:gravity="center_vertical"
             android:background="@color/white"
-            android:text="选择银行卡"/>
+            android:gravity="center_vertical"
+            android:text="选择银行卡"
+            android:textSize="@dimen/dimens_16sp" />
     </RelativeLayout>
 
     <include layout="@layout/split_area" />
@@ -125,69 +125,72 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/common_gray"
             android:text="提现金额 ( 收取"
-            android:textSize="@dimen/dimens_12sp"/>
+            android:textColor="@color/common_gray"
+            android:textSize="@dimen/dimens_12sp" />
+
         <TextView
             android:id="@+id/cash_poundage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/common_gray"
             android:text="1"
-            android:textSize="@dimen/dimens_12sp"/>
+            android:textColor="@color/common_gray"
+            android:textSize="@dimen/dimens_12sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/common_gray"
             android:text="元服务费 ) "
-            android:textSize="@dimen/dimens_12sp"/>
+            android:textColor="@color/common_gray"
+            android:textSize="@dimen/dimens_12sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:layout_height="52dp"
         android:background="@color/white"
-        android:paddingBottom="6dp">
+        android:orientation="horizontal"
+        android:paddingBottom="6dp"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="bottom"
-            android:textSize="@dimen/dimens_24sp"
+            android:text="¥"
             android:textColor="@color/common_dark"
-            android:textStyle="bold"
-            android:text="¥"/>
+            android:textSize="@dimen/dimens_24sp" />
+
         <EditText
             android:id="@+id/card_withdraw_amount"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="bottom"
             android:layout_marginStart="10dp"
             android:background="@null"
-            android:textSize="@dimen/dimens_24sp"
+            android:gravity="bottom"
+            android:inputType="numberDecimal"
             android:textColor="@color/common_dark"
-            android:textStyle="bold"
-            android:inputType="numberDecimal" />
+            android:textSize="@dimen/dimens_24sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <ImageView
-        android:src="@color/divide_gray"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
         android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingEnd="@dimen/activity_horizontal_margin" />
+        android:src="@color/divide_gray" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="32dp"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingEnd="@dimen/activity_horizontal_margin"
-        android:gravity="center"
         android:background="@color/white"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin">
 
         <TextView
             android:layout_width="wrap_content"

@@ -1,13 +1,12 @@
 package com.gs.buluo.store.network;
 
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.BankCard;
 import com.gs.buluo.store.bean.OrderPayment;
-import com.gs.buluo.store.bean.Privilege;
 import com.gs.buluo.store.bean.RequestBodyBean.NewPaymentRequest;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
 import com.gs.buluo.store.bean.RequestBodyBean.WithdrawRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.BillResponse;
-import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.ResponseBody.PrivilegeResponse;
 import com.gs.buluo.store.bean.ResponseBody.WithdrawBillResponse;
@@ -33,15 +32,15 @@ import rx.Observable;
 public interface MoneyApis {
     @GET("wallets/{id}")
     Observable<BaseResponse<WalletAccount>> getWallet(
-            @Path("id") String uid);
+            @Path("id") String uid, @Query("me") String id);
 
     @GET("wallets/{id}/bills")
     Observable<BaseResponse<BillResponse>> getBillList(
-            @Path("id") String uid, @Query("limitSize") int limitSize,@Query("sortSkip")String sortSkip,@Query("face2face") boolean isFace);
+            @Path("id") String uid, @Query("limitSize") int limitSize, @Query("sortSkip") String sortSkip, @Query("face2face") boolean isFace);
 
     @GET("wallets/{id}/bills")
     Observable<BaseResponse<BillResponse>> getBillListFirst(
-            @Path("id") String uid, @Query("limitSize") int limitSize,@Query("face2face") boolean isFace);
+            @Path("id") String uid, @Query("limitSize") int limitSize, @Query("face2face") boolean isFace);
 
 
     @PUT("wallets/{id}/password")
@@ -100,11 +99,11 @@ public interface MoneyApis {
     Observable<BaseResponse<CodeResponse>> withdrawCash(@Path("id") String uid, @Body WithdrawRequestBody body);
 
     @GET("wallets/{id}/withdraws?sort=time,desc")
-    Observable<BaseResponse<WithdrawBillResponse>> getWithdrawBill(@Path("id")String uid, @Query("me")String id,@Query("accountType")String type);
+    Observable<BaseResponse<WithdrawBillResponse>> getWithdrawBill(@Path("id") String uid, @Query("me") String id, @Query("accountType") String type);
 
     @GET("wallets/{id}/withdraws?sort=time,desc")
-    Observable<BaseResponse<WithdrawBillResponse>> getWithdrawMoreBill(@Path("id")String uid, @Query("me")String id,
-                                                                       @Query("accountType")String type,@Query("sortSkip")String nextSkip);
+    Observable<BaseResponse<WithdrawBillResponse>> getWithdrawMoreBill(@Path("id") String uid, @Query("me") String id,
+                                                                       @Query("accountType") String type, @Query("sortSkip") String nextSkip);
 
 
     @GET("stores/{storeId}/privilege")

@@ -35,23 +35,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/common_gray"
-                android:text="周五" />
+                android:text="周五"
+                android:textColor="@color/common_gray" />
 
             <TextView
                 android:id="@+id/bill_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:textColor="@color/common_gray"
-                android:text="10:25" />
+                android:text="10:25"
+                android:textColor="@color/common_gray" />
         </LinearLayout>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/bill_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginStart="20dp"
-            android:background="@mipmap/financial" />
+            android:background="@mipmap/default_pic" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,8 +74,8 @@
                 android:id="@+id/bill_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/common_gray"
-                android:layout_marginTop="4dp" />
+                android:layout_marginTop="4dp"
+                android:textColor="@color/common_gray" />
         </LinearLayout>
     </LinearLayout>
 

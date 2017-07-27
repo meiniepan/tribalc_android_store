@@ -220,9 +220,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void getMessageSuccess(HomeMessageResponse data, boolean isNewer) {
         if (isNewer) { //新消息
-            recyclerView.refreshComplete();
             list.addAll(data.content);
             adapter.notifyItemRangeInserted(2, data.content.size());
+            recyclerView.refreshComplete();
         } else { //老消息
             recyclerView.loadMoreComplete();
             list.addAll(data.content);
