@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
+import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.WithdrawBill;
+import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.TribeDateUtils;
 import com.gs.buluo.store.view.activity.BillDetailActivity;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.BaseViewHolder;
@@ -68,11 +70,9 @@ public class WithdrawListAdapter extends RecyclerAdapter<WithdrawBill> {
         public void setData(WithdrawBill entity) {
             super.setData(entity);
             Date date = new Date(entity.createTime);
-
             Calendar instance = Calendar.getInstance();
             instance.setTime(date);
             int w = instance.get(Calendar.DAY_OF_WEEK);
-
             String s = TribeDateUtils.dateFormat5(date);
             String we = switchToCh(w);
             week.setText(we);
@@ -95,6 +95,7 @@ public class WithdrawListAdapter extends RecyclerAdapter<WithdrawBill> {
             } else {
                 month.setVisibility(View.GONE);
             }
+            GlideUtils.loadImage(getContext(), TribeApplication.getInstance().getUserInfo().getLogo(), icon, true);
         }
 
         @Override

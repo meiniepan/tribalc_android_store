@@ -46,7 +46,7 @@ public class BillPresenter extends BasePresenter<IBillView> {
 
     public void getWithdrawBill() {
         String id = TribeApplication.getInstance().getUserInfo().getId();
-        TribeRetrofit.getInstance().createApi(MoneyApis.class).getWithdrawBill(id, id, TribeApplication.getInstance().getUserInfo().getType().toString())
+        TribeRetrofit.getInstance().createApi(MoneyApis.class).getWithdrawBill(id, TribeApplication.getInstance().getUserInfo().getType().toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse<WithdrawBillResponse>>() {
@@ -60,7 +60,7 @@ public class BillPresenter extends BasePresenter<IBillView> {
 
     public void loadMoreWithdrawBill() {
         String id = TribeApplication.getInstance().getUserInfo().getId();
-        TribeRetrofit.getInstance().createApi(MoneyApis.class).getWithdrawMoreBill(id, id, TribeApplication.getInstance().getUserInfo().getType().toString(), nextSkip)
+        TribeRetrofit.getInstance().createApi(MoneyApis.class).getWithdrawMoreBill(id, TribeApplication.getInstance().getUserInfo().getType().toString(), nextSkip)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse<WithdrawBillResponse>>() {

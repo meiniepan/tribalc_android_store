@@ -45,7 +45,9 @@ public class GlideUtils {
         if (url == null) return;
         if (!url.contains("://")) {
             url = Constant.Base.BASE_IMG_URL + url;
-        } else {
+        } else if (url.contains(Constant.Base.BASE_IMG_URL)){
+            url = url;
+        }else {
             url = transformUrl(url);
         }
         Glide.with(context).load(url).placeholder(R.mipmap.default_pic).into(imageView);
@@ -55,7 +57,9 @@ public class GlideUtils {
         if (url == null) return;
         if (!url.contains("://")) {
             url = Constant.Base.BASE_IMG_URL + url;
-        } else {
+        } else if (url.contains(Constant.Base.BASE_ONLINE_URL)){
+            url = url;
+        }else {
             url = transformUrl(url);
         }
         Glide.with(context).load(url).placeholder(R.mipmap.default_pic).bitmapTransform(new CropCircleTransformation(context)).into(imageView);
@@ -69,7 +73,9 @@ public class GlideUtils {
         if (url == null) return;
         if (!url.contains("://")) {
             url = Constant.Base.BASE_IMG_URL + url;
-        } else {
+        } else if (url.contains(Constant.Base.BASE_IMG_URL)){
+            url = url;
+        }else {
             url = transformUrl(url);
         }
         Glide.with(context).load(url).placeholder(R.mipmap.default_pic).bitmapTransform(new CropCircleTransformation(context)).into(new GlideDrawableImageViewTarget(imageView)
@@ -86,7 +92,9 @@ public class GlideUtils {
         if (url == null) return;
         if (!url.contains("://")) {
             url = Constant.Base.BASE_IMG_URL + url;
-        } else {
+        } else if (url.contains(Constant.Base.BASE_IMG_URL)){
+            url = url;
+        }else {
             url = transformUrl(url);
         }
         Glide.with(context).load(url).placeholder(R.mipmap.default_pic).override(width,height).into(imageView);

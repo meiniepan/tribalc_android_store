@@ -103,10 +103,9 @@ public class MainPresenter extends BasePresenter<IMainView> {
                 });
     }
 
-
     public void getWalletInfo() {
         String id = TribeApplication.getInstance().getUserInfo().getId();
-        TribeRetrofit.getInstance().createApi(MoneyApis.class).getWallet(id,id)
+        TribeRetrofit.getInstance().createApi(MoneyApis.class).getWallet(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse<WalletAccount>>() {

@@ -29,7 +29,7 @@ class StrategyActivity : KotBaseActivity() {
     override fun bindView(savedInstanceState: Bundle?) {
         val uid = TribeApplication.getInstance().userInfo.id
         showLoadingDialog()
-        TribeRetrofit.getInstance().createApi(MoneyApis::class.java).getAllPrivilage(uid, uid)
+        TribeRetrofit.getInstance().createApi(MoneyApis::class.java).getAllPrivilege(uid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : BaseSubscriber<BaseResponse<PrivilegeResponse>>() {

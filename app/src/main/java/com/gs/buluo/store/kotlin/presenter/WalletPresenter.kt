@@ -13,7 +13,7 @@ import com.gs.buluo.store.network.TribeRetrofit
 open class WalletPresenter(var view: WalletActivity) : KotBasePresenter() {
     open fun getWalletInfo() {
         val id = com.gs.buluo.store.TribeApplication.getInstance().userInfo.id
-        TribeRetrofit.getInstance().createApi(MoneyApis::class.java).getWallet(id, id)
+        TribeRetrofit.getInstance().createApi(MoneyApis::class.java).getWallet(id)
                 .subscribeOn(rx.schedulers.Schedulers.io())
                 .observeOn(rx.android.schedulers.AndroidSchedulers.mainThread())
                 .subscribe(object : BaseSubscriber<BaseResponse<WalletAccount>>() {

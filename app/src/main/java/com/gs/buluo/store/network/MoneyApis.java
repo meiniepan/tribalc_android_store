@@ -32,7 +32,7 @@ import rx.Observable;
 public interface MoneyApis {
     @GET("wallets/{id}")
     Observable<BaseResponse<WalletAccount>> getWallet(
-            @Path("id") String uid, @Query("me") String id);
+            @Path("id") String uid);
 
     @GET("wallets/{id}/bills")
     Observable<BaseResponse<BillResponse>> getBillList(
@@ -99,13 +99,13 @@ public interface MoneyApis {
     Observable<BaseResponse<CodeResponse>> withdrawCash(@Path("id") String uid, @Body WithdrawRequestBody body);
 
     @GET("wallets/{id}/withdraws?sort=time,desc")
-    Observable<BaseResponse<WithdrawBillResponse>> getWithdrawBill(@Path("id") String uid, @Query("me") String id, @Query("accountType") String type);
+    Observable<BaseResponse<WithdrawBillResponse>> getWithdrawBill(@Path("id") String uid, @Query("accountType") String type);
 
     @GET("wallets/{id}/withdraws?sort=time,desc")
-    Observable<BaseResponse<WithdrawBillResponse>> getWithdrawMoreBill(@Path("id") String uid, @Query("me") String id,
+    Observable<BaseResponse<WithdrawBillResponse>> getWithdrawMoreBill(@Path("id") String uid,
                                                                        @Query("accountType") String type, @Query("sortSkip") String nextSkip);
 
 
     @GET("stores/{storeId}/privilege")
-    Observable<BaseResponse<PrivilegeResponse>> getAllPrivilage(@Path("storeId") String sid, @Query("me") String uid);
+    Observable<BaseResponse<PrivilegeResponse>> getAllPrivilege(@Path("storeId") String sid);
 }
