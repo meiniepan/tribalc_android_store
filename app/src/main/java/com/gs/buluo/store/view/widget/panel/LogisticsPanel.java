@@ -15,6 +15,7 @@ import com.gs.buluo.store.bean.OrderBean;
 import com.gs.buluo.store.presenter.OrderPresenter;
 import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.common.widget.LoadingDialog;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,7 @@ import butterknife.ButterKnife;
  * Created by hjn on 2017/2/4.
  */
 public class LogisticsPanel extends Dialog implements View.OnClickListener {
+    private MaterialSpinner spinner;
     private TextView tvNum;
     private String name ="顺丰";
     private OrderPresenter presenter;
@@ -46,13 +48,30 @@ public class LogisticsPanel extends Dialog implements View.OnClickListener {
         window.setAttributes(params);
 
         rootView.findViewById(R.id.logistics_send).setOnClickListener(this);
-//        spinner = (Spinner) rootView.findViewById(R.id.logistics_spinner);
+        spinner= (MaterialSpinner) rootView.findViewById(R.id.logistics_spinner);
         tvNum = (TextView) rootView.findViewById(R.id.logistics_number);
 
         initLogistics();
     }
 
     private void initLogistics() {
+        final ArrayList<String> list =new ArrayList<>();
+        list.add("顺丰");
+        list.add("韵达");
+        list.add("EMS");
+        list.add("中通");
+        list.add("圆通");
+        list.add("申通");
+        list.add("天天快递");
+        list.add("其他");
+        spinner.setItems(list);
+
+        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                name = item;
+            }
+        });
     }
 
 

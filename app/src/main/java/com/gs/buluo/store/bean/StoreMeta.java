@@ -30,6 +30,7 @@ public class StoreMeta extends StoreInfo implements Parcelable, IBaseResponse {
     public String markPlace;
     public String tags;
     public String email;
+    public String serviceLine;
 
     public enum StoreCategory {
         FOOD("食品"), GIFT("礼品"), OFFICE("办公用品"), LIVING("生活用品"), HOUSE("家居用品"), MAKEUP("化妆品"), PENETRATION("妇婴用品"),

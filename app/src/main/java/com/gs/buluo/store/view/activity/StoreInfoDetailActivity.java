@@ -67,7 +67,7 @@ public class StoreInfoDetailActivity extends BaseActivity  {
         etDesc.setText(data.desc);
         tvName.setText(data.name);
         tvCategory.setText(data.category);
-        tvPhone.setText(data.phone);
+        tvPhone.setText(data.serviceLine);
         etArea.setText(data.province + data.city + data.district);
         tvAddress.setText(data.address);
         tvTime.setText(data.businessHours);

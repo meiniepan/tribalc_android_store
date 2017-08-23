@@ -53,6 +53,18 @@ public class GlideUtils {
         Glide.with(context).load(url).placeholder(R.mipmap.default_pic).into(imageView);
     }
 
+    public static void loadImageNoHolder(Context context, String url, final ImageView imageView) {
+        if (url == null) return;
+        if (!url.contains("://")) {
+            url = Constant.Base.BASE_IMG_URL + url;
+        } else if (url.contains(Constant.Base.BASE_IMG_URL)){
+            url = url;
+        }else {
+            url = transformUrl(url);
+        }
+        Glide.with(context).load(url).into(imageView);
+    }
+
     public static void loadImage(Context context,String url, ImageView imageView,boolean isCircle) {
         if (url == null) return;
         if (!url.contains("://")) {

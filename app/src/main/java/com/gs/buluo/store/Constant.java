@@ -34,13 +34,16 @@ public class Constant {
     public static final String APP_START = "app_start";
     public static final String WITHDRAW_FLAG = "withdraw_flag";
     public static final String WITHDRAW_BILL = "withdraw_bill";
+    public static final String WEB_URL = "web_url";
+    public static final String GOODS_SWITCH = "goods_switch";
+    public static final String WX_CODE = "wx_code";
 
     public final static class Base {
         public static final String BASE = "https://app-services.buluo-gs.com/";
         public static final String BASE_URL = BuildConfig.API_SERVER_URL;
         public static final String BASE_IMG_URL = "http://dev-app-services.buluo-gs.com/resources/";   //图片地址要加此前缀
         public static final String BASE_ONLINE_URL = "http://pictures.buluo-gs.com/";   //阿里云图片地址base
-        public static final String WX_ID = "wx1906c6844a4273e2";
+        public static final String WX_ID = "wx9d6532f6628e8fe5";
     }
 
     public static final String VERIFICATION = "verificationCode";

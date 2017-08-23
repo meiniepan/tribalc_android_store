@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -7,10 +7,21 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/main_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <RelativeLayout
+        android:id="@+id/title_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="@color/white">
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/transparent">
 
         <TextView
             android:id="@+id/store_name"
@@ -29,9 +40,4 @@
             android:layout_marginEnd="10dp"
             android:src="@mipmap/setting_item"/>
     </RelativeLayout>
-
-    <com.jcodecraeer.xrecyclerview.XRecyclerView
-        android:id="@+id/main_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+</FrameLayout>

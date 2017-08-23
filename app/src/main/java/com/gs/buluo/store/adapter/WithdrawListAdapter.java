@@ -2,7 +2,6 @@ package com.gs.buluo.store.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -27,15 +26,13 @@ import java.util.List;
  */
 public class WithdrawListAdapter extends RecyclerAdapter<WithdrawBill> {
     private long today;
-    private String currentMonth;  //当前时间
-    private String lastMonth;  //上一个有变化的 月份
+    private int lastMonth = -1;  //上一个有变化的 月份
     Context context;
 
     public WithdrawListAdapter(Context context, List<WithdrawBill> list) {
         super(context, list);
         this.context = context;
         today = System.currentTimeMillis();
-        currentMonth = TribeDateUtils.dateFormat5(new Date(today)).split("-")[1];
     }
 
     @Override
@@ -69,7 +66,7 @@ public class WithdrawListAdapter extends RecyclerAdapter<WithdrawBill> {
         @Override
         public void setData(WithdrawBill entity) {
             super.setData(entity);
-            Date date = new Date(entity.createTime);
+            Date date = new Date(entity.time);
             Calendar instance = Calendar.getInstance();
             instance.setTime(date);
             int w = instance.get(Calendar.DAY_OF_WEEK);
@@ -77,7 +74,7 @@ public class WithdrawListAdapter extends RecyclerAdapter<WithdrawBill> {
             String we = switchToCh(w);
             week.setText(we);
 
-            if (TribeDateUtils.getTimeIntervalByDay(entity.createTime, today) < 1) {
+            if (TribeDateUtils.getTimeIntervalByDay(entity.time, today) < 1) {
                 week.setText(R.string.today);
                 time.setText(TribeDateUtils.dateFormat6(date));
             } else {
@@ -88,10 +85,10 @@ public class WithdrawListAdapter extends RecyclerAdapter<WithdrawBill> {
             detail.setText(entity.status == null ? "" : entity.status.status);
             String newMonth = s.split("-")[1];
             month.setText(newMonth + "月");
-            if (!TextUtils.equals(newMonth, lastMonth)) {
+            if (!(Integer.parseInt(newMonth) == lastMonth)) {
                 month.setVisibility(View.VISIBLE);
                 month.setText(newMonth + "月");
-                lastMonth = Integer.parseInt(newMonth) + "";
+                lastMonth = Integer.parseInt(newMonth);
             } else {
                 month.setVisibility(View.GONE);
             }

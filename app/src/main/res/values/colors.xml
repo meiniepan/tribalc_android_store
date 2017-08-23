@@ -9,7 +9,8 @@
     <color name="white">#ffffff</color>
 
     <color name="divide_gray">#dddddd</color>
-    <color name="tint_bg">#eff5f5</color>
+    <color name="tint_bg">#f2f2f2</color>
+    <color name="tint_bg_shallow">#fafcfb</color>
     <color name="custom_color">#51c7d1</color>
     <color name="main_tab">#707070</color>
     <color name="common_gray">#9a9a9a</color>

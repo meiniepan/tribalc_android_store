@@ -4,11 +4,11 @@ import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.AppConfigInfo;
 import com.gs.buluo.store.bean.AuthenticationData;
 import com.gs.buluo.store.bean.ConfigInfo;
-import com.gs.buluo.store.bean.HomeMessage;
 import com.gs.buluo.store.bean.HomeMessageEnum;
 import com.gs.buluo.store.bean.HomeMessageResponse;
 import com.gs.buluo.store.bean.RequestBodyBean.LoginBody;
 import com.gs.buluo.store.bean.RequestBodyBean.PhoneUpdateBody;
+import com.gs.buluo.store.bean.RequestBodyBean.ThirdLoginRequest;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessBody;
@@ -51,6 +51,13 @@ public interface MainApis {
     @POST("verifications/phone")
     Observable<BaseResponse<CodeResponse>> doVerify(@Body ValueRequestBody phone);
 
+    @POST("wechat/login")
+    Observable<BaseResponse<UserBeanEntity>> doThirdLogin(@Body ThirdLoginRequest request);
+
+    @POST("wechat/bind")
+    Observable<BaseResponse> bindThirdLogin(@Body ThirdLoginRequest request);
+
+
     @POST("oss_authorization/picture")
     Observable<BaseResponse<UploadResponseBody>> getUploadUrl(@Query("me") String id, @Body UploadAccessBody body);
 
@@ -85,8 +92,8 @@ public interface MainApis {
     Observable<BaseResponse<HomeMessageResponse>> getMessageMore(@Path("ownerId") String uid, @Query("limit") int limit, @Query("sinceTime") long sinceTime, @Query("isNew") boolean isNew);
 
     @PUT("members/{ownerId}/homeMessages/{messageId}/state")
-    Observable<BaseResponse> deleteMessage(@Path("ownerId")String uid,@Path("messageId")String mid);
+    Observable<BaseResponse> deleteMessage(@Path("ownerId") String uid, @Path("messageId") String mid);
 
     @PUT("members/{ownerId}/homeMessageTypeShield/{messageType}")
-    Observable<BaseResponse> ignoreMessage(@Path("ownerId")String uid,@Path("messageType")HomeMessageEnum type);
+    Observable<BaseResponse> ignoreMessage(@Path("ownerId") String uid, @Path("messageType") HomeMessageEnum type);
 }

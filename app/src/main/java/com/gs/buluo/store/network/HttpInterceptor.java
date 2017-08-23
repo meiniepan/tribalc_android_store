@@ -19,7 +19,7 @@ public class HttpInterceptor implements Interceptor {
         Request req = chain.request();
         Request.Builder builder = req.newBuilder();
         HttpUrl url = req.url();
-        if (TribeApplication.getInstance().getUserInfo() != null||TribeApplication.getInstance().getUserInfo().getToken()!=null) {
+        if (TribeApplication.getInstance().getUserInfo() != null&&TribeApplication.getInstance().getUserInfo().getToken()!=null) {
             builder.addHeader("Authorization", TribeApplication.getInstance().getUserInfo().getToken());
             if (url.encodedPath().contains("wallets")) {
                 HttpUrl.Builder newBuilder = url.newBuilder();

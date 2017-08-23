@@ -1,8 +1,8 @@
 package com.gs.buluo.store.view.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.View;
 
 import com.gs.buluo.store.Constant;
@@ -17,32 +17,30 @@ import butterknife.Bind;
 /**
  * Created by hjn on 2016/11/24.
  */
-public class OrderActivity extends BaseActivity  {
+public class OrderActivity extends BaseActivity {
     @Bind(R.id.order_pager)
     UnScrollViewPager pager;
-//    @Bind(R.id.order_tab)
-//    TabLayout tabLayout;
+    @Bind(R.id.order_tab)
+    TabLayout tabLayout;
     private Toolbar mToolbar;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
         mToolbar = (Toolbar) findViewById(R.id.order_bar);
         setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(R.mipmap.back_white);
-        mToolbar.setTitle("");
+        mToolbar.setNavigationIcon(R.mipmap.back_black);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
-        String[] titles = new String[]{getString(R.string.all), getString(R.string.wait_pay), getString(R.string.wait_send), getString(R.string.wait_receive),getString(R.string.complete)};
+        String[] titles = new String[]{getString(R.string.all), getString(R.string.wait_pay), getString(R.string.wait_send), getString(R.string.wait_receive), getString(R.string.complete)};
         OrderFragmentAdapter adapter =
                 new OrderFragmentAdapter(getSupportFragmentManager(), Arrays.asList(titles));
         pager.setAdapter(adapter);
-//        tabLayout.setupWithViewPager(pager);
-//        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        tabLayout.setupWithViewPager(pager);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
         pager.setCurrentItem(getIntent().getIntExtra(Constant.TYPE, 0), false);
     }
 

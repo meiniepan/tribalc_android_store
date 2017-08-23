@@ -25,6 +25,7 @@ import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.AppConfigInfo;
 import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
+import com.gs.buluo.store.eventbus.ManagerSwitchEvent;
 import com.gs.buluo.store.network.MainApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.presenter.BasePresenter;
@@ -43,8 +44,11 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
     Switch mSwitch;
     @Bind(R.id.setting_cache_size)
     TextView tvCache;
+    @Bind(R.id.goods_switch)
+    Switch sGoods;
     private StoreInfo info;
     private Context mCtx;
+    private CustomAlertDialog customAlertDialog;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -63,6 +67,8 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
                 return false;
             }
         });
+        sGoods.setChecked(SharePreferenceManager.getInstance(getApplicationContext()).getBooeanValue(Constant.GOODS_SWITCH, false));
+
         findViewById(R.id.setting_back).setOnClickListener(this);
         findViewById(R.id.exit).setOnClickListener(this);
         findViewById(R.id.setting_clear_cache).setOnClickListener(this);
@@ -70,7 +76,7 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
         findViewById(R.id.setting_update).setOnClickListener(this);
         findViewById(R.id.setting_pwd).setOnClickListener(this);
         findViewById(R.id.setting_info).setOnClickListener(this);
-
+        sGoods.setOnCheckedChangeListener(this);
         String cacheSize = null;
         try {
             cacheSize = DataCleanManager.getTotalCacheSize(this);
@@ -106,10 +112,9 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-//                info.setNotify(true);
-        } else {
-//                info.setNotify(false);
+        if (buttonView.getId() == R.id.goods_switch) {
+            SharePreferenceManager.getInstance(getApplicationContext()).setValue(Constant.GOODS_SWITCH, isChecked);
+            EventBus.getDefault().post(new ManagerSwitchEvent(isChecked));
         }
     }
 
@@ -137,12 +142,19 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
                 checkUpdate();
                 break;
             case R.id.exit:
-                SharePreferenceManager.getInstance(getApplicationContext()).clearValue(Constant.WALLET_PWD);
-                new StoreInfoDao().clear();
-                TribeApplication.getInstance().setUserInfo(null);
-                intent.setClass(mCtx, LoginActivity.class);
-                startActivity(intent);
-                finish();
+                customAlertDialog = new CustomAlertDialog.Builder(this).setTitle(R.string.prompt).setMessage("您确定要退出登录吗?")
+                        .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                logout();
+                            }
+                        }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                customAlertDialog.dismiss();
+                            }
+                        }).create();
+                customAlertDialog.show();
                 break;
             case R.id.setting_pwd:
                 String pwd = TribeApplication.getInstance().getPwd();
@@ -155,10 +167,21 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
                 startActivity(intent);
                 break;
             case R.id.setting_info:
-                intent.setClass(this,StoreInfoDetailActivity.class);
+                intent.setClass(this, StoreInfoDetailActivity.class);
                 startActivity(intent);
                 break;
         }
+    }
+
+    private void logout() {
+        Intent intent = new Intent();
+        SharePreferenceManager.getInstance(getApplicationContext()).clearValue(Constant.WALLET_PWD);
+        SharePreferenceManager.getInstance(getApplicationContext()).clearValue(Constant.GOODS_SWITCH);
+        new StoreInfoDao().clear();
+        TribeApplication.getInstance().setUserInfo(null);
+        intent.setClass(mCtx, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private String versionName;

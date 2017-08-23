@@ -27,7 +27,7 @@ import java.util.List;
 public class BillListAdapter extends RecyclerAdapter<BillEntity> {
     private long today;
     private String currentMonth;  //当前时间
-    private String lastMonth;  //上一个有变化的 月份
+    private int lastMonth;  //上一个有变化的 月份
     Context context;
 
     public BillListAdapter(Context context, List<BillEntity> list) {
@@ -92,10 +92,10 @@ public class BillListAdapter extends RecyclerAdapter<BillEntity> {
             detail.setText(entity.title);
             String newMonth = s.split("-")[1];
             month.setText(newMonth + "月");
-            if (!TextUtils.equals(newMonth, lastMonth)) {
+            if (Integer.parseInt(newMonth) != lastMonth) {
                 month.setVisibility(View.VISIBLE);
                 month.setText(newMonth + "月");
-                lastMonth = Integer.parseInt(newMonth) + "";
+                lastMonth = Integer.parseInt(newMonth);
             } else {
                 month.setVisibility(View.GONE);
             }

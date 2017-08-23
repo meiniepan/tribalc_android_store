@@ -39,6 +39,7 @@ public abstract class BaseActivity<T extends BasePresenter<IBaseView>> extends A
     protected BasePresenter mPresenter;
 
     private int color = R.color.titlebar_background;
+    private SystemBarTintManager tintManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -115,11 +116,19 @@ public abstract class BaseActivity<T extends BasePresenter<IBaseView>> extends A
         initSystemBar(this);
     }
 
+    public void setBarColorAgain(Activity activity,int colorInt) {
+        color = colorInt;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(activity, true);
+        }
+        tintManager.setStatusBarTintColor(colorInt);
+    }
+
     private void initSystemBar(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(activity, true);
         }
-        SystemBarTintManager tintManager = new SystemBarTintManager(activity);
+        tintManager = new SystemBarTintManager(activity);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setStatusBarTintResource(color);
     }
@@ -167,7 +176,6 @@ public abstract class BaseActivity<T extends BasePresenter<IBaseView>> extends A
 
     protected boolean checkUser(Context context) {
         if (TribeApplication.getInstance().getUserInfo() == null) {
-            ToastUtils.ToastMessage(context, getString(R.string.login_first));
             Intent intent = new Intent(context, LoginActivity.class);
             startActivity(intent);
             return false;

@@ -3,9 +3,9 @@ package com.gs.buluo.store.utils;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.WxPayResponse;
-import com.tencent.mm.sdk.modelpay.PayReq;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 /**
  * Created by hjn on 2016/12/30.

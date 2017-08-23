@@ -33,5 +33,6 @@
     <dimen name="usual_item_height">58dp</dimen>
     <dimen name="dimens_24sp">24sp</dimen>
     <dimen name="dimens_40sp">40sp</dimen>
+    <dimen name="dimens_28sp">28sp</dimen>
 
 </resources>

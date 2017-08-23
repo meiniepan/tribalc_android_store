@@ -7,22 +7,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:background="#2A2A2A">
+        android:layout_height="@dimen/title_height">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="@dimen/title_size"
-            android:textColor="#fff"
             android:text="选择商品规格" />
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="0.5dp"
-            android:layout_alignParentBottom="true"
-            android:background="#000" />
 
         <include
             layout="@layout/back_img_white"

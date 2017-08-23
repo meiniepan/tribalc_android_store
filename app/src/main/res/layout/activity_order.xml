@@ -10,27 +10,25 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/order_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:background="@color/common_dark">
+        android:layout_height="@dimen/title_height">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         android:layout_gravity="center"
         android:textSize="@dimen/dimens_18sp"
         android:text="@string/my_order"/>
     </android.support.v7.widget.Toolbar>
 
-    <!--<android.support.design.widget.TabLayout-->
-        <!--android:id="@+id/order_tab"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="40dp"-->
-        <!--app:tabIndicatorColor="@color/custom_color"-->
-        <!--app:tabMinWidth="180dp"-->
-        <!--app:tabMode="fixed"-->
-        <!--app:tabSelectedTextColor="@color/black"-->
-        <!--app:tabTextAppearance="@style/TabLayoutTextStyle"-->
-        <!--app:tabTextColor="@color/common_gray"/>-->
+    <android.support.design.widget.TabLayout
+        android:id="@+id/order_tab"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:tabIndicatorColor="@color/custom_color"
+        app:tabMinWidth="180dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/black"
+        app:tabTextAppearance="@style/TabLayoutTextStyle"
+        app:tabTextColor="@color/common_gray"/>
 
     <com.gs.buluo.store.view.widget.UnScrollViewPager
         android:id="@+id/order_pager"

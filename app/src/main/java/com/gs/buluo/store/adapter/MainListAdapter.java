@@ -14,9 +14,11 @@ import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.common.utils.TribeDateUtils;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.HomeMessage;
+import com.gs.buluo.store.bean.HomeMessageEnum;
 import com.gs.buluo.store.presenter.MainPresenter;
 import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.GlideUtils;
+import com.gs.buluo.store.view.widget.recyclerHelper.BaseHolder;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,7 +28,7 @@ import java.util.Date;
  * Created by hjn on 2017/7/12.
  */
 
-public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainViewHolder> {
+public class MainListAdapter extends RecyclerView.Adapter<BaseHolder> {
     private ArrayList<HomeMessage> datas = null;
     private Activity mCtx;
     private MainPresenter presenter;
@@ -43,26 +45,83 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainVi
     }
 
     @Override
-    public MainViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.main_list_item, viewGroup, false);
-        return new MainViewHolder(view);
+    public BaseHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        View view;
+        BaseHolder viewHolder;
+        switch (viewType) {
+            case 1:
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.main_list_item, viewGroup, false);
+                viewHolder = new MainViewHolder(view);
+                return viewHolder;
+            case 2:
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.simple_list_item, viewGroup, false);
+                viewHolder = new RegisterMessageHolder(view);
+                return viewHolder;
+            default:
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.main_list_item, viewGroup, false);
+                viewHolder = new MainViewHolder(view);
+                return viewHolder;
+        }
     }
 
     @Override
     public int getItemViewType(int position) {
+        HomeMessageEnum homeMessageTypeEnum = datas.get(position).messageBody.homeMessageType.homeMessageTypeEnum;
+        if (homeMessageTypeEnum == null) return 2;
+        switch (homeMessageTypeEnum) {
+            case TENANT_RECHARGE:
+            case TENANT_WITHDRAW:
+                return 1;
+            case ACCOUNT_REGISTER:
+                return 2;
+        }
         return 0;
     }
 
     @Override
-    public void onBindViewHolder(MainViewHolder holder, int position) {
+    public void onBindViewHolder(BaseHolder holder, int position) {
         final HomeMessage homeMessage = datas.get(position);
+        HomeMessageEnum homeMessageTypeEnum = homeMessage.messageBody.homeMessageType.homeMessageTypeEnum;
+        if (homeMessageTypeEnum == null) { //there is no supported model, pick default one
+            setRegisterHolder(homeMessage, (RegisterMessageHolder) holder);
+        } else if (holder instanceof MainViewHolder) {
+            setMainMessageHolder(homeMessage, (MainViewHolder) holder);
+        } else if (holder instanceof RegisterMessageHolder) {
+            setRegisterHolder(homeMessage, (RegisterMessageHolder) holder);
+        }
+    }
+
+    private void setRegisterHolder(final HomeMessage homeMessage, RegisterMessageHolder holder) {
+        if (homeMessage.createTime != 0) {
+            calendar.setTime(new Date(homeMessage.createTime));
+            int day = calendar.get(Calendar.DAY_OF_YEAR);
+            if (day == nowDayOfYear) {
+                holder.setText(R.id.main_item_create_date, TribeDateUtils.dateFormat6(new Date(homeMessage.createTime)));
+            } else {
+                holder.setText(R.id.main_item_create_date, TribeDateUtils.dateFormat3(new Date(homeMessage.createTime)));
+            }
+        }
+        if (homeMessage.messageBody.homeMessageType.homeMessageTypeEnum != null)
+            holder.setText(R.id.main_item_description, homeMessage.messageBody.body);
+        holder.setText(R.id.main_item_owner, homeMessage.messageBody.homeMessageType.homeMessageTypeCategory);
+        holder.getView(R.id.main_item_action).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int[] arr = {0, 0};
+                v.getLocationOnScreen(arr);
+                showPoP(v, arr[1], homeMessage);
+            }
+        });
+    }
+
+    private void setMainMessageHolder(final HomeMessage homeMessage, MainViewHolder holder) {
         holder.tvMoney.setText(homeMessage.messageBody.body);
         holder.tvDesc.setText(homeMessage.messageBody.description);
         if (homeMessage.messageBody.avatar != null)
-            GlideUtils.loadImage(mCtx, homeMessage.messageBody.avatar, holder.ivHead);
+            GlideUtils.loadImage(mCtx, "oss://" + homeMessage.messageBody.avatar + "/icon.jpg", holder.ivHead, true);
         if (homeMessage.messageBody.applicationTime != 0)
             holder.tvDate.setText(TribeDateUtils.dateFormat5(new Date(homeMessage.messageBody.applicationTime)));
-        holder.tvOwner.setText(homeMessage.messageBody.homeMessageType.homeMessageTypeEnum.owner);
+        holder.tvOwner.setText(homeMessage.messageBody.homeMessageType.homeMessageTypeCategory);
         if (homeMessage.createTime != 0) {
             calendar.setTime(new Date(homeMessage.createTime));
             int day = calendar.get(Calendar.DAY_OF_YEAR);
@@ -72,7 +131,6 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainVi
                 holder.tvCreateDate.setText(TribeDateUtils.dateFormat3(new Date(homeMessage.createTime)));
             }
         }
-
         holder.actionView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,7 +189,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainVi
         this.presenter = presenter;
     }
 
-    class MainViewHolder extends RecyclerView.ViewHolder {
+    private class MainViewHolder extends BaseHolder {
         TextView tvMoney;
         TextView tvOwner;
         TextView tvDesc;
@@ -147,8 +205,14 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainVi
             tvOwner = (TextView) view.findViewById(R.id.main_item_owner);
             tvDesc = (TextView) view.findViewById(R.id.main_item_description);
             tvDate = (TextView) view.findViewById(R.id.main_item_date);
-            ivHead = (ImageView) view.findViewById(R.id.main_item_logo);
+            ivHead = (ImageView) view.findViewById(R.id.main_item_head);
             actionView = view.findViewById(R.id.main_item_action);
+        }
+    }
+
+    private class RegisterMessageHolder extends BaseHolder {
+        public RegisterMessageHolder(View view) {
+            super(view);
         }
     }
 

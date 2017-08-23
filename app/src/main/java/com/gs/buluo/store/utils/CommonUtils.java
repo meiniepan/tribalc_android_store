@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -476,5 +477,26 @@ public class CommonUtils {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static int getGradient(float fraction, int startColor, int endColor) {
+        if (fraction > 1) fraction = 1;
+        int alphaStart = Color.alpha(startColor);
+        int redStart = Color.red(startColor);
+        int blueStart = Color.blue(startColor);
+        int greenStart = Color.green(startColor);
+        int alphaEnd = Color.alpha(endColor);
+        int redEnd = Color.red(endColor);
+        int blueEnd = Color.blue(endColor);
+        int greenEnd = Color.green(endColor);
+        int alphaDifference = alphaEnd - alphaStart;
+        int redDifference = redEnd - redStart;
+        int blueDifference = blueEnd - blueStart;
+        int greenDifference = greenEnd - greenStart;
+        int alphaCurrent = (int) (alphaStart + fraction * alphaDifference);
+        int redCurrent = (int) (redStart + fraction * redDifference);
+        int blueCurrent = (int) (blueStart + fraction * blueDifference);
+        int greenCurrent = (int) (greenStart + fraction * greenDifference);
+        return Color.argb(alphaCurrent, redCurrent, greenCurrent, blueCurrent);
     }
 }

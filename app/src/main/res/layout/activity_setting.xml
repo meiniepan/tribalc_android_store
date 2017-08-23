@@ -45,6 +45,29 @@
     <include layout="@layout/split_line_no_margin_common" />
 
     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height"
+        android:layout_marginStart="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="线上模式"
+            android:textSize="@dimen/dimens_16sp" />
+
+        <Switch
+            android:id="@+id/goods_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp" />
+    </RelativeLayout>
+
+    <include layout="@layout/split_line_no_margin_common" />
+
+    <RelativeLayout
         android:id="@+id/setting_pwd"
         android:layout_width="match_parent"
         android:layout_height="@dimen/setting_item_height"
@@ -128,7 +151,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="消息通知"
+            android:text="消息推送"
             android:textSize="@dimen/dimens_16sp" />
 
         <Switch
@@ -140,14 +163,16 @@
             android:layout_marginEnd="12dp" />
     </RelativeLayout>
 
+    <include layout="@layout/split_line_no_margin_common" />
+
     <RelativeLayout
-        android:id="@+id/exit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/tint_bg"
         android:gravity="center_horizontal">
 
         <TextView
+            android:id="@+id/exit"
             android:layout_width="315dp"
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"

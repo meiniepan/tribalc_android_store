@@ -1,6 +1,7 @@
 package com.gs.buluo.store.view.activity;
 
 import android.os.Bundle;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.gs.buluo.store.Constant;
@@ -17,7 +18,15 @@ public class WebActivity extends BaseActivity {
     WebView webView;
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        webView.loadUrl(Constant.Base.BASE+"page.html");
+        String url = getIntent().getStringExtra(Constant.WEB_URL);
+        webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setLightTouchEnabled(true);
+        if (url==null){
+            webView.loadUrl(Constant.Base.BASE+"page.html");
+        }else {
+            webView.loadUrl(url);
+        }
     }
 
     @Override

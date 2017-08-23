@@ -14,6 +14,8 @@ import com.gs.buluo.store.view.impl.IMainView;
 
 import java.util.List;
 
+import rx.Observer;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -23,10 +25,11 @@ import rx.schedulers.Schedulers;
 
 public class MainPresenter extends BasePresenter<IMainView> {
 
-    private long lastTime;
-    private long firstTime ;
+    private long lastTime = System.currentTimeMillis();
+    private long firstTime = System.currentTimeMillis();
 
     private int limit = 10;
+
     public void getMessage() {
         TribeRetrofit.getInstance().createApi(MainApis.class).getMessage(TribeApplication.getInstance().getUserInfo().getId(), limit)
                 .subscribeOn(Schedulers.io())
@@ -35,8 +38,10 @@ public class MainPresenter extends BasePresenter<IMainView> {
                     @Override
                     public void onNext(BaseResponse<HomeMessageResponse> listBaseResponse) {
                         List<HomeMessage> data = listBaseResponse.data.content;
-                        lastTime = data.get(data.size() - 1).createTime;
-                        firstTime = data.get(0).createTime;
+                        if (data != null && data.size() > 0) {
+                            lastTime = data.get(data.size() - 1).createTime;
+                            firstTime = data.get(0).createTime;
+                        }
                         mView.getMessageSuccess(listBaseResponse.data, false);
                     }
 
@@ -45,11 +50,6 @@ public class MainPresenter extends BasePresenter<IMainView> {
                         mView.showError(e.getCode(), e.getDisplayMessage());
                     }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.showError(500, null);
-                        super.onError(e);
-                    }
                 });
     }
 
@@ -68,12 +68,6 @@ public class MainPresenter extends BasePresenter<IMainView> {
                     @Override
                     public void onFail(ApiException e) {
                         mView.showError(e.getCode(), e.getDisplayMessage());
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.showError(500, null);
-                        super.onError(e);
                     }
                 });
     }
@@ -94,12 +88,6 @@ public class MainPresenter extends BasePresenter<IMainView> {
                     public void onFail(ApiException e) {
                         mView.showError(e.getCode(), e.getDisplayMessage());
                     }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.showError(500, null);
-                        super.onError(e);
-                    }
                 });
     }
 
@@ -115,9 +103,8 @@ public class MainPresenter extends BasePresenter<IMainView> {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onFail(ApiException e) {
                         mView.showError(500, null);
-                        super.onError(e);
                     }
                 });
     }

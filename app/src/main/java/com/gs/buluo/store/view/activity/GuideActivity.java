@@ -26,8 +26,8 @@ public class GuideActivity extends BaseActivity {
         setBarColor(R.color.transparent);
         list = new ArrayList<>();
         list.add(R.mipmap.guide_1);
-        list.add(R.mipmap.guide2);
-        list.add(R.mipmap.guide3);
+        list.add(R.mipmap.guide_2);
+        list.add(R.mipmap.guide_3);
         vAdapter = new GuidePagerAdapter(this, list);
         viewPager.setAdapter(vAdapter);
     }

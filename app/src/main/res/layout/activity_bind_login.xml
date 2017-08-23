@@ -18,7 +18,7 @@
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@mipmap/back_white" />
+            android:src="@mipmap/back_white"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -29,7 +29,6 @@
         android:paddingTop="20dp"
         android:paddingStart="@dimen/activity_horizontal_margin"
         android:paddingEnd="@dimen/activity_horizontal_margin">
-
         <EditText
             android:id="@+id/login_username"
             android:layout_width="match_parent"
@@ -41,12 +40,12 @@
             android:inputType="phone"
             android:textColorHint="#fff"
             android:textColor="#fff"
-            android:drawableLeft="@mipmap/login_sign" />
-
+            android:textSize="@dimen/dimens_14sp"
+            android:drawableLeft="@mipmap/login_sign"
+            />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <EditText
                 android:id="@+id/login_verify"
                 android:paddingStart="6dp"
@@ -55,83 +54,52 @@
                 android:inputType="number"
                 android:layout_height="@dimen/edit_height"
                 android:textColor="#fff"
+                android:textSize="@dimen/dimens_14sp"
                 android:background="@drawable/transform_background_round"
                 android:hint="@string/edit_verify"
                 android:layout_marginTop="20dp"
                 android:textColorHint="#fff"
-                android:drawableLeft="@mipmap/login_pwd_sign" />
+                android:drawableLeft="@mipmap/login_pwd_sign"
+                />
 
-            <include
-                layout="@layout/send_verify"
+            <include layout="@layout/send_verify"
                 android:id="@+id/login_send_verify"
                 android:layout_alignTop="@+id/login_verify"
                 android:layout_alignEnd="@+id/login_verify"
                 android:layout_width="80dp"
                 android:layout_height="30dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"/>
         </RelativeLayout>
 
         <Button
             android:id="@+id/login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="登陆"
-            android:textSize="@dimen/dimens_18sp"
+            android:text="@string/login"
+            android:textSize="@dimen/dimens_16sp"
             android:layout_marginTop="20dp"
             android:background="@drawable/login_selector"
-            android:textColor="#fff" />
+            android:textColor="#fff"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="10dp"
+           android:gravity="center">
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="注册即视为同意"
+               android:textColor="#c0c0c1"
+               android:textSize="@dimen/dimens_16sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="注册即视为同意"
-                android:textColor="#c0c0c1"
-                android:textSize="@dimen/dimens_16sp" />
-
-            <TextView
-                android:id="@+id/login_protocol"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="部落公社注册协议"
-                android:textSize="@dimen/dimens_16sp" />
-        </LinearLayout>
+           <TextView
+               android:id="@+id/login_protocol"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="部落公社注册协议"
+               android:textSize="@dimen/dimens_16sp"/>
+       </LinearLayout>
     </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="其他方式登陆"
-        android:textColor="#fff"
-        android:textSize="@dimen/dimens_16sp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:id="@+id/textView" />
-
-    <ImageView
-        android:id="@+id/wx_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/login_wechat_icon"
-        android:layout_marginBottom="10dp"
-        android:layout_above="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:paddingStart="90dp" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/login_alipay_icon"
-        android:layout_marginBottom="10dp"
-        android:layout_above="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:paddingEnd="90dp" />
-
 </RelativeLayout>

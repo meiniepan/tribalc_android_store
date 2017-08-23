@@ -20,25 +20,16 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/title_height"
-                android:background="#2A2A2A">
+                android:layout_height="@dimen/title_height">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/order_detail"
-                    android:textColor="#fff"
                     android:textSize="@dimen/title_size" />
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="0.5dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="#000" />
-
                 <include
-                    android:id="@+id/order_detail_back"
+                    android:id="@+id/back"
                     layout="@layout/back_img_white" />
             </RelativeLayout>
             <LinearLayout
@@ -78,7 +69,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
+                        android:layout_marginStart="30dp"
                         android:layout_marginTop="16dp"
                         android:orientation="horizontal">
 
@@ -102,7 +93,7 @@
                             android:id="@+id/order_detail_phone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="60dp"
+                            android:layout_marginStart="30dp"
                             android:maxLength="13"
                             android:textColor="@color/common_dark"
                             android:textSize="@dimen/dimens_14sp"
@@ -112,7 +103,8 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical">
 
                         <ImageView
                             android:layout_width="wrap_content"

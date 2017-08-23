@@ -8,26 +8,17 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_alignParentTop="true"
-        android:background="@color/common_dark" />
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/goods_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:layout_below="@+id/view"
-        android:background="@color/common_dark">
+        android:layout_height="@dimen/title_height">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/store_management"
-            android:textColor="@color/white"
+            android:textColor="@color/common_dark"
             android:textSize="@dimen/dimens_18sp" />
     </android.support.v7.widget.Toolbar>
 
@@ -217,18 +208,18 @@
             android:textColor="@color/white" />
     </RelativeLayout>
 
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/store_floating"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:layout_marginBottom="28dp"-->
-        <!--android:layout_marginEnd="28dp"-->
-        <!--android:elevation="6dp"-->
-        <!--android:src="@mipmap/add"-->
-        <!--app:borderWidth="0dp"-->
-        <!--app:pressedTranslationZ="12dp"-->
-        <!--app:rippleColor="@color/custom_yellow_select"-->
-        <!--tools:targetApi="LOLLIPOP" />-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/store_floating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="28dp"
+        android:layout_marginEnd="28dp"
+        android:elevation="6dp"
+        android:src="@mipmap/add"
+        app:borderWidth="0dp"
+        app:pressedTranslationZ="12dp"
+        app:rippleColor="@color/custom_yellow_select"
+        tools:targetApi="LOLLIPOP" />
 </RelativeLayout>

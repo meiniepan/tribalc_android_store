@@ -10,8 +10,8 @@ import android.os.Parcelable;
 public class WithdrawBill implements Parcelable {
     public String id;
     public String ownerId;
-    public long createTime;
-    public String bankcardNum;
+    public long time;
+    public String accountNumber;
     public String amount;
     public WithdrawStatus status;
 
@@ -33,8 +33,8 @@ public class WithdrawBill implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
         dest.writeString(this.ownerId);
-        dest.writeLong(this.createTime);
-        dest.writeString(this.bankcardNum);
+        dest.writeLong(this.time);
+        dest.writeString(this.accountNumber);
         dest.writeString(this.amount);
         dest.writeInt(this.status == null ? -1 : this.status.ordinal());
     }
@@ -45,8 +45,8 @@ public class WithdrawBill implements Parcelable {
     protected WithdrawBill(Parcel in) {
         this.id = in.readString();
         this.ownerId = in.readString();
-        this.createTime = in.readLong();
-        this.bankcardNum = in.readString();
+        this.time = in.readLong();
+        this.accountNumber = in.readString();
         this.amount = in.readString();
         int tmpStatus = in.readInt();
         this.status = tmpStatus == -1 ? null : WithdrawStatus.values()[tmpStatus];

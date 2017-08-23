@@ -7,6 +7,7 @@ package com.gs.buluo.store.bean;
 public enum HomeMessageEnum {
     ACCOUNT_WALLET_PAYMENT("钱包助手", "付款通知"),
     ACCOUNT_WALLET_RECHARGE("钱包助手", "充值到账"),
+    ACCOUNT_WALLET_WITHDRAW("钱包助手", "提现到账"),
     CREDIT_ENABLE("授信助手", "开通授信"),
     CREDIT_DISABLE("授信助手", "授信额度冻结"),
     CREDIT_BILL_GENERATION("授信助手", "账单生成"),
@@ -18,7 +19,9 @@ public enum HomeMessageEnum {
     TENANT_WITHDRAW("商户助手", "提现到账"),
     COMPANIES_ADMIN("企业办公", "管理变更"),
     COMPANIES_RENT_BILL_GENERATION("企业办公", "缴租提醒"),
-    COMPANIES_RENT_BILL_PAYMENT("企业办公", "租金缴纳");
+    COMPANIES_RENT_BILL_PAYMENT("企业办公", "租金缴纳"),
+    COMPANIES_WALLET_WITHDRAW("企业办公", "提现到账"),
+    ACCOUNT_REGISTER("账户推送", "欢迎登录");
 
     public String owner;
     public String type;

@@ -66,7 +66,7 @@ public class BillDetailActivity extends BaseActivity {
 
             tvStatus.setText(bill.status.status);
             GlideUtils.loadImage(this, TribeApplication.getInstance().getUserInfo().getLogo(), ivLogo, true);
-            Date date = new Date(bill.createTime);
+            Date date = new Date(bill.time);
             tvTime.setText(TribeDateUtils.dateFormat9(date));
         }
 

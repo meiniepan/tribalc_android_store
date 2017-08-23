@@ -350,6 +350,10 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         }
         meta.priceAndRepertory.salePrice = nunSale;
         meta.priceAndRepertory.repertory = numStock;
+
+        Intent intent = new Intent(this, CreateGoodsFinalActivity.class);
+        intent.putExtra(Constant.ForIntent.META, meta);
+        startActivity(intent);
     }
 
     private void uploadPic(String path) {

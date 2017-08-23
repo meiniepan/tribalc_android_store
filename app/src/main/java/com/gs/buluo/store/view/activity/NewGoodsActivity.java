@@ -217,6 +217,11 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
                 pos = picList.size() - 1;
                 break;
             case R.id.ll_goods_create_standard:
+                Intent intent = new Intent(getCtx(), CreateStandardActivity.class);
+                if (bundle != null) {
+                    intent.putExtras(bundle);
+                }
+                startActivityForResult(intent, 201);
                 break;
             case R.id.goods_create_next:
                 goNext();
@@ -281,6 +286,13 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
             goods.repertory = numStock;
             meta.priceAndRepertory = goods;
         }
+
+        Intent intent = new Intent(this, CreateGoodsFinalActivity.class);
+        intent.putExtra(Constant.ForIntent.META, meta);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
     }
 
     private void showChoosePhoto() {
@@ -295,7 +307,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
 
     private void uploadPic(String path) {
         showLoadingDialog();
-        TribeUploader.getInstance().uploadFile("goods", "", path, new TribeUploader.UploadCallback() {
+        TribeUploader.getInstance().uploadFile("goods"+System.currentTimeMillis(), "", path, new TribeUploader.UploadCallback() {
             @Override
             public void uploadSuccess(UploadResponseBody data) {
                 dismissDialog();
