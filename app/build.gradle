@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.antfortune.freeline'
+apply plugin: 'com.ceabie.dexnkife'
 
 android {
     compileSdkVersion 25
@@ -33,7 +34,17 @@ android {
         targetSdkVersion 22
         versionCode 4
         versionName VERSION_NAME
-        multiDexEnabled false
+        multiDexEnabled true
+        ndk {
+            //根据需要 自行选择添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+        manifestPlaceholders = [
+
+                XG_ACCESS_ID:"2100265642",
+                XG_ACCESS_KEY : "A5P33GWV8M7L",
+        ]
     }
     signingConfigs {
         release {
@@ -98,9 +109,18 @@ dependencies {
     compile files('libs/jce.jar')
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile 'com.jaredrummler:material-spinner:1.1.0'
+    compile 'com.android.support:multidex:1.0.1'
 //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
     compile project(path: ':xrecyclerview')
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    //信鸽的版本
+    compile 'com.tencent.xinge:xinge:3.1.8-alpha'
+
+    //wup包 如果和其他腾讯系的sdk 发生wup冲突，这个依赖可不添加
+    compile 'com.tencent.wup:wup:1.0.0.E-alpha'
+
+    //mid包
+    compile 'com.tencent.mid:mid:3.72.4-alpha'
 }
 repositories {
     mavenCentral()

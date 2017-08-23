@@ -1,6 +1,9 @@
 package com.gs.buluo.store;
 
 
+import android.content.Context;
+import android.support.multidex.MultiDex;
+
 import com.gs.buluo.common.BaseApplication;
 import com.gs.buluo.common.utils.TribeCrashCollector;
 import com.gs.buluo.store.bean.StoreInfo;
@@ -130,5 +133,10 @@ public class TribeApplication extends BaseApplication {
 
     public void setPwd(String pwd) {
         this.pwd = pwd;
+    }
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }
