@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +33,6 @@ import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.view.impl.IMainView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.tencent.android.tpush.XGIOperateCallback;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -142,17 +140,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     protected void bindView(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
-        registerPush(getApplicationContext(), TribeApplication.getInstance().getUserInfo().getId(), new XGIOperateCallback() {
-            @Override
-            public void onSuccess(Object data, int flag) {
-                Log.e("TPush", "注册成功，设备token为：" + data);
-            }
-
-            @Override
-            public void onFail(Object data, int errCode, String msg) {
-                Log.e("TPush", "注册失败，错误码：" + errCode + ",错误信息：" + msg);
-            }
-        });
+        registerPush(getApplicationContext(), TribeApplication.getInstance().getUserInfo().getId(), null);
         initView();
         initData();
         setMessageList(topView);

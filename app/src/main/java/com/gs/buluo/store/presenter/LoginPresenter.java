@@ -3,9 +3,8 @@ package com.gs.buluo.store.presenter;
 import com.gs.buluo.common.network.ApiException;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
-import com.gs.buluo.common.utils.SharePreferenceManager;
-import com.gs.buluo.common.utils.TribeDateUtils;
 import com.gs.buluo.store.Constant;
+import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.RequestBodyBean.LoginBody;
 import com.gs.buluo.store.bean.RequestBodyBean.ThirdLoginRequest;
@@ -18,8 +17,6 @@ import com.gs.buluo.store.network.MainApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.view.impl.ILoginView;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import rx.Observable;
@@ -50,7 +47,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                         entity.setId(uid);
                         entity.setToken(token);
                         TribeApplication.getInstance().setUserInfo(entity);
-                        return TribeRetrofit.getInstance().createApi(MainApis.class).getStoreInfo(uid,uid);
+                        return TribeRetrofit.getInstance().createApi(MainApis.class).getStoreInfo(uid, uid);
                     }
                 })
                 .subscribeOn(Schedulers.io())
@@ -98,10 +95,10 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
         dao.saveBindingId(storeInfo);
     }
 
-    public void doThirdLogin(HashMap<String, String> params, final String wxCode) {
+    public void doThirdLogin(String phone, String verify, final String wxCode) {
         LoginBody bean = new LoginBody();
-        bean.phone = params.get(Constant.PHONE);
-        bean.verificationCode = params.get(Constant.VERIFICATION);
+        bean.phone = phone;
+        bean.verificationCode = verify;
         TribeRetrofit.getInstance().createApi(MainApis.class).
                 doLogin(bean)
                 .subscribeOn(Schedulers.io())
@@ -118,7 +115,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                         TribeApplication.getInstance().setUserInfo(entity);
                         bindThird(uid, wxCode);
                         return TribeRetrofit.getInstance().createApi(MainApis.class).
-                                getStoreInfo(uid,uid);
+                                getStoreInfo(uid, uid);
                     }
                 })
                 .doOnNext(new Action1<BaseResponse<StoreInfo>>() {
@@ -144,7 +141,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
 
     private void bindThird(String uid, String wxCode) {
         ThirdLoginRequest request = new ThirdLoginRequest();
-        request.memberType = "PERSON";
+        request.memberType = "STORE";
         request.memberId = uid;
         request.code = wxCode;
         TribeRetrofit.getInstance().createApi(MainApis.class).bindThirdLogin(request)
@@ -153,6 +150,11 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                 .subscribe(new BaseSubscriber<BaseResponse>() {
                     @Override
                     public void onNext(BaseResponse baseResponse) {
+                    }
+
+                    @Override
+                    public void onFail(ApiException e) {
+                        if (isAttach()) mView.showError(R.string.bind_third_fail, "");
                     }
                 });
     }

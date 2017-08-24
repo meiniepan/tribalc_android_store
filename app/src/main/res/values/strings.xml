@@ -47,6 +47,7 @@
     <string name="input_verify">请输入6位验证码</string>
     <string name="input_phone">请输入手机号码</string>
     <string name="phone">手机号码</string>
+    <string name="phone2">手机号</string>
     <string name="male">男</string>
     <string name="female">女</string>
     <string name="married">已婚</string>
@@ -276,4 +277,6 @@
     <string name="account_withdraw">可提现金额</string>
     <string name="prompt">提示</string>
     <string name="goods_manager">商品管理</string>
+    <string name="please_input_verify">请输入验证码</string>
+    <string name="bind_third_fail">绑定第三方账号失败</string>
 </resources>

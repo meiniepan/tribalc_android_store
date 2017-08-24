@@ -104,7 +104,8 @@ dependencies {
     compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.google.zxing:core:3.2.1'
-    compile 'com.github.ngreedy:tribe_lib:2.6.0'
+    compile 'com.github.ngreedy:tribe_lib:2.6.5'
+    compile 'com.jakewharton:butterknife:7.0.0'
     compile files('libs/tmassistantsdk_selfupdate_v2.0_20170210155519.jar')
     compile files('libs/jce.jar')
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
@@ -115,10 +116,6 @@ dependencies {
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     //信鸽的版本
     compile 'com.tencent.xinge:xinge:3.1.8-alpha'
-
-    //wup包 如果和其他腾讯系的sdk 发生wup冲突，这个依赖可不添加
-    compile 'com.tencent.wup:wup:1.0.0.E-alpha'
-
     //mid包
     compile 'com.tencent.mid:mid:3.72.4-alpha'
 }

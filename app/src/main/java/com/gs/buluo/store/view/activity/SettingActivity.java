@@ -76,6 +76,7 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
         findViewById(R.id.setting_update).setOnClickListener(this);
         findViewById(R.id.setting_pwd).setOnClickListener(this);
         findViewById(R.id.setting_info).setOnClickListener(this);
+        findViewById(R.id.mine_message_manager).setOnClickListener(this);
         sGoods.setOnCheckedChangeListener(this);
         String cacheSize = null;
         try {
@@ -168,6 +169,10 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
                 break;
             case R.id.setting_info:
                 intent.setClass(this, StoreInfoDetailActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.mine_message_manager:
+                intent.setClass(this, MessageManagerActivity.class);
                 startActivity(intent);
                 break;
         }

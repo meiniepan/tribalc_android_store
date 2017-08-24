@@ -143,6 +143,22 @@
     <include layout="@layout/split_line_no_margin_common" />
 
     <RelativeLayout
+        android:id="@+id/mine_message_manager"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height"
+        android:layout_marginStart="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="首页消息"
+            android:textSize="@dimen/dimens_16sp" />
+    </RelativeLayout>
+
+    <include layout="@layout/split_line_no_margin_common" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/setting_item_height"
         android:layout_marginStart="@dimen/activity_horizontal_margin">

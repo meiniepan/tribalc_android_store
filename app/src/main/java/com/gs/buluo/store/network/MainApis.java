@@ -84,16 +84,4 @@ public interface MainApis {
 
     @GET("stores/{id}/authentication")
     Observable<BaseResponse<AuthenticationData>> getAuth(@Path("id") String uid);
-
-    @GET("members/{ownerId}/homeMessages")
-    Observable<BaseResponse<HomeMessageResponse>> getMessage(@Path("ownerId") String uid, @Query("limit") int limit);
-
-    @GET("members/{ownerId}/homeMessages")
-    Observable<BaseResponse<HomeMessageResponse>> getMessageMore(@Path("ownerId") String uid, @Query("limit") int limit, @Query("sinceTime") long sinceTime, @Query("isNew") boolean isNew);
-
-    @PUT("members/{ownerId}/homeMessages/{messageId}/state")
-    Observable<BaseResponse> deleteMessage(@Path("ownerId") String uid, @Path("messageId") String mid);
-
-    @PUT("members/{ownerId}/homeMessageTypeShield/{messageType}")
-    Observable<BaseResponse> ignoreMessage(@Path("ownerId") String uid, @Path("messageType") HomeMessageEnum type);
 }

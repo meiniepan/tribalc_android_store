@@ -78,7 +78,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         LoadingDialog.getInstance().show(this, "登录中", false);
         ThirdLoginRequest request = new ThirdLoginRequest();
         request.code = ((SendAuth.Resp) baseResp).code;
-        request.memberType = "PERSON";
+        request.memberType = "STORE";
         TribeRetrofit.getInstance().createApi(MainApis.class).doThirdLogin(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

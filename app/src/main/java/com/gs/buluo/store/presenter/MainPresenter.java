@@ -8,6 +8,7 @@ import com.gs.buluo.store.bean.HomeMessage;
 import com.gs.buluo.store.bean.HomeMessageResponse;
 import com.gs.buluo.store.bean.WalletAccount;
 import com.gs.buluo.store.network.MainApis;
+import com.gs.buluo.store.network.MessageApis;
 import com.gs.buluo.store.network.MoneyApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.view.impl.IMainView;
@@ -31,7 +32,7 @@ public class MainPresenter extends BasePresenter<IMainView> {
     private int limit = 10;
 
     public void getMessage() {
-        TribeRetrofit.getInstance().createApi(MainApis.class).getMessage(TribeApplication.getInstance().getUserInfo().getId(), limit)
+        TribeRetrofit.getInstance().createApi(MessageApis.class).getMessage(TribeApplication.getInstance().getUserInfo().getId(), limit)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse<HomeMessageResponse>>() {
@@ -54,7 +55,7 @@ public class MainPresenter extends BasePresenter<IMainView> {
     }
 
     public void getMessageMore() {
-        TribeRetrofit.getInstance().createApi(MainApis.class).getMessageMore(TribeApplication.getInstance().getUserInfo().getId(), limit, lastTime, false)
+        TribeRetrofit.getInstance().createApi(MessageApis.class).getMessageMore(TribeApplication.getInstance().getUserInfo().getId(), limit, lastTime, false)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse<HomeMessageResponse>>() {
@@ -73,7 +74,7 @@ public class MainPresenter extends BasePresenter<IMainView> {
     }
 
     public void getMessageNewer() {
-        TribeRetrofit.getInstance().createApi(MainApis.class).getMessageMore(TribeApplication.getInstance().getUserInfo().getId(), limit, firstTime, true)
+        TribeRetrofit.getInstance().createApi(MessageApis.class).getMessageMore(TribeApplication.getInstance().getUserInfo().getId(), limit, firstTime, true)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse<HomeMessageResponse>>() {
@@ -110,7 +111,7 @@ public class MainPresenter extends BasePresenter<IMainView> {
     }
 
     public void deleteMessage(final HomeMessage message) {
-        TribeRetrofit.getInstance().createApi(MainApis.class).deleteMessage(TribeApplication.getInstance().getUserInfo().getId(), message.id)
+        TribeRetrofit.getInstance().createApi(MessageApis.class).deleteMessage(TribeApplication.getInstance().getUserInfo().getId(), message.id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse>() {
@@ -133,7 +134,7 @@ public class MainPresenter extends BasePresenter<IMainView> {
     }
 
     public void ignoreMessage(final HomeMessage message) {
-        TribeRetrofit.getInstance().createApi(MainApis.class).ignoreMessage(TribeApplication.getInstance().getUserInfo().getId(), message.messageBody.homeMessageType.homeMessageTypeEnum)
+        TribeRetrofit.getInstance().createApi(MessageApis.class).ignoreMessage(TribeApplication.getInstance().getUserInfo().getId(), message.messageBody.homeMessageType.homeMessageTypeEnum)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse>() {
