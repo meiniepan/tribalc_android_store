@@ -21,7 +21,9 @@ public enum HomeMessageEnum {
     COMPANIES_RENT_BILL_GENERATION("企业办公", "缴租提醒"),
     COMPANIES_RENT_BILL_PAYMENT("企业办公", "租金缴纳"),
     COMPANIES_WALLET_WITHDRAW("企业办公", "提现到账"),
-    ACCOUNT_REGISTER("账户推送", "欢迎登录");
+    ACCOUNT_REGISTER("账户推送", "欢迎登录"),
+    ORDER_SETTLE("订单详情", "新订单提醒"),
+    ORDER_DELIVERY("订单详情", "发货提醒");
 
     public String owner;
     public String type;

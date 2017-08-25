@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tribalc-android-store.iml" filepath="$PROJECT_DIR$/tribalc-android-store.iml" />
       <module fileurl="file://$PROJECT_DIR$/tribalc_android_store.iml" filepath="$PROJECT_DIR$/tribalc_android_store.iml" />
       <module fileurl="file://$PROJECT_DIR$/xrecyclerview/xrecyclerview.iml" filepath="$PROJECT_DIR$/xrecyclerview/xrecyclerview.iml" />
     </modules>

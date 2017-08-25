@@ -1,5 +1,6 @@
 package com.gs.buluo.store.presenter;
 
+import com.gs.buluo.common.network.ApiException;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
@@ -85,6 +86,23 @@ public class OrderPresenter extends BasePresenter<IOrderView> {
                     @Override
                     public void onNext(BaseResponse<OrderBean> goodListBaseResponse) {
                         if (isAttach()) mView.updateSuccess(goodListBaseResponse.data);
+                    }
+                });
+    }
+
+    public void getOrderDetail(String orderId) {
+        TribeRetrofit.getInstance().createApi(OrderApis.class).getOrderDetail(orderId,TribeApplication.getInstance().getUserInfo().getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<OrderBean>>() {
+                    @Override
+                    public void onNext(BaseResponse<OrderBean> orderBeanBaseResponse) {
+                        mView.getOrderDetailSuccess(orderBeanBaseResponse.data);
+                    }
+
+                    @Override
+                    public void onFail(ApiException e) {
+                        mView.showError(e.getCode(),"获取订单详情失败");
                     }
                 });
     }

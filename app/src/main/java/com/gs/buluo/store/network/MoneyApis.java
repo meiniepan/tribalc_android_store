@@ -12,6 +12,7 @@ import com.gs.buluo.store.bean.ResponseBody.PrivilegeResponse;
 import com.gs.buluo.store.bean.ResponseBody.WithdrawBillResponse;
 import com.gs.buluo.store.bean.UpdatePwdBody;
 import com.gs.buluo.store.bean.WalletAccount;
+import com.gs.buluo.store.bean.WithdrawBill;
 import com.gs.buluo.store.bean.WxPayResponse;
 
 import java.util.List;
@@ -105,7 +106,11 @@ public interface MoneyApis {
     Observable<BaseResponse<WithdrawBillResponse>> getWithdrawMoreBill(@Path("id") String uid,
                                                                        @Query("accountType") String type, @Query("sortSkip") String nextSkip);
 
+    @GET("wallets/{id}/withdraws/{billId}")
+    Observable<BaseResponse<WithdrawBill>> getWithdrawDetail(@Path("id") String uid, @Path("billId") String billId);
 
     @GET("stores/{storeId}/privilege")
     Observable<BaseResponse<PrivilegeResponse>> getAllPrivilege(@Path("storeId") String sid);
+
+
 }

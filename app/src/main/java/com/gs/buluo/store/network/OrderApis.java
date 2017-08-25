@@ -1,10 +1,10 @@
 package com.gs.buluo.store.network;
 
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.OrderBean;
 import com.gs.buluo.store.bean.RequestBodyBean.LogisticsRequestBody;
 import com.gs.buluo.store.bean.RequestBodyBean.NewOrderBean;
 import com.gs.buluo.store.bean.ResponseBody.OrderResponseBean;
-import com.gs.buluo.common.network.BaseResponse;
 
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -21,7 +21,7 @@ public interface OrderApis {
 
     @GET("orders?type=store")
     Observable<BaseResponse<OrderResponseBean>> getOrderFirst(@Query("me") String uid, @Query("limitSize") int limitSize,
-                                                @Query("status") String status);
+                                                              @Query("status") String status);
 
     @GET("orders?type=store")
     Observable<BaseResponse<OrderResponseBean>> getOrder(@Query("me") String uid, @Query("limitSize") int limitSize
@@ -34,4 +34,6 @@ public interface OrderApis {
     @POST("persons/{id}/shopping_cart")
     Observable<BaseResponse> addCartItem(@Path("id") String uid, @Body NewOrderBean body);
 
+    @GET("orders/{orderId}?type=owner")
+    Observable<BaseResponse<OrderBean>> getOrderDetail(@Path("orderId") String orderId, @Query("me") String uid);
 }

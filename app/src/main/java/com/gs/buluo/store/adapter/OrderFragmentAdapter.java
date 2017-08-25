@@ -1,9 +1,14 @@
 package com.gs.buluo.store.adapter;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
+import com.gs.buluo.store.R;
 import com.gs.buluo.store.view.fragment.OrderFragment;
 
 import java.util.List;
@@ -13,9 +18,10 @@ import java.util.List;
  */
 public class OrderFragmentAdapter extends FragmentStatePagerAdapter {
     List<String> list;
-
-    public OrderFragmentAdapter(FragmentManager supportFragmentManager, List<String> list) {
+    Context mCtx;
+    public OrderFragmentAdapter(Context context ,FragmentManager supportFragmentManager, List<String> list) {
         super(supportFragmentManager);
+        mCtx = context;
         this.list = list;
     }
 
@@ -36,4 +42,12 @@ public class OrderFragmentAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         return list.get(position);
     }
+
+    public View getTabView(int position) {
+        View tabView = LayoutInflater.from(mCtx).inflate(R.layout.item_tab_layout, null);
+        TextView tabTitle = (TextView) tabView.findViewById(R.id.tv_tab_title);
+        tabTitle.setText(list.get(position));
+        return tabView;
+    }
+
 }

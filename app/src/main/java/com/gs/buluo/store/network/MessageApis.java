@@ -5,6 +5,7 @@ import com.gs.buluo.store.bean.HomeMessageEnum;
 import com.gs.buluo.store.bean.HomeMessageResponse;
 import com.gs.buluo.store.bean.MessageToggleBean;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
+import com.gs.buluo.store.bean.UnReadMessageBean;
 
 import java.util.List;
 
@@ -38,4 +39,10 @@ public interface MessageApis {
 
     @POST("members/{ownerId}/homeMessages/types/{messageType}/state")
     Observable<BaseResponse> toggleMessageStatus(@Path("ownerId") String uid, @Path("messageType") HomeMessageEnum messageType, @Body ValueRequestBody body);
+
+    @GET("members/{ownerId}/xgMessages/count")
+    Observable<BaseResponse<UnReadMessageBean>> getUnReadMessage(@Path("ownerId") String uid);
+
+    @POST("members/{ownerId}/xgMessages/read")
+    Observable<BaseResponse<UnReadMessageBean>> readMessage(@Path("ownerId") String uid,@Body ValueRequestBody body);
 }

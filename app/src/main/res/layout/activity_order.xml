@@ -25,7 +25,6 @@
         android:layout_height="40dp"
         app:tabIndicatorColor="@color/custom_color"
         app:tabMinWidth="180dp"
-        app:tabMode="fixed"
         app:tabSelectedTextColor="@color/black"
         app:tabTextAppearance="@style/TabLayoutTextStyle"
         app:tabTextColor="@color/common_gray"/>

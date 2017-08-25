@@ -6,12 +6,16 @@ import android.support.multidex.MultiDex;
 
 import com.gs.buluo.common.BaseApplication;
 import com.gs.buluo.common.utils.TribeCrashCollector;
+import com.gs.buluo.store.bean.HomeMessageEnum;
 import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.bean.UnReadMessageBean;
 import com.gs.buluo.store.dao.StoreInfoDao;
 
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 import org.xutils.x;
+
+import java.util.HashMap;
 
 //import com.squareup.leakcanary.LeakCanary;
 
@@ -134,9 +138,29 @@ public class TribeApplication extends BaseApplication {
     public void setPwd(String pwd) {
         this.pwd = pwd;
     }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
+    }
+
+    private HashMap<HomeMessageEnum, Integer> messageMap;
+    private int totalCount = 0;
+
+    public void setMessageMap(UnReadMessageBean messageMap) {
+        totalCount = messageMap.totalCount;
+        this.messageMap = messageMap.messageTypeCount;
+    }
+
+    public HashMap<HomeMessageEnum, Integer> getMessageMap() {
+        if (messageMap==null){
+            return new HashMap<>();
+        }
+        return messageMap;
+    }
+
+    public int getUnReadAmount() {
+        return totalCount;
     }
 }

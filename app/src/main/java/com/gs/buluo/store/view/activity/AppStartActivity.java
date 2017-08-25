@@ -11,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
 import com.bumptech.glide.Glide;
 import com.gs.buluo.common.UpdateEvent;
 import com.gs.buluo.common.network.BaseResponse;
@@ -27,6 +25,9 @@ import com.gs.buluo.store.bean.ConfigInfo;
 import com.gs.buluo.store.bean.PromotionInfo;
 import com.gs.buluo.store.network.MainApis;
 import com.gs.buluo.store.network.TribeRetrofit;
+import com.tencent.android.tpush.XGPushClickedResult;
+import com.tencent.android.tpush.XGPushManager;
+import com.tencent.mm.opensdk.utils.Log;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -57,7 +58,7 @@ public class AppStartActivity extends BaseActivity {
     TextView tvSecond;
     @Bind(R.id.start_jump_area)
     View secondView;
-//    private LocationClient mLocClient;
+    //    private LocationClient mLocClient;
     private String versionName;
 
     private List<PromotionInfo> promotionInfos;
@@ -65,6 +66,16 @@ public class AppStartActivity extends BaseActivity {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        XGPushClickedResult click = XGPushManager.onActivityStarted(this);
+        if (click != null) {
+            //从推送通知栏打开-Service打开Activity会重新执行Laucher流程
+            //查看是不是全新打开的面板
+            if (isTaskRoot()) {
+                return;
+            }
+            finish();
+            return;
+    }
         setBarColor(R.color.transparent);
         try {
             versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
@@ -219,10 +230,10 @@ public class AppStartActivity extends BaseActivity {
             startActivity(new Intent(AppStartActivity.this, GuideActivity.class));
             finish();
         } else {
-            if (checkUser(this)){
+            if (checkUser(this)) {
                 startActivity(new Intent(AppStartActivity.this, MainActivity.class));
                 finish();
-            }else {
+            } else {
                 finish();
             }
         }

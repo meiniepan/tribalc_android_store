@@ -21,11 +21,15 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.MainListAdapter;
 import com.gs.buluo.store.bean.HomeMessage;
+import com.gs.buluo.store.bean.HomeMessageEnum;
 import com.gs.buluo.store.bean.HomeMessageResponse;
 import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.bean.UnReadMessageBean;
 import com.gs.buluo.store.bean.WalletAccount;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.eventbus.ManagerSwitchEvent;
+import com.gs.buluo.store.eventbus.MessageReadEvent;
+import com.gs.buluo.store.eventbus.NewMessageEvent;
 import com.gs.buluo.store.kotlin.activity.StrategyActivity;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.MainPresenter;
@@ -39,6 +43,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.Bind;
 
@@ -62,6 +67,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private float poundage;
     private TextView tvType;
     private View titleView;
+
+    private TextView tvRedHor;
+    private TextView tvRedVer;
 
     ArrayList<HomeMessage> list = new ArrayList<>();
     private View goodHor;
@@ -110,6 +118,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
         GlideUtils.loadImage(this, TribeApplication.getInstance().getUserInfo().getLogo(), ivIcon, true);
         ((MainPresenter) mPresenter).getMessage();
+        ((MainPresenter) mPresenter).getUnReadMessage();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -173,6 +182,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         goodHor = topView.findViewById(R.id.main_goods_h);
         orderHor = topView.findViewById(R.id.main_order_h);
         secondArea = topView.findViewById(R.id.goods_hor_area);
+        tvRedHor = (TextView) topView.findViewById(R.id.order_un_read_count_hor);
+        tvRedVer = (TextView) topView.findViewById(R.id.order_un_read_count_ver);
         titleView = findViewById(R.id.title_view);
         bankCard.setOnClickListener(this);
         withDraw.setOnClickListener(this);
@@ -248,6 +259,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         intent.putExtra(Constant.RE_LOGIN, true);
         startActivity(intent);
         finish();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageRead(MessageReadEvent event) {
+        tvRedHor.setVisibility(View.GONE);
+        tvRedVer.setVisibility(View.GONE);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNewMessage(NewMessageEvent event) {
+        setRedCount(TribeApplication.getInstance().getMessageMap());
     }
 
     @Override
@@ -348,6 +370,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     @Override
+    public void getUnReadMessageSuccess(UnReadMessageBean response) {
+        HashMap<HomeMessageEnum, Integer> messageMap = TribeApplication.getInstance().getMessageMap();
+        if (messageMap == null || messageMap.isEmpty()) {
+            return;
+        }
+        setRedCount(messageMap);
+    }
+
+    private void setRedCount(HashMap<HomeMessageEnum, Integer> messageMap) {
+        Integer count = messageMap.get(HomeMessageEnum.ORDER_SETTLE); //need to calculate the amount here
+        if (count != null && count != 0) {
+            tvRedHor.setVisibility(View.VISIBLE);
+            tvRedVer.setVisibility(View.VISIBLE);
+            tvRedHor.setText(count + "");
+            tvRedVer.setText(count + "");
+        }
+    }
+
+    @Override
     public void showError(int res, String message) {
         recyclerView.refreshComplete();
         recyclerView.loadMoreComplete();
@@ -363,4 +404,5 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
 }

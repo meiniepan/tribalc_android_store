@@ -37,6 +37,8 @@ public class Constant {
     public static final String WEB_URL = "web_url";
     public static final String GOODS_SWITCH = "goods_switch";
     public static final String WX_CODE = "wx_code";
+    public static final String BILL_ID = "bill_id";
+    public static final String ORDER_ID = "order_id";
 
     public final static class Base {
         public static final String BASE = "https://app-services.buluo-gs.com/";

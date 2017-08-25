@@ -116,7 +116,7 @@ public class ThirdLoginActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void showError(int res, String message) {
-        ToastUtils.ToastMessage(this, res);
+        ToastUtils.ToastMessage(this, message);
     }
 
     @Override
@@ -132,6 +132,7 @@ public class ThirdLoginActivity extends BaseActivity implements View.OnClickList
             ToastUtils.ToastMessage(this, R.string.please_input_verify);
             return;
         }
+        showLoadingDialog();
         ((LoginPresenter) mPresenter).doThirdLogin(etPhone.getText().toString().trim(), etVerify.getText().toString().trim(), wxCode);
     }
 }

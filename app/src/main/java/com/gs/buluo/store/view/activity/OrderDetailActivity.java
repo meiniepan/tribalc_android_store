@@ -85,9 +85,12 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         EventBus.getDefault().register(this);
         findViewById(R.id.order_detail_button).setOnClickListener(this);
         bean = getIntent().getParcelableExtra(Constant.ORDER);
+        String orderId = getIntent().getStringExtra(Constant.ORDER_ID);
         if (bean != null) {
             initView();
             initData(bean);
+        } else if (!TextUtils.isEmpty(orderId)) {
+            getData(orderId);
         }
     }
 
@@ -200,6 +203,13 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
+    public void getOrderDetailSuccess(OrderBean data) {
+        bean = data;
+        initView();
+        initData(data);
+    }
+
+    @Override
     public void getOrderInfoSuccess(OrderResponseBean data) {
     }
 
@@ -241,6 +251,13 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
             handler.postDelayed(this, 1000);
         }
     };
+
+
+    private void getData(String orderId) {
+        showLoadingDialog();
+        ((OrderPresenter) mPresenter).getOrderDetail(orderId);
+    }
+
 
     @Override
     public void showError(int res, String message) {

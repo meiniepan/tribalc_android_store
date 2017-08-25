@@ -6,6 +6,7 @@ import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.HomeMessage;
 import com.gs.buluo.store.bean.HomeMessageResponse;
+import com.gs.buluo.store.bean.UnReadMessageBean;
 import com.gs.buluo.store.bean.WalletAccount;
 import com.gs.buluo.store.network.MainApis;
 import com.gs.buluo.store.network.MessageApis;
@@ -18,6 +19,7 @@ import java.util.List;
 import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -152,6 +154,24 @@ public class MainPresenter extends BasePresenter<IMainView> {
                     public void onError(Throwable e) {
                         mView.showError(500, null);
                         super.onError(e);
+                    }
+                });
+    }
+
+    public void getUnReadMessage(){
+        TribeRetrofit.getInstance().createApi(MessageApis.class).getUnReadMessage(TribeApplication.getInstance().getUserInfo().getId())
+                .subscribeOn(Schedulers.io())
+                .doOnNext(new Action1<BaseResponse<UnReadMessageBean>>() {
+                    @Override
+                    public void call(BaseResponse<UnReadMessageBean> response) {
+                        TribeApplication.getInstance().setMessageMap(response.data);
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<UnReadMessageBean>>() {
+                    @Override
+                    public void onNext(BaseResponse<UnReadMessageBean> response) {
+                        mView.getUnReadMessageSuccess(response.data);
                     }
                 });
     }

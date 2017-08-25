@@ -102,7 +102,10 @@ public class OrderFragment extends BaseFragment implements IOrderView {
 
     @Override
     public void updateSuccess(OrderBean data) {
+    }
 
+    @Override
+    public void getOrderDetailSuccess(OrderBean data) {
     }
 
     @Override

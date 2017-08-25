@@ -154,7 +154,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
 
                     @Override
                     public void onFail(ApiException e) {
-                        if (isAttach()) mView.showError(R.string.bind_third_fail, "");
+                        if (isAttach()) mView.showError(e.getCode(), e.getDisplayMessage());
                     }
                 });
     }
