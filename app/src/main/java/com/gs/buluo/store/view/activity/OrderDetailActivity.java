@@ -11,13 +11,20 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
+import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.OrderDetailGoodsAdapter;
+import com.gs.buluo.store.bean.HomeMessageEnum;
 import com.gs.buluo.store.bean.OrderBean;
+import com.gs.buluo.store.bean.RequestBodyBean.ReadMsgRequest;
 import com.gs.buluo.store.bean.ResponseBody.OrderResponseBean;
+import com.gs.buluo.store.eventbus.NewMessageEvent;
 import com.gs.buluo.store.eventbus.PaymentEvent;
+import com.gs.buluo.store.network.MessageApis;
+import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.OrderPresenter;
 import com.gs.buluo.store.utils.CommonUtils;
@@ -33,6 +40,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.Date;
 
 import butterknife.Bind;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by hjn on 2016/11/25.
@@ -256,6 +265,25 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     private void getData(String orderId) {
         showLoadingDialog();
         ((OrderPresenter) mPresenter).getOrderDetail(orderId);
+        readMessage(orderId);
+    }
+
+    private void readMessage(String orderId) {      //通知栏点击进入详情，调用读一条消息接口
+        ReadMsgRequest readMsgRequest = new ReadMsgRequest();
+        readMsgRequest.messageBodyType = HomeMessageEnum.ORDER_SETTLE;
+        readMsgRequest.referenceId = orderId;
+        TribeRetrofit.getInstance().createApi(MessageApis.class).readMessage(TribeApplication.getInstance().getUserInfo().getId(), readMsgRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(new Action1<BaseResponse>() {
+                    @Override
+                    public void call(BaseResponse baseResponse) {
+                        Integer integer = TribeApplication.getInstance().getMessageMap().get(HomeMessageEnum.ORDER_SETTLE);
+                        if (integer != null) integer = integer - 1;
+                        TribeApplication.getInstance().getMessageMap().put(HomeMessageEnum.ORDER_SETTLE, integer);
+                        EventBus.getDefault().post(new NewMessageEvent(HomeMessageEnum.ORDER_SETTLE));
+                    }
+                });
     }
 
 

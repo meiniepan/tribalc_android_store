@@ -54,7 +54,6 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-
         Intent intent = getIntent();
         goodsMeta = intent.getParcelableExtra(Constant.ForIntent.META);
         setCategoryData();
@@ -70,6 +69,9 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
         findView(R.id.create_goods_desc).setOnClickListener(this);
 
         setTags();
+
+        etNum.setText(goodsMeta.number);
+        etFee.setText(goodsMeta.expressFee+"");
     }
 
     private void setTags() {

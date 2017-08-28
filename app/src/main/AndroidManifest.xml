@@ -186,6 +186,7 @@
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />
         <activity android:name=".view.activity.OrderDetailActivity"
+            android:exported="true"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.ThirdLoginActivity"
             android:windowSoftInputMode="stateAlwaysVisible"

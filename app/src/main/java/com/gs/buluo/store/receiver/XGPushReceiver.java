@@ -58,7 +58,7 @@ public class XGPushReceiver extends XGPushBaseReceiver {
         } else {
             messageMap.put(name, 1);
         }
-        if (name == HomeMessageEnum.ORDER_DELIVERY)
+        if (name == HomeMessageEnum.ORDER_SETTLE)
             EventBus.getDefault().post(new NewMessageEvent(name));
     }
 
@@ -69,6 +69,7 @@ public class XGPushReceiver extends XGPushBaseReceiver {
         PushMessageBean.PushMessageBody messageBody = messageBean.message;
         if (messageBody.messageBodyType == HomeMessageEnum.ORDER_SETTLE) {
             Intent intent = new Intent(context, OrderDetailActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra(Constant.ORDER_ID, messageBody.referenceId);
             context.startActivity(intent);
         } else if (messageBody.messageBodyType == HomeMessageEnum.TENANT_WITHDRAW) {

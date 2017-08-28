@@ -4,6 +4,7 @@ import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.HomeMessageEnum;
 import com.gs.buluo.store.bean.HomeMessageResponse;
 import com.gs.buluo.store.bean.MessageToggleBean;
+import com.gs.buluo.store.bean.RequestBodyBean.ReadMsgRequest;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
 import com.gs.buluo.store.bean.UnReadMessageBean;
 
@@ -44,5 +45,5 @@ public interface MessageApis {
     Observable<BaseResponse<UnReadMessageBean>> getUnReadMessage(@Path("ownerId") String uid);
 
     @POST("members/{ownerId}/xgMessages/read")
-    Observable<BaseResponse<UnReadMessageBean>> readMessage(@Path("ownerId") String uid,@Body ValueRequestBody body);
+    Observable<BaseResponse> readMessage(@Path("ownerId") String uid,@Body ReadMsgRequest body);
 }

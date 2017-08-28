@@ -13,7 +13,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.BannerPicture;
@@ -23,13 +25,11 @@ import com.gs.buluo.store.bean.GoodsPriceAndRepertory;
 import com.gs.buluo.store.bean.GoodsStandard;
 import com.gs.buluo.store.bean.GoodsStandardDescriptions;
 import com.gs.buluo.store.bean.GoodsStandardMeta;
-import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.UploadResponseBody;
 import com.gs.buluo.store.network.GoodsApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.network.TribeUploader;
 import com.gs.buluo.store.utils.GlideBannerLoader;
-import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 import com.youth.banner.Banner;
 
@@ -41,6 +41,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 import static com.gs.buluo.store.R.id.goods_create_next;
+import static com.gs.buluo.store.R.id.ll_standard;
 
 /**
  * Created by hjn on 2017/1/23.
@@ -309,7 +310,10 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
             ToastUtils.ToastMessage(getCtx(), getString(R.string.goods_info_not_complete));
             return;
         }
-        if (findView(R.id.ll_standard).getVisibility() == View.VISIBLE && (tvValue1.getText().length() == 0 || tvValue2.getText().length() == 0)) {
+        if (findView(ll_standard).getVisibility() == View.VISIBLE && tvValue1.getText().length() == 0) {
+            ToastUtils.ToastMessage(getCtx(), getString(R.string.standard_not_empty));
+            return;
+        } else if (llSecond.getVisibility() == View.VISIBLE && tvValue2.getText().length() == 0) {
             ToastUtils.ToastMessage(getCtx(), getString(R.string.standard_not_empty));
             return;
         }
@@ -332,7 +336,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         if (descriptions != null) {
             meta.standardKeys = new ArrayList<>();
             meta.standardKeys.add(tvValue1.getText().toString().trim());
-            meta.standardKeys.add(tvValue2.getText().toString().trim());
+            if (!TextUtils.isEmpty(tvValue2.getText().toString().trim()))meta.standardKeys.add(tvValue2.getText().toString().trim());
         }
         meta.priceAndRepertory = new GoodsPriceAndRepertory();
 
@@ -340,12 +344,12 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         meta.priceAndRepertory.originPrice = Float.parseFloat(etOrigin.getText().toString().trim());
         float nunSale = Float.parseFloat(etSale.getText().toString().trim());
         int numStock = Integer.parseInt(etStock.getText().toString().trim());
-        if (nunSale<=0){
-            ToastUtils.ToastMessage(getCtx(),getString(R.string.sale_price_legal));
+        if (nunSale <= 0) {
+            ToastUtils.ToastMessage(getCtx(), getString(R.string.sale_price_legal));
             return;
         }
-        if (numStock<=0){
-            ToastUtils.ToastMessage(getCtx(),getString(R.string.stock_price_legal));
+        if (numStock <= 0) {
+            ToastUtils.ToastMessage(getCtx(), getString(R.string.stock_price_legal));
             return;
         }
         meta.priceAndRepertory.salePrice = nunSale;

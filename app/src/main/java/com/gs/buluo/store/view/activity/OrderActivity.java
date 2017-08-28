@@ -13,8 +13,7 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.OrderFragmentAdapter;
 import com.gs.buluo.store.bean.HomeMessageEnum;
-import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
-import com.gs.buluo.store.bean.UnReadMessageBean;
+import com.gs.buluo.store.bean.RequestBodyBean.ReadMsgRequest;
 import com.gs.buluo.store.eventbus.MessageReadEvent;
 import com.gs.buluo.store.network.MessageApis;
 import com.gs.buluo.store.network.TribeRetrofit;
@@ -98,12 +97,12 @@ public class OrderActivity extends BaseActivity {
     }
 
     private void readOrderMessage(final HomeMessageEnum type) {
-        TribeRetrofit.getInstance().createApi(MessageApis.class).readMessage(TribeApplication.getInstance().getUserInfo().getId(), new ValueRequestBody(type.name()))
+        TribeRetrofit.getInstance().createApi(MessageApis.class).readMessage(TribeApplication.getInstance().getUserInfo().getId(), new ReadMsgRequest(type))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
-                .subscribe(new BaseSubscriber<BaseResponse<UnReadMessageBean>>() {
+                .subscribe(new BaseSubscriber<BaseResponse>() {
                     @Override
-                    public void onNext(BaseResponse<UnReadMessageBean> response) {
+                    public void onNext(BaseResponse response) {
                         TribeApplication.getInstance().getMessageMap().put(type, 0);
                         EventBus.getDefault().post(new MessageReadEvent(type));
                     }

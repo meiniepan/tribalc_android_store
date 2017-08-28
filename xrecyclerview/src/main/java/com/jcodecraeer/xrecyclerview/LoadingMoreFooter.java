@@ -14,7 +14,7 @@ import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
 
 public class LoadingMoreFooter extends LinearLayout {
 
-    private SimpleViewSwitcher progressCon;
+    private AVLoadingIndicatorView progressCon;
     public final static int STATE_LOADING = 0;
     public final static int STATE_COMPLETE = 1;
     public final static int STATE_NOMORE = 2;
@@ -53,37 +53,19 @@ public class LoadingMoreFooter extends LinearLayout {
         setGravity(Gravity.CENTER);
         setLayoutParams(new RecyclerView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        progressCon = new SimpleViewSwitcher(getContext());
-        progressCon.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        AVLoadingIndicatorView progressView = new  AVLoadingIndicatorView(this.getContext());
-        progressView.setIndicatorColor(0xffB5B5B5);
-        progressView.setIndicatorId(ProgressStyle.BallSpinFadeLoader);
-        progressCon.setView(progressView);
-
-        addView(progressCon);
-        mText = new TextView(getContext());
+        View view = View.inflate(getContext(), R.layout.load_more_footer, null);
+        progressCon = (AVLoadingIndicatorView) view.findViewById(R.id.load_progress);
+        mText = (TextView) view.findViewById(R.id.load_status);
         mText.setText("正在加载...");
-        loadingHint = (String)getContext().getText(R.string.listview_loading);
-        noMoreHint = (String)getContext().getText(R.string.nomore_loading);
-        loadingDoneHint = (String)getContext().getText(R.string.loading_done);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins( (int)getResources().getDimension(R.dimen.textandiconmargin),0,0,0 );
-
-        mText.setLayoutParams(layoutParams);
-        addView(mText);
+        loadingHint = (String) getContext().getText(R.string.listview_loading);
+        noMoreHint = (String) getContext().getText(R.string.nomore_loading);
+        loadingDoneHint = (String) getContext().getText(R.string.loading_done);
+        addView(view);
     }
 
     public void setProgressStyle(int style) {
-        if(style == ProgressStyle.SysProgress){
-            progressCon.setView(new ProgressBar(getContext(), null, android.R.attr.progressBarStyle));
-        }else{
-            AVLoadingIndicatorView progressView = new  AVLoadingIndicatorView(this.getContext());
-            progressView.setIndicatorColor(0xffB5B5B5);
-            progressView.setIndicatorId(style);
-            progressCon.setView(progressView);
-        }
+        progressCon.setIndicatorId(style);
     }
 
     public void  setState(int state) {

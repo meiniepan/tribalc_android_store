@@ -248,7 +248,6 @@
                         android:hint="必填"
                         android:background="@null"
                         android:maxLines="1"
-                        android:textColor="@color/common_gray"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
                 <include layout="@layout/split_line_margin"/>
@@ -273,7 +272,6 @@
                         android:background="@null"
                         android:maxLines="1"
                         android:hint="必填"
-                        android:textColor="@color/common_gray"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
                 <include layout="@layout/split_line_margin"/>

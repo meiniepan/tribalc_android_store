@@ -27,7 +27,6 @@ import com.gs.buluo.store.network.MainApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.tencent.android.tpush.XGPushClickedResult;
 import com.tencent.android.tpush.XGPushManager;
-import com.tencent.mm.opensdk.utils.Log;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -66,16 +65,7 @@ public class AppStartActivity extends BaseActivity {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        XGPushClickedResult click = XGPushManager.onActivityStarted(this);
-        if (click != null) {
-            //从推送通知栏打开-Service打开Activity会重新执行Laucher流程
-            //查看是不是全新打开的面板
-            if (isTaskRoot()) {
-                return;
-            }
-            finish();
-            return;
-    }
+        if (checkPush()) return;
         setBarColor(R.color.transparent);
         try {
             versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
@@ -90,6 +80,20 @@ public class AppStartActivity extends BaseActivity {
         File file = new File(Constant.DIR_PATH);
         if (!file.exists()) file.mkdirs();
         setupPromotion();
+    }
+
+    private boolean checkPush() {
+        XGPushClickedResult click = XGPushManager.onActivityStarted(this);
+        if (click != null) {
+            //从推送通知栏打开-Service打开Activity会重新执行Laucher流程
+            //查看是不是全新打开的面板
+            if (isTaskRoot()) {
+                return false;
+            }
+            finish();
+            return true;
+        }
+        return false;
     }
 
     private void setupPromotion() {

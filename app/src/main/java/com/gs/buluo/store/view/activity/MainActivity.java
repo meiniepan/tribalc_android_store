@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,6 +76,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private View goodHor;
     private View orderHor;
     private View secondArea;
+    private String TAG = "MainActivity";
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -385,6 +387,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             tvRedVer.setVisibility(View.VISIBLE);
             tvRedHor.setText(count + "");
             tvRedVer.setText(count + "");
+        } else {
+            tvRedHor.setVisibility(View.GONE);
+            tvRedVer.setVisibility(View.GONE);
         }
     }
 
