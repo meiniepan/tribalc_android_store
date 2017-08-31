@@ -36,6 +36,8 @@ import butterknife.Bind;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static com.tencent.android.tpush.XGPush4Msdk.registerPush;
+
 /**
  * Created by hjn on 2016/11/7.
  */
@@ -185,6 +187,7 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
         new StoreInfoDao().clear();
         TribeApplication.getInstance().setUserInfo(null);
         intent.setClass(mCtx, LoginActivity.class);
+        registerPush(getApplicationContext(), "", null);
         startActivity(intent);
         finish();
     }

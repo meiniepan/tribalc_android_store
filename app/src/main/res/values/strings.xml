@@ -40,7 +40,7 @@
     <string name="number">联系人手机号码"</string>
     <string name="add_address">新增地址</string>
     <string name="register">注册</string>
-    <string name="login">登陆</string>
+    <string name="login">登录</string>
     <string name="edit_phone">请输入手机号</string>
     <string name="edit_verify">请输入验证码</string>
     <string name="send_verify">获取验证码</string>

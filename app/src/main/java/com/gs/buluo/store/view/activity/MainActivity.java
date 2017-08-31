@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -255,6 +254,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     public void tokenExpired(TokenEvent event) {
         SharePreferenceManager.getInstance(TribeApplication.getInstance().getApplicationContext()).clearValue(Constant.WALLET_PWD);
         new StoreInfoDao().clear();
+        registerPush(getApplicationContext(), "", null);
         TribeApplication.getInstance().setUserInfo(null);
 
         Intent intent = new Intent(getCtx(), LoginActivity.class);

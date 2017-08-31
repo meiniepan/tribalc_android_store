@@ -2,18 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/login_bg"
     android:clipToPadding="true"
-    android:fitsSystemWindows="true"
-    android:background="@mipmap/login_bg">
+    android:fitsSystemWindows="true">
 
     <RelativeLayout
         android:id="@+id/login_back"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:gravity="center"
-        android:background="@drawable/circle_white_bg"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp">
+        android:background="@drawable/circle_white_bg"
+        android:gravity="center">
 
         <ImageView
             android:layout_width="20dp"
@@ -26,22 +26,22 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:paddingTop="20dp"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
         android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingEnd="@dimen/activity_horizontal_margin">
+        android:paddingTop="20dp">
 
         <EditText
             android:id="@+id/login_username"
             android:layout_width="match_parent"
             android:layout_height="@dimen/edit_height"
-            android:paddingStart="6dp"
-            android:drawablePadding="6dp"
             android:background="@drawable/transform_background_round"
+            android:drawableLeft="@mipmap/login_sign"
+            android:drawablePadding="6dp"
             android:hint="@string/edit_phone"
             android:inputType="phone"
-            android:textColorHint="#fff"
+            android:paddingStart="6dp"
             android:textColor="#fff"
-            android:drawableLeft="@mipmap/login_sign" />
+            android:textColorHint="#fff" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -49,25 +49,25 @@
 
             <EditText
                 android:id="@+id/login_verify"
-                android:paddingStart="6dp"
-                android:drawablePadding="6dp"
                 android:layout_width="match_parent"
-                android:inputType="number"
                 android:layout_height="@dimen/edit_height"
-                android:textColor="#fff"
-                android:background="@drawable/transform_background_round"
-                android:hint="@string/edit_verify"
                 android:layout_marginTop="20dp"
-                android:textColorHint="#fff"
-                android:drawableLeft="@mipmap/login_pwd_sign" />
+                android:background="@drawable/transform_background_round"
+                android:drawableLeft="@mipmap/login_pwd_sign"
+                android:drawablePadding="6dp"
+                android:hint="@string/edit_verify"
+                android:inputType="number"
+                android:paddingStart="6dp"
+                android:textColor="#fff"
+                android:textColorHint="#fff" />
 
             <include
-                layout="@layout/send_verify"
                 android:id="@+id/login_send_verify"
-                android:layout_alignTop="@+id/login_verify"
-                android:layout_alignEnd="@+id/login_verify"
+                layout="@layout/send_verify"
                 android:layout_width="80dp"
                 android:layout_height="30dp"
+                android:layout_alignEnd="@+id/login_verify"
+                android:layout_alignTop="@+id/login_verify"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp" />
         </RelativeLayout>
@@ -76,11 +76,11 @@
             android:id="@+id/login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="登陆"
-            android:textSize="@dimen/dimens_18sp"
             android:layout_marginTop="20dp"
             android:background="@drawable/login_selector"
-            android:textColor="#fff" />
+            android:text="@string/login"
+            android:textColor="#fff"
+            android:textSize="@dimen/dimens_18sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -105,33 +105,23 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="其他方式登陆"
-        android:textColor="#fff"
-        android:textSize="@dimen/dimens_16sp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
-        android:id="@+id/textView" />
+        android:text="其他方式登录"
+        android:textColor="#fff"
+        android:textSize="@dimen/dimens_16sp" />
 
     <ImageView
         android:id="@+id/wx_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/login_wechat_icon"
-        android:layout_marginBottom="10dp"
         android:layout_above="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:paddingStart="90dp" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/login_alipay_icon"
         android:layout_marginBottom="10dp"
-        android:layout_above="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:paddingEnd="90dp" />
+        android:src="@mipmap/wx_login_icon" />
 
 </RelativeLayout>
