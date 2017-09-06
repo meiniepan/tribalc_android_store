@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,8 +81,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (new StoreInfoDao().findFirst() != null) {
-            ((MainPresenter) mPresenter).getMessageNewer();
+        StoreInfo first = new StoreInfoDao().findFirst();
+        if (first != null) {
+            ((MainPresenter) mPresenter).getMessage();
+            tvName.setText(first.getName());
+            list.clear();
+            adapter.notifyDataSetChanged();
         }
     }
 

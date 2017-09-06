@@ -9,12 +9,14 @@ import android.os.Parcelable;
 public class BankCard implements Parcelable {
     public String id;
     public String ownerId;
+    public String department;
     public String userName;
     public String bankAddress;
     public String bankName;
     public String bankCardNum;
     public String phone;
     public String bankCode;
+    public boolean personal = true;
 
     public BankCard() {
     }
@@ -34,6 +36,7 @@ public class BankCard implements Parcelable {
         dest.writeString(this.bankCardNum);
         dest.writeString(this.phone);
         dest.writeString(this.bankCode);
+        dest.writeByte(this.personal ? (byte) 1 : (byte) 0);
     }
 
     protected BankCard(Parcel in) {
@@ -45,6 +48,7 @@ public class BankCard implements Parcelable {
         this.bankCardNum = in.readString();
         this.phone = in.readString();
         this.bankCode = in.readString();
+        this.personal = in.readByte() != 0;
     }
 
     public static final Creator<BankCard> CREATOR = new Creator<BankCard>() {

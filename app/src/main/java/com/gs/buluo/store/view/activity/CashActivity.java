@@ -133,12 +133,14 @@ public class CashActivity extends BaseActivity {
             BankCard card = data.getParcelableExtra(Constant.BANK_CARD);
             chooseCardId = card.id;
             int resId = 0;
-            try {
-                resId = (Integer) R.mipmap.class.getField("bank_logo_" + card.bankCode.toLowerCase()).get(null);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
+            if (card.bankCode != null) {
+                try {
+                    resId = (Integer) R.mipmap.class.getField("bank_logo_" + card.bankCode.toLowerCase()).get(null);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                }
             }
             if (resId != 0)
                 ivIcon.setImageResource(resId);

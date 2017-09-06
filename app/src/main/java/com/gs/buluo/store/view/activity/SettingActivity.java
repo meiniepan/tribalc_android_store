@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -23,7 +22,6 @@ import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.AppConfigInfo;
-import com.gs.buluo.store.bean.StoreInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.eventbus.ManagerSwitchEvent;
 import com.gs.buluo.store.network.MainApis;
@@ -48,7 +46,6 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
     TextView tvCache;
     @Bind(R.id.goods_switch)
     Switch sGoods;
-    private StoreInfo info;
     private Context mCtx;
     private CustomAlertDialog customAlertDialog;
 
@@ -56,19 +53,7 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
     protected void bindView(Bundle savedInstanceState) {
         mCtx = this;
         StoreInfoDao dao = new StoreInfoDao();
-        info = dao.findFirst();
-        setSwitch();
         mSwitch.setOnCheckedChangeListener(this);
-        mSwitch.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (info == null) {
-                    startActivity(new Intent(SettingActivity.this, LoginActivity.class));
-                    return true;
-                }
-                return false;
-            }
-        });
         sGoods.setChecked(SharePreferenceManager.getInstance(getApplicationContext()).getBooeanValue(Constant.GOODS_SWITCH, false));
 
         findViewById(R.id.setting_back).setOnClickListener(this);
@@ -90,18 +75,6 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
             tvCache.setText(cacheSize);
     }
 
-    private void setSwitch() {
-        if (null == info) {
-            mSwitch.setChecked(false);
-        } else {
-//            if (info.isNotify()){
-//                mSwitch.setChecked(true);
-//            }else {
-//                mSwitch.setChecked(false);
-//            }
-        }
-    }
-
 
     @Override
     protected int getContentLayout() {
@@ -118,6 +91,12 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
         if (buttonView.getId() == R.id.goods_switch) {
             SharePreferenceManager.getInstance(getApplicationContext()).setValue(Constant.GOODS_SWITCH, isChecked);
             EventBus.getDefault().post(new ManagerSwitchEvent(isChecked));
+        } else if (buttonView.getId() == R.id.mine_switch) {
+            if (isChecked) {
+                registerPush(getApplicationContext(), TribeApplication.getInstance().getUserInfo().getId(), null);
+            } else {
+                registerPush(getApplicationContext(), "", null);
+            }
         }
     }
 

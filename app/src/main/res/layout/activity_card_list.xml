@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    android:background="#f2f2f2"
     android:clipToPadding="true"
-    android:background="#f2f2f2">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,37 +16,39 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/title_size"
-            android:textColor="@color/title_text_color"
             android:layout_centerInParent="true"
-            android:text="@string/bank_card" />
+            android:text="@string/bank_card"
+            android:textColor="@color/title_text_color"
+            android:textSize="@dimen/title_size" />
 
         <include
-            layout="@layout/back_img_white"
-            android:id="@+id/back" />
+            android:id="@+id/back"
+            layout="@layout/back_img_white" />
 
         <TextView
             android:id="@+id/card_manager"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
-            android:textColor="@color/title_text_color"
             android:gravity="center"
-            android:text="@string/manage" />
+            android:text="@string/manage"
+            android:textColor="@color/title_text_color" />
     </RelativeLayout>
+
+    <include layout="@layout/split_area" />
 
     <com.gs.buluo.common.widget.StatusLayout
         android:id="@+id/card_status_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        app:errorDrawable="@mipmap/net_error"
-        app:emptyDrawable ="@mipmap/empty_order">
+        app:emptyDrawable="@mipmap/empty_order"
+        app:errorDrawable="@mipmap/net_error">
 
         <ListView
             android:id="@+id/card_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </com.gs.buluo.common.widget.StatusLayout>
 
     <LinearLayout
@@ -64,22 +66,22 @@
             <View
                 android:layout_width="20dp"
                 android:layout_height="1dp"
-                android:background="#fff"
-                android:layout_centerInParent="true" />
+                android:layout_centerInParent="true"
+                android:background="#fff" />
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="20dp"
-                android:background="#fff"
-                android:layout_centerInParent="true" />
+                android:layout_centerInParent="true"
+                android:background="#fff" />
         </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textColor="#fff"
-            android:textSize="@dimen/dimens_20sp"
             android:gravity="center"
-            android:text="@string/add_bank_card" />
+            android:text="@string/add_bank_card"
+            android:textColor="#fff"
+            android:textSize="@dimen/dimens_20sp" />
     </LinearLayout>
 </LinearLayout>
