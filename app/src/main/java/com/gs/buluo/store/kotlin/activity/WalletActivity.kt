@@ -1,14 +1,16 @@
 package com.gs.buluo.store.kotlin.activity
 
+import com.gs.buluo.common.utils.ToastUtils
+import com.gs.buluo.store.R
 import com.gs.buluo.store.kotlin.presenter.WalletPresenter
 import kotlinx.android.synthetic.main.activity_wallet.*
 
 /**
  * Created by hjn on 2016/11/17.
  */
-class WalletActivity: KotBaseActivity(), android.view.View.OnClickListener, com.gs.buluo.store.view.impl.IWalletView, android.content.DialogInterface.OnDismissListener {
+class WalletActivity : KotBaseActivity(), android.view.View.OnClickListener, com.gs.buluo.store.view.impl.IWalletView, android.content.DialogInterface.OnDismissListener {
     override fun showError(res: Int, message: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        ToastUtils.ToastMessage(ctx, R.string.connect_error)
     }
 
     override fun bindView(savedInstanceState: android.os.Bundle?) {
@@ -22,7 +24,7 @@ class WalletActivity: KotBaseActivity(), android.view.View.OnClickListener, com.
     }
 
     override val contentLayout: Int
-        get() = com.gs.buluo.store.R.layout.activity_wallet
+        get() = R.layout.activity_wallet
 
 
     private var pwd: String = ""

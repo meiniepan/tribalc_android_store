@@ -25,6 +25,17 @@ public class StoreInfo implements Parcelable {
     @Column(name = "type")
     private String accountType;
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    @Column(name = "phone")
+    public String phone;
+
     private List<Privilege> discount;
 
     public List<Privilege> getDiscount() {

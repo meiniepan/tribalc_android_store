@@ -4,9 +4,9 @@ import com.gs.buluo.common.network.ApiException;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.store.Constant;
-import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.RequestBodyBean.LoginBody;
+import com.gs.buluo.store.bean.RequestBodyBean.PhoneUpdateBody;
 import com.gs.buluo.store.bean.RequestBodyBean.ThirdLoginRequest;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
@@ -155,6 +155,35 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                     @Override
                     public void onFail(ApiException e) {
                         if (isAttach()) mView.showError(e.getCode(), e.getDisplayMessage());
+                    }
+                });
+    }
+
+    public void changePhone(final String phone, String verify) {
+        PhoneUpdateBody body = new PhoneUpdateBody();
+        body.phone = phone;
+        body.verificationCode = verify;
+        TribeRetrofit.getInstance().createApi(MainApis.class).updatePhone(TribeApplication.getInstance().getUserInfo().getId(), body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(new Action1<BaseResponse<CodeResponse>>() {
+                    @Override
+                    public void call(BaseResponse<CodeResponse> codeResponseBaseResponse) {
+                        StoreInfoDao dao = new StoreInfoDao();
+                        StoreInfo entity = dao.findFirst();
+                        entity.setPhone(phone);
+                        dao.update(entity);
+                    }
+                })
+                .subscribe(new BaseSubscriber<BaseResponse<CodeResponse>>() {
+                    @Override
+                    public void onNext(BaseResponse<CodeResponse> response) {
+                        mView.loginSuccess();
+                    }
+
+                    @Override
+                    public void onFail(ApiException e) {
+                        mView.dealWithIdentify(e.getCode());
                     }
                 });
     }

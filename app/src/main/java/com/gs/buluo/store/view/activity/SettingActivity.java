@@ -24,6 +24,7 @@ import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.AppConfigInfo;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.eventbus.ManagerSwitchEvent;
+import com.gs.buluo.store.kotlin.activity.UpdatePhoneActivity;
 import com.gs.buluo.store.network.MainApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.presenter.BasePresenter;
@@ -64,6 +65,7 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
         findViewById(R.id.setting_pwd).setOnClickListener(this);
         findViewById(R.id.setting_info).setOnClickListener(this);
         findViewById(R.id.mine_message_manager).setOnClickListener(this);
+        findViewById(R.id.mine_update_phone).setOnClickListener(this);
         sGoods.setOnCheckedChangeListener(this);
         String cacheSize = null;
         try {
@@ -154,6 +156,14 @@ public class SettingActivity extends BaseActivity implements CompoundButton.OnCh
                 break;
             case R.id.mine_message_manager:
                 intent.setClass(this, MessageManagerActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.mine_update_phone:
+                intent.setClass(this, UpdatePhoneActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                intent.setClass(this, UpdatePhoneActivity.class);
                 startActivity(intent);
                 break;
         }

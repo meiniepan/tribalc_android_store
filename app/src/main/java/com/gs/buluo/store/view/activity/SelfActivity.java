@@ -74,8 +74,8 @@ public class SelfActivity extends BaseActivity implements View.OnClickListener,I
                 startActivityForResult(intent, 201);
                 break;
             case R.id.ll_number:
-                intent.setClass(mCtx, PhoneVerifyActivity.class);
-                startActivity(intent);
+//                intent.setClass(mCtx, PhoneVerifyActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.self_back:
                 finish();

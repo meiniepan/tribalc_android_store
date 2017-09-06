@@ -66,10 +66,11 @@ abstract class KotBaseActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        com.gs.buluo.common.utils.AppManager.getAppManager().finishActivity(this)
+         AppManager.getAppManager().finishActivity(this)
 //        if (mPresenter != null) {
 //            mPresenter!!.detachView()
 //        }
+        mPresenter?.unSubscriber()
         super.onDestroy()
     }
 

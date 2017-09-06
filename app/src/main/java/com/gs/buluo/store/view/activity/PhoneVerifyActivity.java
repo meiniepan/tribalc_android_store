@@ -24,26 +24,11 @@ public class PhoneVerifyActivity extends BaseActivity implements ILoginView {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-
-        findViewById(R.id.phone_bind_next).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                phone = mPhone.getText().toString().trim();
-                if (!CommonUtils.checkPhone("86", phone, PhoneVerifyActivity.this)) return;
-                ((LoginPresenter) mPresenter).doVerify(phone);
-            }
-        });
-        findViewById(R.id.bind_phone_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     @Override
     protected int getContentLayout() {
-        return R.layout.activity_phone1;
+        return R.layout.activity_update_phone1;
     }
 
     @Override

@@ -8,32 +8,29 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:background="#2a2a2a">
+        android:layout_height="@dimen/title_height">
 
         <include
             layout="@layout/back_img_white"
-            android:id="@+id/bind_phone_back" />
+            android:id="@+id/back" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/title_size"
             android:layout_centerInParent="true"
-            android:textColor="#fff"
             android:text="@string/phone_bind" />
     </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="46dp"
+        android:layout_height="40dp"
         android:text="请输入您需要绑定的新手机号"
         android:textColor="@color/common_gray"
         android:background="@color/tint_bg"
-        android:gravity="bottom"
+        android:gravity="center_vertical"
         android:textSize="@dimen/dimens_12sp"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingBottom="10dp" />
+        android:paddingStart="@dimen/activity_horizontal_margin" />
 
 
     <LinearLayout
@@ -90,21 +87,9 @@
             android:layout_marginStart="30dp" />
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/phone_bind_next"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="50dp"
-            android:layout_width="315dp"
-            android:layout_height="40dp"
-            android:text="@string/next"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/dimens_16sp"
-            android:background="@drawable/button_selector" />
-    </RelativeLayout>
+    <Button
+        android:onClick="changePhoneNext"
+        style="@style/short_button_style"
+        android:text="@string/next"
+        />
 </LinearLayout>

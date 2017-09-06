@@ -15,7 +15,6 @@ import java.util.List;
 public class StoreMeta extends StoreInfo implements Parcelable, IBaseResponse {
     public String desc;
     public String category;                //Default FOOD From { FOOD, GIFT, OFFICE, LIVING, HOUSE, MAKEUP, PENETRATION, REPAST, HAIRDRESSING, FITNESS, ENTERTAINMENT, KEEPHEALTHY}
-    public String phone;
     public String province;
     public String city;
     public String district;

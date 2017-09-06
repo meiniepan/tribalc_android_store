@@ -50,7 +50,7 @@ public class TribeApplication extends BaseApplication {
     private void initDb() {
         daoConfig = new DbManager.DaoConfig()
                 .setDbName("store")
-                .setDbVersion(2)
+                .setDbVersion(3)
                 .setDbOpenListener(new DbManager.DbOpenListener() {
                     @Override
                     public void onDbOpened(DbManager db) {
@@ -62,6 +62,8 @@ public class TribeApplication extends BaseApplication {
                     public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
                         if (oldVersion == 1) {
                             update1To2(db);
+                        } else if (oldVersion == 2) {
+                            update2To3(db);
                         }
                     }
                 });
@@ -70,6 +72,14 @@ public class TribeApplication extends BaseApplication {
     private void update1To2(DbManager db) {
         try {
             db.addColumn(StoreInfo.class, "type");
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void update2To3(DbManager db) {
+        try {
+            db.addColumn(StoreInfo.class, "phone");
         } catch (DbException e) {
             e.printStackTrace();
         }
@@ -154,7 +164,7 @@ public class TribeApplication extends BaseApplication {
     }
 
     public HashMap<HomeMessageEnum, Integer> getMessageMap() {
-        if (messageMap==null){
+        if (messageMap == null) {
             return new HashMap<>();
         }
         return messageMap;
