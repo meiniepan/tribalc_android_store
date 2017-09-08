@@ -1,6 +1,7 @@
 package com.gs.buluo.store.network;
 
 import com.gs.buluo.common.network.BaseResponse;
+import com.gs.buluo.store.ResponseCode;
 import com.gs.buluo.store.bean.BankCard;
 import com.gs.buluo.store.bean.OrderPayment;
 import com.gs.buluo.store.bean.RequestBodyBean.NewPaymentRequest;
@@ -62,6 +63,9 @@ public interface MoneyApis {
 
     @DELETE("wallets/{id}/bank_cards/{bankCardID}")
     Call<BaseResponse> deleteCard(@Path("id") String uid, @Path("bankCardID") String id);
+
+    @DELETE("wallets/{id}/bank_cards")
+    Observable<BaseResponse<CodeResponse>> cleanCard(@Path("id") String uid);
 
     @GET("wallets/{id}/payments/{paymentId}")
     Call<BaseResponse<OrderPayment>> getPaymentStatus(@Path("id") String uid, @Path("paymentId") String paymentId);

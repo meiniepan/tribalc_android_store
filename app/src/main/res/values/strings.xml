@@ -279,4 +279,16 @@
     <string name="goods_manager">商品管理</string>
     <string name="please_input_verify">请输入验证码</string>
     <string name="bind_third_fail">绑定第三方账号失败</string>
+    <string name="input_verify_title">输入验证码</string>
+    <string name="update_phone">修改手机号</string>
+    <string name="identity_verify">商户认证</string>
+    <string name="real_name">真实姓名</string>
+    <string name="identify_number">身份证号</string>
+    <string name="input_identify_number">请输入身份证号</string>
+    <string name="input_real_birthday">请选择出生日期</string>
+    <string name="not_empty">信息不能为空</string>
+    <string name="wrong_id_number">身份证号输入有误</string>
+    <string name="act_error">操作失败</string>
+    <string name="i_know">我知道了</string>
+    <string name="jump_over">跳过</string>
 </resources>

@@ -4,8 +4,7 @@ import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.AppConfigInfo;
 import com.gs.buluo.store.bean.AuthenticationData;
 import com.gs.buluo.store.bean.ConfigInfo;
-import com.gs.buluo.store.bean.HomeMessageEnum;
-import com.gs.buluo.store.bean.HomeMessageResponse;
+import com.gs.buluo.store.bean.RequestBodyBean.AuthorityRequest;
 import com.gs.buluo.store.bean.RequestBodyBean.LoginBody;
 import com.gs.buluo.store.bean.RequestBodyBean.PhoneUpdateBody;
 import com.gs.buluo.store.bean.RequestBodyBean.ThirdLoginRequest;
@@ -14,7 +13,7 @@ import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.ResponseBody.UploadAccessBody;
 import com.gs.buluo.store.bean.ResponseBody.UploadResponseBody;
 import com.gs.buluo.store.bean.ResponseBody.UserBeanEntity;
-import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.bean.StoreAccount;
 import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.bean.StoreSetMealCreation;
 
@@ -40,7 +39,7 @@ public interface MainApis {
     Observable<BaseResponse<AppConfigInfo>> getLastVersion(@Query("version") String version);
 
     @GET("stores/{storeId}?type=store")
-    Observable<BaseResponse<StoreInfo>> getStoreInfo(@Path("storeId") String uid, @Query("me") String id);
+    Observable<BaseResponse<StoreAccount>> getStoreInfo(@Path("storeId") String uid, @Query("me") String id);
 
     @GET("stores/{storeId}/store_detail?type=store")
     Observable<BaseResponse<StoreMeta>> getStoreDetailInfo(@Path("storeId") String uid, @Query("me") String id);
@@ -63,7 +62,7 @@ public interface MainApis {
 
 
     @PUT("stores/{id}/authentication")
-    Observable<BaseResponse<AuthenticationData>> doAuthentication(@Path("id") String id, @Body AuthenticationData request);
+    Observable<BaseResponse<StoreAccount>> doAuthentication(@Path("id") String id, @Body AuthorityRequest request);
 
     @PUT("stores/{id}/phone")
     Observable<BaseResponse<CodeResponse>> updatePhone(@Path("id") String id, @Body PhoneUpdateBody body);

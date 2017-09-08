@@ -10,7 +10,7 @@ import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.StoreMeta;
-import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.bean.StoreAccount;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.SelfPresenter;
 import com.gs.buluo.common.utils.ToastUtils;
@@ -31,7 +31,7 @@ public class SelfActivity extends BaseActivity implements View.OnClickListener,I
     TextView mPhone;
 
     Context mCtx;
-    private StoreInfo userInfo;
+    private StoreAccount userInfo;
     private StoreMeta bean;
 
     @Override

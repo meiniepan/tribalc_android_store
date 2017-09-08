@@ -11,7 +11,7 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.MessageManagerAdapter;
 import com.gs.buluo.store.bean.MessageToggleBean;
-import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.bean.StoreAccount;
 import com.gs.buluo.store.network.MessageApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 
@@ -35,7 +35,7 @@ public class MessageManagerActivity extends BaseActivity {
     @Override
     protected void bindView(Bundle savedInstanceState) {
         statusLayout.showProgressView();
-        StoreInfo userInfo = TribeApplication.getInstance().getUserInfo();
+        StoreAccount userInfo = TribeApplication.getInstance().getUserInfo();
         TribeRetrofit.getInstance().createApi(MessageApis.class).getMessageToggleList(userInfo.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

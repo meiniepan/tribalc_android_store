@@ -15,7 +15,7 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.RequestBodyBean.ThirdLoginRequest;
 import com.gs.buluo.store.bean.ResponseBody.UserBeanEntity;
-import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.bean.StoreAccount;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.network.MainApis;
 import com.gs.buluo.store.network.TribeRetrofit;
@@ -88,7 +88,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                         if (response.code == 204) {
                             bindPhone(((SendAuth.Resp) baseResp).code);
                         } else {
-                            StoreInfo entity = new StoreInfo();
+                            StoreAccount entity = new StoreAccount();
                             String uid = response.data.getAssigned();
                             token = response.data.getToken();
                             entity.setId(uid);
@@ -109,15 +109,15 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         TribeRetrofit.getInstance().createApi(MainApis.class).getStoreInfo(assigned, assigned)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext(new Action1<BaseResponse<StoreInfo>>() {
+                .doOnNext(new Action1<BaseResponse<StoreAccount>>() {
                     @Override
-                    public void call(BaseResponse<StoreInfo> response) {
+                    public void call(BaseResponse<StoreAccount> response) {
                         saveUserInfo(response);
                     }
                 })
-                .subscribe(new BaseSubscriber<BaseResponse<StoreInfo>>() {
+                .subscribe(new BaseSubscriber<BaseResponse<StoreAccount>>() {
                     @Override
-                    public void onNext(BaseResponse<StoreInfo> userInfoEntityBaseResponse) {
+                    public void onNext(BaseResponse<StoreAccount> userInfoEntityBaseResponse) {
                         Intent intent = new Intent(WXEntryActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
@@ -132,8 +132,8 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         finish();
     }
 
-    private void saveUserInfo(BaseResponse<StoreInfo> response) {
-        StoreInfo entity = response.data;
+    private void saveUserInfo(BaseResponse<StoreAccount> response) {
+        StoreAccount entity = response.data;
         entity.setToken(token);
         TribeApplication.getInstance().setUserInfo(entity);
         StoreInfoDao dao = new StoreInfoDao();

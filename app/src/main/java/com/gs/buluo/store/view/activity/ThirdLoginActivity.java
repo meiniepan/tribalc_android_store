@@ -120,7 +120,7 @@ public class ThirdLoginActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    public void loginSuccess() {
+    public void actSuccess() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
         AppManager.getAppManager().finishActivity(LoginActivity.class);

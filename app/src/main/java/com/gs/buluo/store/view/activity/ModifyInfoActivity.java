@@ -14,7 +14,7 @@ import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.bean.StoreAccount;
 import com.gs.buluo.store.bean.StoreMeta;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.eventbus.SelfEvent;
@@ -36,7 +36,7 @@ public class ModifyInfoActivity extends BaseActivity implements View.OnClickList
     TextView title;
 
     private String info;
-    private StoreInfo userInfo;
+    private StoreAccount userInfo;
 
     private Intent intent;
 

@@ -1,7 +1,7 @@
 package com.gs.buluo.store.dao;
 
 import com.gs.buluo.store.TribeApplication;
-import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.bean.StoreAccount;
 
 import org.xutils.DbManager;
 import org.xutils.db.sqlite.WhereBuilder;
@@ -20,13 +20,13 @@ public class StoreInfoDao {
 
     public void clear() {
         try {
-            db.delete(StoreInfo.class);
+            db.delete(StoreAccount.class);
         } catch (DbException e) {
             e.printStackTrace();
         }
     }
 
-    public void saveBindingId(StoreInfo userInfo) {
+    public void saveBindingId(StoreAccount userInfo) {
         try {
             TribeApplication.getInstance().setUserInfo(userInfo);
             db.saveBindingId(userInfo);
@@ -35,7 +35,7 @@ public class StoreInfoDao {
         }
     }
 
-    public void update(StoreInfo userInfo) {
+    public void update(StoreAccount userInfo) {
         TribeApplication.getInstance().setUserInfo(userInfo);
         try {
             db.update(userInfo);
@@ -44,18 +44,18 @@ public class StoreInfoDao {
         }
     }
 
-    public StoreInfo findFirst() {
+    public StoreAccount findFirst() {
         try {
-            return db.findFirst(StoreInfo.class);
+            return db.findFirst(StoreAccount.class);
         } catch (DbException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public StoreInfo find(String assigned) {
+    public StoreAccount find(String assigned) {
         try {
-            return db.selector(StoreInfo.class).where(WhereBuilder.b("uid", "=", assigned)).findFirst();
+            return db.selector(StoreAccount.class).where(WhereBuilder.b("uid", "=", assigned)).findFirst();
         } catch (DbException e) {
             e.printStackTrace();
         }

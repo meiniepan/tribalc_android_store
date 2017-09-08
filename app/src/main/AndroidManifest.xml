@@ -72,10 +72,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.PhoneVerifyActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysVisible" />
-        <activity
-            android:name=".view.activity.PhoneVerifyActivity2"
             android:screenOrientation="portrait" />
         <activity
             android:name=".kotlin.activity.WalletActivity"
@@ -199,6 +195,9 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysVisible"/>
         <activity android:name=".kotlin.activity.UpdatePhoneActivity2"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysVisible"/>
+        <activity android:name=".view.activity.IdentifyActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysVisible"/>
 

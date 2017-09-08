@@ -1,95 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:clipToPadding="true">
-
+    android:clipToPadding="true"
+    android:background="@color/tint_bg">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height">
-
-        <include
-            layout="@layout/back_img_white"
-            android:id="@+id/back" />
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white">
+        <include layout="@layout/back_img_white"
+            android:id="@+id/back"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/title_size"
             android:layout_centerInParent="true"
-            android:text="@string/phone_bind" />
+            android:text="@string/update_phone"/>
     </RelativeLayout>
-
-    <TextView
+    <include layout="@layout/split_area"/>
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text="请输入您需要绑定的新手机号"
-        android:textColor="@color/common_gray"
-        android:background="@color/tint_bg"
-        android:gravity="center_vertical"
-        android:textSize="@dimen/dimens_12sp"
-        android:paddingStart="@dimen/activity_horizontal_margin" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_height"
-        android:orientation="horizontal"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/button_height"
-            android:text="国家和地区"
-            android:gravity="center_vertical"
-            android:textSize="@dimen/dimens_16sp"
-            android:textColor="@color/common_dark" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/button_height"
-            android:text="中国"
-            android:layout_marginStart="14dp"
-            android:gravity="center_vertical"
-            android:textSize="@dimen/dimens_16sp"
-            android:textColor="@color/common_dark" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/phone_new_phone"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_height"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin">
-
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:background="@color/white">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="新手机号"
+            android:text="手机号"
             android:gravity="center_vertical"
             android:textSize="@dimen/dimens_16sp"
-            android:textColor="@color/common_dark" />
-
-        <EditText
-            android:id="@+id/bind_edit_phone"
+            android:textColor="@color/common_dark"
+            />
+        <TextView
+            android:id="@+id/tv_old_phone"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:hint="@string/input_phone"
-            android:background="@null"
-            android:inputType="phone"
+            android:gravity="center_vertical"
+            android:layout_alignParentEnd="true"
+            android:textSize="@dimen/dimens_16sp" />
+    </RelativeLayout>
+    <include layout="@layout/split_line_margin"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="输入新手机号"
+            android:gravity="center_vertical"
             android:textSize="@dimen/dimens_16sp"
-            android:layout_marginStart="30dp" />
-    </LinearLayout>
+            android:textColor="@color/common_dark"
+            />
+        <EditText
+            android:id="@+id/et_new_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:minWidth="100dp"
+            android:gravity="center_vertical|start"
+            android:inputType="number"
+            android:background="@null"
+            android:layout_alignParentEnd="true"
+            android:textSize="@dimen/dimens_16sp" />
+    </RelativeLayout>
+    <include layout="@layout/split_line_margin"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:background="@color/white">
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/input_verify_title"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/dimens_16sp"
+            android:textColor="@color/common_dark"
+            />
+
+        <EditText
+            android:id="@+id/et_verify"
+            android:layout_width="wrap_content"
+            android:minWidth="50dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:background="@null"
+            android:inputType="number"
+            android:layout_marginStart="30dp"
+            android:layout_toEndOf="@+id/textView"/>
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:layout_toStartOf="@+id/tv_send_verify"
+            android:background="@color/common_gray"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="8dp"/>
+        <TextView
+            android:id="@+id/tv_send_verify"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="发送验证码"
+            android:textColor="@color/common_gray"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+    <include layout="@layout/split_line_margin"/>
 
     <Button
-        android:onClick="changePhoneNext"
+        android:onClick="changePhone"
         style="@style/short_button_style"
-        android:text="@string/next"
-        />
+        android:layout_marginTop="40dp"
+        android:text="@string/next"/>
 </LinearLayout>

@@ -10,7 +10,7 @@ import com.gs.buluo.store.bean.RequestBodyBean.PhoneUpdateBody
 import com.gs.buluo.store.bean.RequestBodyBean.ThirdLoginRequest
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse
-import com.gs.buluo.store.bean.StoreInfo
+import com.gs.buluo.store.bean.StoreAccount
 import com.gs.buluo.store.dao.StoreInfoDao
 import com.gs.buluo.store.kotlin.presenter.KotBasePresenter
 import com.gs.buluo.store.network.MainApis
@@ -35,7 +35,7 @@ class KotLoginPresenter(val mView: ILoginView) : KotBasePresenter() {
                 .flatMap { response ->
                     val uid = response.data.assigned
                     token = response.data.token
-                    val entity = StoreInfo()
+                    val entity = StoreAccount()
                     entity.id = uid
                     entity.setToken(token)
                     TribeApplication.getInstance().userInfo = entity
@@ -44,9 +44,9 @@ class KotLoginPresenter(val mView: ILoginView) : KotBasePresenter() {
                 .subscribeOn(Schedulers.io())
                 .doOnNext { response -> setStoreInfo(response.data) }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : BaseSubscriber<BaseResponse<StoreInfo>>() {
-                    override fun onNext(response: BaseResponse<StoreInfo>?) {
-                        mView.loginSuccess()
+                .subscribe(object : BaseSubscriber<BaseResponse<StoreAccount>>() {
+                    override fun onNext(response: BaseResponse<StoreAccount>?) {
+                        mView.actSuccess()
                     }
 
                     override fun onFail(e: ApiException) {
@@ -61,7 +61,6 @@ class KotLoginPresenter(val mView: ILoginView) : KotBasePresenter() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : BaseSubscriber<BaseResponse<CodeResponse>>(false) {
                     override fun onNext(response: BaseResponse<CodeResponse>?) {
-                        mView.dealWithIdentify(202)
                     }
 
                     override fun onFail(e: ApiException) {
@@ -70,10 +69,10 @@ class KotLoginPresenter(val mView: ILoginView) : KotBasePresenter() {
                 })
     }
 
-    private fun setStoreInfo(storeInfo: StoreInfo) {
+    private fun setStoreInfo(storeAccount: StoreAccount) {
         val dao = StoreInfoDao()
-        storeInfo.setToken(token)
-        dao.saveBindingId(storeInfo)
+        storeAccount.setToken(token)
+        dao.saveBindingId(storeAccount)
     }
 
     fun doThirdLogin(phone: String, verify: String, wxCode: String) {
@@ -87,7 +86,7 @@ class KotLoginPresenter(val mView: ILoginView) : KotBasePresenter() {
                     val uid = data.assigned
                     token = data.token
 
-                    val entity = StoreInfo()
+                    val entity = StoreAccount()
                     entity.id = uid
                     entity.setToken(token)
                     TribeApplication.getInstance().userInfo = entity
@@ -96,9 +95,9 @@ class KotLoginPresenter(val mView: ILoginView) : KotBasePresenter() {
                 }
                 .doOnNext { response -> setStoreInfo(response.data) }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : BaseSubscriber<BaseResponse<StoreInfo>>() {
-                    override fun onNext(userBeanResponse: BaseResponse<StoreInfo>?) {
-                        mView.loginSuccess()
+                .subscribe(object : BaseSubscriber<BaseResponse<StoreAccount>>() {
+                    override fun onNext(userBeanResponse: BaseResponse<StoreAccount>?) {
+                        mView.actSuccess()
                     }
 
                     override fun onFail(e: ApiException) {
@@ -135,8 +134,7 @@ class KotLoginPresenter(val mView: ILoginView) : KotBasePresenter() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : BaseSubscriber<BaseResponse<CodeResponse>>() {
                     override fun onNext(response: BaseResponse<CodeResponse>?) {
-                        getUserInfo()
-                        mView.loginSuccess()
+                        mView.dealWithIdentify(response!!.code)
                     }
 
                     override fun onFail(e: ApiException) {
@@ -149,8 +147,8 @@ class KotLoginPresenter(val mView: ILoginView) : KotBasePresenter() {
         TribeRetrofit.getInstance().createApi(MainApis::class.java).getStoreInfo(TribeApplication.getInstance().userInfo.id, TribeApplication.getInstance().userInfo.id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
-                .subscribe(object : BaseSubscriber<BaseResponse<StoreInfo>>() {
-                    override fun onNext(response: BaseResponse<StoreInfo>?) {
+                .subscribe(object : BaseSubscriber<BaseResponse<StoreAccount>>() {
+                    override fun onNext(response: BaseResponse<StoreAccount>?) {
                         token = TribeApplication.getInstance().userInfo.token
                         setStoreInfo(response!!.data)
                     }

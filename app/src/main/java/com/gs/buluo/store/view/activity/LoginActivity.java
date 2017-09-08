@@ -152,7 +152,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
-    public void loginSuccess() {
+    public void actSuccess() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }

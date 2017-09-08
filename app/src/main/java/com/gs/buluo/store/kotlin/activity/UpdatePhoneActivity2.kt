@@ -18,7 +18,7 @@ class UpdatePhoneActivity2 : KotBaseActivity(), ILoginView {
         ToastUtils.ToastMessage(ctx, message)
     }
 
-    override fun loginSuccess() {
+    override fun actSuccess() {
         finish()
         AppManager.getAppManager().finishActivity(UpdatePhoneActivity::class.java)
         ToastUtils.ToastMessage(ctx, R.string.update_success)
@@ -72,9 +72,4 @@ class UpdatePhoneActivity2 : KotBaseActivity(), ILoginView {
 
     override val contentLayout: Int
         get() = R.layout.activity_update_phone2
-
-    fun changePhone(v: View) {
-        showLoadingDialog()
-        (mPresenter as KotLoginPresenter).changePhone(mPhone, bind_verify.text.toString())
-    }
 }

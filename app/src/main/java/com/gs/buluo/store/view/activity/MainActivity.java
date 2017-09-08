@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +23,7 @@ import com.gs.buluo.store.adapter.MainListAdapter;
 import com.gs.buluo.store.bean.HomeMessage;
 import com.gs.buluo.store.bean.HomeMessageEnum;
 import com.gs.buluo.store.bean.HomeMessageResponse;
-import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.bean.StoreAccount;
 import com.gs.buluo.store.bean.UnReadMessageBean;
 import com.gs.buluo.store.bean.WalletAccount;
 import com.gs.buluo.store.dao.StoreInfoDao;
@@ -81,7 +80,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        StoreInfo first = new StoreInfoDao().findFirst();
+        StoreAccount first = new StoreInfoDao().findFirst();
         if (first != null) {
             ((MainPresenter) mPresenter).getMessage();
             tvName.setText(first.getName());
@@ -91,9 +90,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     private void initData() {
-        StoreInfo userInfo = initUser();
+        StoreAccount userInfo = initUser();
         tvName.setText(userInfo.getName());
-        if (userInfo.getType() == StoreInfo.StoreType.CARD) {
+        if (userInfo.getType() == StoreAccount.StoreType.CARD) {
             if (SharePreferenceManager.getInstance(getApplicationContext()).getBooeanValue(Constant.GOODS_SWITCH, false)) {
                 secondArea.setVisibility(View.GONE);
                 goodHor.setVisibility(View.VISIBLE);
@@ -129,7 +128,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onManagerSwitchChanged(ManagerSwitchEvent event) {
-        if (TribeApplication.getInstance().getUserInfo().getType() == StoreInfo.StoreType.CARD) {
+        if (TribeApplication.getInstance().getUserInfo().getType() == StoreAccount.StoreType.CARD) {
             if (event.isChecked()) {
                 secondArea.setVisibility(View.GONE);
                 goodHor.setVisibility(View.VISIBLE);
@@ -164,7 +163,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             public void onAlphaChange(int alpha) {
                 float gra = (alpha + 0.0f) / 255;
                 titleView.setAlpha(gra);
-                if (TribeApplication.getInstance().getUserInfo().getType() == StoreInfo.StoreType.PROTOCOL)
+                if (TribeApplication.getInstance().getUserInfo().getType() == StoreAccount.StoreType.PROTOCOL)
                     setBarColorAgain(MainActivity.this, CommonUtils.getGradient(gra, 0xffe4b278, 0xffffffff));
                 else
                     setBarColorAgain(MainActivity.this, CommonUtils.getGradient(gra, 0xff7891e5, 0xffffffff));
@@ -228,8 +227,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         return new MainPresenter();
     }
 
-    private StoreInfo initUser() {
-        StoreInfo first = new StoreInfoDao().findFirst();
+    private StoreAccount initUser() {
+        StoreAccount first = new StoreInfoDao().findFirst();
         TribeApplication.getInstance().setUserInfo(first);
         return first;
     }

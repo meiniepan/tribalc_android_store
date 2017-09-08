@@ -1,19 +1,15 @@
 package com.gs.buluo.store.bean;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import org.xutils.db.annotation.Column;
 import org.xutils.db.annotation.Table;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by hjn on 2016/11/10.
  */
 @Table(name = "store_info")
-public class StoreInfo implements Parcelable {
+public class StoreAccount {
     @Column(name = "id", isId = true)
     private int mid;
     @Column(name = "cid")
@@ -77,6 +73,50 @@ public class StoreInfo implements Parcelable {
     @Column(name = "logo")
     public String logo;
 
+    @Column(name = "identity")
+    public String legalPersonIdNo;
+
+    @Column(name = "user_name")
+    public String legalPersonName;
+
+    @Column(name = "auth")
+    public String authorizedStatus;
+
+    public String getLegalPersonName() {
+        return legalPersonName;
+    }
+
+    public void setLegalPersonName(String legalPersonName) {
+        this.legalPersonName = legalPersonName;
+    }
+
+    public String getLegalPersonIdNo() {
+        return legalPersonIdNo;
+    }
+
+    public void setLegalPersonIdNo(String legalPersonIdNo) {
+        this.legalPersonIdNo = legalPersonIdNo;
+    }
+
+
+    public AuthStatus getAuthStatus() {
+        switch (authorizedStatus) {
+            case "NOT_START":
+                return AuthStatus.NOT_START;
+            case "PROCESSING":
+                return AuthStatus.PROCESSING;
+            case "SUCCESS":
+                return AuthStatus.SUCCESS;
+            case "FAILURE":
+                return AuthStatus.FAILURE;
+        }
+        return AuthStatus.NOT_START;
+    }
+
+    public void setAuthStatus(AuthStatus authorizedStatus) {
+        this.authorizedStatus = authorizedStatus.name();
+    }
+
     public String getName() {
         return name;
     }
@@ -125,50 +165,4 @@ public class StoreInfo implements Parcelable {
     public void setToken(String token) {
         this.token = token;
     }
-
-    public StoreInfo() {
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.mid);
-        dest.writeString(this.id);
-        dest.writeString(this.name);
-        dest.writeString(this.accountType);
-        dest.writeList(this.discount);
-        dest.writeString(this.balance);
-        dest.writeString(this.token);
-        dest.writeString(this.storeType);
-        dest.writeString(this.logo);
-    }
-
-    protected StoreInfo(Parcel in) {
-        this.mid = in.readInt();
-        this.id = in.readString();
-        this.name = in.readString();
-        this.accountType = in.readString();
-        this.discount = new ArrayList<Privilege>();
-        in.readList(this.discount, Privilege.class.getClassLoader());
-        this.balance = in.readString();
-        this.token = in.readString();
-        this.storeType = in.readString();
-        this.logo = in.readString();
-    }
-
-    public static final Creator<StoreInfo> CREATOR = new Creator<StoreInfo>() {
-        @Override
-        public StoreInfo createFromParcel(Parcel source) {
-            return new StoreInfo(source);
-        }
-
-        @Override
-        public StoreInfo[] newArray(int size) {
-            return new StoreInfo[size];
-        }
-    };
 }

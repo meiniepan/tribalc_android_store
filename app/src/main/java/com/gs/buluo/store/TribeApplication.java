@@ -7,7 +7,7 @@ import android.support.multidex.MultiDex;
 import com.gs.buluo.common.BaseApplication;
 import com.gs.buluo.common.utils.TribeCrashCollector;
 import com.gs.buluo.store.bean.HomeMessageEnum;
-import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.bean.StoreAccount;
 import com.gs.buluo.store.bean.UnReadMessageBean;
 import com.gs.buluo.store.dao.StoreInfoDao;
 
@@ -26,7 +26,7 @@ import java.util.HashMap;
 public class TribeApplication extends BaseApplication {
     private static TribeApplication instance;
     private DbManager.DaoConfig daoConfig;
-    private StoreInfo user;
+    private StoreAccount user;
     private String pwd;
 //    private LatLng positon;
 
@@ -71,7 +71,7 @@ public class TribeApplication extends BaseApplication {
 
     private void update1To2(DbManager db) {
         try {
-            db.addColumn(StoreInfo.class, "type");
+            db.addColumn(StoreAccount.class, "type");
         } catch (DbException e) {
             e.printStackTrace();
         }
@@ -79,7 +79,10 @@ public class TribeApplication extends BaseApplication {
 
     private void update2To3(DbManager db) {
         try {
-            db.addColumn(StoreInfo.class, "phone");
+            db.addColumn(StoreAccount.class, "phone");
+            db.addColumn(StoreAccount.class, "user_name");
+            db.addColumn(StoreAccount.class, "auth");
+            db.addColumn(StoreAccount.class, "identity");
         } catch (DbException e) {
             e.printStackTrace();
         }
@@ -103,11 +106,11 @@ public class TribeApplication extends BaseApplication {
         return daoConfig;
     }
 
-    public void setUserInfo(StoreInfo info) {
+    public void setUserInfo(StoreAccount info) {
         user = info;
     }
 
-    public StoreInfo getUserInfo() {
+    public StoreAccount getUserInfo() {
         if (user == null) {
             user = new StoreInfoDao().findFirst();
         }

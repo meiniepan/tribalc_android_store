@@ -11,7 +11,7 @@ import com.gs.buluo.store.bean.RequestBodyBean.ThirdLoginRequest;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.ResponseBody.UserBeanEntity;
-import com.gs.buluo.store.bean.StoreInfo;
+import com.gs.buluo.store.bean.StoreAccount;
 import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.network.MainApis;
 import com.gs.buluo.store.network.TribeRetrofit;
@@ -38,12 +38,12 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
 
         TribeRetrofit.getInstance().createApi(MainApis.class).doLogin(bean)
                 .subscribeOn(Schedulers.io())
-                .flatMap(new Func1<BaseResponse<UserBeanEntity>, Observable<BaseResponse<StoreInfo>>>() {
+                .flatMap(new Func1<BaseResponse<UserBeanEntity>, Observable<BaseResponse<StoreAccount>>>() {
                     @Override
-                    public Observable<BaseResponse<StoreInfo>> call(BaseResponse<UserBeanEntity> response) {
+                    public Observable<BaseResponse<StoreAccount>> call(BaseResponse<UserBeanEntity> response) {
                         String uid = response.data.getAssigned();
                         token = response.data.getToken();
-                        StoreInfo entity = new StoreInfo();
+                        StoreAccount entity = new StoreAccount();
                         entity.setId(uid);
                         entity.setToken(token);
                         TribeApplication.getInstance().setUserInfo(entity);
@@ -51,18 +51,18 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                     }
                 })
                 .subscribeOn(Schedulers.io())
-                .doOnNext(new Action1<BaseResponse<StoreInfo>>() {
+                .doOnNext(new Action1<BaseResponse<StoreAccount>>() {
                     @Override
-                    public void call(BaseResponse<StoreInfo> response) {
+                    public void call(BaseResponse<StoreAccount> response) {
                         setStoreInfo(response.data);
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<StoreInfo>>() {
+                .subscribe(new BaseSubscriber<BaseResponse<StoreAccount>>() {
                     @Override
-                    public void onNext(BaseResponse<StoreInfo> response) {
+                    public void onNext(BaseResponse<StoreAccount> response) {
                         if (isAttach()) {
-                            mView.loginSuccess();
+                            mView.actSuccess();
                         }
                     }
 
@@ -89,10 +89,10 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                 });
     }
 
-    private void setStoreInfo(StoreInfo storeInfo) {
+    private void setStoreInfo(StoreAccount storeAccount) {
         StoreInfoDao dao = new StoreInfoDao();
-        storeInfo.setToken(token);
-        dao.saveBindingId(storeInfo);
+        storeAccount.setToken(token);
+        dao.saveBindingId(storeAccount);
     }
 
     public void doThirdLogin(String phone, String verify, final String wxCode) {
@@ -102,14 +102,14 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
         TribeRetrofit.getInstance().createApi(MainApis.class).
                 doLogin(bean)
                 .subscribeOn(Schedulers.io())
-                .flatMap(new Func1<BaseResponse<UserBeanEntity>, Observable<BaseResponse<StoreInfo>>>() {
+                .flatMap(new Func1<BaseResponse<UserBeanEntity>, Observable<BaseResponse<StoreAccount>>>() {
                     @Override
-                    public Observable<BaseResponse<StoreInfo>> call(BaseResponse<UserBeanEntity> response) {
+                    public Observable<BaseResponse<StoreAccount>> call(BaseResponse<UserBeanEntity> response) {
                         UserBeanEntity data = response.data;
                         String uid = data.getAssigned();
                         token = data.getToken();
 
-                        StoreInfo entity = new StoreInfo();
+                        StoreAccount entity = new StoreAccount();
                         entity.setId(uid);
                         entity.setToken(token);
                         TribeApplication.getInstance().setUserInfo(entity);
@@ -118,17 +118,17 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                                 getStoreInfo(uid, uid);
                     }
                 })
-                .doOnNext(new Action1<BaseResponse<StoreInfo>>() {
+                .doOnNext(new Action1<BaseResponse<StoreAccount>>() {
                     @Override
-                    public void call(BaseResponse<StoreInfo> response) {
+                    public void call(BaseResponse<StoreAccount> response) {
                         setStoreInfo(response.data);
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<StoreInfo>>() {
+                .subscribe(new BaseSubscriber<BaseResponse<StoreAccount>>() {
                     @Override
-                    public void onNext(BaseResponse<StoreInfo> userBeanResponse) {
-                        mView.loginSuccess();
+                    public void onNext(BaseResponse<StoreAccount> userBeanResponse) {
+                        mView.actSuccess();
                     }
 
                     @Override
@@ -170,7 +170,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                     @Override
                     public void call(BaseResponse<CodeResponse> codeResponseBaseResponse) {
                         StoreInfoDao dao = new StoreInfoDao();
-                        StoreInfo entity = dao.findFirst();
+                        StoreAccount entity = dao.findFirst();
                         entity.setPhone(phone);
                         dao.update(entity);
                     }
@@ -178,7 +178,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                 .subscribe(new BaseSubscriber<BaseResponse<CodeResponse>>() {
                     @Override
                     public void onNext(BaseResponse<CodeResponse> response) {
-                        mView.loginSuccess();
+                        mView.actSuccess();
                     }
 
                     @Override

@@ -12,7 +12,7 @@ import java.util.List;
  * Created by hjn on 2017/1/12.
  */
 
-public class StoreMeta extends StoreInfo implements Parcelable, IBaseResponse {
+public class StoreMeta extends StoreAccount{
     public String desc;
     public String category;                //Default FOOD From { FOOD, GIFT, OFFICE, LIVING, HOUSE, MAKEUP, PENETRATION, REPAST, HAIRDRESSING, FITNESS, ENTERTAINMENT, KEEPHEALTHY}
     public String province;
@@ -48,64 +48,4 @@ public class StoreMeta extends StoreInfo implements Parcelable, IBaseResponse {
 
     public StoreMeta() {
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeString(this.desc);
-        dest.writeString(this.category);
-        dest.writeString(this.phone);
-        dest.writeString(this.province);
-        dest.writeString(this.city);
-        dest.writeString(this.district);
-        dest.writeString(this.address);
-        dest.writeStringList(this.pictures);
-        dest.writeStringList(this.sellingPoint);
-        dest.writeString(this.topics);
-        dest.writeString(this.avgprice);
-        dest.writeStringList(this.cookingStyle);
-        dest.writeString(this.businessHours);
-        dest.writeDoubleArray(this.coordinate);
-        dest.writeString(this.markPlace);
-        dest.writeString(this.tags);
-        dest.writeString(this.email);
-    }
-
-    protected StoreMeta(Parcel in) {
-        super(in);
-        this.desc = in.readString();
-        this.category = in.readString();
-        this.phone = in.readString();
-        this.province = in.readString();
-        this.city = in.readString();
-        this.district = in.readString();
-        this.address = in.readString();
-        this.pictures = in.createStringArrayList();
-        this.sellingPoint = in.createStringArrayList();
-        this.topics = in.readString();
-        this.avgprice = in.readString();
-        this.cookingStyle = in.createStringArrayList();
-        this.businessHours = in.readString();
-        this.coordinate = in.createDoubleArray();
-        this.markPlace = in.readString();
-        this.tags = in.readString();
-        this.email = in.readString();
-    }
-
-    public static final Creator<StoreMeta> CREATOR = new Creator<StoreMeta>() {
-        @Override
-        public StoreMeta createFromParcel(Parcel source) {
-            return new StoreMeta(source);
-        }
-
-        @Override
-        public StoreMeta[] newArray(int size) {
-            return new StoreMeta[size];
-        }
-    };
 }
