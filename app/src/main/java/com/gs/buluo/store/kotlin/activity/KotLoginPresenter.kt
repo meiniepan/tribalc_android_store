@@ -29,7 +29,6 @@ class KotLoginPresenter(val mView: ILoginView) : KotBasePresenter() {
         val bean = LoginBody()
         bean.phone = params[Constant.PHONE]
         bean.verificationCode = params[Constant.VERIFICATION]
-
         TribeRetrofit.getInstance().createApi(MainApis::class.java).doLogin(bean)
                 .subscribeOn(Schedulers.io())
                 .flatMap { response ->
