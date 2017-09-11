@@ -25,11 +25,6 @@ public class MoneyModel {
                 addBankCard(uid, vCode, card).enqueue(callback);
     }
 
-    public void deleteCard(String id, Callback<BaseResponse> callback) {
-        TribeRetrofit.getInstance().createApi(MoneyApis.class).
-                deleteCard(TribeApplication.getInstance().getUserInfo().getId(), id).enqueue(callback);
-    }
-
     public void createPayment(List<String> ids, String payChannel, String type, Callback<BaseResponse<OrderPayment>> callback) {
         NewPaymentRequest request = new NewPaymentRequest();
         request.orderIds = ids;

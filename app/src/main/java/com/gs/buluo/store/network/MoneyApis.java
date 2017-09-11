@@ -62,7 +62,7 @@ public interface MoneyApis {
             @Path("id") String uid, @Query("vcode") String vCode, @Body BankCard card);
 
     @DELETE("wallets/{id}/bank_cards/{bankCardID}")
-    Call<BaseResponse> deleteCard(@Path("id") String uid, @Path("bankCardID") String id);
+    Observable<BaseResponse> deleteCard(@Path("id") String uid, @Path("bankCardID") String id);
 
     @DELETE("wallets/{id}/bank_cards")
     Observable<BaseResponse<CodeResponse>> cleanCard(@Path("id") String uid);

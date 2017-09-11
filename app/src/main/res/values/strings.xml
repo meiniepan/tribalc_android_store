@@ -292,4 +292,6 @@
     <string name="i_know">我知道了</string>
     <string name="jump_over">跳过</string>
     <string name="move_on">继续</string>
+    <string name="wrong_idNo">身份证号有误</string>
+    <string name="wrong_info">信息填写有误</string>
 </resources>

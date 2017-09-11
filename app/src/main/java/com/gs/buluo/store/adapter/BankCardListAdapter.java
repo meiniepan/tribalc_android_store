@@ -10,20 +10,23 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.gs.buluo.common.network.ApiException;
 import com.gs.buluo.common.network.BaseResponse;
+import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.gs.buluo.common.widget.LoadingDialog;
 import com.gs.buluo.store.R;
+import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.BankCard;
-import com.gs.buluo.store.model.MoneyModel;
+import com.gs.buluo.store.network.MoneyApis;
+import com.gs.buluo.store.network.TribeRetrofit;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by hjn on 2016/11/23.
@@ -182,7 +185,7 @@ public class BankCardListAdapter extends BaseAdapter {
 
     private void showDeleteDialog(final BankCard card) {
         CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(mContext);
-        builder.setMessage( "确定删除?").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        builder.setMessage("确定删除?").setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 deleteBankCard(card);
@@ -230,20 +233,21 @@ public class BankCardListAdapter extends BaseAdapter {
 
     private void deleteBankCard(final BankCard card) {
         LoadingDialog.getInstance().show(mContext, R.string.loading, true);
-        new MoneyModel().deleteCard(card.id, new Callback<BaseResponse>() {
-            @Override
-            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                if (response.body() != null && response.body().code == 204) {
-                    LoadingDialog.getInstance().dismissDialog();
-                    datas.remove(card);
-                    notifyDataSetChanged();
-                }
-            }
+        TribeRetrofit.getInstance().createApi(MoneyApis.class).
+                deleteCard(TribeApplication.getInstance().getUserInfo().getId(), card.id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse>() {
+                    @Override
+                    public void onFail(ApiException e) {
+                        ToastUtils.ToastMessage(mContext, R.string.connect_fail);
+                    }
 
-            @Override
-            public void onFailure(Call<BaseResponse> call, Throwable t) {
-                ToastUtils.ToastMessage(mContext, R.string.connect_fail);
-            }
-        });
+                    @Override
+                    public void onNext(BaseResponse baseResponse) {
+                        datas.remove(card);
+                        notifyDataSetChanged();
+                    }
+                });
     }
 }

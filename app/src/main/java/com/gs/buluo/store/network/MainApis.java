@@ -61,7 +61,7 @@ public interface MainApis {
     Observable<BaseResponse<UploadResponseBody>> getUploadUrl(@Query("me") String id, @Body UploadAccessBody body);
 
 
-    @PUT("stores/{id}/authentication")
+    @POST("stores/{id}/authentication")
     Observable<BaseResponse<StoreAccount>> doAuthentication(@Path("id") String id, @Body AuthorityRequest request);
 
     @PUT("stores/{id}/phone")

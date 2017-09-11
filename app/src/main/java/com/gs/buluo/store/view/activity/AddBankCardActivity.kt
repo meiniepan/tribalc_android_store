@@ -30,7 +30,10 @@ class AddBankCardActivity : KotBaseActivity() {
     override fun bindView(savedInstanceState: Bundle?) {
         findViewById(R.id.card_add_finish).setOnClickListener { doAddCard() }
         findViewById(R.id.card_add_choose).setOnClickListener { startActivityForResult(Intent(ctx, BankPickActivity::class.java), Constant.ForIntent.REQUEST_CODE) }
-        card_send_verify!!.setOnClickListener { sendVerifyCode(card_add_phone!!.text.toString().trim { it <= ' ' }) }
+        card_send_verify!!.setOnClickListener {
+            sendVerifyCode(card_add_phone!!.text.toString().trim { it <= ' ' })
+            card_add_verify.requestFocus()
+        }
     }
 
     override val contentLayout: Int
@@ -109,6 +112,7 @@ class AddBankCardActivity : KotBaseActivity() {
 
                     override fun onFail(e: ApiException) {
                         if (e.code == 401) ToastUtils.ToastMessage(ctx, R.string.wrong_verify)
+                        else ToastUtils.ToastMessage(ctx, R.string.wrong_info)
                     }
                 })
     }
