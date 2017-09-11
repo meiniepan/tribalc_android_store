@@ -7,6 +7,7 @@ import com.gs.buluo.common.network.ApiException
 import com.gs.buluo.common.network.BaseResponse
 import com.gs.buluo.common.network.BaseSubscriber
 import com.gs.buluo.common.utils.ToastUtils
+import com.gs.buluo.store.Constant
 import com.gs.buluo.store.R
 import com.gs.buluo.store.TribeApplication
 import com.gs.buluo.store.bean.AuthStatus
@@ -53,14 +54,14 @@ class UpdatePhoneActivity : KotBaseActivity(), ILoginView {
         when (res) {
             200 -> {
                 ToastUtils.ToastMessage(ctx, R.string.update_success)
-                val dao: StoreInfoDao = StoreInfoDao()
+                val dao = StoreInfoDao()
                 TribeApplication.getInstance().userInfo.setPhone(mPhone)
                 dao.update(TribeApplication.getInstance().userInfo)
                 finish()
             }
             202 -> {
                 ToastUtils.ToastMessage(ctx, R.string.update_success)
-                val dao: StoreInfoDao = StoreInfoDao()
+                val dao = StoreInfoDao()
                 TribeApplication.getInstance().userInfo.setPhone(mPhone)
                 TribeApplication.getInstance().userInfo.authorizedStatus = AuthStatus.NOT_START.name
                 TribeApplication.getInstance().userInfo.legalPersonName = ""
@@ -68,6 +69,7 @@ class UpdatePhoneActivity : KotBaseActivity(), ILoginView {
                 dao.update(TribeApplication.getInstance().userInfo)
 
                 val intent = Intent(ctx, IdentifyActivity::class.java)
+                intent.putExtra(Constant.UPDATE_PHONE_SIGN, true)
                 startActivity(intent)
                 finish()
             }
@@ -92,11 +94,11 @@ class UpdatePhoneActivity : KotBaseActivity(), ILoginView {
     private fun alertBankCard() {
         checkDialog = ErrorFaceDialog.Builder(this)
                 .setTitle(getString(R.string.update_phone))
-                .setContent("提示：当前修改将清除全部已绑定的个人银行卡")
-                .setAction(OnActionListener {
+                .setPositiveButton(getString(R.string.move_on), OnActionListener {
                     checkDialog?.dismiss()
                     cleanBankCard()
                 })
+                .setContent("当前修改将清除全部个人银行卡绑定,是否继续?")
                 .create()
 
     }

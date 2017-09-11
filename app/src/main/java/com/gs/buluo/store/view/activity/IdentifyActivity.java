@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.utils.ToastUtils;
+import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.RequestBodyBean.AuthorityRequest;
@@ -40,6 +41,9 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        if (getIntent().getBooleanExtra(Constant.UPDATE_PHONE_SIGN,false)){
+            findView(R.id.tv_update_phone_sign).setVisibility(View.VISIBLE);
+        }
         mFinish.setOnClickListener(this);
         findView(R.id.verify_jump).setOnClickListener(this);
         infoEntity = TribeApplication.getInstance().getUserInfo();

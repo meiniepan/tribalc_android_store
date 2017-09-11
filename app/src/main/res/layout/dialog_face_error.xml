@@ -40,16 +40,30 @@
         android:minHeight="28dp"
         android:textSize="@dimen/dimens_12sp" />
 
-    <Button
-        android:id="@+id/btn_error_finish"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_width="185dp"
+    <LinearLayout
+        android:layout_width="235dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/button_selector"
-        android:text="@string/i_know"
-        android:textColor="@color/white"
-        android:textSize="@dimen/dimens_16sp" />
+        android:orientation="horizontal"
+        android:layout_marginBottom="6dp"
+        android:layout_marginTop="10dp">
+        <Button
+            android:id="@+id/btn_error_finish"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/cancel"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            style="@style/button_style"/>
+        <Button
+            android:visibility="gone"
+            android:id="@+id/btn_error_act"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/move_on"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            style="@style/button_style"/>
+    </LinearLayout>
 </LinearLayout>

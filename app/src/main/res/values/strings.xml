@@ -291,4 +291,5 @@
     <string name="act_error">操作失败</string>
     <string name="i_know">我知道了</string>
     <string name="jump_over">跳过</string>
+    <string name="move_on">继续</string>
 </resources>
