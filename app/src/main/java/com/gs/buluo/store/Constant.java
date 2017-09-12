@@ -82,7 +82,7 @@ public class Constant {
 
 
     public final static class ForIntent {
-        public static final int REQUEST_CODE = 0;
+        public static final int REQUEST_CODE = 110;
         public static final String FLAG = "flag";
         public static final String INTRODUCTION = "introduction";
         public static final String FROM_ORDER = "fromOrder";

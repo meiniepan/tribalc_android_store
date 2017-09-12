@@ -57,6 +57,13 @@ public interface MoneyApis {
     Observable<BaseResponse<List<BankCard>>> getCardList(
             @Path("id") String uid);
 
+    /**
+     * 支持银行卡列表
+     */
+    @GET("wallets/banks")
+    Observable<BaseResponse<List<BankCard>>> getAllCardList(
+            @Query("me") String uid);
+
     @POST("wallets/{id}/bank_cards")
     Call<BaseResponse<CodeResponse>> addBankCard(
             @Path("id") String uid, @Query("vcode") String vCode, @Body BankCard card);

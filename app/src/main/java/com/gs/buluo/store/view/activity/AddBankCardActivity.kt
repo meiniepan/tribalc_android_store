@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.TextUtils
+import android.view.View
 import com.gs.buluo.common.network.ApiException
 import com.gs.buluo.common.network.BaseResponse
 import com.gs.buluo.common.network.BaseSubscriber
@@ -28,7 +29,13 @@ class AddBankCardActivity : KotBaseActivity() {
     private var cardId: String? = null
 
     override fun bindView(savedInstanceState: Bundle?) {
-        findViewById(R.id.card_add_finish).setOnClickListener { doAddCard() }
+        card_add_finish.setOnClickListener {
+            if (bankType == BankCard.BankCardBindTypeEnum.WITHDRAW) {
+                sendVerifyCode(card_add_phone!!.text.toString().trim { it <= ' ' })
+            } else {
+                doAddCard()
+            }
+        }
         findViewById(R.id.card_add_choose).setOnClickListener { startActivityForResult(Intent(ctx, BankPickActivity::class.java), Constant.ForIntent.REQUEST_CODE) }
         card_send_verify!!.setOnClickListener {
             sendVerifyCode(card_add_phone!!.text.toString().trim { it <= ' ' })
@@ -39,11 +46,17 @@ class AddBankCardActivity : KotBaseActivity() {
     override val contentLayout: Int
         get() = R.layout.activity_add_bank_card
 
-
+    private var bankType = BankCard.BankCardBindTypeEnum.NORMAL
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        if (resultCode == RESULT_OK) {
-            val name = data.getStringExtra(Constant.ForIntent.FLAG)
-            card_add_bank_name!!.text = name
+        if (resultCode == RESULT_OK && requestCode == Constant.ForIntent.REQUEST_CODE) {
+            val card = data.getParcelableExtra<BankCard>(Constant.ForIntent.FLAG)
+            card_add_bank_name!!.text = card.bankName
+            bankType = card.bindType
+            if (bankType == BankCard.BankCardBindTypeEnum.WITHDRAW) {
+                findViewById(R.id.ll_verify_view).visibility = View.GONE
+            }else{
+                findViewById(R.id.ll_verify_view).visibility = View.VISIBLE
+            }
         }
     }
 

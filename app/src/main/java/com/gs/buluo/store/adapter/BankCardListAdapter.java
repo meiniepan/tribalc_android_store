@@ -240,7 +240,11 @@ public class BankCardListAdapter extends BaseAdapter {
                 .subscribe(new BaseSubscriber<BaseResponse>() {
                     @Override
                     public void onFail(ApiException e) {
-                        ToastUtils.ToastMessage(mContext, R.string.connect_fail);
+                        if (e.getCode() == 403) {
+                            ToastUtils.ToastMessage(mContext, "当前是对公银行卡，无法删除");
+                        } else {
+                            ToastUtils.ToastMessage(mContext, R.string.connect_fail);
+                        }
                     }
 
                     @Override

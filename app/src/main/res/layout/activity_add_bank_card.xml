@@ -26,11 +26,11 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/board_margin_horizontal"
         android:layout_marginStart="@dimen/board_margin_horizontal"
-        android:layout_marginEnd="@dimen/board_margin_horizontal">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,18 +40,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/dimens_16sp"
+                android:text="@string/bank_owner_name"
                 android:textColor="#000"
-                android:text="@string/bank_owner_name" />
+                android:textSize="@dimen/dimens_16sp" />
 
             <EditText
                 android:id="@+id/card_add_name"
-                android:layout_marginStart="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@color/common_gray"
+                android:layout_marginStart="30dp"
+                android:background="@null"
                 android:hint="@string/input_real_name"
-                android:background="@null" />
+                android:textColor="@color/common_gray" />
         </LinearLayout>
 
         <include layout="@layout/split_line_no_margin_common" />
@@ -65,19 +65,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/dimens_16sp"
+                android:text="@string/bank_open"
                 android:textColor="#000"
-                android:text="@string/bank_open" />
+                android:textSize="@dimen/dimens_16sp" />
 
             <TextView
                 android:id="@+id/card_add_bank_name"
-                android:layout_marginStart="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:textColor="@color/common_gray"
+                android:layout_marginStart="30dp"
+                android:background="@null"
                 android:gravity="center"
                 android:hint="@string/choose_bank"
-                android:background="@null" />
+                android:textColor="@color/common_gray" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -86,9 +86,9 @@
                 <TextView
                     android:layout_width="30dp"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:background="@mipmap/down"
-                    android:rotation="-90"
-                    android:layout_alignParentEnd="true" />
+                    android:rotation="-90" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -102,19 +102,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/dimens_16sp"
+                android:text="@string/card_number"
                 android:textColor="#000"
-                android:text="@string/card_number" />
+                android:textSize="@dimen/dimens_16sp" />
 
             <EditText
                 android:id="@+id/card_add_bank_num"
-                android:layout_marginStart="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@color/common_gray"
-                android:inputType="number"
+                android:layout_marginStart="20dp"
+                android:background="@null"
                 android:hint="@string/input_card_num"
-                android:background="@null" />
+                android:inputType="number"
+                android:textColor="@color/common_gray" />
         </LinearLayout>
 
         <include layout="@layout/split_line_no_margin_common" />
@@ -127,23 +127,24 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/dimens_16sp"
-                android:text="@string/phone" />
+                android:text="@string/phone"
+                android:textSize="@dimen/dimens_16sp" />
 
             <EditText
                 android:id="@+id/card_add_phone"
-                android:layout_marginStart="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@color/common_gray"
-                android:inputType="number"
+                android:layout_marginStart="20dp"
+                android:background="@null"
                 android:hint="@string/input_phone"
-                android:background="@null" />
+                android:inputType="number"
+                android:textColor="@color/common_gray" />
         </LinearLayout>
 
         <include layout="@layout/split_line_no_margin_common" />
 
         <LinearLayout
+            android:id="@+id/ll_verify_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:gravity="center_vertical">
@@ -151,19 +152,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/dimens_16sp"
+                android:text="@string/verify"
                 android:textColor="#000"
-                android:text="@string/verify" />
+                android:textSize="@dimen/dimens_16sp" />
 
             <EditText
                 android:id="@+id/card_add_verify"
-                android:layout_marginStart="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:textColor="@color/common_gray"
+                android:layout_marginStart="30dp"
+                android:background="@null"
                 android:hint="@string/edit_verify"
                 android:inputType="number"
-                android:background="@null" />
+                android:textColor="@color/common_gray" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -173,11 +174,11 @@
                     android:id="@+id/card_send_verify"
                     android:layout_width="80dp"
                     android:layout_height="30dp"
-                    android:text="@string/send_verify"
-                    android:gravity="center"
+                    android:layout_alignParentEnd="true"
                     android:background="@drawable/text_background_round"
-                    android:textColor="@color/custom_color"
-                    android:layout_alignParentEnd="true" />
+                    android:gravity="center"
+                    android:text="@string/send_verify"
+                    android:textColor="@color/custom_color" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -186,15 +187,15 @@
         <Button
             android:id="@+id/card_add_finish"
             android:layout_width="match_parent"
-            android:layout_marginStart="@dimen/button_margin"
-            android:layout_marginEnd="@dimen/button_margin"
-            android:layout_marginTop="36dp"
             android:layout_height="@dimen/button_height"
-            android:text="@string/bind"
+            android:layout_marginEnd="@dimen/button_margin"
+            android:layout_marginStart="@dimen/button_margin"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/button_selector"
             android:gravity="center"
+            android:text="@string/bind"
             android:textColor="#fff"
-            android:textSize="@dimen/dimens_20sp"
-            android:background="@drawable/button_selector" />
+            android:textSize="@dimen/dimens_20sp" />
     </LinearLayout>
 
     <TextView

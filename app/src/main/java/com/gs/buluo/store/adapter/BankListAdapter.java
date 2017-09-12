@@ -8,9 +8,12 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.gs.buluo.store.R;
+import com.gs.buluo.store.bean.BankCard;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.R.attr.type;
 
 /**
  * Created by fs on 2016/12/22.
@@ -20,14 +23,14 @@ public class BankListAdapter extends BaseAdapter {
 
     private final Context mContext;
     private LayoutInflater mInflater;
-    private List<String> mList = new ArrayList<>();
+    private List<BankCard> mList = new ArrayList<>();
 
     public BankListAdapter(Context context) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
     }
 
-    public void setData(List<String> list) {
+    public void setData(List<BankCard> list) {
         mList.clear();
         mList.addAll(list);
         notifyDataSetChanged();
@@ -56,16 +59,25 @@ public class BankListAdapter extends BaseAdapter {
             convertView.setTag(holder);
         }
         ViewHolder holder = (ViewHolder) convertView.getTag();
-        holder.mTextView.setText(mList.get(position));
+        BankCard bankCard = mList.get(position);
+        holder.tvBank.setText(bankCard.bankName);
+        if (bankCard.maxPaymentAmount == 0) {
+            holder.tvSign.setVisibility(View.VISIBLE);
+            bankCard.bindType = BankCard.BankCardBindTypeEnum.WITHDRAW;
+        } else {
+            bankCard.bindType = BankCard.BankCardBindTypeEnum.NORMAL;
+        }
         return convertView;
     }
 
     public static class ViewHolder {
 
-        public TextView mTextView;
+        public TextView tvBank;
+        public TextView tvSign;
 
         public ViewHolder(View view) {
-            mTextView = (TextView) view.findViewById(R.id.bank_name);
+            tvBank = (TextView) view.findViewById(R.id.bank_name);
+            tvSign = (TextView) view.findViewById(R.id.bank_name_sign);
         }
 
     }

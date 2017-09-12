@@ -35,9 +35,7 @@ class BankCardActivity : KotBaseActivity(), ICardView {
         adapter = BankCardListAdapter(this)
         card_list!!.adapter = adapter
         getData()
-        card_add_card.setOnClickListener(View.OnClickListener {
-            startActivity(Intent(this@BankCardActivity, AddBankCardActivity::class.java))
-        })
+        card_add_card.setOnClickListener({ startActivity(Intent(this@BankCardActivity, AddBankCardActivity::class.java)) })
         card_manager!!.setOnClickListener {
             if (canDelete) {
                 hideDeleteView()

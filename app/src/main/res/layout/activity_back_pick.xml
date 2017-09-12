@@ -9,29 +9,31 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:background="#2A2A2A">
+        android:layout_height="@dimen/title_height">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="银行选择"
-            android:textColor="#fff"
             android:textSize="@dimen/title_size" />
 
         <include
-            android:id="@+id/card_bind_back"
+            android:id="@+id/back"
             layout="@layout/back_img_white" />
     </RelativeLayout>
+    <include layout="@layout/split_line"/>
 
-    <ListView
-        android:divider="@color/tint_bg"
-        android:dividerHeight="10dp"
-        android:id="@+id/bank_pick_list"
+    <com.gs.buluo.common.widget.StatusLayout
+        android:id="@+id/bank_status_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-    </ListView>
-
+        <ListView
+            android:divider="@color/divide_gray"
+            android:dividerHeight="0.5dp"
+            android:id="@+id/bank_pick_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+    </com.gs.buluo.common.widget.StatusLayout>
 </LinearLayout>

@@ -17,6 +17,17 @@ public class BankCard implements Parcelable {
     public String phone;
     public String bankCode;
     public boolean personal = true;
+    public BankCardBindTypeEnum bindType;
+    public long maxWithdrawAmount;
+    public long maxPaymentAmount;
+
+    public enum BankCardBindTypeEnum {
+        NORMAL("通用卡"),
+        WITHDRAW("提现卡");
+
+        BankCardBindTypeEnum(String type) {
+        }
+    }
 
     public BankCard() {
     }
@@ -30,6 +41,7 @@ public class BankCard implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
         dest.writeString(this.ownerId);
+        dest.writeString(this.department);
         dest.writeString(this.userName);
         dest.writeString(this.bankAddress);
         dest.writeString(this.bankName);
@@ -37,11 +49,15 @@ public class BankCard implements Parcelable {
         dest.writeString(this.phone);
         dest.writeString(this.bankCode);
         dest.writeByte(this.personal ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.bindType == null ? -1 : this.bindType.ordinal());
+        dest.writeLong(this.maxWithdrawAmount);
+        dest.writeLong(this.maxPaymentAmount);
     }
 
     protected BankCard(Parcel in) {
         this.id = in.readString();
         this.ownerId = in.readString();
+        this.department = in.readString();
         this.userName = in.readString();
         this.bankAddress = in.readString();
         this.bankName = in.readString();
@@ -49,6 +65,10 @@ public class BankCard implements Parcelable {
         this.phone = in.readString();
         this.bankCode = in.readString();
         this.personal = in.readByte() != 0;
+        int tmpBindType = in.readInt();
+        this.bindType = tmpBindType == -1 ? null : BankCardBindTypeEnum.values()[tmpBindType];
+        this.maxWithdrawAmount = in.readLong();
+        this.maxPaymentAmount = in.readLong();
     }
 
     public static final Creator<BankCard> CREATOR = new Creator<BankCard>() {
