@@ -347,7 +347,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         meta.priceAndRepertory.originPrice = Float.parseFloat(etOrigin.getText().toString().trim());
         float nunSale = Float.parseFloat(etSale.getText().toString().trim());
         int numStock = Integer.parseInt(etStock.getText().toString().trim());
-        if (nunSale <= 0) {
+        if (nunSale < 0) {
             ToastUtils.ToastMessage(getCtx(), getString(R.string.sale_price_legal));
             return;
         }

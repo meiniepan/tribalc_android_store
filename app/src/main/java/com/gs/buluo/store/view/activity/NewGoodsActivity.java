@@ -278,7 +278,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
             goods.originPrice = Float.parseFloat(etOrigin.length() == 0 ? "0" : etOrigin.getText().toString().trim());
             float nunSale = Float.parseFloat(etSale.getText().toString().trim());
             int numStock = Integer.parseInt(etStock.getText().toString().trim());
-            if (nunSale <= 0) {
+            if (nunSale < 0) {
                 ToastUtils.ToastMessage(getCtx(), getString(R.string.sale_price_legal));
                 return;
             }
