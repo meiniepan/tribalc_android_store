@@ -3,6 +3,7 @@ package com.gs.buluo.store.view.activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.support.annotation.NonNull
 import android.text.TextUtils
 import android.view.View
 import com.gs.buluo.common.network.ApiException
@@ -47,14 +48,15 @@ class AddBankCardActivity : KotBaseActivity() {
         get() = R.layout.activity_add_bank_card
 
     private var bankType = BankCard.BankCardBindTypeEnum.NORMAL
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (data == null) return
         if (resultCode == RESULT_OK && requestCode == Constant.ForIntent.REQUEST_CODE) {
             val card = data.getParcelableExtra<BankCard>(Constant.ForIntent.FLAG)
             card_add_bank_name!!.text = card.bankName
             bankType = card.bindType
             if (bankType == BankCard.BankCardBindTypeEnum.WITHDRAW) {
                 findViewById(R.id.ll_verify_view).visibility = View.GONE
-            }else{
+            } else {
                 findViewById(R.id.ll_verify_view).visibility = View.VISIBLE
             }
         }

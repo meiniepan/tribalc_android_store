@@ -1,5 +1,6 @@
 package com.gs.buluo.store.view.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.utils.ToastUtils;
+import com.gs.buluo.common.widget.CustomAlertDialog;
+import com.gs.buluo.common.widget.LoadingDialog;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.BannerPicture;
@@ -422,5 +425,27 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
                         setStandard(goodListBaseResponse.data.descriptions);
                     }
                 });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (LoadingDialog.getInstance().isShowing()){
+            LoadingDialog.getInstance().dismissDialog();
+        }else {
+            CustomAlertDialog dialog = new CustomAlertDialog.Builder(this).setTitle(R.string.prompt).setMessage("确认要放弃创建商品么?")
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            finish();
+                        }
+                    }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).create();
+            dialog.show();
+        }
     }
 }

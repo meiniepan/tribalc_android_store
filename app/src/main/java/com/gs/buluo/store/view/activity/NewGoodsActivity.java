@@ -1,6 +1,7 @@
 package com.gs.buluo.store.view.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -15,6 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gs.buluo.common.utils.ToastUtils;
+import com.gs.buluo.common.widget.CustomAlertDialog;
+import com.gs.buluo.common.widget.LoadingDialog;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.BannerPicture;
@@ -259,8 +262,9 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
             }
             meta.pictures.add(pic.url);
         }
-        if (meta.mainPicture == null && picList.size() > 0)
+        if (meta.mainPicture == null && picList.size() > 0) {
             meta.mainPicture = picList.get(0).toString();
+        }
 
         meta.brand = etBrand.getText().toString().trim();
         meta.note = etDesc.getText().toString().trim();
@@ -307,7 +311,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
 
     private void uploadPic(String path) {
         showLoadingDialog();
-        TribeUploader.getInstance().uploadFile("goods"+System.currentTimeMillis(), "", path, new TribeUploader.UploadCallback() {
+        TribeUploader.getInstance().uploadFile("goods" + System.currentTimeMillis(), "", path, new TribeUploader.UploadCallback() {
             @Override
             public void uploadSuccess(UploadResponseBody data) {
                 dismissDialog();
@@ -346,5 +350,27 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (LoadingDialog.getInstance().isShowing()){
+            LoadingDialog.getInstance().dismissDialog();
+        }else {
+            CustomAlertDialog dialog = new CustomAlertDialog.Builder(this).setTitle(R.string.prompt).setMessage("确认要放弃创建商品么?")
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            finish();
+                        }
+                    }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).create();
+            dialog.show();
+        }
     }
 }

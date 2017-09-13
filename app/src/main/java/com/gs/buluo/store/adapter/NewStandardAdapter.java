@@ -13,13 +13,13 @@ import android.widget.TextView;
 
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.GoodsPriceAndRepertory;
-import com.gs.buluo.common.utils.ToastUtils;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-import retrofit2.http.GET;
+import rx.Observable;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by hjn on 2017/1/22.
@@ -68,40 +68,40 @@ public class NewStandardAdapter extends BaseAdapter {
         if (listBean.secondName != null) {
             tvName.setText(listBean.firstName + "-" + listBean.secondName);
             GoodsPriceAndRepertory repertory = cache.get(listBean.firstName + "^" + listBean.secondName);
-            if (repertory != null){
-                Log.e("NewStandardAdapter", "getView: 没有"+position);
+            if (repertory != null) {
+                Log.e("NewStandardAdapter", "getView: 没有" + position);
                 listBean = repertory;
             }
         } else {
             tvName.setText(listBean.firstName);
             GoodsPriceAndRepertory repertory = cache.get(listBean.firstName);
-            if (repertory != null){
+            if (repertory != null) {
                 listBean = repertory;
             }
         }
 
         if (listBean.originPrice != 0)
             etOrigin.setText(listBean.originPrice + "");
-        else{
+        else {
             etOrigin.setText("");
         }
 
         if (listBean.salePrice != 0)
             etSale.setText(listBean.salePrice + "");
-        else{
+        else {
             etSale.setText("");
         }
 
         if (listBean.repertory != 0)
             etRepo.setText(listBean.repertory + "");
-        else{
+        else {
             etRepo.setText("");
         }
 
         etRepo.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() ==MotionEvent.ACTION_UP)
+                if (event.getAction() == MotionEvent.ACTION_UP)
                     etRepo.setCursorVisible(true);
                 return false;
             }
@@ -109,7 +109,7 @@ public class NewStandardAdapter extends BaseAdapter {
         etOrigin.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() ==MotionEvent.ACTION_UP)
+                if (event.getAction() == MotionEvent.ACTION_UP)
                     etOrigin.setCursorVisible(true);
                 return false;
             }
@@ -117,7 +117,7 @@ public class NewStandardAdapter extends BaseAdapter {
         etSale.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() ==MotionEvent.ACTION_UP)
+                if (event.getAction() == MotionEvent.ACTION_UP)
                     etSale.setCursorVisible(true);
                 return false;
             }
@@ -164,31 +164,30 @@ public class NewStandardAdapter extends BaseAdapter {
         @Override
         public void afterTextChanged(final Editable s) {
             if (s != null && !"".equals(s.toString())) {
-                Integer currentPos = (Integer) editText.getTag();  //竖直pos
+                final Integer currentPos = (Integer) editText.getTag();  //竖直pos
                 final GoodsPriceAndRepertory gpa = standardList.get(currentPos);
-                if (gpa == null)  return;
-                thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (pos < standardList.size()) {
-                            if (pos == 0)
-                                gpa.originPrice = Float.parseFloat(s.toString());
-                            else if (pos == 1)
-                                gpa.salePrice = Float.parseFloat(s.toString());
-                            else
-                                gpa.repertory = Integer.parseInt(s.toString());
+                if (gpa == null) return;
+                Observable.just(gpa).subscribeOn(Schedulers.io())
+                        .observeOn(Schedulers.io())
+                        .subscribe(new Action1<GoodsPriceAndRepertory>() {
+                            @Override
+                            public void call(GoodsPriceAndRepertory goodsPriceAndRepertory) {
+                                if (currentPos < standardList.size()) {
+                                    if (pos == 0)
+                                        goodsPriceAndRepertory.originPrice = Float.parseFloat(s.toString());
+                                    else if (pos == 1)
+                                        goodsPriceAndRepertory.salePrice = Float.parseFloat(s.toString());
+                                    else
+                                        goodsPriceAndRepertory.repertory = Integer.parseInt(s.toString());
 
-                            if (gpa.secondName != null) {
-                                cache.put(gpa.firstName + "^" + gpa.secondName, gpa);
-                            } else {
-                                cache.put(gpa.firstName, gpa);
+                                    if (goodsPriceAndRepertory.secondName != null) {
+                                        cache.put(goodsPriceAndRepertory.firstName + "^" + goodsPriceAndRepertory.secondName, goodsPriceAndRepertory);
+                                    } else {
+                                        cache.put(goodsPriceAndRepertory.firstName, goodsPriceAndRepertory);
+                                    }
+                                }
                             }
-                        }else {
-                            thread.interrupt();
-                        }
-                    }
-                });
-                thread.start();
+                        });
             }
         }
     }

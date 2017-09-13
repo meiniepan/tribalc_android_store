@@ -10,6 +10,7 @@ import com.gs.buluo.store.bean.HomeMessageEnum;
 import com.gs.buluo.store.bean.StoreAccount;
 import com.gs.buluo.store.bean.UnReadMessageBean;
 import com.gs.buluo.store.dao.StoreInfoDao;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
@@ -34,17 +35,23 @@ public class TribeApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
 //        SDKInitializer.initialize(this);  //map initialize
-        initCrashCollect();
         instance = this;
         x.Ext.init(this);//X utils初始化
 //        x.Ext.setDebug(BuildConfig.DEBUG);
 //        LeakCanary.install(this);
         initDb();
+        initCrashCollect();
     }
 
     private void initCrashCollect() {
-        if (Constant.Base.BASE_URL.contains("dev"))
+        if (Constant.Base.BASE_URL.contains("dev")) {
             TribeCrashCollector.getIns(getApplicationContext());
+        } else {
+            CrashReport.initCrashReport(getApplicationContext(), "bf7c78698f", Constant.Base.BASE_URL.contains("dev"));
+            StoreAccount userInfo = TribeApplication.getInstance().getUserInfo();
+            CrashReport.putUserData(this, "userId", userInfo == null ? "un login" : userInfo.getId());
+            CrashReport.putUserData(this, "phone", userInfo == null ? "un login" : userInfo.getPhone());
+        }
     }
 
     private void initDb() {

@@ -347,10 +347,10 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
     public void setMetaDescription(GoodsStandardMeta metaDescription) {
         GoodsStandardDescriptions descriptions = new GoodsStandardDescriptions();
         descriptions.primary = new StandardLevel();
-        descriptions.secondary = new StandardLevel();
         descriptions.primary.label = etName.getText().toString().trim();
         descriptions.primary.types = valueList;
         if (etName2 != null) {
+            descriptions.secondary = new StandardLevel();
             descriptions.secondary.label = etName2.getText().toString().trim();
             descriptions.secondary.types = value2List;
         }
