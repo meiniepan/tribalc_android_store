@@ -7,7 +7,10 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.EditText;
 
+import com.gs.buluo.common.network.ApiException;
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
@@ -17,12 +20,10 @@ import com.gs.buluo.store.bean.GoodsMeta;
 import com.gs.buluo.store.bean.GoodsPriceAndRepertory;
 import com.gs.buluo.store.bean.GoodsStandardMeta;
 import com.gs.buluo.store.bean.RequestBodyBean.CreateGoodsRequestBody;
-import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.bean.SerializableHashMap;
 import com.gs.buluo.store.network.GoodsApis;
 import com.gs.buluo.store.network.TribeRetrofit;
-import com.gs.buluo.common.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -71,7 +72,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
         setTags();
 
         etNum.setText(goodsMeta.number);
-        etFee.setText(goodsMeta.expressFee+"");
+        etFee.setText(goodsMeta.expressFee + "");
     }
 
     private void setTags() {
@@ -266,10 +267,13 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
 
     private void doCreateGoods() {
         CreateGoodsRequestBody body = new CreateGoodsRequestBody();
-        body.goodsMeta = goodsMeta;
         if (standardMeta != null) {
+            setSalePriceAddProfit();    //商品最终售价 需加 平台利润 pfProfit
             body.standardMeta = standardMeta;
+        } else {
+            goodsMeta.priceAndRepertory.salePrice += goodsMeta.priceAndRepertory.pfProfit;
         }
+        body.goodsMeta = goodsMeta;
         body.primaryStandardKey = primaryStandardKey;
         TribeRetrofit.getInstance().createApi(GoodsApis.class).createGoods(TribeApplication.getInstance().getUserInfo().getId(), body)
                 .subscribeOn(Schedulers.io())
@@ -284,11 +288,43 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
                         startActivity(intent);
                         finish();
                     }
+
+                    @Override
+                    public void onFail(ApiException e) {
+                        if (e.getCode()==400){
+                            ToastUtils.ToastMessage(getCtx(),R.string.wrong_info);
+                        }else {
+                            ToastUtils.ToastMessage(getCtx(),R.string.connect_fail);
+                        }
+                    }
                 });
     }
 
+    private void setSalePriceAddProfit() {
+        if (standardMeta.descriptions.secondary == null || standardMeta.descriptions.secondary.types == null || standardMeta.descriptions.secondary.types.size() == 0) {
+            setOnlyOneLevelSalePrice();
+        } else {
+            setDoubleLevelSalePrice();
+        }
+    }
+
+    private void setOnlyOneLevelSalePrice() {
+        for (String level1 : standardMeta.descriptions.primary.types) {
+            standardMeta.priceAndRepertoryMap.get(level1).salePrice += standardMeta.priceAndRepertoryMap.get(level1).pfProfit;
+        }
+    }
+
+    private void setDoubleLevelSalePrice() {
+        for (String level1 : standardMeta.descriptions.primary.types) {
+            for (String level2 : standardMeta.descriptions.secondary.types) {
+                standardMeta.priceAndRepertoryMap.get(level1 + "^" + level2).salePrice += standardMeta.priceAndRepertoryMap.get(level1 + "^" + level2).pfProfit;
+            }
+        }
+    }
+
     private void updateGoods() {
-        TribeRetrofit.getInstance().createApi(GoodsApis.class).updateGoods(goodsMeta.id,TribeApplication.getInstance().getUserInfo().getId(), goodsMeta)
+        goodsMeta.priceAndRepertory.salePrice += goodsMeta.priceAndRepertory.pfProfit;
+        TribeRetrofit.getInstance().createApi(GoodsApis.class).updateGoods(goodsMeta.id, TribeApplication.getInstance().getUserInfo().getId(), goodsMeta)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse<CodeResponse>>() {
@@ -301,6 +337,15 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
                         intent.putExtra(Constant.PUBLISHED, published);
                         startActivity(intent);
                         finish();
+                    }
+
+                    @Override
+                    public void onFail(ApiException e) {
+                        if (e.getCode()==400){
+                            ToastUtils.ToastMessage(getCtx(),R.string.wrong_info);
+                        }else {
+                            ToastUtils.ToastMessage(getCtx(),R.string.connect_fail);
+                        }
                     }
                 });
     }

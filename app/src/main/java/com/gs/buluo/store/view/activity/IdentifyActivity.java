@@ -51,6 +51,7 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
         if (infoEntity.getLegalPersonIdNo() != null) {
             switch (infoEntity.getAuthStatus()) {
                 case NOT_START:
+                    findView(R.id.verify_jump).setVisibility(View.VISIBLE);
                     break;
                 case PROCESSING:
                     break;

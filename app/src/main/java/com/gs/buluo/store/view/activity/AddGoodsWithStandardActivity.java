@@ -62,6 +62,8 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     EditText etOrigin;
     @Bind(R.id.goods_create_sale)
     EditText etSale;
+    @Bind(R.id.goods_create_profit)
+    EditText etProfit;
     @Bind(R.id.goods_create_stock)
     EditText etStock;
     @Bind(R.id.create_goods_brand)
@@ -220,9 +222,10 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         etBrand.setText(meta.brand);
         tvCategory.setText(meta.category.toString());
         etSource.setText(meta.originCountry);
-        etSale.setText(meta.priceAndRepertory.salePrice + "");
+        etSale.setText((meta.priceAndRepertory.salePrice * 100 - meta.priceAndRepertory.pfProfit * 100) / 100 + "");
         etOrigin.setText(meta.priceAndRepertory.originPrice + "");
         etStock.setText(meta.priceAndRepertory.repertory + "");
+        etProfit.setText(meta.priceAndRepertory.pfProfit + "");
         if (meta.standardKeys != null) {
             tvValue1.setText(meta.standardKeys.get(0));
             if (meta.standardKeys.size() > 1) tvValue2.setText(meta.standardKeys.get(1));
@@ -309,7 +312,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     }
 
     private void continueToFinal() {
-        if (etSale.getText().length() == 0 || etStock.getText().length() == 0) {         //编辑商品
+        if (etSale.getText().length() == 0 || etStock.getText().length() == 0 || etProfit.length() == 0) {         //编辑商品
             ToastUtils.ToastMessage(getCtx(), getString(R.string.goods_info_not_complete));
             return;
         }
@@ -339,12 +342,12 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         if (descriptions != null) {
             meta.standardKeys = new ArrayList<>();
             meta.standardKeys.add(tvValue1.getText().toString().trim());
-            if (!TextUtils.isEmpty(tvValue2.getText().toString().trim()))meta.standardKeys.add(tvValue2.getText().toString().trim());
+            if (!TextUtils.isEmpty(tvValue2.getText().toString().trim()))
+                meta.standardKeys.add(tvValue2.getText().toString().trim());
         }
         meta.priceAndRepertory = new GoodsPriceAndRepertory();
-
-
         meta.priceAndRepertory.originPrice = Float.parseFloat(etOrigin.getText().toString().trim());
+        meta.priceAndRepertory.pfProfit = Float.parseFloat(etProfit.getText().toString().trim());
         float nunSale = Float.parseFloat(etSale.getText().toString().trim());
         int numStock = Integer.parseInt(etStock.getText().toString().trim());
         if (nunSale < 0) {
@@ -429,10 +432,10 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
 
     @Override
     public void onBackPressed() {
-        if (LoadingDialog.getInstance().isShowing()){
+        if (LoadingDialog.getInstance().isShowing()) {
             LoadingDialog.getInstance().dismissDialog();
-        }else {
-            CustomAlertDialog dialog = new CustomAlertDialog.Builder(this).setTitle(R.string.prompt).setMessage("确认要放弃创建商品么?")
+        } else {
+            CustomAlertDialog dialog = new CustomAlertDialog.Builder(this).setTitle(R.string.prompt).setMessage("确认要放弃创建或修改商品么?")
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

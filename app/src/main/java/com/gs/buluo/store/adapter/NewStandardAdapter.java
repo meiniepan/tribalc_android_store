@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,15 +26,28 @@ import rx.schedulers.Schedulers;
  * Created by hjn on 2017/1/22.
  */
 public class NewStandardAdapter extends BaseAdapter {
-    List<GoodsPriceAndRepertory> standardList;
+    private List<GoodsPriceAndRepertory> standardList;
     Context context;
-    private EditText etOrigin;
-    private EditText etSale;
-    private EditText etRepo;
-    private TextView tvName;
     private ConcurrentHashMap<String, GoodsPriceAndRepertory> cache;
-    private GoodsPriceAndRepertory listBean;
-    private Thread thread;
+
+    private class NewStandardHolder {
+        EditText etOrigin;
+        EditText etSale;
+        EditText etRepo;
+        EditText etProfit;
+        TextView tvName;
+
+        View getConvertView(ViewGroup parent) {
+            View convertView = LayoutInflater.from(context).inflate(R.layout.create_standard_item, parent, false);
+            etOrigin = (EditText) convertView.findViewById(R.id.item_standard_origin);
+            etSale = (EditText) convertView.findViewById(R.id.item_standard_sale);
+            etRepo = (EditText) convertView.findViewById(R.id.item_standard_repertory);
+            etProfit = (EditText) convertView.findViewById(R.id.item_standard_profit);
+            tvName = (TextView) convertView.findViewById(R.id.item_standard_name);
+            return convertView;
+        }
+    }
+
 
     public NewStandardAdapter(Context context, List<GoodsPriceAndRepertory> standardListBeen) {
         standardList = standardListBeen;
@@ -55,80 +69,90 @@ public class NewStandardAdapter extends BaseAdapter {
         return position;
     }
 
+    private NewStandardHolder holder = null;
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = View.inflate(context, R.layout.create_standard_item, null);
+            holder = new NewStandardHolder();
+            convertView = holder.getConvertView(parent);
+        } else {
+            holder = (NewStandardHolder) convertView.getTag();
         }
-        etOrigin = (EditText) convertView.findViewById(R.id.item_standard_origin);
-        etSale = (EditText) convertView.findViewById(R.id.item_standard_sale);
-        etRepo = (EditText) convertView.findViewById(R.id.item_standard_repertory);
-        tvName = (TextView) convertView.findViewById(R.id.item_standard_name);
-        listBean = standardList.get(position);
+
+        GoodsPriceAndRepertory listBean = standardList.get(position);
         if (listBean.secondName != null) {
-            tvName.setText(listBean.firstName + "-" + listBean.secondName);
+            holder.tvName.setText(listBean.firstName + "-" + listBean.secondName);
             GoodsPriceAndRepertory repertory = cache.get(listBean.firstName + "^" + listBean.secondName);
             if (repertory != null) {
                 Log.e("NewStandardAdapter", "getView: 没有" + position);
                 listBean = repertory;
             }
         } else {
-            tvName.setText(listBean.firstName);
+            holder.tvName.setText(listBean.firstName);
             GoodsPriceAndRepertory repertory = cache.get(listBean.firstName);
             if (repertory != null) {
                 listBean = repertory;
             }
         }
 
-        if (listBean.originPrice != 0)
-            etOrigin.setText(listBean.originPrice + "");
-        else {
-            etOrigin.setText("");
+        if (listBean.originPrice != 0) {
+            holder.etOrigin.setText(listBean.originPrice + "");
+        } else {
+            holder.etOrigin.setText("");
         }
 
         if (listBean.salePrice != 0)
-            etSale.setText(listBean.salePrice + "");
+            holder.etSale.setText(listBean.salePrice + "");
         else {
-            etSale.setText("");
+            holder.etSale.setText("");
         }
 
         if (listBean.repertory != 0)
-            etRepo.setText(listBean.repertory + "");
+            holder.etRepo.setText(listBean.repertory + "");
         else {
-            etRepo.setText("");
+            holder.etRepo.setText("");
         }
 
-        etRepo.setOnTouchListener(new View.OnTouchListener() {
+        if (listBean.pfProfit != 0)
+            holder.etProfit.setText(listBean.pfProfit + "");
+        else {
+            holder.etProfit.setText("");
+        }
+
+        holder.etRepo.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP)
-                    etRepo.setCursorVisible(true);
+                    holder.etRepo.setCursorVisible(true);
                 return false;
             }
         });
-        etOrigin.setOnTouchListener(new View.OnTouchListener() {
+        holder.etOrigin.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP)
-                    etOrigin.setCursorVisible(true);
+                    holder.etOrigin.setCursorVisible(true);
                 return false;
             }
         });
-        etSale.setOnTouchListener(new View.OnTouchListener() {
+        holder.etSale.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP)
-                    etSale.setCursorVisible(true);
+                    holder.etSale.setCursorVisible(true);
                 return false;
             }
         });
 
-        etOrigin.setTag(position);
-        etSale.setTag(position);
-        etRepo.setTag(position);
-        etOrigin.addTextChangedListener(new MyTextWatcher(0, etOrigin));
-        etSale.addTextChangedListener(new MyTextWatcher(1, etSale));
-        etRepo.addTextChangedListener(new MyTextWatcher(2, etRepo));
+        holder.etOrigin.setTag(position);
+        holder.etSale.setTag(position);
+        holder.etRepo.setTag(position);
+        holder.etProfit.setTag(position);
+        holder.etOrigin.addTextChangedListener(new MyTextWatcher(0, holder.etOrigin));
+        holder.etSale.addTextChangedListener(new MyTextWatcher(1, holder.etSale));
+        holder.etRepo.addTextChangedListener(new MyTextWatcher(2, holder.etRepo));
+        holder.etProfit.addTextChangedListener(new MyTextWatcher(3, holder.etProfit));
 
         convertView.findViewById(R.id.item_standard_delete).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,6 +161,7 @@ public class NewStandardAdapter extends BaseAdapter {
                 notifyDataSetChanged();
             }
         });
+        convertView.setTag(holder);
         return convertView;
     }
 
@@ -163,32 +188,39 @@ public class NewStandardAdapter extends BaseAdapter {
 
         @Override
         public void afterTextChanged(final Editable s) {
+            if (standardList == null || standardList.size() == 0) return;
             if (s != null && !"".equals(s.toString())) {
                 final Integer currentPos = (Integer) editText.getTag();  //竖直pos
                 final GoodsPriceAndRepertory gpa = standardList.get(currentPos);
                 if (gpa == null) return;
-                Observable.just(gpa).subscribeOn(Schedulers.io())
-                        .observeOn(Schedulers.io())
-                        .subscribe(new Action1<GoodsPriceAndRepertory>() {
-                            @Override
-                            public void call(GoodsPriceAndRepertory goodsPriceAndRepertory) {
-                                if (currentPos < standardList.size()) {
-                                    if (pos == 0)
-                                        goodsPriceAndRepertory.originPrice = Float.parseFloat(s.toString());
-                                    else if (pos == 1)
-                                        goodsPriceAndRepertory.salePrice = Float.parseFloat(s.toString());
-                                    else
-                                        goodsPriceAndRepertory.repertory = Integer.parseInt(s.toString());
+                setCache(s, currentPos, gpa);
+            }
+        }
 
-                                    if (goodsPriceAndRepertory.secondName != null) {
-                                        cache.put(goodsPriceAndRepertory.firstName + "^" + goodsPriceAndRepertory.secondName, goodsPriceAndRepertory);
-                                    } else {
-                                        cache.put(goodsPriceAndRepertory.firstName, goodsPriceAndRepertory);
-                                    }
+        private void setCache(final Editable s, final Integer currentPos, GoodsPriceAndRepertory gpa) {
+            Observable.just(gpa).subscribeOn(Schedulers.io())
+                    .observeOn(Schedulers.io())
+                    .subscribe(new Action1<GoodsPriceAndRepertory>() {
+                        @Override
+                        public void call(GoodsPriceAndRepertory goodsPriceAndRepertory) {
+                            if (currentPos < standardList.size()) {
+                                if (pos == 0)
+                                    goodsPriceAndRepertory.originPrice = Float.parseFloat(s.toString());
+                                else if (pos == 1)
+                                    goodsPriceAndRepertory.salePrice = Float.parseFloat(s.toString());
+                                else if (pos == 2) {
+                                    goodsPriceAndRepertory.repertory = Integer.parseInt(s.toString());
+                                } else if (pos == 3) {
+                                    goodsPriceAndRepertory.pfProfit = Integer.parseInt(s.toString());
+                                }
+                                if (goodsPriceAndRepertory.secondName != null) {
+                                    cache.put(goodsPriceAndRepertory.firstName + "^" + goodsPriceAndRepertory.secondName, goodsPriceAndRepertory);
+                                } else {
+                                    cache.put(goodsPriceAndRepertory.firstName, goodsPriceAndRepertory);
                                 }
                             }
-                        });
-            }
+                        }
+                    });
         }
     }
 }

@@ -28,6 +28,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:paddingEnd="20dp"
+            android:visibility="gone"
             android:text="@string/jump_over" />
 
         <include

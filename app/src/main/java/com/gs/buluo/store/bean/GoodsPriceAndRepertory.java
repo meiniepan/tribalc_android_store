@@ -13,4 +13,5 @@ public class GoodsPriceAndRepertory implements Serializable {
     public float salePrice;
     public int repertory;
     public boolean checked;
+    public float pfProfit;  //平台利润
 }

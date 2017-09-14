@@ -56,6 +56,8 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
     EditText etOrigin;
     @Bind(R.id.goods_create_sale)
     EditText etSale;
+    @Bind(R.id.goods_create_profit)
+    EditText etProfit;
     @Bind(R.id.goods_create_stock)
     EditText etStock;
     @Bind(R.id.create_goods_brand)
@@ -271,11 +273,12 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
         meta.originCountry = etSource.getText().toString().trim();
         if (standardMeta == null) {
             GoodsPriceAndRepertory goods = new GoodsPriceAndRepertory();
-            if (etSale.length() == 0 || etStock.length() == 0) {
+            if (etSale.length() == 0 || etStock.length() == 0 || etProfit.length() == 0) {
                 ToastUtils.ToastMessage(this, R.string.goods_info_not_complete);
                 return;
             }
             goods.originPrice = Float.parseFloat(etOrigin.length() == 0 ? "0" : etOrigin.getText().toString().trim());
+            meta.priceAndRepertory.pfProfit = Float.parseFloat(etProfit.getText().toString().trim());
             float nunSale = Float.parseFloat(etSale.getText().toString().trim());
             int numStock = Integer.parseInt(etStock.getText().toString().trim());
             if (nunSale < 0) {
@@ -354,9 +357,9 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onBackPressed() {
-        if (LoadingDialog.getInstance().isShowing()){
+        if (LoadingDialog.getInstance().isShowing()) {
             LoadingDialog.getInstance().dismissDialog();
-        }else {
+        } else {
             CustomAlertDialog dialog = new CustomAlertDialog.Builder(this).setTitle(R.string.prompt).setMessage("确认要放弃创建商品么?")
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override

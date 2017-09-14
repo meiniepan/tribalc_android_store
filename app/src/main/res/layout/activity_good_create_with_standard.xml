@@ -329,6 +329,27 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="平台利润"/>
+                <EditText
+                    android:id="@+id/goods_create_profit"
+                    android:layout_marginStart="20dp"
+                    android:background="@null"
+                    android:inputType="numberDecimal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="请输入平台利润"/>
+            </LinearLayout>
+            <include layout="@layout/split_line_margin"/>
+            <LinearLayout
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/self_item_height">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="库存量"/>
                 <EditText
                     android:id="@+id/goods_create_stock"

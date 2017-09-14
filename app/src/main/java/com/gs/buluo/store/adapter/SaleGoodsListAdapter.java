@@ -8,19 +8,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.GoodsMeta;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueBooleanRequest;
-import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
 import com.gs.buluo.store.eventbus.GoodsChangedEvent;
 import com.gs.buluo.store.network.GoodsApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.GlideUtils;
-import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.utils.TribeDateUtils;
 import com.gs.buluo.store.view.activity.AddGoodsWithStandardActivity;
 import com.gs.buluo.store.view.widget.SwipeMenuLayout;
@@ -64,7 +64,7 @@ public class SaleGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
 
         @Override
         public void onInitializeView() {
-            picture=findViewById(R.id.goods_item_picture);
+            picture = findViewById(R.id.goods_item_picture);
             name = findViewById(R.id.goods_item_name);
             repertory = findViewById(R.id.goods_item_repertory);
             price = findViewById(R.id.goods_item_price);
@@ -80,13 +80,13 @@ public class SaleGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
             picture.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             Glide.with(getContext()).load(GlideUtils.formatImageUrl(entity.mainPicture)).placeholder(R.mipmap.default_pic).into(picture);
             name.setText(entity.name);
-            repertory.setText(entity.priceAndRepertory.repertory+"");
-            price.setText(entity.priceAndRepertory.salePrice+"");
+            repertory.setText(entity.priceAndRepertory.repertory + "");
+            price.setText((entity.priceAndRepertory.salePrice * 100 - entity.priceAndRepertory.pfProfit*100) / 100 + "");
             saleNum.setText(entity.saleQuantity);
             time.setText(TribeDateUtils.dateFormat5(new Date(entity.createTime)));
-            if (entity.primary){
+            if (entity.primary) {
                 flag.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 flag.setVisibility(View.GONE);
             }
 
@@ -105,7 +105,7 @@ public class SaleGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
                 public void onClick(View v) {
                     swipeMenuLayout.quickClose();
                     Intent intent = new Intent(getContext(), AddGoodsWithStandardActivity.class);
-                    intent.putExtra(Constant.ForIntent.GOODS_BEAN,entity);
+                    intent.putExtra(Constant.ForIntent.GOODS_BEAN, entity);
                     getContext().startActivity(intent);
                 }
             });
@@ -114,13 +114,13 @@ public class SaleGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
 
     private void pullOffGoods(final GoodsMeta entity) {
         TribeRetrofit.getInstance().createApi(GoodsApis.class).pullOffGoods(entity.id,
-                TribeApplication.getInstance().getUserInfo().getId(),new ValueBooleanRequest(false))
+                TribeApplication.getInstance().getUserInfo().getId(), new ValueBooleanRequest(false))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse<CodeResponse>>() {
                     @Override
                     public void onNext(BaseResponse<CodeResponse> response) {
-                        ToastUtils.ToastMessage(getContext(),R.string.update_success);
+                        ToastUtils.ToastMessage(getContext(), R.string.update_success);
                         remove(entity);
                         EventBus.getDefault().post(new GoodsChangedEvent(entity));
                     }

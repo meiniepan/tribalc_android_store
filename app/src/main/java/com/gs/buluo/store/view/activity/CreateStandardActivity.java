@@ -1,5 +1,6 @@
 package com.gs.buluo.store.view.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.input.InputManager;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.adapter.NewStandardAdapter;
@@ -72,6 +74,7 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
     @Override
     protected void bindView(Bundle savedInstanceState) {
         findViewById(R.id.goods_create_standard_add).setOnClickListener(this);
+        findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.standard_group_set).setOnClickListener(this);
         findViewById(R.id.create_standard_finish).setOnClickListener(this);
         findViewById(R.id.goods_create_standard_delete).setOnClickListener(this);
@@ -182,7 +185,7 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
                 notifyPriceList();
                 break;
             case R.id.back:
-                finish();
+                back();
                 break;
         }
     }
@@ -366,5 +369,27 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
     @Override
     public void onFinished(String result) {
         setStandardResult(result);
+    }
+
+    @Override
+    public void onBackPressed() {
+        back();
+    }
+
+    private void back() {
+        CustomAlertDialog dialog = new CustomAlertDialog.Builder(this).setTitle(R.string.prompt).setMessage("确认要放弃创建或者修改商品规格组么?")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create();
+        dialog.show();
     }
 }

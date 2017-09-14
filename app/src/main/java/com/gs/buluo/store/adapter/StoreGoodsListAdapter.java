@@ -8,30 +8,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.GoodsMeta;
-import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.store.bean.ResponseBody.CodeResponse;
-import com.gs.buluo.store.eventbus.GoodsChangedEvent;
 import com.gs.buluo.store.network.GoodsApis;
-import com.gs.buluo.store.network.TribeCallback;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.utils.GlideUtils;
-import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.utils.TribeDateUtils;
 import com.gs.buluo.store.view.activity.AddGoodsWithStandardActivity;
 import com.gs.buluo.store.view.widget.SwipeMenuLayout;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.BaseViewHolder;
 import com.gs.buluo.store.view.widget.loadMoreRecycle.RecyclerAdapter;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.Date;
 
-import retrofit2.Response;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -82,12 +77,12 @@ public class StoreGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
             Glide.with(getContext()).load(GlideUtils.formatImageUrl(entity.mainPicture)).placeholder(R.mipmap.default_pic).into(picture);
             name.setText(entity.name);
             repertory.setText(entity.priceAndRepertory.repertory + "");
-            price.setText(entity.priceAndRepertory.salePrice + "");
+            price.setText((entity.priceAndRepertory.salePrice * 100 - entity.priceAndRepertory.pfProfit*100) / 100 + "");
             saleNum.setText(entity.saleQuantity);
             time.setText(TribeDateUtils.dateFormat5(new Date(entity.createTime)));
-            if (entity.primary){
+            if (entity.primary) {
                 flag.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 flag.setVisibility(View.GONE);
             }
             findViewById(R.id.goods_item_delete).setOnClickListener(new View.OnClickListener() {
@@ -102,7 +97,7 @@ public class StoreGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getContext(), AddGoodsWithStandardActivity.class);
-                    intent.putExtra(Constant.ForIntent.GOODS_BEAN,entity);
+                    intent.putExtra(Constant.ForIntent.GOODS_BEAN, entity);
                     getContext().startActivity(intent);
                     swipeMenuLayout.quickClose();
                 }
@@ -118,7 +113,7 @@ public class StoreGoodsListAdapter extends RecyclerAdapter<GoodsMeta> {
                     @Override
                     public void onNext(BaseResponse<CodeResponse> response) {
                         remove(entity);
-                        ToastUtils.ToastMessage(getContext(),R.string.delete_success);
+                        ToastUtils.ToastMessage(getContext(), R.string.delete_success);
                     }
                 });
     }
