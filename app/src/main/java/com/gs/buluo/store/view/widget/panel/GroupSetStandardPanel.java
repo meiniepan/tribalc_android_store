@@ -13,12 +13,13 @@ import com.gs.buluo.store.R;
 /**
  * Created by hjn on 2017/1/22.
  */
-public class GroupSetStandardPanel extends Dialog{
+public class GroupSetStandardPanel extends Dialog {
     Context mCtx;
     EditText etPrice;
     EditText etReper;
-    private  onSetFinishListener onSetFinishListener;
-    public GroupSetStandardPanel(Context context,onSetFinishListener onSetFinishListener) {
+    private onSetFinishListener onSetFinishListener;
+
+    public GroupSetStandardPanel(Context context, onSetFinishListener onSetFinishListener) {
         super(context, R.style.sheet_dialog);
         mCtx = context;
         this.onSetFinishListener = onSetFinishListener;
@@ -31,14 +32,15 @@ public class GroupSetStandardPanel extends Dialog{
         params.gravity = Gravity.CENTER;
         window.setAttributes(params);
 
-        View rootView = View.inflate(mCtx,R.layout.standard_board,null);
+        View rootView = View.inflate(mCtx, R.layout.standard_board, null);
         etPrice = (EditText) rootView.findViewById(R.id.standard_price);
         etReper = (EditText) rootView.findViewById(R.id.standard_repertory);
 
         rootView.findViewById(R.id.standard_confirm).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSetFinishListener.onSetFinished(Float.parseFloat(etPrice.getText().toString().trim()),Integer.parseInt(etReper.getText().toString().trim()));
+                if (etPrice.length() == 0 || etReper.length() == 0) return;
+                onSetFinishListener.onSetFinished(Float.parseFloat(etPrice.getText().toString().trim()), Integer.parseInt(etReper.getText().toString().trim()));
                 dismiss();
             }
         });
@@ -51,7 +53,7 @@ public class GroupSetStandardPanel extends Dialog{
         setContentView(rootView);
     }
 
-    public interface onSetFinishListener{
-        void onSetFinished(float price,int repertory);
+    public interface onSetFinishListener {
+        void onSetFinished(float price, int repertory);
     }
 }
