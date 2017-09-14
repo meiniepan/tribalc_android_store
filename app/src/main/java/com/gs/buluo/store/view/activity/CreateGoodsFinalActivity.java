@@ -291,11 +291,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
 
                     @Override
                     public void onFail(ApiException e) {
-                        if (e.getCode()==400){
-                            ToastUtils.ToastMessage(getCtx(),R.string.wrong_info);
-                        }else {
-                            ToastUtils.ToastMessage(getCtx(),R.string.connect_fail);
-                        }
+                        ToastUtils.ToastMessage(getCtx(), e.getDisplayMessage());
                     }
                 });
     }
@@ -341,11 +337,7 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
 
                     @Override
                     public void onFail(ApiException e) {
-                        if (e.getCode()==400){
-                            ToastUtils.ToastMessage(getCtx(),R.string.wrong_info);
-                        }else {
-                            ToastUtils.ToastMessage(getCtx(),R.string.connect_fail);
-                        }
+                        ToastUtils.ToastMessage(getCtx(), e.getDisplayMessage());
                     }
                 });
     }

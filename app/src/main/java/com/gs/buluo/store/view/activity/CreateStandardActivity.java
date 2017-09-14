@@ -159,10 +159,6 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
                     return;
                 }
                 for (GoodsPriceAndRepertory repertory : standardList) {
-                    if (repertory.salePrice == 0) {
-                        ToastUtils.ToastMessage(getCtx(), "销售价格不能为空");
-                        return;
-                    }
                     if (repertory.repertory == 0) {
                         ToastUtils.ToastMessage(getCtx(), "商品库存不能为空");
                         return;

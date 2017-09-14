@@ -264,6 +264,12 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
             }
             meta.pictures.add(pic.url);
         }
+
+        if (meta.pictures.size()==0){
+            ToastUtils.ToastMessage(getCtx(),"请添加商品图片");
+            return;
+        }
+
         if (meta.mainPicture == null && picList.size() > 0) {
             meta.mainPicture = picList.get(0).toString();
         }
