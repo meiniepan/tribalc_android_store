@@ -72,6 +72,8 @@ class AddBankCardActivity : KotBaseActivity() {
         card.bankName = card_add_bank_name!!.text.toString().trim { it <= ' ' }
         card.userName = card_add_name!!.text.toString().trim { it <= ' ' }
         card.phone = card_add_phone!!.text.toString().trim { it <= ' ' }
+        card.bindType = bankType
+        card.personal =true
         TribeRetrofit.getInstance().createApi(MoneyApis::class.java).prepareAddBankCard(TribeApplication.getInstance().userInfo.id, card).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : BaseSubscriber<BaseResponse<BankCard>>() {
                     override fun onNext(bankCardBaseResponse: BaseResponse<BankCard>?) {

@@ -154,6 +154,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     protected void bindView(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
+        if (!checkUser(this))return;
         registerPush(getApplicationContext(), TribeApplication.getInstance().getUserInfo().getId(), null);
         initView();
         initData();

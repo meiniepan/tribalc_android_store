@@ -65,6 +65,7 @@ public class BankListAdapter extends BaseAdapter {
             holder.tvSign.setVisibility(View.VISIBLE);
             bankCard.bindType = BankCard.BankCardBindTypeEnum.WITHDRAW;
         } else {
+            holder.tvSign.setVisibility(View.GONE);
             bankCard.bindType = BankCard.BankCardBindTypeEnum.NORMAL;
         }
         return convertView;
