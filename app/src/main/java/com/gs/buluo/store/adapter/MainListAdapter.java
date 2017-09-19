@@ -123,10 +123,14 @@ public class MainListAdapter extends RecyclerView.Adapter<BaseHolder> {
     private void setMainMessageHolder(final HomeMessage homeMessage, MainViewHolder holder) {
         holder.tvMoney.setText(homeMessage.messageBody.body);
         holder.tvDesc.setText(homeMessage.messageBody.description);
-        if (homeMessage.messageBody.avatar != null)
+        if (homeMessage.messageBody.avatar != null) {
             GlideUtils.loadImage(mCtx, "oss://" + homeMessage.messageBody.avatar + "/icon.jpg", holder.ivHead, true);
-        if (homeMessage.messageBody.applicationTime != 0)
+        }
+        if (homeMessage.messageBody.homeMessageType.homeMessageTypeEnum == TENANT_RECHARGE) {
+            holder.tvDate.setText("当日累计交易" + homeMessage.messageBody.dayTradingNumber + "笔，累计收入" + homeMessage.messageBody.dayTradingAmount + "元");
+        } else if (homeMessage.messageBody.applicationTime != 0) {
             holder.tvDate.setText(TribeDateUtils.dateFormat5(new Date(homeMessage.messageBody.applicationTime)));
+        }
         holder.tvOwner.setText(homeMessage.messageBody.homeMessageType.homeMessageTypeCategory);
         if (homeMessage.createTime != 0) {
             calendar.setTime(new Date(homeMessage.createTime));

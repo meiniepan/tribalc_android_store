@@ -70,6 +70,8 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
     EditText etBrand;
     @Bind(R.id.goods_create_source)
     EditText etSource;
+    @Bind(R.id.goods_create_limit)
+    EditText etLimit;
 
     @Bind(R.id.goods_create_category)
     TextView tvCategory;
@@ -226,6 +228,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         etOrigin.setText(meta.priceAndRepertory.originPrice + "");
         etStock.setText(meta.priceAndRepertory.repertory + "");
         etProfit.setText(meta.priceAndRepertory.pfProfit + "");
+        etLimit.setText(meta.dailyLimit);
         if (meta.standardKeys != null) {
             tvValue1.setText(meta.standardKeys.get(0));
             if (meta.standardKeys.size() > 1) tvValue2.setText(meta.standardKeys.get(1));
@@ -333,8 +336,8 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
             meta.pictures.add(pic.url);
         }
 
-        if (meta.pictures.size()==0){
-            ToastUtils.ToastMessage(getCtx(),"请添加商品图片");
+        if (meta.pictures.size() == 0) {
+            ToastUtils.ToastMessage(getCtx(), "请添加商品图片");
             return;
         }
         if (meta.mainPicture == null && picList.size() > 0)
@@ -344,6 +347,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         meta.brand = etBrand.getText().toString().trim();
         meta.originCountry = etSource.getText().toString().trim();
         meta.note = etDesc.getText().toString().trim();
+        meta.dailyLimit = etLimit.getText().toString().trim();
         if (descriptions != null) {
             meta.standardKeys = new ArrayList<>();
             meta.standardKeys.add(tvValue1.getText().toString().trim());

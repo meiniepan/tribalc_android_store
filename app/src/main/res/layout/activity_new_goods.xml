@@ -382,6 +382,28 @@
                             android:maxLines="1" />
                     </LinearLayout>
                 </LinearLayout>
+                <include layout="@layout/split_line_no_margin_common"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/self_item_height"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="每日限购" />
+
+                    <EditText
+                        android:id="@+id/goods_create_limit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:background="@null"
+                        android:hint="请输入商品每日限购数"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1" />
+                </LinearLayout>
             </LinearLayout>
 
             <include layout="@layout/split_area" />

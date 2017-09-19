@@ -34,6 +34,7 @@ public class GoodsMeta implements Parcelable {
     public List<String> standardKeys;           ////如果standardId指向谋个规格），这里描述了各级（依次）规格的Key信息 "红色", "S码"
     public GoodsPriceAndRepertory priceAndRepertory;  //创建新商品时，如果新建规格组则被忽略，而采用规格组信息中的数据填充商品价格和库存
     public long createTime;
+    public String dailyLimit;
 
     public boolean isEdit;      //修改商品，不是创建 标志位
 
@@ -71,6 +72,7 @@ public class GoodsMeta implements Parcelable {
         dest.writeStringList(this.standardKeys);
         dest.writeSerializable(this.priceAndRepertory);
         dest.writeLong(this.createTime);
+        dest.writeString(this.dailyLimit);
         dest.writeByte(this.isEdit ? (byte) 1 : (byte) 0);
     }
 
@@ -101,6 +103,7 @@ public class GoodsMeta implements Parcelable {
         this.standardKeys = in.createStringArrayList();
         this.priceAndRepertory = (GoodsPriceAndRepertory) in.readSerializable();
         this.createTime = in.readLong();
+        this.dailyLimit = in.readString();
         this.isEdit = in.readByte() != 0;
     }
 

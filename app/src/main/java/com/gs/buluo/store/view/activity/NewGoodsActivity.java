@@ -74,6 +74,8 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
     TextView tvStandard;
     @Bind(R.id.goods_create_main)
     CheckBox checkBox;
+    @Bind(R.id.goods_create_limit)
+    EditText etLimit;
 
     ArrayList<BannerPicture> picList = new ArrayList<>();
     private int pos = 0;
@@ -265,8 +267,8 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
             meta.pictures.add(pic.url);
         }
 
-        if (meta.pictures.size()==0){
-            ToastUtils.ToastMessage(getCtx(),"请添加商品图片");
+        if (meta.pictures.size() == 0) {
+            ToastUtils.ToastMessage(getCtx(), "请添加商品图片");
             return;
         }
 
@@ -277,6 +279,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
         meta.brand = etBrand.getText().toString().trim();
         meta.note = etDesc.getText().toString().trim();
         meta.originCountry = etSource.getText().toString().trim();
+        meta.dailyLimit = etLimit.getText().toString().trim();
         if (standardMeta == null) {
             GoodsPriceAndRepertory goods = new GoodsPriceAndRepertory();
             if (etSale.length() == 0 || etStock.length() == 0 || etProfit.length() == 0) {

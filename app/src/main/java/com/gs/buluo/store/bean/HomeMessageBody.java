@@ -14,4 +14,6 @@ public class HomeMessageBody {
     public int periodicity;
     public String referenceId;
     public String avatar;
+    public String dayTradingNumber;
+    public String dayTradingAmount;
 }
