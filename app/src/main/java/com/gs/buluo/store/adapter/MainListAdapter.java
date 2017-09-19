@@ -1,6 +1,7 @@
 package com.gs.buluo.store.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -12,17 +13,22 @@ import android.widget.TextView;
 
 import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.common.utils.TribeDateUtils;
+import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.HomeMessage;
 import com.gs.buluo.store.bean.HomeMessageEnum;
 import com.gs.buluo.store.presenter.MainPresenter;
 import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.GlideUtils;
+import com.gs.buluo.store.view.activity.BillDetailActivity;
 import com.gs.buluo.store.view.widget.recyclerHelper.BaseHolder;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import static com.gs.buluo.store.bean.HomeMessageEnum.TENANT_RECHARGE;
+import static com.gs.buluo.store.bean.HomeMessageEnum.TENANT_WITHDRAW;
 
 /**
  * Created by hjn on 2017/7/12.
@@ -139,6 +145,13 @@ public class MainListAdapter extends RecyclerView.Adapter<BaseHolder> {
                 showPoP(v, arr[1], homeMessage);
             }
         });
+        holder.linkView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setLink(homeMessage);
+            }
+        });
+
     }
 
     private void showPoP(View v, int i, final HomeMessage homeMessage) {
@@ -189,6 +202,15 @@ public class MainListAdapter extends RecyclerView.Adapter<BaseHolder> {
         this.presenter = presenter;
     }
 
+    private void setLink(HomeMessage message) {
+        Intent intent = new Intent();
+        if (message.messageBody.homeMessageType.homeMessageTypeEnum == TENANT_RECHARGE || message.messageBody.homeMessageType.homeMessageTypeEnum == TENANT_WITHDRAW) {
+            intent.setClass(mCtx, BillDetailActivity.class);
+            intent.putExtra(Constant.BILL_ID, message.messageBody.referenceId);
+            mCtx.startActivity(intent);
+        }
+    }
+
     private class MainViewHolder extends BaseHolder {
         TextView tvMoney;
         TextView tvOwner;
@@ -197,6 +219,7 @@ public class MainListAdapter extends RecyclerView.Adapter<BaseHolder> {
         TextView tvCreateDate;
         ImageView ivHead;
         View actionView;
+        View linkView;
 
         MainViewHolder(View view) {
             super(view);
@@ -207,6 +230,7 @@ public class MainListAdapter extends RecyclerView.Adapter<BaseHolder> {
             tvDate = (TextView) view.findViewById(R.id.main_item_date);
             ivHead = (ImageView) view.findViewById(R.id.main_item_head);
             actionView = view.findViewById(R.id.main_item_action);
+            linkView = view.findViewById(R.id.main_item_link);
         }
     }
 

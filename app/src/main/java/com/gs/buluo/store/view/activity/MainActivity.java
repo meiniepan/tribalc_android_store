@@ -154,7 +154,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     protected void bindView(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
-        if (!checkUser(this))return;
+        if (!checkUser(this)) return;
         registerPush(getApplicationContext(), TribeApplication.getInstance().getUserInfo().getId(), null);
         initView();
         initData();
@@ -162,6 +162,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         recyclerView.setScrollAlphaChangeListener(new XRecyclerView.ScrollAlphaChangeListener() {
             @Override
             public void onAlphaChange(int alpha) {
+                if (TribeApplication.getInstance().getUserInfo() == null) return;
                 float gra = (alpha + 0.0f) / 255;
                 titleView.setAlpha(gra);
                 if (TribeApplication.getInstance().getUserInfo().getType() == StoreAccount.StoreType.PROTOCOL)

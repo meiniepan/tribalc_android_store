@@ -11,9 +11,11 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.adapter.MessageManagerAdapter;
 import com.gs.buluo.store.bean.MessageToggleBean;
+import com.gs.buluo.store.bean.ResponseBody.MessageToggleResponse;
 import com.gs.buluo.store.bean.StoreAccount;
 import com.gs.buluo.store.network.MessageApis;
 import com.gs.buluo.store.network.TribeRetrofit;
+import com.gs.buluo.store.utils.CommonUtils;
 
 import java.util.List;
 
@@ -28,9 +30,10 @@ import rx.schedulers.Schedulers;
 public class MessageManagerActivity extends BaseActivity {
     @Bind(R.id.msg_manager_list)
     ListView msgManagerList;
+    @Bind(R.id.msg_manager_list_additional)
+    ListView msgManagerList2;
     @Bind(R.id.status_layout)
     StatusLayout statusLayout;
-    private MessageManagerAdapter adapter;
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
@@ -39,9 +42,9 @@ public class MessageManagerActivity extends BaseActivity {
         TribeRetrofit.getInstance().createApi(MessageApis.class).getMessageToggleList(userInfo.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<List<MessageToggleBean>>>() {
+                .subscribe(new BaseSubscriber<BaseResponse<MessageToggleResponse>>() {
                     @Override
-                    public void onNext(BaseResponse<List<MessageToggleBean>> messageToggleBeen) {
+                    public void onNext(BaseResponse<MessageToggleResponse> messageToggleBeen) {
                         setData(messageToggleBeen.data);
                     }
 
@@ -57,13 +60,17 @@ public class MessageManagerActivity extends BaseActivity {
         return R.layout.activity_message_manager;
     }
 
-    public void setData(final List<MessageToggleBean> data) {
-        if (data == null && data.size() == 0) {
+    public void setData(final MessageToggleResponse data) {
+        if (data == null || (data.primary.size() == 0 && data.additional.size() == 0)) {
             statusLayout.showEmptyView("当前无消息");
             return;
         }
         statusLayout.showContentView();
-        adapter = new MessageManagerAdapter(this, data);
+        MessageManagerAdapter adapter = new MessageManagerAdapter(this, data.primary, false);
         msgManagerList.setAdapter(adapter);
+        CommonUtils.setListViewHeightBasedOnChildren(msgManagerList);
+        MessageManagerAdapter adapter2 = new MessageManagerAdapter(this, data.additional, true);
+        msgManagerList2.setAdapter(adapter2);
+        CommonUtils.setListViewHeightBasedOnChildren(msgManagerList2);
     }
 }

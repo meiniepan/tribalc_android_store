@@ -6,6 +6,7 @@ import com.gs.buluo.store.bean.HomeMessageResponse;
 import com.gs.buluo.store.bean.MessageToggleBean;
 import com.gs.buluo.store.bean.RequestBodyBean.ReadMsgRequest;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
+import com.gs.buluo.store.bean.ResponseBody.MessageToggleResponse;
 import com.gs.buluo.store.bean.UnReadMessageBean;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public interface MessageApis {
     Observable<BaseResponse> ignoreMessage(@Path("ownerId") String uid, @Path("messageType") HomeMessageEnum type);
 
     @GET("members/{ownerId}/homeMessages/types/state?appType=STORE&isAgent=false")
-    Observable<BaseResponse<List<MessageToggleBean>>> getMessageToggleList(@Path("ownerId") String uid);
+    Observable<BaseResponse<MessageToggleResponse>> getMessageToggleList(@Path("ownerId") String uid);
 
     @POST("members/{ownerId}/homeMessages/types/{messageType}/state")
     Observable<BaseResponse> toggleMessageStatus(@Path("ownerId") String uid, @Path("messageType") HomeMessageEnum messageType, @Body ValueRequestBody body);
