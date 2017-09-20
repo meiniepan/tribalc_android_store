@@ -208,9 +208,13 @@ public class MainListAdapter extends RecyclerView.Adapter<BaseHolder> {
 
     private void setLink(HomeMessage message) {
         Intent intent = new Intent();
-        if (message.messageBody.homeMessageType.homeMessageTypeEnum == TENANT_RECHARGE || message.messageBody.homeMessageType.homeMessageTypeEnum == TENANT_WITHDRAW) {
+        if (message.messageBody.homeMessageType.homeMessageTypeEnum == TENANT_RECHARGE) {
             intent.setClass(mCtx, BillDetailActivity.class);
             intent.putExtra(Constant.BILL_ID, message.messageBody.referenceId);
+            mCtx.startActivity(intent);
+        } else if (message.messageBody.homeMessageType.homeMessageTypeEnum == TENANT_WITHDRAW) {
+            intent.setClass(mCtx, BillDetailActivity.class);
+            intent.putExtra(Constant.WITHDRAW_ID, message.messageBody.referenceId);
             mCtx.startActivity(intent);
         }
     }

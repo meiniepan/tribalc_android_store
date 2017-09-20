@@ -48,13 +48,34 @@ public class BillDetailActivity extends BaseActivity {
         BillEntity entity = (BillEntity) getIntent().getSerializableExtra(Constant.BILL);
         WithdrawBill bill = getIntent().getParcelableExtra(Constant.WITHDRAW_BILL);
         String billId = getIntent().getStringExtra(Constant.BILL_ID);
+        String withdrawId = getIntent().getStringExtra(Constant.WITHDRAW_ID);
         if (entity != null) {          //账单
             setBillData(entity);
         } else if (bill != null) {             //提现记录
             setWithdrawData(bill);
         } else if (billId != null) {
             getBillDetail(billId);
+        } else if (withdrawId != null) {
+            getWithdrawBillDetail(withdrawId);
         }
+    }
+
+    private void getBillDetail(String billId) {
+        showLoadingDialog();
+        TribeRetrofit.getInstance().createApi(MoneyApis.class).getBillDetail(TribeApplication.getInstance().getUserInfo().getId(), billId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<BillEntity>>() {
+                    @Override
+                    public void onNext(BaseResponse<BillEntity> withdrawBillBaseResponse) {
+                        setBillData(withdrawBillBaseResponse.data);
+                    }
+
+                    @Override
+                    public void onFail(ApiException e) {
+                        ToastUtils.ToastMessage(getCtx(), R.string.connect_fail);
+                    }
+                });
     }
 
     private void setBillData(BillEntity entity) {
@@ -90,7 +111,7 @@ public class BillDetailActivity extends BaseActivity {
         tvTime.setText(TribeDateUtils.dateFormat9(date));
     }
 
-    private void getBillDetail(String billId) {
+    private void getWithdrawBillDetail(String billId) {
         showLoadingDialog();
         TribeRetrofit.getInstance().createApi(MoneyApis.class).getWithdrawDetail(TribeApplication.getInstance().getUserInfo().getId(), billId)
                 .subscribeOn(Schedulers.io())
