@@ -110,6 +110,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             case 401:
                 ToastUtils.ToastMessage(this, R.string.wrong_verify);
                 break;
+            case 404:
+                ToastUtils.ToastMessage(this, R.string.store_not_exist);
+                break;
             default:
                 ToastUtils.ToastMessage(this, "登录失败，错误码" + res);
                 break;

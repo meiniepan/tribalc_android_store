@@ -133,7 +133,11 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
 
                     @Override
                     public void onFail(ApiException e) {
-                        mView.dealWithIdentify(e.getCode());
+                        if (e.getDisplayMessage()!=null){
+                            mView.showError(e.getCode(),e.getDisplayMessage());
+                        }else {
+                            mView.dealWithIdentify(e.getCode());
+                        }
                     }
 
                 });
@@ -183,7 +187,11 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
 
                     @Override
                     public void onFail(ApiException e) {
-                        mView.dealWithIdentify(e.getCode());
+                        if (e.getDisplayMessage()!=null){
+                            mView.showError(e.getCode(),e.getDisplayMessage());
+                        }else {
+                            mView.dealWithIdentify(e.getCode());
+                        }
                     }
                 });
     }

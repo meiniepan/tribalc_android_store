@@ -81,6 +81,9 @@ public class ThirdLoginActivity extends BaseActivity implements View.OnClickList
             case 401:
                 ToastUtils.ToastMessage(this, R.string.wrong_verify);
                 break;
+            case 404:
+                ToastUtils.ToastMessage(this, R.string.store_not_exist);
+                break;
         }
     }
 
