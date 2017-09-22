@@ -499,4 +499,22 @@ public class CommonUtils {
         int greenCurrent = (int) (greenStart + fraction * greenDifference);
         return Color.argb(alphaCurrent, redCurrent, greenCurrent, blueCurrent);
     }
+
+    public static String getWeekFromCalendar(int w) {
+        if (w == 2) {
+            return "周一";
+        } else if (w == 3) {
+            return "周二";
+        } else if (w == 4) {
+            return "周三";
+        } else if (w == 5) {
+            return "周四";
+        } else if (w == 6) {
+            return "周五";
+        } else if (w == 7) {
+            return "周六";
+        } else {
+            return "周日";
+        }
+    }
 }

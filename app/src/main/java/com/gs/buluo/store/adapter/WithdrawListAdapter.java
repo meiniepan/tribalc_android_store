@@ -11,6 +11,7 @@ import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
 import com.gs.buluo.store.bean.WithdrawBill;
+import com.gs.buluo.store.utils.CommonUtils;
 import com.gs.buluo.store.utils.GlideUtils;
 import com.gs.buluo.store.utils.TribeDateUtils;
 import com.gs.buluo.store.view.activity.BillDetailActivity;
@@ -71,7 +72,7 @@ public class WithdrawListAdapter extends RecyclerAdapter<WithdrawBill> {
             instance.setTime(date);
             int w = instance.get(Calendar.DAY_OF_WEEK);
             String s = TribeDateUtils.dateFormat5(date);
-            String we = switchToCh(w);
+            String we = CommonUtils.getWeekFromCalendar(w);
             week.setText(we);
 
             if (TribeDateUtils.getTimeIntervalByDay(entity.time, today) < 1) {
@@ -101,24 +102,6 @@ public class WithdrawListAdapter extends RecyclerAdapter<WithdrawBill> {
             Intent intent = new Intent(context, BillDetailActivity.class);
             intent.putExtra(Constant.WITHDRAW_BILL, entity);
             context.startActivity(intent);
-        }
-    }
-
-    private String switchToCh(int w) {
-        if (w == 1) {
-            return "周一";
-        } else if (w == 2) {
-            return "周二";
-        } else if (w == 3) {
-            return "周三";
-        } else if (w == 4) {
-            return "周四";
-        } else if (w == 5) {
-            return "周五";
-        } else if (w == 6) {
-            return "周六";
-        } else {
-            return "周日";
         }
     }
 }
