@@ -30,7 +30,7 @@ android {
         applicationId "com.gs.buluo.store"
         minSdkVersion 17
         targetSdkVersion 22
-        versionCode 8
+        versionCode 9
         versionName VERSION_NAME
         multiDexEnabled true
         ndk {
@@ -39,7 +39,6 @@ android {
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
         manifestPlaceholders = [
-
                 XG_ACCESS_ID:"2100265642",
                 XG_ACCESS_KEY : "A5P33GWV8M7L",
         ]

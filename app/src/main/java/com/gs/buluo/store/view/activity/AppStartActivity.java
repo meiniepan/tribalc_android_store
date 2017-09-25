@@ -211,7 +211,7 @@ public class AppStartActivity extends BaseActivity {
         final AppConfigInfo app = data.app;
         String[] nows = versionName.split("\\.");
         String[] minis = app.minVersion.split("\\.");
-        for (int i = 0; i < minis.length; i++) {
+        for (int i = 0; i < minis.length-1; i++) {
             if (Integer.parseInt(nows[i]) < Integer.parseInt(minis[i])) {
                 EventBus.getDefault().postSticky(new UpdateEvent(false, app.lastVersion, app.releaseNote));
                 return;
