@@ -334,9 +334,9 @@ public class OrderDetailActivity extends BaseActivity implements IOrderView, Sim
 
     public void doRefund(View view) {
         ArrayList<String> messages = new ArrayList<>();
-        messages.add("我不想卖了");
-        messages.add("卖家缺货");
-        messages.add("同城见面交易");
+        messages.add("商品暂时无货");
+        messages.add("商品已下架");
+        messages.add("买家申请退款");
         messages.add("其他原因");
         new SimpleChoosePanel.Builder<String>(this, this)
                 .setData(messages).setTitle("选择退款理由").build().show();
