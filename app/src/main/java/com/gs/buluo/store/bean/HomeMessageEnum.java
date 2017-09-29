@@ -23,7 +23,8 @@ public enum HomeMessageEnum {
     COMPANIES_WALLET_WITHDRAW("企业办公", "提现到账"),
     ACCOUNT_REGISTER("账户推送", "欢迎登录"),
     ORDER_SETTLE("订单详情", "新订单提醒"),
-    ORDER_DELIVERY("订单详情", "发货提醒");
+    ORDER_DELIVERY("订单详情", "发货提醒"),
+    ORDER_REFUND("订单详情","订单退款");
 
     public String owner;
     public String type;

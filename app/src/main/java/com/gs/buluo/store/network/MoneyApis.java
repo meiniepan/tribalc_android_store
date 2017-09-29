@@ -1,11 +1,11 @@
 package com.gs.buluo.store.network;
 
 import com.gs.buluo.common.network.BaseResponse;
-import com.gs.buluo.store.ResponseCode;
 import com.gs.buluo.store.bean.BankCard;
 import com.gs.buluo.store.bean.BillEntity;
 import com.gs.buluo.store.bean.OrderPayment;
 import com.gs.buluo.store.bean.RequestBodyBean.NewPaymentRequest;
+import com.gs.buluo.store.bean.RequestBodyBean.RefundRequest;
 import com.gs.buluo.store.bean.RequestBodyBean.ValueRequestBody;
 import com.gs.buluo.store.bean.RequestBodyBean.WithdrawRequestBody;
 import com.gs.buluo.store.bean.ResponseBody.BillResponse;
@@ -126,4 +126,7 @@ public interface MoneyApis {
 
     @GET("wallets/{id}/bills/{billId}")
     Observable<BaseResponse<BillEntity>> getBillDetail(@Path("id") String uid, @Path("billId") String billId);
+
+    @POST("wallets/{id}/refund")
+    Observable<BaseResponse> refundOrder(@Path("id") String orderId, @Body RefundRequest refundRequest);
 }

@@ -183,6 +183,7 @@
         <activity
             android:name=".view.activity.OrderDetailActivity"
             android:exported="true"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.activity.ThirdLoginActivity"

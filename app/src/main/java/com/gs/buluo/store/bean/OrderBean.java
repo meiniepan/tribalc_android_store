@@ -31,6 +31,8 @@ public class OrderBean implements Parcelable, IBaseResponse {
     public String nickName;
     public String picture;
     public String logisticsNum;
+    public String refundNote;
+    public long refundTime;
 
     public enum PayChannel {
         BALANCE("余额支付"), ALIPAY("支付宝"), WEICHAT("微信支付"), BANKCARD("银行卡");
@@ -47,7 +49,7 @@ public class OrderBean implements Parcelable, IBaseResponse {
     }
 
     public enum OrderStatus {
-        NO_SETTLE("未付款"), CANCEL("订单取消"), SETTLE("已付款"), DELIVERY("待收货"), RECEIVED("已完成");
+        NO_SETTLE("未付款"), CANCEL("订单取消"), SETTLE("已付款"), DELIVERY("待收货"), RECEIVED("已完成"),REFUNDED("已退款");
         String status;
 
         OrderStatus(String status) {
@@ -90,6 +92,8 @@ public class OrderBean implements Parcelable, IBaseResponse {
         dest.writeString(this.nickName);
         dest.writeString(this.picture);
         dest.writeString(this.logisticsNum);
+        dest.writeString(this.refundNote);
+        dest.writeLong(this.refundTime);
     }
 
     protected OrderBean(Parcel in) {
@@ -115,6 +119,8 @@ public class OrderBean implements Parcelable, IBaseResponse {
         this.nickName = in.readString();
         this.picture = in.readString();
         this.logisticsNum = in.readString();
+        this.refundNote = in.readString();
+        this.refundTime = in.readLong();
     }
 
     public static final Creator<OrderBean> CREATOR = new Creator<OrderBean>() {

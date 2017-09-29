@@ -7,12 +7,16 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.gs.buluo.common.network.ApiException;
 import com.gs.buluo.common.network.BaseResponse;
+import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.utils.ToastUtils;
+import com.gs.buluo.common.widget.panel.SimpleChoosePanel;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.TribeApplication;
@@ -20,10 +24,13 @@ import com.gs.buluo.store.adapter.OrderDetailGoodsAdapter;
 import com.gs.buluo.store.bean.HomeMessageEnum;
 import com.gs.buluo.store.bean.OrderBean;
 import com.gs.buluo.store.bean.RequestBodyBean.ReadMsgRequest;
+import com.gs.buluo.store.bean.RequestBodyBean.RefundRequest;
 import com.gs.buluo.store.bean.ResponseBody.OrderResponseBean;
 import com.gs.buluo.store.eventbus.NewMessageEvent;
 import com.gs.buluo.store.eventbus.PaymentEvent;
 import com.gs.buluo.store.network.MessageApis;
+import com.gs.buluo.store.network.MoneyApis;
+import com.gs.buluo.store.network.OrderApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 import com.gs.buluo.store.presenter.BasePresenter;
 import com.gs.buluo.store.presenter.OrderPresenter;
@@ -37,16 +44,20 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import butterknife.Bind;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
  * Created by hjn on 2016/11/25.
  */
-public class OrderDetailActivity extends BaseActivity implements View.OnClickListener, IOrderView {
+public class OrderDetailActivity extends BaseActivity implements IOrderView, SimpleChoosePanel.OnSelectedFinished {
     @Bind(R.id.order_detail_create_time)
     TextView tvCreateTime;
     @Bind(R.id.order_detail_address)
@@ -74,8 +85,11 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     TextView tvSendTime;
     @Bind(R.id.order_detail_receive_time)
     TextView tvReceiveTime;
-    @Bind(R.id.order_detail_button)
-    TextView tvButton;
+    @Bind(R.id.order_detail_positive)
+    Button tvButton;
+    @Bind(R.id.order_detail_negative)
+    Button tvNeg;
+
     @Bind(R.id.order_detail_counter)
     TextView tvCounter;
     @Bind(R.id.order_detail_note)
@@ -84,6 +98,10 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     ImageView mHeader;
     @Bind(R.id.order_detail_logistic)
     TextView tvLogistic;
+    @Bind(R.id.order_detail_refund_time)
+    TextView tvRefundTime;
+    @Bind(R.id.order_detail_refund_reason)
+    TextView tvRefundReason;
     private Context mCtx;
     private OrderBean bean;
     private long time;
@@ -92,9 +110,20 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     protected void bindView(Bundle savedInstanceState) {
         mCtx = this;
         EventBus.getDefault().register(this);
-        findViewById(R.id.order_detail_button).setOnClickListener(this);
         bean = getIntent().getParcelableExtra(Constant.ORDER);
         String orderId = getIntent().getStringExtra(Constant.ORDER_ID);
+        if (bean != null) {
+            initView();
+            initData(bean);
+        } else if (!TextUtils.isEmpty(orderId)) {
+            getData(orderId);
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        String orderId = intent.getStringExtra(Constant.ORDER_ID);
         if (bean != null) {
             initView();
             initData(bean);
@@ -106,10 +135,11 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     private void initView() {
         if (bean.status == OrderBean.OrderStatus.NO_SETTLE) { //待付款
             findView(R.id.ll_order_detail_counter).setVisibility(View.VISIBLE);
-        } else if (bean.status == OrderBean.OrderStatus.SETTLE) {    //付款,发货
+        } else if (bean.status == OrderBean.OrderStatus.SETTLE) {    //付款,发货,退货
             findViewById(R.id.ll_pay_time).setVisibility(View.VISIBLE);
             tvPayTime.setText(TribeDateUtils.dateFormat7(new Date(bean.settleTime)));
             findViewById(R.id.order_bottom).setVisibility(View.VISIBLE);
+            findViewById(R.id.ll_send_time).setVisibility(View.GONE);
             findView(R.id.ll_order_detail_counter).setVisibility(View.GONE);
         } else if (bean.status == OrderBean.OrderStatus.DELIVERY) { //待收货
             findViewById(R.id.ll_send_time).setVisibility(View.VISIBLE);
@@ -129,6 +159,18 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
             tvSendTime.setText(TribeDateUtils.dateFormat7(new Date(bean.deliveryTime)));
             tvReceiveTime.setText(TribeDateUtils.dateFormat7(new Date(bean.receivedTime)));
             findViewById(R.id.order_bottom).setVisibility(View.GONE);
+        } else if (bean.status == OrderBean.OrderStatus.REFUNDED) {
+            findView(R.id.ll_order_detail_counter).setVisibility(View.GONE);
+            findViewById(R.id.ll_send_time).setVisibility(View.GONE);
+            findViewById(R.id.ll_pay_time).setVisibility(View.VISIBLE);
+            findViewById(R.id.ll_logistic).setVisibility(View.GONE);
+            findViewById(R.id.ll_receive_time).setVisibility(View.GONE);
+            tvPayTime.setText(TribeDateUtils.dateFormat7(new Date(bean.settleTime)));
+            tvSendTime.setText(TribeDateUtils.dateFormat7(new Date(bean.deliveryTime)));
+            tvReceiveTime.setText(TribeDateUtils.dateFormat7(new Date(bean.receivedTime)));
+            findViewById(R.id.order_bottom).setVisibility(View.VISIBLE);
+            findView(R.id.ll_refund_time).setVisibility(View.VISIBLE);
+            findViewById(R.id.order_bottom).setVisibility(View.GONE);
         } else {
             findView(R.id.ll_order_detail_counter).setVisibility(View.GONE);
         }
@@ -142,6 +184,8 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
         tvReceiver.setText(address[0]);
         tvOrderNum.setText(order.orderNum);
         tvCreateTime.setText(TribeDateUtils.dateFormat7(new Date(order.createTime)));
+        tvRefundReason.setText(order.refundNote);
+        tvRefundTime.setText(TribeDateUtils.dateFormat7(new Date(order.refundTime)));
         if (order.status == OrderBean.OrderStatus.NO_SETTLE) setCounter(order.createTime);
         tvMethod.setText(order.expressType);
         if (order.expressType == null) tvMethod.setText("包邮");
@@ -171,14 +215,6 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected int getContentLayout() {
         return R.layout.activity_order_detail;
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.order_detail_button:
-                showTransPanel();
-        }
     }
 
     private void showTransPanel() {
@@ -290,5 +326,53 @@ public class OrderDetailActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void showError(int res, String message) {
         ToastUtils.ToastMessage(getCtx(), message);
+    }
+
+    public void doDelivery(View view) {
+        showTransPanel();
+    }
+
+    public void doRefund(View view) {
+        ArrayList<String> messages = new ArrayList<>();
+        messages.add("我不想卖了");
+        messages.add("卖家缺货");
+        messages.add("同城见面交易");
+        messages.add("其他原因");
+        new SimpleChoosePanel.Builder<String>(this, this)
+                .setData(messages).setTitle("选择退款理由").build().show();
+    }
+
+    @Override
+    public void onSelected(Object o) {
+        showLoadingDialog();
+        RefundRequest refundRequest = new RefundRequest();
+        refundRequest.reason = o.toString();
+        refundRequest.orderId = bean.id;
+        TribeRetrofit.getInstance().createApi(MoneyApis.class).refundOrder(TribeApplication.getInstance().getUserInfo().getId(), refundRequest)
+                .subscribeOn(Schedulers.io())
+                .flatMap(new Func1<BaseResponse, Observable<BaseResponse<OrderBean>>>() {
+                    @Override
+                    public Observable<BaseResponse<OrderBean>> call(BaseResponse baseResponse) {
+                        return TribeRetrofit.getInstance().createApi(OrderApis.class).getOrderDetail(bean.id, TribeApplication.getInstance().getUserInfo().getId());
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<OrderBean>>() {
+                    @Override
+                    public void onFail(ApiException e) {
+                        ToastUtils.ToastMessage(getCtx(), e.getDisplayMessage());
+                    }
+
+                    @Override
+                    public void onNext(BaseResponse<OrderBean> baseResponse) {
+                        ToastUtils.ToastMessage(getCtx(), "退货成功");
+                        EventBus.getDefault().post(new PaymentEvent());
+                        bean = baseResponse.data;
+                        findView(R.id.ll_refund_time).setVisibility(View.VISIBLE);
+                        findViewById(R.id.order_bottom).setVisibility(View.GONE);
+                        tvRefundReason.setText(bean.refundNote);
+                        tvRefundTime.setText(TribeDateUtils.dateFormat7(new Date(bean.refundTime)));
+                    }
+                });
     }
 }

@@ -67,7 +67,7 @@ public class OrderFragment extends BaseFragment implements IOrderView {
         EventBus.getDefault().register(this);
     }
 
-    //订单详情付款成功后，刷新订单列表
+    //订单详情付款、退款 成功后，刷新订单列表
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void orderChanged(PaymentEvent event) {
         statusLayout.showProgressView();
