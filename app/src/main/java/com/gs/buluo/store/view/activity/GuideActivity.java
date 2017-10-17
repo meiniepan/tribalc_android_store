@@ -9,13 +9,13 @@ import com.gs.buluo.store.adapter.GuidePagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by hjn on 2016/12/27.
  */
 public class GuideActivity extends BaseActivity {
-    @Bind(R.id.guide_pager)
+    @BindView(R.id.guide_pager)
     ViewPager viewPager;
 
     GuidePagerAdapter vAdapter;

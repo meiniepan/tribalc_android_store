@@ -27,14 +27,14 @@ import com.gs.buluo.store.utils.GlideUtils;
 
 import java.io.File;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by hjn on 2017/6/6.
  */
 
 public class PayCodeActivity extends BaseActivity {
-    @Bind(R.id.qr_image)
+    @BindView(R.id.qr_image)
     ImageView image;
     private Bitmap bitmap;
     private ImageView qrImage;
@@ -61,7 +61,7 @@ public class PayCodeActivity extends BaseActivity {
         });
     }
 
-    @Bind(R.id.parent)
+    @BindView(R.id.parent)
     RelativeLayout relativeLayout;
 
     private void saveBitmap() {

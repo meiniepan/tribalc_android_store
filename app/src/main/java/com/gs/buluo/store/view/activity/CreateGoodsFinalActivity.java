@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -37,13 +37,13 @@ import rx.schedulers.Schedulers;
  * Created by hjn on 2017/1/23.
  */
 public class CreateGoodsFinalActivity extends BaseActivity implements View.OnClickListener {
-    @Bind(R.id.create_goods_number)
+    @BindView(R.id.create_goods_number)
     EditText etNum;
-    @Bind(R.id.create_goods_fee)
+    @BindView(R.id.create_goods_fee)
     EditText etFee;
-    @Bind(R.id.create_goods_category)
+    @BindView(R.id.create_goods_category)
     RecyclerView recyclerView;
-    @Bind(R.id.create_goods_tags)
+    @BindView(R.id.create_goods_tags)
     EditText etTags;
     private GoodsMeta goodsMeta;
     private GoodsStandardMeta standardMeta;

@@ -21,7 +21,7 @@ import com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,7 +32,7 @@ import rx.schedulers.Schedulers;
  * Created by hjn on 2017/1/20.
  */
 public class GoodsStandardActivity extends BaseActivity {
-    @Bind(R.id.good_standard_list)
+    @BindView(R.id.good_standard_list)
     RefreshRecyclerView refreshRecyclerView;
 
     StandardListAdapter listAdapter;

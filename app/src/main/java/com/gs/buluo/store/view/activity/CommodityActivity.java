@@ -25,29 +25,29 @@ import com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by admin on 2016/11/1.
  */
 public class CommodityActivity extends BaseActivity implements IStoreGoodsView, View.OnClickListener {
-    @Bind(R.id.store_list_sale)
+    @BindView(R.id.store_list_sale)
     RefreshRecyclerView recyclerViewSale;
-    @Bind(R.id.store_list_store)
+    @BindView(R.id.store_list_store)
     RefreshRecyclerView recyclerViewStore;
-    @Bind(R.id.goods_sale)
+    @BindView(R.id.goods_sale)
     TextView tvSale;
-    @Bind(R.id.goods_store)
+    @BindView(R.id.goods_store)
     TextView tvStore;
-    @Bind(R.id.goods_sale_number)
+    @BindView(R.id.goods_sale_number)
     TextView tvSaleNum;
-    @Bind(R.id.goods_store_number)
+    @BindView(R.id.goods_store_number)
     TextView tvStoreNum;
-    @Bind(R.id.no_auth_view)
+    @BindView(R.id.no_auth_view)
     View authView;
-    @Bind(R.id.no_login_view)
+    @BindView(R.id.no_login_view)
     View loginView;
-    @Bind(R.id.store_floating)
+    @BindView(R.id.store_floating)
     FloatingActionButton floatButton;
 
     private Toolbar mToolbar;

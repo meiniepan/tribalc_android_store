@@ -24,15 +24,15 @@ import com.gs.buluo.store.view.widget.loadMoreRecycle.RefreshRecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by hjn on 2016/11/17.
  */
 public class BillActivity extends BaseActivity implements IBillView, View.OnClickListener {
-    @Bind(R.id.bill_list)
+    @BindView(R.id.bill_list)
     RefreshRecyclerView recyclerView;
-    @Bind(R.id.bill_status)
+    @BindView(R.id.bill_status)
     StatusLayout statusLayout;
 
     BillListAdapter adapter;

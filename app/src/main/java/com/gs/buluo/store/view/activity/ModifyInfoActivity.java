@@ -24,15 +24,15 @@ import com.gs.buluo.store.view.impl.ISelfView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by hjn on 2016/12/15.
  */
 public class ModifyInfoActivity extends BaseActivity implements View.OnClickListener, ISelfView {
-    @Bind(R.id.modify_save)
+    @BindView(R.id.modify_save)
     TextView save;
-    @Bind(R.id.modify_title)
+    @BindView(R.id.modify_title)
     TextView title;
 
     private String info;

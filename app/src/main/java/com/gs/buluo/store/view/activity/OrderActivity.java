@@ -23,16 +23,16 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Arrays;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import rx.schedulers.Schedulers;
 
 /**
  * Created by hjn on 2016/11/24.
  */
 public class OrderActivity extends BaseActivity {
-    @Bind(R.id.order_pager)
+    @BindView(R.id.order_pager)
     UnScrollViewPager pager;
-    @Bind(R.id.order_tab)
+    @BindView(R.id.order_tab)
     TabLayout tabLayout;
     private Toolbar mToolbar;
 

@@ -7,14 +7,14 @@ import android.webkit.WebView;
 import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by hjn on 2016/12/28.
  */
 
 public class WebActivity extends BaseActivity {
-    @Bind(R.id.web_view)
+    @BindView(R.id.web_view)
     WebView webView;
     @Override
     protected void bindView(Bundle savedInstanceState) {

@@ -10,13 +10,13 @@ import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.common.utils.ToastUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by hjn on 2016/11/21.
  */
 public class UpdateWalletPwdActivity extends BaseActivity {
-    @Bind(R.id.wallet_pwd_1)
+    @BindView(R.id.wallet_pwd_1)
     PwdEditText editText;
 
     String mPwd;

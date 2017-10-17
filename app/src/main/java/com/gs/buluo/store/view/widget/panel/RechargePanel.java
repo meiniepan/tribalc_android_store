@@ -29,7 +29,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Response;
 
@@ -38,15 +38,15 @@ import retrofit2.Response;
  */
 public class RechargePanel extends Dialog implements View.OnClickListener {
     Context mContext;
-    @Bind(R.id.recharge_integer)
+    @BindView(R.id.recharge_integer)
     TextView mInterger;
-    @Bind(R.id.recharge_float)
+    @BindView(R.id.recharge_float)
     TextView mFloat;
-    @Bind(R.id.recharge_pay_wechat)
+    @BindView(R.id.recharge_pay_wechat)
     RadioButton rbWeChat;
-    @Bind(R.id.recharge_pay_ali)
+    @BindView(R.id.recharge_pay_ali)
     RadioButton rbAli;
-    @Bind(R.id.recharge_input)
+    @BindView(R.id.recharge_input)
     EditText mInput;
 
     private OrderBean.PayChannel payMethod;

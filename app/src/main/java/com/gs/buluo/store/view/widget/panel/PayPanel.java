@@ -28,7 +28,7 @@ import com.gs.buluo.store.view.activity.UpdateWalletPwdActivity;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -39,9 +39,9 @@ import rx.schedulers.Schedulers;
 public class PayPanel extends Dialog implements PasswordPanel.OnPasswordPanelDismissListener, View.OnClickListener {
     private final OnPayPanelDismissListener onDismissListener;
     private Context mContext;
-    @Bind(R.id.pay_way)
+    @BindView(R.id.pay_way)
     TextView tvWay;
-    @Bind(R.id.pay_money)
+    @BindView(R.id.pay_money)
     TextView tvTotal;
 
     private OrderBean.PayChannel payWay = OrderBean.PayChannel.BALANCE;

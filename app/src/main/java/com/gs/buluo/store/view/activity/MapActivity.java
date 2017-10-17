@@ -22,9 +22,9 @@ public class MapActivity extends BaseActivity {
 //    public MyLocationListener myListener = new MyLocationListener();
 //    boolean isFirstLoc = true; // 是否首次定位
 //
-//    @Bind(R.id.food_map_latitude)
+//    @BindView(R.id.food_map_latitude)
 //    EditText mLatitude;
-//    @Bind(R.id.food_map_longitude)
+//    @BindView(R.id.food_map_longitude)
 //    EditText mLongitude;
 //    private Marker mMarker;
 //

@@ -38,13 +38,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by hjn on 2017/1/22.
  */
 public class CreateStandardActivity extends BaseActivity implements View.OnClickListener, ChooseMainPanel.OnChooseFinished {
-    @Bind(R.id.standard_list)
+    @BindView(R.id.standard_list)
     ListView listView;
     private NewStandardAdapter standardListAdapter;
     ArrayList<GoodsPriceAndRepertory> standardList = new ArrayList<>();
@@ -52,13 +52,13 @@ public class CreateStandardActivity extends BaseActivity implements View.OnClick
     ArrayList<String> value2List = new ArrayList<>();
     ConcurrentHashMap<String, GoodsPriceAndRepertory> cacheMap = new ConcurrentHashMap<>();
 
-    @Bind(R.id.create_standard_name)
+    @BindView(R.id.create_standard_name)
     EditText etTitle;
-    @Bind(R.id.create_standard_value)
+    @BindView(R.id.create_standard_value)
     EditText etValue;
-    @Bind(R.id.create_standard_primary)
+    @BindView(R.id.create_standard_primary)
     EditText etName;
-    @Bind(R.id.goods_standard_group)
+    @BindView(R.id.goods_standard_group)
     RecyclerView value1Group;
 
     private StandardValueAdapter valueAdapter;

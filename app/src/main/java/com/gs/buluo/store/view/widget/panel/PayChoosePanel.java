@@ -15,7 +15,7 @@ import com.gs.buluo.store.R;
 import com.gs.buluo.store.bean.OrderBean;
 import com.gs.buluo.common.utils.DensityUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -24,11 +24,11 @@ import butterknife.ButterKnife;
 
 public class PayChoosePanel extends Dialog {
     Context mContext;
-    @Bind(R.id.new_order_pay_balance)
+    @BindView(R.id.new_order_pay_balance)
     CheckBox rbBalance;
-    @Bind(R.id.new_order_pay_wechat)
+    @BindView(R.id.new_order_pay_wechat)
     CheckBox rbWeChat;
-    @Bind(R.id.new_order_pay_ali)
+    @BindView(R.id.new_order_pay_ali)
     CheckBox rbAli;
     private OrderBean.PayChannel payMethod = OrderBean.PayChannel.BALANCE;
     private onChooseFinish onChooseFinish;

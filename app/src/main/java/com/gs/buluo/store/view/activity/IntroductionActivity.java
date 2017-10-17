@@ -17,17 +17,17 @@ import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by admin on 2017/2/2.
  */
 public class IntroductionActivity extends BaseActivity {
-    @Bind(R.id.store_introduction_text)
+    @BindView(R.id.store_introduction_text)
     TextView etIntro;
-    @Bind(R.id.introduction_title)
+    @BindView(R.id.introduction_title)
     TextView tvTitle;
-    @Bind(R.id.add_goods_detail_list)
+    @BindView(R.id.add_goods_detail_list)
     ListView listView;
     private ArrayList<String> intro = new ArrayList<>();
     private GoodNewDetailAdapter adapter;

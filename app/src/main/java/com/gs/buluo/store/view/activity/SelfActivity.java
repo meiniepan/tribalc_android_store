@@ -16,18 +16,18 @@ import com.gs.buluo.store.presenter.SelfPresenter;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.store.view.impl.ISelfView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 
 /**
  * Created by hjn on 2016/11/2.
  */
 public class SelfActivity extends BaseActivity implements View.OnClickListener,ISelfView {
-    @Bind(R.id.tv_nickname)
+    @BindView(R.id.tv_nickname)
     TextView storeName;
-    @Bind(R.id.self_name)
+    @BindView(R.id.self_name)
     TextView linkName;
-    @Bind(R.id.tv_number)
+    @BindView(R.id.tv_number)
     TextView mPhone;
 
     Context mCtx;

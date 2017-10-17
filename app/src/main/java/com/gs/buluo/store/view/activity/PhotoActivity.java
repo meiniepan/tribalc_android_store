@@ -21,16 +21,16 @@ import com.gs.buluo.store.view.widget.panel.ChoosePhotoPanel;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by hjn on 2017/1/10.
  */
 public class PhotoActivity extends BaseActivity implements ChoosePhotoPanel.OnSelectedFinished, PhotoAdapter.OnDeleteListener {
     private boolean isLogo;
-    @Bind(R.id.holder_image)
+    @BindView(R.id.holder_image)
     ImageView image;
-    @Bind(R.id.image_group)
+    @BindView(R.id.image_group)
     RecyclerView llGroup;
 
     Context mCtx;

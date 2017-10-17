@@ -27,37 +27,37 @@ import com.youth.banner.BannerConfig;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by hjn on 2016/11/17.
  */
 public class GoodsDetailActivity extends BaseActivity implements View.OnClickListener, IGoodDetialView, GoodsChoosePanel.OnShowInDetail {
     private List<String> list;
-    @Bind(R.id.goods_detail_pictures)
+    @BindView(R.id.goods_detail_pictures)
     Banner mBanner;
-    @Bind(R.id.goods_detail_name)
+    @BindView(R.id.goods_detail_name)
     TextView tvName;
-    @Bind(R.id.goods_detail_price)
+    @BindView(R.id.goods_detail_price)
     TextView tvPrice;
-    @Bind(R.id.goods_detail_brand)
+    @BindView(R.id.goods_detail_brand)
     TextView tvBrand;
-    @Bind(R.id.goods_detail_phone)
+    @BindView(R.id.goods_detail_phone)
     TextView tvPhone;
-    @Bind(R.id.goods_detail_count)
+    @BindView(R.id.goods_detail_count)
     TextView tvCount;
-    @Bind(R.id.good_brand_img)
+    @BindView(R.id.good_brand_img)
     ImageView brandImg;
-    @Bind(R.id.goods_detail_standard)
+    @BindView(R.id.goods_detail_standard)
     TextView tvStandard;
 
-    @Bind(R.id.goods_detail_price_old)
+    @BindView(R.id.goods_detail_price_old)
     TextView tvPriceOld;
-    @Bind(R.id.goods_detail_tip)
+    @BindView(R.id.goods_detail_tip)
     TextView tvTip;
-    @Bind(R.id.goods_detail_price_point)
+    @BindView(R.id.goods_detail_price_point)
     TextView tvPricePoint;
-    @Bind(R.id.goods_detail_detail)
+    @BindView(R.id.goods_detail_detail)
     ListView listView;
 
     Context context;

@@ -21,7 +21,7 @@ import com.gs.buluo.store.view.widget.MoneyTextView;
 
 import java.util.Date;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -29,18 +29,18 @@ import rx.schedulers.Schedulers;
  * Created by hjn on 2016/11/21.
  */
 public class BillDetailActivity extends BaseActivity {
-    @Bind(R.id.bill_number)
+    @BindView(R.id.bill_number)
     TextView tvNumber;
-    @Bind(R.id.bill_money)
+    @BindView(R.id.bill_money)
     TextView tvMoney;
-    @Bind(R.id.bill_time)
+    @BindView(R.id.bill_time)
     TextView tvTime;
-    @Bind(R.id.bill_status)
+    @BindView(R.id.bill_status)
     TextView tvStatus;
-    @Bind(R.id.bill_logo)
+    @BindView(R.id.bill_logo)
     ImageView ivLogo;
 
-    @Bind(R.id.bill_detail_money)
+    @BindView(R.id.bill_detail_money)
     MoneyTextView moneyTextView;
 
     @Override

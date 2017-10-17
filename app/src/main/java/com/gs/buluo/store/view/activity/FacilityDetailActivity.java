@@ -9,13 +9,13 @@ import com.gs.buluo.store.adapter.FacilityDetailAdapter;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by hjn on 2017/2/21.
  */
 public class FacilityDetailActivity extends BaseActivity {
-    @Bind(R.id.facility_detail_list)
+    @BindView(R.id.facility_detail_list)
     GridView gridView;
     @Override
     protected void bindView(Bundle savedInstanceState) {

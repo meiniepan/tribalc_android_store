@@ -10,16 +10,16 @@ import com.gs.buluo.store.Constant;
 import com.gs.buluo.store.R;
 import com.gs.buluo.store.view.widget.panel.ServeTimePicker;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by hjn on 2017/1/20.
  */
 public class ServeTimeActivity extends BaseActivity{
     private String result;
-    @Bind(R.id.info_time_start)
+    @BindView(R.id.info_time_start)
     TextView tvStart;
-    @Bind(R.id.info_time_finish)
+    @BindView(R.id.info_time_finish)
     TextView tvFinish;
 
     @Override

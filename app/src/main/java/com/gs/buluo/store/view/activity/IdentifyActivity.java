@@ -22,7 +22,7 @@ import com.gs.buluo.store.dao.StoreInfoDao;
 import com.gs.buluo.store.network.MainApis;
 import com.gs.buluo.store.network.TribeRetrofit;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -30,13 +30,13 @@ import rx.schedulers.Schedulers;
  * Created by hjn on 2016/11/7.
  */
 public class IdentifyActivity extends BaseActivity implements View.OnClickListener {
-    @Bind(R.id.verify_IdCardNumber)
+    @BindView(R.id.verify_IdCardNumber)
     EditText mIdCardNumber;
-    @Bind(R.id.verify_name)
+    @BindView(R.id.verify_name)
     EditText mName;
-    @Bind(R.id.identify_sign)
+    @BindView(R.id.identify_sign)
     ImageView mSign;
-    @Bind(R.id.identify_finish)
+    @BindView(R.id.identify_finish)
     TextView mFinish;
     private StoreAccount infoEntity;
 

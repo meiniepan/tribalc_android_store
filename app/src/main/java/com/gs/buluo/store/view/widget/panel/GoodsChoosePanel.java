@@ -27,7 +27,7 @@ import com.gs.buluo.common.utils.ToastUtils;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -35,25 +35,25 @@ import butterknife.ButterKnife;
  */
 public class GoodsChoosePanel extends Dialog implements View.OnClickListener, DialogInterface.OnDismissListener {
     private OnShowInDetail onShowInDetail;
-    @Bind(R.id.goods_level1)
+    @BindView(R.id.goods_level1)
     RecyclerView leve1View1;
-    @Bind(R.id.goods_level2)
+    @BindView(R.id.goods_level2)
     RecyclerView leve1View2;
 
-    @Bind(R.id.goods_board_number)
+    @BindView(R.id.goods_board_number)
     TextView mNumber;
-    @Bind(R.id.goods_board_choose_kind)
+    @BindView(R.id.goods_board_choose_kind)
     TextView mKind;
-    @Bind(R.id.goods_board_choose_price)
+    @BindView(R.id.goods_board_choose_price)
     TextView mPrice;
-    @Bind(R.id.goods_board_choose_remain)
+    @BindView(R.id.goods_board_choose_remain)
     TextView mRemainNumber;
-    @Bind(R.id.goods_choose_icon)
+    @BindView(R.id.goods_choose_icon)
     ImageView mIcon;
 
-    @Bind(R.id.goods_standard_type2)
+    @BindView(R.id.goods_standard_type2)
     TextView type2;
-    @Bind(R.id.goods_standard_type1)
+    @BindView(R.id.goods_standard_type1)
     TextView type1;
 
     Context mContext;

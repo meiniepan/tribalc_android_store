@@ -39,7 +39,7 @@ import com.youth.banner.Banner;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -50,46 +50,46 @@ import static com.gs.buluo.store.R.id.ll_standard;
  * Created by hjn on 2017/1/23.
  */
 public class AddGoodsWithStandardActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
-    @Bind(R.id.goods_create_banner)
+    @BindView(R.id.goods_create_banner)
     Banner banner;
-    @Bind(R.id.goods_create_title)
+    @BindView(R.id.goods_create_title)
     EditText etTitle;
-    @Bind(R.id.goods_create_desc)
+    @BindView(R.id.goods_create_desc)
     EditText etDesc;
-    @Bind(R.id.goods_create_title_detail)
+    @BindView(R.id.goods_create_title_detail)
     EditText etTitleDetail;
-    @Bind(R.id.goods_create_origin)
+    @BindView(R.id.goods_create_origin)
     EditText etOrigin;
-    @Bind(R.id.goods_create_sale)
+    @BindView(R.id.goods_create_sale)
     EditText etSale;
-    @Bind(R.id.goods_create_profit)
+    @BindView(R.id.goods_create_profit)
     EditText etProfit;
-    @Bind(R.id.goods_create_stock)
+    @BindView(R.id.goods_create_stock)
     EditText etStock;
-    @Bind(R.id.create_goods_brand)
+    @BindView(R.id.create_goods_brand)
     EditText etBrand;
-    @Bind(R.id.goods_create_source)
+    @BindView(R.id.goods_create_source)
     EditText etSource;
-    @Bind(R.id.goods_create_limit)
+    @BindView(R.id.goods_create_limit)
     EditText etLimit;
 
-    @Bind(R.id.goods_create_category)
+    @BindView(R.id.goods_create_category)
     TextView tvCategory;
-    @Bind(R.id.goods_create_title_left)
+    @BindView(R.id.goods_create_title_left)
     TextView tvTitleWords;
-    @Bind(R.id.goods_create_short_left)
+    @BindView(R.id.goods_create_short_left)
     TextView tvDescWords;
-    @Bind(R.id.goods_standard_key1)
+    @BindView(R.id.goods_standard_key1)
     TextView tvKey1;
-    @Bind(R.id.goods_standard_key2)
+    @BindView(R.id.goods_standard_key2)
     TextView tvKey2;
-    @Bind(R.id.goods_standard_value1)
+    @BindView(R.id.goods_standard_value1)
     EditText tvValue1;
-    @Bind(R.id.goods_standard_value2)
+    @BindView(R.id.goods_standard_value2)
     EditText tvValue2;
-    @Bind(R.id.goods_create_main)
+    @BindView(R.id.goods_create_main)
     CheckBox checkBox;
-    @Bind(R.id.choose_item_check)
+    @BindView(R.id.choose_item_check)
     RadioButton mainButton;
 
     GoodsMeta meta;

@@ -29,7 +29,7 @@ import org.xutils.common.util.MD5;
 import java.util.List;
 import java.util.TimerTask;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,7 +42,7 @@ public class PasswordPanel extends Dialog implements Callback<BaseResponse<Order
     private OnPasswordPanelDismissListener onPasswordPanelDismissListener;
     private List<String> orderId;
     private Context mContext;
-    @Bind(R.id.pwd_board_pet)
+    @BindView(R.id.pwd_board_pet)
     PwdEditText pwdEditText;
     private final String myPwd;
     private OrderBean.PayChannel payChannel;

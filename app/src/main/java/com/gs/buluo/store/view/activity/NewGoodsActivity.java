@@ -36,45 +36,45 @@ import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by hjn on 2017/1/20.
  */
 public class NewGoodsActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
-    @Bind(R.id.goods_root)
+    @BindView(R.id.goods_root)
     ObservableScrollView rootView;
-    @Bind(R.id.goods_create_banner)
+    @BindView(R.id.goods_create_banner)
     Banner banner;
-    @Bind(R.id.goods_create_title_detail)
+    @BindView(R.id.goods_create_title_detail)
     EditText etTitleDetail;
-    @Bind(R.id.goods_create_title)
+    @BindView(R.id.goods_create_title)
     EditText etTitle;
-    @Bind(R.id.goods_create_desc)
+    @BindView(R.id.goods_create_desc)
     EditText etDesc;
-    @Bind(R.id.goods_create_origin)
+    @BindView(R.id.goods_create_origin)
     EditText etOrigin;
-    @Bind(R.id.goods_create_sale)
+    @BindView(R.id.goods_create_sale)
     EditText etSale;
-    @Bind(R.id.goods_create_profit)
+    @BindView(R.id.goods_create_profit)
     EditText etProfit;
-    @Bind(R.id.goods_create_stock)
+    @BindView(R.id.goods_create_stock)
     EditText etStock;
-    @Bind(R.id.create_goods_brand)
+    @BindView(R.id.create_goods_brand)
     EditText etBrand;
-    @Bind(R.id.goods_create_source)
+    @BindView(R.id.goods_create_source)
     EditText etSource;
-    @Bind(R.id.goods_create_category)
+    @BindView(R.id.goods_create_category)
     TextView tvCategory;
-    @Bind(R.id.goods_create_title_left)
+    @BindView(R.id.goods_create_title_left)
     TextView tvTitleWords;
-    @Bind(R.id.goods_create_short_left)
+    @BindView(R.id.goods_create_short_left)
     TextView tvDescWords;
-    @Bind(R.id.goods_create_standard)
+    @BindView(R.id.goods_create_standard)
     TextView tvStandard;
-    @Bind(R.id.goods_create_main)
+    @BindView(R.id.goods_create_main)
     CheckBox checkBox;
-    @Bind(R.id.goods_create_limit)
+    @BindView(R.id.goods_create_limit)
     EditText etLimit;
 
     ArrayList<BannerPicture> picList = new ArrayList<>();

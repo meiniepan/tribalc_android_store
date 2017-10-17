@@ -21,7 +21,7 @@ import com.gs.buluo.store.utils.GlideUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -29,29 +29,29 @@ import rx.schedulers.Schedulers;
  * Created by hjn on 2017/1/19.
  */
 public class StoreInfoDetailActivity extends BaseActivity  {
-    @Bind(R.id.info_store_name)
+    @BindView(R.id.info_store_name)
     TextView tvName;
-    @Bind(R.id.info_store_category)
+    @BindView(R.id.info_store_category)
     TextView tvCategory;
-    @Bind(R.id.info_store_fee)
+    @BindView(R.id.info_store_fee)
     TextView tvFee;
-    @Bind(R.id.info_store_phone)
+    @BindView(R.id.info_store_phone)
     TextView tvPhone;
-    @Bind(R.id.info_store_address)
+    @BindView(R.id.info_store_address)
     TextView tvAddress;
-    @Bind(R.id.store_area)
+    @BindView(R.id.store_area)
     TextView etArea;
-    @Bind(R.id.info_store_time)
+    @BindView(R.id.info_store_time)
     TextView tvTime;
-    @Bind(R.id.info_store_logo)
+    @BindView(R.id.info_store_logo)
     ImageView tvLogo;
-    @Bind(R.id.info_store_introduction)
+    @BindView(R.id.info_store_introduction)
     TextView etDesc;
-    @Bind(R.id.store_tags)
+    @BindView(R.id.store_tags)
     TextView tvTags;
-    @Bind(R.id.info_store_email)
+    @BindView(R.id.info_store_email)
     TextView tvEmail;
-    @Bind(R.id.store_pictures)
+    @BindView(R.id.store_pictures)
     RecyclerView recyclerView;
     private PictureListAdapter adapter;
 

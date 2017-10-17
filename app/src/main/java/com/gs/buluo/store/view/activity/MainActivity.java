@@ -45,16 +45,16 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 import static com.tencent.android.tpush.XGPush4Msdk.registerPush;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, IMainView {
     private long mKeyTime;
-    @Bind(R.id.main_recycler)
+    @BindView(R.id.main_recycler)
     XRecyclerView recyclerView;
-    @Bind(R.id.store_name)
+    @BindView(R.id.store_name)
     TextView tvName;
 
     MainListAdapter adapter;

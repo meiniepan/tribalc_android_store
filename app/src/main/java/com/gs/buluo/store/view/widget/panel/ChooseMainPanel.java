@@ -17,7 +17,7 @@ import com.gs.buluo.store.bean.GoodsPriceAndRepertory;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
  */
 public class ChooseMainPanel extends Dialog{
     private final OnChooseFinished onChooseFinished;
-    @Bind(R.id.standard_list)
+    @BindView(R.id.standard_list)
     ListView listView;
     private String result;
 
