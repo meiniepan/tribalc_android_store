@@ -288,11 +288,6 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
                         startActivity(intent);
                         finish();
                     }
-
-                    @Override
-                    public void onFail(ApiException e) {
-                        ToastUtils.ToastMessage(getCtx(), e.getDisplayMessage());
-                    }
                 });
     }
 
@@ -333,11 +328,6 @@ public class CreateGoodsFinalActivity extends BaseActivity implements View.OnCli
                         intent.putExtra(Constant.PUBLISHED, published);
                         startActivity(intent);
                         finish();
-                    }
-
-                    @Override
-                    public void onFail(ApiException e) {
-                        ToastUtils.ToastMessage(getCtx(), e.getDisplayMessage());
                     }
                 });
     }

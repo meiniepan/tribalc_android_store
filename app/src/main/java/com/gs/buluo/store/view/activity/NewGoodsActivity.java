@@ -287,7 +287,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
                 return;
             }
             goods.originPrice = Float.parseFloat(etOrigin.length() == 0 ? "0" : etOrigin.getText().toString().trim());
-            meta.priceAndRepertory.pfProfit = Float.parseFloat(etProfit.getText().toString().trim());
+            goods.pfProfit = Float.parseFloat(etProfit.getText().toString().trim());
             float nunSale = Float.parseFloat(etSale.getText().toString().trim());
             int numStock = Integer.parseInt(etStock.getText().toString().trim());
             if (nunSale < 0) {

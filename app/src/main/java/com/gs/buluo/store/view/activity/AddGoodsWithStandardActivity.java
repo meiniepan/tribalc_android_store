@@ -44,7 +44,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 import static com.gs.buluo.store.R.id.goods_create_next;
-import static com.gs.buluo.store.R.id.ll_standard;
 
 /**
  * Created by hjn on 2017/1/23.
@@ -121,11 +120,11 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         Intent intent = getIntent();
         meta = intent.getParcelableExtra(Constant.ForIntent.GOODS_BEAN);
         if (meta != null) {                 //编辑商品
-            if (meta.standardId != null)
+            if (meta.standardId != null) {
                 getStandard();
-            else
+            } else {
                 setStandard(null);
-
+            }
             setData();
         } else {            //添加有规格商品
             standardMeta = intent.getParcelableExtra(Constant.ForIntent.GOODS_STANDARD);
@@ -255,16 +254,22 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
         checkBox.setVisibility(View.VISIBLE);
     }
 
+    private int standardFlag = 0; //没规格，1 ：1个规格  2: 2个规格
+
     private void setStandard(GoodsStandardDescriptions descriptions) {
         if (descriptions == null) {        //没规格
             findView(R.id.ll_standard).setVisibility(View.GONE);
         } else {
             this.descriptions = descriptions;
             tvKey1.setText(descriptions.primary.label);
-            if (descriptions.secondary != null)
+            if (descriptions.secondary != null) {
                 tvKey2.setText(descriptions.secondary.label);
-            else
+                standardFlag = 2;
+            } else {
+                standardFlag = 1;
                 llSecond.setVisibility(View.GONE);  //一个规格
+            }
+
         }
     }
 
@@ -319,12 +324,16 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
             ToastUtils.ToastMessage(getCtx(), getString(R.string.goods_info_not_complete));
             return;
         }
-        if (findView(ll_standard).getVisibility() == View.VISIBLE && tvValue1.getText().length() == 0) {
-            ToastUtils.ToastMessage(getCtx(), getString(R.string.standard_not_empty));
-            return;
-        } else if (llSecond.getVisibility() == View.VISIBLE && tvValue2.getText().length() == 0) {
-            ToastUtils.ToastMessage(getCtx(), getString(R.string.standard_not_empty));
-            return;
+        if (standardFlag == 2) {
+            if (tvValue1.length() == 0 || tvValue2.length() == 0) {
+                ToastUtils.ToastMessage(getCtx(), getString(R.string.standard_not_empty));
+                return;
+            }
+        } else if (standardFlag == 1) {
+            if (tvValue1.length() == 0) {
+                ToastUtils.ToastMessage(getCtx(), getString(R.string.standard_not_empty));
+                return;
+            }
         }
         meta.name = etTitle.getText().toString().trim();
         meta.title = etTitleDetail.getText().toString().trim();
