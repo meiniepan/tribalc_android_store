@@ -386,7 +386,7 @@ public class AddGoodsWithStandardActivity extends BaseActivity implements View.O
 
     private void uploadPic(String path) {
         showLoadingDialog();
-        TribeUploader.getInstance().uploadFile("goods", "", path, new TribeUploader.UploadCallback() {
+        TribeUploader.getInstance().uploadFile("goods_"+System.currentTimeMillis(), "", path, new TribeUploader.UploadCallback() {
             @Override
             public void uploadSuccess(UploadResponseBody data) {
                 banner.setVisibility(View.VISIBLE);

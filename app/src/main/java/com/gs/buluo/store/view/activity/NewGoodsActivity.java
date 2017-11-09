@@ -336,6 +336,7 @@ public class NewGoodsActivity extends BaseActivity implements View.OnClickListen
                     firstAddPic.setVisibility(View.GONE);
                     addPic.setVisibility(View.VISIBLE);
                     checkBox.setVisibility(View.VISIBLE);
+                    delPic.setVisibility(View.VISIBLE);
                 }
             }
 
